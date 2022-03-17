@@ -1,0 +1,122 @@
+/* body::-webkit-scrollbar {
+    width: 0.5em;
+}
+
+body::-webkit-scrollbar-track {
+    background-color: #343434;
+}
+
+body::-webkit-scrollbar-thumb {
+    background-color: #52f8f4;
+    border-radius: 30px;
+} */
+
+html,
+body,
+.container {
+    height: 100%;
+}
+
+body {
+    background-image: url("bg.jpg");
+    /* opacity: 1; */
+    background-blend-mode: overlay;
+    background-color: rgb(29, 27, 27);
+    background-repeat: no-repeat;
+    /* background-position: center; */
+    background-size: 100% 100%;
+    background-size: cover;
+    font-weight: bolder;
+    /* align-content: center; */
+    background-attachment: fixed;
+    /* overflow: hidden; */
+}
+
+.container {
+    display: table;
+    width: 100%;
+    /* margin-top: -50px; */
+    padding: 50px 0px 50px 0px;
+    /*set left/right padding according to needs*/
+    box-sizing: border-box;
+    font-family: Georgia, serif;
+}
+
+.row {
+    height: 100%;
+    display: table-row;
+}
+
+.row .no-float {
+    display: table-cell;
+    float: none;
+}
+
+.content {
+    /* background-color: black; */
+    text-align: center;
+    color: white;
+    font-size: xx-large;
+    padding-top: 5%;
+    /* padding-bottom: 5%; */
+    /* margin: 2rem; */
+    border-radius: 5rem;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+    font-size: 3rem;
+    /* font-weight: bolder; */
+    font-family: Georgia, serif;
+    align-content: center;
+}
+
+
+/* .col-md-8 {
+    overflow: hidden;
+}
+
+.col-md-2 {
+    overflow: hidden;
+}
+
+.col-lg-10 {
+    overflow: hidden;
+}
+
+.col-lg-1 {
+    overflow: hidden;
+} */
+
+@media only screen and (min-width: 750px) {
+    .club-logo {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100px;
+        height: 100px;
+        padding: 10px;
+    }
+    .felicity-logo {
+        position: fixed;
+        top: 0;
+        right: 0;
+        width: 150px;
+        height: 75px;
+        padding: 10px;
+    }
+}
+
+@media only screen and (max-width: 750px) {
+    .club-logo {
+        display: none;
+    }
+    .felicity-logo {
+        display: none;
+    }
+}
