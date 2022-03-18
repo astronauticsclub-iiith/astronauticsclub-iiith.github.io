@@ -1,15 +1,3 @@
-/* body::-webkit-scrollbar {
-    width: 0.5em;
-}
-
-body::-webkit-scrollbar-track {
-    background-color: #343434;
-}
-
-body::-webkit-scrollbar-thumb {
-    background-color: #52f8f4;
-    border-radius: 30px;
-} */
 
 html,
 body,
@@ -17,6 +5,9 @@ body,
     height: 100%;
 }
 
+.container3 {
+    width: 40%;
+}
 body {
     background-image: url("bg.jpg");
     /* opacity: 1; */
@@ -32,11 +23,14 @@ body {
     /* overflow: hidden; */
 }
 
+.black{
+    color: black;
+}
 .container {
     display: table;
     width: 100%;
     /* margin-top: -50px; */
-    padding: 50px 0px 50px 0px;
+    padding: 0px 0px 0px 0px;
     /*set left/right padding according to needs*/
     box-sizing: border-box;
     font-family: Georgia, serif;
@@ -70,44 +64,28 @@ h4,
 h5,
 h6,
 p {
-    font-size: 3rem;
+    /* font-size: 3rem; */
     /* font-weight: bolder; */
     font-family: Georgia, serif;
     align-content: center;
 }
 
 
-/* .col-md-8 {
-    overflow: hidden;
-}
-
-.col-md-2 {
-    overflow: hidden;
-}
-
-.col-lg-10 {
-    overflow: hidden;
-}
-
-.col-lg-1 {
-    overflow: hidden;
-} */
-
 @media only screen and (min-width: 750px) {
     .club-logo {
         position: fixed;
         top: 0;
         left: 0;
-        width: 100px;
-        height: 100px;
+        width: 150px;
+        height: 150px;
         padding: 10px;
     }
     .felicity-logo {
         position: fixed;
         top: 0;
         right: 0;
-        width: 150px;
-        height: 75px;
+        width: 250px;
+        height: 150px;
         padding: 10px;
     }
 }
