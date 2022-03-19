@@ -1,4 +1,3 @@
-
 html,
 body,
 .container {
@@ -8,6 +7,7 @@ body,
 .container3 {
     width: 40%;
 }
+
 body {
     background-image: url("bg.jpg");
     /* opacity: 1; */
@@ -23,9 +23,10 @@ body {
     /* overflow: hidden; */
 }
 
-.black{
+.black {
     color: black;
 }
+
 .container {
     display: table;
     width: 100%;
@@ -70,8 +71,7 @@ p {
     align-content: center;
 }
 
-
-@media only screen and (min-width: 750px) {
+@media only screen and (min-width: 480px) {
     .club-logo {
         position: fixed;
         top: 0;
@@ -84,13 +84,13 @@ p {
         position: fixed;
         top: 0;
         right: 0;
-        width: 250px;
-        height: 150px;
+        width: 200px;
+        height: 100px;
         padding: 10px;
     }
 }
 
-@media only screen and (max-width: 750px) {
+@media only screen and (max-width: 480px) {
     .club-logo {
         display: none;
     }
