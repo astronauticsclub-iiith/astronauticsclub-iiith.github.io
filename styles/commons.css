@@ -3,6 +3,7 @@ body {
   margin: 0;
   padding: 0;
   display: flex;
+  flex-direction: column;
 
   font-family: "Ubuntu", sans-serif;
   color: white;
@@ -158,6 +159,13 @@ nav ul li a:hover {
   opacity: 0;
   /* fadeIn and bounce */
   animation: fadeIn 2s 1.5s forwards, bounce 2s 1.5s infinite;
+}
+
+.stars-container {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
 }
 
 span {
