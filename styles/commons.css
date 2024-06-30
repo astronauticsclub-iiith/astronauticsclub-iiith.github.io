@@ -100,7 +100,7 @@ nav ul li a:hover {
 
 .hero {
   width: 100vw;
-  height: 100vh;
+  height: 95vh;
   overflow: hidden;
   /* disable selection */
   user-select: none;
@@ -284,9 +284,6 @@ span:nth-child(9) {
   max-height: 50px;
   margin: 0;
   z-index:5;
-  bottom:0;
-  position:absolute;
-  left:0px;
   float:left;
 }
 
