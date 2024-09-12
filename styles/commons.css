@@ -5,7 +5,8 @@ body {
   display: flex;
   flex-direction: column;
 
-  font-family: "Ubuntu", sans-serif;
+  font-family: "Exo", sans-serif;
+  font-optical-sizing: auto;
   color: white;
 
   transition: all 0.2s ease-in-out;
@@ -26,14 +27,7 @@ nav {
   color: white;
   user-select: none;
 
-  display: none;
   border-radius: 0 0 2vw 2vw;
-}
-
-@media (min-width: 768px) {
-  .desktop-nav {
-    display: flex;
-  }
 }
 
 nav a {
@@ -100,7 +94,7 @@ nav ul li a:hover {
 
 .hero {
   width: 100vw;
-  height: 95vh;
+  height: 100vh;
   overflow: hidden;
   /* disable selection */
   user-select: none;
@@ -283,8 +277,8 @@ span:nth-child(9) {
   height: 50px;
   max-height: 50px;
   margin: 0;
-  z-index:5;
-  float:left;
+  z-index: 5;
+  float: left;
 }
 
 .parallax1 > use {
@@ -344,13 +338,34 @@ span:nth-child(9) {
   }
 }
 
-
 .main-content {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   padding: 2rem;
-  background-color: white;
+  background-color: #dde1e7;
   color: black;
+}
+
+.latest {
+  padding: 20px;
+}
+
+@media (max-width: 800px) {
+  .desktop-nav {
+    display: none;
+  }
+
+  .hero {
+    height: 25vh;
+  }
+
+  .scroll-down-arrow {
+    display: none;
+  }
+
+  .hero-content p {
+    margin-bottom: 0;
+  }
 }

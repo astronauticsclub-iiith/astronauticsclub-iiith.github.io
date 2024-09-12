@@ -1,0 +1,57 @@
+.out {
+  border-radius: 50px;
+  background: #dde1e7;
+  box-shadow: 5px 5px 10px #bcbfc4, -5px -5px 10px #feffff;
+}
+
+.in {
+  border-radius: 50px;
+  background: #dde1e7;
+  box-shadow: inset 5px 5px 10px #c2c6cb, inset -5px -5px 10px #f8fcff;
+}
+
+.bulged-out {
+  border-radius: 50px;
+  background: linear-gradient(145deg, #ecf1f7, #c7cbd0);
+  box-shadow: 5px 5px 10px #bcbfc4, -5px -5px 10px #feffff;
+}
+
+.bulged-in {
+  border-radius: 50px;
+  background: linear-gradient(145deg, #c7cbd0, #ecf1f7);
+  box-shadow: 5px 5px 10px #bcbfc4, -5px -5px 10px #feffff;
+}
+
+.heading {
+  font-size: 10rem;
+  color: #dde1e7;
+  text-shadow: -8px -8px 12px rgba(255, 255, 255, 0.4),
+    8px 8px 12px rgba(0, 0, 0, 0.08);
+  outline: none;
+  user-select: none;
+
+  font-weight: 500;
+  font-style: normal;
+  padding-left: 5vw;
+  padding-right: 5vw;
+
+  margin-bottom: 5vh;
+}
+
+@media (max-width: 900px) {
+  .heading {
+    font-size: 15vw;
+    text-shadow: -4px -4px 6px rgba(255, 255, 255, 0.4),
+      4px 4px 6px rgba(0, 0, 0, 0.08);
+
+    margin-bottom: 0vh;
+  }
+}
+
+@media (max-width: 500px) {
+  .heading {
+    font-size: 12.5vw;
+    text-shadow: -2px -2px 3px rgba(255, 255, 255, 0.4),
+      2px 2px 3px rgba(0, 0, 0, 0.08);
+  }
+}
