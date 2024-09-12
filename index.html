@@ -23,8 +23,9 @@
           <img
             src="images/astro_logo_small.png"
             alt="logo"
-            height="50px"
+            height="75px"
             style="opacity: 0; animation: fadeIn 1s 3.5s forwards"
+            id="logo"
           />
         </div>
         <ul class="nav-links">
@@ -84,7 +85,7 @@
 
       <div class="hero-container">
         <div class="hero-content" style="height: 80%">
-          <h1>Astronautics Club</h1>
+          <h1>A<span id="s-hover-effect">s</span>tronautics Club</h1>
           <p>International Institute of Information Technology, Hyderabad</p>
         </div>
         <div class="hero-content">
@@ -175,5 +176,22 @@
         document.querySelector("nav").style.backgroundColor = "transparent";
       }
     };
+  </script>
+
+  <script>
+    const s = document.getElementById("s-hover-effect");
+    const logo = document.getElementById("logo");
+    var s_clicked = false;
+    s.addEventListener("click", () => {
+      if (s_clicked) {
+        s.style.color = "white";
+        logo.src = "images/astro_logo_small.png";
+        s_clicked = false;
+      } else {
+        s.style.color = "#d2042d";
+        logo.src = "icons/moon.gif";
+        s_clicked = true;
+      }
+    });
   </script>
 </html>
