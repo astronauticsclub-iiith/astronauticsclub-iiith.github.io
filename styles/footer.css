@@ -1,4 +1,70 @@
-.social-media-handles-footer{
+.common-footer{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-evenly;
+    padding: 2rem;
+    padding-top: 1.5rem;
+}
+
+.footer-text{
+    font-size: 1rem;
+    font-family: Roboto, 'Segoe UI', Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif, system-ui;
+}
+
+.footer-heading{
+    font-size: 1.5rem;
+    font-weight: 500;
+    margin-bottom: 0.8rem;
+}
+
+.footer-line-break{
+    display: block; /* makes it have a width */
+            content: ""; /* clears default height */
+            margin-top: 0.5rem; /* change this to whatever height you want it */
+}
+
+/* Club info section of footer */
+.footer-club-info-section{
+    padding: 1rem;
+    align-content: center;
+}
+
+.footer-club-info-section .footer-text{
+    margin-top: 0.9rem;
+}
+
+.footer-club-info-section-logo{
+    height: 100px;
+    width: 103px;
+    float: left;
+    margin-right: 1rem;
+}
+
+/* Reach us section of footer */
+.footer-reach-us-section{
+    line-height: 1.3;
+}
+
+.footer-reach-us-section a{
+    text-decoration: none;
+    color: #76a6c9;
+}
+
+.footer-reach-us-section a:hover{
+    text-decoration: none;
+    color: #4ecfdd;
+}
+
+.footer-link-icon{
+    height: 20px;
+    width: 20px;
+    fill: #76a6c9;
+    transition: filter 0.3s ease; /* Smooth transition for hover effect */
+}
+
+/* Social media icons section */
+.footer-social-media-handles-section{
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -22,6 +88,7 @@
     fill: #ffffff;
 }
 
+/* Copyright line section */
 .copyright-text{
     display: flex;
     justify-content: center;
@@ -30,5 +97,5 @@
     color: white;
     font-size: 12px;
     font-weight: 300;
-    margin-top: 10px;
+    margin-top: 0.8rem;
 }

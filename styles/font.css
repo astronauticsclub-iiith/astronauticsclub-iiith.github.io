@@ -1,0 +1,9 @@
+@font-face {
+    font-family: "CustomHeading";
+    src: url(../assets/fonts/OPTIAuvantGothic-Medium.woff) format("woff");
+}
+
+@font-face {
+    font-family: "BodyFont";
+    src: url(../assets/fonts/MuseoSans_50.otf) format("otf");
+}
