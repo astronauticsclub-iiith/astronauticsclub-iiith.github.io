@@ -24,7 +24,7 @@ nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1rem 2rem;
+  padding: 0.1rem 2rem;
   /* background-color: #000000; */
   color: white;
   user-select: none;
@@ -67,6 +67,10 @@ nav ul li a:hover {
   text-decoration-thickness: 0.05rem;
   text-underline-offset: 0.5rem;
   text-decoration-color: white;
+}
+
+.navbar-logo{
+  height: 80px;
 }
 
 @keyframes fadeIn {
