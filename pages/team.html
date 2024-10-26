@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Astronautics Club IIITH</title>
+    <link rel="stylesheet" href="../styles/commons.css" />
+    <link rel="stylesheet" href="../styles/neumorphism.css" />
+    <link rel="stylesheet" href="../styles/cards.css" />
+    <link rel="icon" href="../images/astro_logo_small.png" type="image/png" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Exo:ital,wght@0,100..900;1,100..900&family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <header>
+      <nav class="desktop-nav">
+        <div class="logo">
+          <img
+            src="../images/astronautics_club_logo_transparent.png"
+            alt="logo"
+            height="90px"
+            style="opacity: 0; animation: fadeIn 1s 3.5s forwards"
+            id="logo"
+          />
+        </div>
+        <ul class="nav-links">
+          <li>
+            <a
+              href="../index.html"
+              style="animation: fadeIn 1s 3.25s forwards"
+              >Home</a
+            >
+          </li>
+          <li>
+            <a
+              href="../pages/resources.html"
+              style="animation: fadeIn 1s 3s forwards"
+              >Resources</a
+            >
+          </li>
+          <li>
+            <a
+              href="../pages/faqs.html"
+              style="animation: fadeIn 1s 2.75s forwards"
+              >FAQs</a
+            >
+          </li>
+          <li>
+            <a
+              href="../pages/team.html"
+              style="animation: fadeIn 1s 2.5s forwards"
+              class="active"
+              >Members</a
+            >
+          </li>
+          <li>
+            <a
+              href="../pages/gallery.html"
+              style="animation: fadeIn 1s 2.25s forwards"
+              >Gallery</a
+            >
+          </li>
+        </ul>
+      </nav>
+    </header>
+
+    <section class="navbar">
+      <div class="hero-container">
+        <div class="hero-content">
+          <img
+            class="scroll-down-arrow"
+            src="icons/down.png"
+            alt="scroll down"
+            height="50px"
+          />
+        </div>
+      </div>
+    </section>
+
+    <section class="team">
+      <div class="team-heading">
+        <h1>Meet the Team</h1>
+      </div>
+    </section>
+
+
+    <footer></footer>
+  </body>
+
+  <script>
+    window.onscroll = function () {
+      if (
+        document.body.scrollTop > 50 ||
+        document.documentElement.scrollTop > 50
+      ) {
+        document.querySelector("nav").style.backgroundColor = "black";
+      } else {
+        document.querySelector("nav").style.backgroundColor = "transparent";
+      }
+    };
+  </script>
+
+  <script>
+    const s = document.getElementById("s-hover-effect");
+    const logo = document.getElementById("logo");
+    var s_clicked = false;
+    s.addEventListener("click", () => {
+      if (s_clicked) {
+        s.style.color = "white";
+        logo.src = "images/astro_logo_small.png";
+        s_clicked = false;
+      } else {
+        s.style.color = "#d2042d";
+        logo.src = "icons/moon.gif";
+        s_clicked = true;
+      }
+    });
+  </script>
+</html>
