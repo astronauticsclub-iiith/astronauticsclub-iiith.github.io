@@ -67,4 +67,5 @@
 .what-is-astronomy-button:hover{
     cursor: pointer;
     background: none;
+    color: white;
 }
