@@ -80,6 +80,7 @@
     text-align: center;
     justify-content: center;
     align-items: center;
+    padding: 0 1rem;
 }
 
 .latest-updates-subheading{
@@ -89,25 +90,31 @@
 }
 
 .latest-updates-heading{
-    font-size: 3rem;
+    font-size: 3.5rem;
     font-weight: 300;
     margin: 0px;
     padding-bottom: 0.5rem;
+    letter-spacing: 0.13rem;
 }
 
 .latest-updates-content{
     width: 50%;
-    text-align: center;
     line-height: 1.5rem;
     font-weight: 350;
+    color: rgb(213, 211, 211);
+    margin-bottom:3rem;
+    
+    font-size: 1.1rem;
+    letter-spacing: 0.05rem;
 }
 
-.latest-updates-blogpost-wrapper{
+.latest-updates-posts-wrapper{
     display: flex;
     flex-direction: row;
     justify-content: center;
     gap: 3%;
     max-width: 100%;
+    letter-spacing: 0.05rem;
 }
 
 .latest-updates-blogpost-subcontainer{
@@ -122,6 +129,7 @@
     grid-template-columns: 6fr;
     grid-template-areas: "overlap";
     position: relative;
+    overflow: hidden;
 }
 
 .latest-updates-blogpost-image{
@@ -130,6 +138,13 @@
     object-fit: cover;
     grid-area: overlap;
     padding-bottom: 1.5rem;
+    z-index: 2;
+}
+
+.latest-updates-blogpost-image:hover{
+    transform: rotate(8deg);
+    transition: transform 0s ease-in-out, rotate 3s ease-in-out;
+    scale: 1.1;
 }
 
 .latest-updates-blogpost-date-wrapper{
@@ -138,9 +153,10 @@
     border-radius: 50%;
     max-width: fit-content;
     max-height: fit-content;
+    z-index: 5;
     
     margin-left: 0.2rem;
-    padding: 0.5rem 0.9rem;
+    padding: 0.35rem 0.75rem;
     align-self: flex-end;
     grid-area: overlap;
 }
@@ -155,6 +171,8 @@
     font-weight: 400;
     margin: 0px;
     padding: 0.5rem;
+    margin-bottom: 0.5rem;
+    letter-spacing: 0.03rem;
 }
 
 .latest-updates-blogpost-content{
@@ -163,6 +181,8 @@
     margin: 0rem 1rem;
     padding-left: 1rem;
     text-align: left;
+    color: rgb(213, 211, 211);
+    line-height: 1.5rem;
 }
 
 .latest-updates-blogpost-readmore{
