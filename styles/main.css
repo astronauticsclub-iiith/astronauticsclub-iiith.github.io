@@ -18,7 +18,6 @@
 
 .what-is-astronomy-text-container{
     grid-area: overlap;
-    align-self: center;
     width: 80vw;
     margin: auto;
     text-align: center;
@@ -29,6 +28,7 @@
     font-family: Roboto;
     display: flex;
     flex-direction: column;
+    align-self: center;
 }
 
 .what-is-astronomy-heading{
