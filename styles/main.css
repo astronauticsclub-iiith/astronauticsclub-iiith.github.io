@@ -5,19 +5,27 @@
     display: flex;
     flex-direction: row;
     margin-top: 1rem;
+    background-color: #1f1e1e;
+    /* margin-bottom: 2rem; */
 }
 
 .who-are-we-image{
+    padding-top: 3rem;
+    padding-left: 2rem;
+    /* margin-top: 2rem; */
     width: 40vw;
+    float: left;
 }
 
 .who-are-we-content-container{
     width: 60vw;
     padding: 2em;
+    padding-bottom: 0;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content:flex-end;
     align-items: left;
+    /* border: 1px solid white; */
 }
 
 .who-are-we-heading{
@@ -45,6 +53,12 @@
     font-size: 1.05em;
 }
 
+.blank-space{
+    height: 4rem;
+    background-color: #1f1e1e;;
+}
+
+
 /* For What is astronautics section */
 .what-is-astronautics-container{
     display: grid;
@@ -52,6 +66,7 @@
     grid-template-columns: 1fr;
     grid-template-areas: "overlap";
     padding: 2em;
+    padding-top: 0em;
 }
 
 .what-is-astronautics-image{
@@ -118,7 +133,8 @@
 
 
 
-/* For Latest News and Blog section */
+
+/* For Latest Events and Blog section */
 .latest-updates-container{
     display: flex;
     flex-direction: column;
@@ -236,4 +252,64 @@
     margin-left: 2rem;
     padding-top: 1rem;
     text-align: left;
+}
+
+
+/* For Future events section */
+.future-events-container{
+    display: grid;
+    grid-template-rows: 1fr;
+    grid-template-columns: 1fr;
+    grid-template-areas: "overlap";
+    height: fit-content;
+}
+
+.future-events-image{
+    grid-area: overlap;
+    width: 100vw;
+}
+
+.future-events-content-container{
+    grid-area: overlap;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
+.future-events-heading{
+    margin-top: 4rem;
+    margin-bottom: 0;
+    padding: 0.25em;
+    font-size: 3.3em;
+    font-weight: 300;
+    color: white;
+}
+
+.future-events-content{
+    margin: auto;
+    margin-top: 1rem;
+    margin-bottom: 3rem;
+    font-size: 1.2em;
+    font-weight: 250;
+    color: white;
+    max-width: 50vw;
+}
+
+.future-events-button{
+    width: max-content;
+    background-color: white;
+    color: black;
+    text-decoration: none;
+    margin-bottom: 2rem;
+
+    padding: 1rem;
+    border-radius: 2rem;
+    border: 1px solid white;
+    align-self: center;
+}
+
+.future-events-button:hover{
+    background: none;
+    color: white;
+    border: 1px solid white;
 }
