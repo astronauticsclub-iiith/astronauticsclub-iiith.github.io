@@ -15,7 +15,7 @@ body {
 }
 
 header {
-  position: fixed;
+  position: relative;
   width: 100%;
   z-index: 1000;
   top: 0;

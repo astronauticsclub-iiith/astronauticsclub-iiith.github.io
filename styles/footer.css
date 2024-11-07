@@ -21,17 +21,19 @@
   font-size: 1.5rem;
   font-weight: 500;
   margin-bottom: 0.8rem;
+  color: #76a6c9;
 }
 
 /* Club info section of footer */
 .footer-club-info-section {
   padding: 0.5rem;
+  padding-top: 0.1rem;
   align-content: center;
   width: 42vw;
 }
 
 .footer-club-info-section .footer-text {
-  margin-top: 0.9rem;
+  margin-top: 0.1rem;
 }
 
 .footer-club-info-section-logo {
@@ -63,9 +65,10 @@
   flex-direction: column;
   justify-content: center;
   text-align: left;
-  line-height: 2rem;
-  margin-top: 0.05rem;
+  line-height: 1.75rem;
+  margin-top: 0.1rem;
   padding-left: 0.4rem;
+  padding-top: 0em;
 }
 
 .footer-nav-text{
@@ -121,8 +124,20 @@
   transition: filter 0.3s ease; /* Smooth transition for hover effect */
 }
 
-.footer-social-media-icon:hover {
-  fill: #ffffff;
+.whatsapp:hover{
+  fill: #25d366;
+}
+
+.linkedin:hover{
+  fill: #3a97f5;
+}
+
+.instagram:hover{
+  fill: #e4405f;
+}
+
+.discord:hover{
+  fill: #5865f2;
 }
 
 /* Copyright line section */
