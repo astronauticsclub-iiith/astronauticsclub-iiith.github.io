@@ -352,7 +352,8 @@ nav ul li a:hover {
   justify-content: center;
   align-items: center;
   padding: 2rem;
-  background-color: #dde1e7;
+  /* background-color: #dde1e7; */
+  background-color: #131313;
   color: black;
 }
 

@@ -4,15 +4,12 @@
 .who-are-we-container{
     display: flex;
     flex-direction: row;
-    margin-top: 1rem;
     background-color: #1f1e1e;
-    /* margin-bottom: 2rem; */
 }
 
 .who-are-we-image{
     padding-top: 3rem;
     padding-left: 2rem;
-    /* margin-top: 2rem; */
     width: 40vw;
     float: left;
 }
@@ -25,7 +22,6 @@
     flex-direction: column;
     justify-content:flex-end;
     align-items: left;
-    /* border: 1px solid white; */
 }
 
 .who-are-we-heading{
@@ -46,15 +42,16 @@
 
 .who-are-we-content{
     margin: 0px;
-    margin-bottom: 1em;
+    margin-bottom: 2rem;
     margin-top: 1em;
     padding-left: 0.3em;
     font-weight: 250;
     font-size: 1.05em;
+    text-align: justify;
 }
 
 .blank-space{
-    height: 4rem;
+    height: 1rem;
     background-color: #1f1e1e;;
 }
 
@@ -142,6 +139,8 @@
     justify-content: center;
     align-items: center;
     padding: 0 1rem;
+    margin-top: 1rem;
+    margin-bottom: 3rem;
 }
 
 .latest-updates-subheading{
@@ -255,6 +254,8 @@
 }
 
 
+
+
 /* For Future events section */
 .future-events-container{
     display: grid;
@@ -262,6 +263,7 @@
     grid-template-columns: 1fr;
     grid-template-areas: "overlap";
     height: fit-content;
+    margin-bottom: 1rem;
 }
 
 .future-events-image{
