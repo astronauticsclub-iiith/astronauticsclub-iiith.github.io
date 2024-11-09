@@ -8,14 +8,14 @@
 }
 
 .who-are-we-image{
-    padding-top: 3rem;
-    padding-left: 2rem;
+    padding-top: 3em;
+    padding-left: 2em;
     width: 40vw;
+    max-height: max-content;
     float: left;
 }
 
 .who-are-we-content-container{
-    width: 60vw;
     padding: 2em;
     padding-bottom: 0;
     display: flex;
@@ -34,7 +34,7 @@
 }
 
 .who-are-we-subheading{
-    font-size: 1.3em;
+    font-size: 1.3rem;
     margin: 0px;
     margin-top: 1em;
     padding-left: 0.25em;
@@ -42,16 +42,16 @@
 
 .who-are-we-content{
     margin: 0px;
-    margin-bottom: 2rem;
+    margin-bottom: 2em;
     margin-top: 1em;
     padding-left: 0.3em;
     font-weight: 250;
-    font-size: 1.05em;
+    font-size: 1.05rem;
     text-align: justify;
 }
 
 .blank-space{
-    height: 1rem;
+    height: 1em;
     background-color: #1f1e1e;;
 }
 
@@ -89,14 +89,14 @@
 }
 
 .what-is-astronautics-heading{
-    font-size: 2.3em;
+    font-size: 2.3rem;
     margin: 0px;
     padding: 0.25em;
     font-weight: 300;
 }
 
 .what-is-astronautics-subheading{
-    font-size: 1.2em;
+    font-size: 1.2rem;
     margin: 0px;
     margin-top: 1em;
 }
@@ -104,7 +104,7 @@
 .what-is-astronautics-content{
     margin: 0px;
     margin-bottom: 1em;
-    font-size: 1.2em;
+    font-size: 1rem;
     padding: 0em 1em;
 }
 
@@ -138,22 +138,22 @@
     text-align: center;
     justify-content: center;
     align-items: center;
-    padding: 0 1rem;
-    margin-top: 1rem;
-    margin-bottom: 3rem;
+    padding: 0 1em;
+    margin-top: 1em;
+    margin-bottom: 3em;
 }
 
 .latest-updates-subheading{
     font-weight: 300;
     margin: 0px;
-    padding: 0.5rem;
+    padding: 0.5em;
 }
 
 .latest-updates-heading{
     font-size: 3.5rem;
     font-weight: 300;
     margin: 0px;
-    padding-bottom: 0.5rem;
+    padding-bottom: 0.5em;
     letter-spacing: 0.13rem;
 }
 
@@ -162,7 +162,7 @@
     line-height: 1.5rem;
     font-weight: 350;
     color: rgb(213, 211, 211);
-    margin-bottom:3rem;
+    margin-bottom:3em;
     
     font-size: 1.1rem;
     letter-spacing: 0.05rem;
@@ -197,7 +197,7 @@
     max-height: 100%;
     object-fit: cover;
     grid-area: overlap;
-    padding-bottom: 1.5rem;
+    padding-bottom: 1.5em;
     z-index: 2;
 }
 
@@ -215,8 +215,8 @@
     max-height: fit-content;
     z-index: 5;
     
-    margin-left: 0.2rem;
-    padding: 0.35rem 0.75rem;
+    margin-left: 0.2em;
+    padding: 0.35em 0.75em;
     align-self: flex-end;
     grid-area: overlap;
 }
@@ -230,26 +230,26 @@
     font-size: 1.3rem;
     font-weight: 400;
     margin: 0px;
-    padding: 0.5rem;
-    margin-bottom: 0.5rem;
+    padding: 0.5em;
+    margin-bottom: 0.5em;
     letter-spacing: 0.03rem;
 }
 
 .latest-updates-blogpost-content{
     font-size: 1rem;
     font-weight: 300;
-    margin: 0rem 1rem;
-    padding-left: 1rem;
+    margin: 0em 1em;
+    padding-left: 1em;
     text-align: left;
     color: rgb(213, 211, 211);
-    line-height: 1.5rem;
+    line-height: 1.5em;
 }
 
 .latest-updates-blogpost-readmore{
     text-decoration: none;
     color: white;
-    margin-left: 2rem;
-    padding-top: 1rem;
+    margin-left: 2em;
+    padding-top: 1em;
     text-align: left;
 }
 
@@ -263,7 +263,7 @@
     grid-template-columns: 1fr;
     grid-template-areas: "overlap";
     height: fit-content;
-    margin-bottom: 1rem;
+    margin-bottom: 1em;
 }
 
 .future-events-image{
@@ -279,19 +279,19 @@
 }
 
 .future-events-heading{
-    margin-top: 4rem;
+    margin-top: 1.2em;
     margin-bottom: 0;
     padding: 0.25em;
-    font-size: 3.3em;
+    font-size: 3rem;
     font-weight: 300;
     color: white;
 }
 
 .future-events-content{
     margin: auto;
-    margin-top: 1rem;
-    margin-bottom: 3rem;
-    font-size: 1.2em;
+    margin-top: 1em;
+    margin-bottom: 3em;
+    font-size: 1.2rem;
     font-weight: 250;
     color: white;
     max-width: 50vw;
@@ -302,10 +302,10 @@
     background-color: white;
     color: black;
     text-decoration: none;
-    margin-bottom: 2rem;
+    margin-bottom: 2em;
 
-    padding: 1rem;
-    border-radius: 2rem;
+    padding: 1em;
+    border-radius: 2em;
     border: 1px solid white;
     align-self: center;
 }
