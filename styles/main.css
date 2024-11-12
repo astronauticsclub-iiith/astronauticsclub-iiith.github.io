@@ -5,6 +5,7 @@
     display: flex;
     flex-direction: row;
     background-color: #1f1e1e;
+    padding-bottom: 1em;
 }
 
 .who-are-we-image{
@@ -22,6 +23,7 @@
     flex-direction: column;
     justify-content:flex-end;
     align-items: left;
+    padding-right: 5em;
 }
 
 .who-are-we-heading{
@@ -139,7 +141,6 @@
     justify-content: center;
     align-items: center;
     padding: 0 1em;
-    margin-top: 1em;
     margin-bottom: 3em;
 }
 
