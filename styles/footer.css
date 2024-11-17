@@ -8,7 +8,7 @@
   flex-direction: row;
   flex-wrap: nowrap;
   justify-content: space-evenly;
-  padding-top: 1rem;
+  padding-top: 1em;
 }
 
 .footer-text {
@@ -20,54 +20,55 @@
 .footer-heading {
   font-size: 1.5rem;
   font-weight: 500;
-  margin-bottom: 0.8rem;
+  margin-bottom: 0.8em;
   color: #76a6c9;
 }
 
 /* Club info section of footer */
 .footer-club-info-section {
-  padding: 0.5rem;
-  padding-top: 0.1rem;
+  padding: 0.5em;
+  padding-top: 0;
   align-content: center;
+  align-content: first baseline;
   width: 42vw;
 }
 
 .footer-club-info-section .footer-text {
-  margin-top: 0.1rem;
+  margin-top: 0.1em;
 }
 
 .footer-club-info-section-logo {
   height: 100px;
   width: 102px;
-  margin-right: 1rem;
+  margin-right: 1em;
   float: left;
 }
 
 .footer-club-name{
   font-size: 1.8rem;
   font-weight: 500;
-  margin-top: 30px;
-  margin-bottom: 2rem;
+  margin-top: 0.9em;
+  margin-bottom: 1em;
 }
 
 .footer-club-moto{
   font-size: 1rem;
   font-weight: 300;
-  margin-top: 0.5rem;
-  margin-bottom: 0.5rem;
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
   color: #e9e4e4;
 }
 
 /* Quick nav section of footer */
 .footer-quick-nav-section{
-  padding: 0.5rem;
+  padding: 0.5em;
   width: 15vw;
   flex-direction: column;
   justify-content: center;
   text-align: left;
   line-height: 1.75rem;
-  margin-top: 0.1rem;
-  padding-left: 0.4rem;
+  margin-top: 0.1em;
+  padding-left: 0.4em;
   padding-top: 0em;
 }
 
@@ -111,10 +112,10 @@
   display: flex;
   flex-direction: row;
   justify-content: left;
-  gap: 70px;
+  gap: 2.5em;
   align-items: center;
   margin: auto;
-  margin-top: 15px;
+  margin-top: 1em;
 }
 
 .footer-social-media-icon {
@@ -147,8 +148,8 @@
   align-items: center;
   margin: auto;
   color: white;
-  font-size: 12px;
+  font-size: 0.75rem;
   font-weight: 300;
-  margin-top: 1rem;
-  margin-bottom: 0.3rem;
+  margin-top: 1em;
+  margin-bottom: 0.3em;
 }
