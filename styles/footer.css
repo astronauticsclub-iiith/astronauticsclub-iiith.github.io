@@ -107,6 +107,12 @@
   transition: filter 0.3s ease; /* Smooth transition for hover effect */
 }
 
+.footer-mail-id, .footer-phone-number {
+  width: fit-content;
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
+
 /* Social media icons section */
 .footer-social-media-handles-section {
   display: flex;
@@ -152,4 +158,46 @@
   font-weight: 300;
   margin-top: 1em;
   margin-bottom: 0.3em;
+}
+
+
+/* Media queries for responsiveness (Tablet) */
+@media screen and (max-width: 1024px) {
+  .common-footer {
+    flex-direction: column;
+    align-items: center;
+    justify-items: center;
+    text-align: center;
+  }
+
+  .footer-club-moto{
+    width: 70%;
+  }
+  
+  .footer-club-info-section {
+    width: 100%;
+    justify-items: center;
+  }
+
+  .footer-quick-nav-section {
+    width: 100%;
+    justify-items: center;
+    text-align: center;
+  }
+
+  .footer-nav-text{
+    justify-items: center;
+  }
+
+  .footer-reach-us-section {
+    width: 100%;
+    justify-items: center;
+  }
+
+  .footer-social-media-handles-section {
+    width: 100%;
+    justify-content: center;
+    gap: 1.5em;
+  }
+  
 }
