@@ -331,7 +331,7 @@
 
 
 /* Media queries for responsiveness (Tablet) */ 
-@media screen and (max-width: 1024px){
+@media (max-width: 950px) and (orientation: portrait) {
     .who-are-we-container{
         flex-direction: column;
     }

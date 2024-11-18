@@ -136,7 +136,7 @@
 }
 
 .linkedin:hover{
-  fill: #3a97f5;
+  fill: #1e78d3;
 }
 
 .instagram:hover{
@@ -162,7 +162,7 @@
 
 
 /* Media queries for responsiveness (Tablet) */
-@media screen and (max-width: 1024px) {
+@media (max-width: 950px) and (orientation: portrait) {
   .common-footer {
     flex-direction: column;
     align-items: center;
