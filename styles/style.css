@@ -9,7 +9,6 @@ body,
 }
 
 body {
-    background-image: url("bg.jpg");
     /* opacity: 1; */
     background-blend-mode: overlay;
     background-color: rgb(29, 27, 27);
@@ -21,6 +20,7 @@ body {
     /* align-content: center; */
     background-attachment: fixed;
     /* overflow: hidden; */
+    scroll-snap-type: y proximity;
 }
 
 .black {

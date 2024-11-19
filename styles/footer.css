@@ -1,6 +1,7 @@
 .footer{
   z-index: 5;
   position: static;
+  margin: 0;
 }
 
 .common-footer {
