@@ -40,7 +40,7 @@ nav a {
   transition: all 0.2s ease-in-out;
 }
 
-nav a:hover {
+nav a:hover, nav a:focus {
   color: white;
 }
 
@@ -58,7 +58,7 @@ nav ul li a {
   opacity: 0;
 }
 
-nav ul li a:hover {
+nav ul li a:hover, nav ul li a:focus {
   color: white;
 }
 

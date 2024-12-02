@@ -81,7 +81,7 @@
   color: #d3cfcf;
 }
 
-.footer-nav-text:hover{
+.footer-nav-text:hover, .footer-nav-text:focus{
   color: #ffffff;
 }
 
@@ -132,19 +132,19 @@
   transition: filter 0.3s ease; /* Smooth transition for hover effect */
 }
 
-.whatsapp:hover{
+.whatsapp:hover, .whatsapp:focus{
   fill: #25d366;
 }
 
-.linkedin:hover{
+.linkedin:hover, .linkedin:focus{
   fill: #1e78d3;
 }
 
-.instagram:hover{
+.instagram:hover, .instagram:focus{
   fill: #e4405f;
 }
 
-.discord:hover{
+.discord:hover, .discord:focus{
   fill: #5865f2;
 }
 

@@ -137,7 +137,7 @@
 }
 
 
-.what-is-astronautics-button:hover{
+.what-is-astronautics-button:hover, .what-is-astronautics-button:focus{
     cursor: pointer;
     background: none;
     color: white;
@@ -331,7 +331,7 @@
     align-self: center;
 }
 
-.future-events-button:hover{
+.future-events-button:hover, .future-events-button:focus{
     background: none;
     color: white;
     border: 1px solid white;
