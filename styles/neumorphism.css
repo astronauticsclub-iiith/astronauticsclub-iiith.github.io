@@ -48,7 +48,7 @@
   }
 }
 
-@media (max-width: 500px) {
+@media (max-width: 900px) {
   .heading {
     font-size: 12.5vw;
     text-shadow: -2px -2px 3px rgba(255, 255, 255, 0.4),

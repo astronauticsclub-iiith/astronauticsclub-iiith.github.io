@@ -25,7 +25,6 @@
 
     padding: 2em;
     padding-bottom: 0;
-    padding-right: 5em;
 
     overflow-wrap: break-word;
     word-break: break-word;
@@ -49,9 +48,10 @@
 
 .who-are-we-content{
     margin: 0px;
-    margin-bottom: 2em;
+    /* margin-bottom: 2em; */
     margin-top: 1em;
     padding-left: 0.3em;
+    padding-right: 5%;
     font-weight: 250;
     font-size: 1.05rem;
     text-align: justify;

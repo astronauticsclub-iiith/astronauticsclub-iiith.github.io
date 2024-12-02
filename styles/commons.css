@@ -1,7 +1,10 @@
+/* Navbar and Common properties for html, body */
+
 body {
   background-color: #000000;
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
   display: flex;
   flex-direction: column;
 
@@ -9,8 +12,9 @@ body {
   font-optical-sizing: auto;
   color: white;
 
-  transition: all 0.2s ease-in-out;
+  scroll-snap-type: y proximity;
 
+  transition: all 0.2s ease-in-out;
   -webkit-tap-highlight-color: transparent;
 }
 
@@ -20,6 +24,7 @@ header {
   z-index: 1000;
   top: 0;
   margin: 0;
+  /* font-family: Roboto-Light, sans-serif; */
 }
 
 nav {
@@ -100,304 +105,10 @@ nav ul li a:hover, nav ul li a:focus {
   }
 }
 
-.hero {
-  width: 100vw;
-  height: 100vh;
-  overflow: hidden;
-  /* disable selection */
-  user-select: none;
-  margin: 0;
-}
 
-.hero-container {
-  position: sticky;
-  bottom: 0;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  height: 100%;
-}
-
-.hero-content {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  color: white;
-
-  mix-blend-mode: multiply;
-
-  user-select: none;
-}
-
-.hero-content h1 {
-  font-size: 10vw;
-  margin-top: 1rem;
-  margin-bottom: 1rem;
-  opacity: 0;
-  /* entrance animation */
-  animation: fadeIn 3s 0.5s forwards;
-}
-
-.hero-content p {
-  font-size: 2vw;
-  margin-bottom: 2rem;
-
-  opacity: 0;
-  /* entrance animation */
-  animation: fadeIn 2s 1s forwards;
-}
-
-.scroll-down-arrow {
-  position: absolute;
-  bottom: 2rem;
-  transform: translateX(-50%);
-  color: white;
-  font-size: 2rem;
-
-  opacity: 0;
-  /* fadeIn and bounce */
-  animation: fadeIn 2s 1.5s forwards, bounce 2s 1.5s infinite;
-}
-
-.stars-container {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-}
-
-.stars-container span {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 4px;
-  height: 4px;
-  background: #fff;
-  border-radius: 50%;
-  box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.1),
-    0 0 0 8px rgba(255, 255, 255, 0.1), 0 0 20px rgba(255, 255, 255, 0.1);
-  opacity: 0;
-  animation: animate 3s linear infinite;
-
-  z-index: -1;
-}
-
-.stars-container span::before {
-  content: "";
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 300px;
-  height: 1px;
-  background: linear-gradient(90deg, #fff, transparent);
-}
-
-@keyframes animate {
-  0% {
-    transform: rotate(315deg) translateX(0);
-    opacity: 1;
-  }
-  70% {
-    opacity: 1;
-  }
-  100% {
-    transform: rotate(315deg) translateX(-1000px);
-    opacity: 0;
-  }
-}
-
-.stars-container span:nth-child(1) {
-  top: 0;
-  right: 0;
-  left: initial;
-  animation-delay: 0s;
-  animation-duration: 1s;
-}
-.stars-container span:nth-child(2) {
-  top: 0;
-  right: 80px;
-  left: initial;
-  animation-delay: 0.2s;
-  animation-duration: 3s;
-}
-.stars-container span:nth-child(3) {
-  top: 80;
-  right: 0px;
-  left: initial;
-  animation-delay: 0.4s;
-  animation-duration: 2s;
-}
-.stars-container span:nth-child(4) {
-  top: 0;
-  right: 180px;
-  left: initial;
-  animation-delay: 0.6s;
-  animation-duration: 1.5s;
-}
-.stars-container span:nth-child(5) {
-  top: 0;
-  right: 400px;
-  left: initial;
-  animation-delay: 0.8s;
-  animation-duration: 2.5s;
-}
-.stars-container span:nth-child(6) {
-  top: 0;
-  right: 600px;
-  left: initial;
-  animation-delay: 1s;
-  animation-duration: 3s;
-}
-.stars-container span:nth-child(7) {
-  top: 300px;
-  right: 0px;
-  left: initial;
-  animation-delay: 1.2s;
-  animation-duration: 1.75s;
-}
-.stars-container span:nth-child(8) {
-  top: 0px;
-  right: 700px;
-  left: initial;
-  animation-delay: 1.4s;
-  animation-duration: 1.25s;
-}
-.stars-container span:nth-child(9) {
-  top: 0px;
-  right: 1000px;
-  left: initial;
-  animation-delay: 0.75s;
-  animation-duration: 2.25s;
-}
-.stars-container span:nth-child(9) {
-  top: 0px;
-  right: 450px;
-  left: initial;
-  animation-delay: 2.75s;
-  animation-duration: 2.75s;
-}
-
-.separator {
-  display: block;
-  width: 100%;
-  height: 50px;
-  max-height: 50px;
-  margin: 0;
-  z-index: 5;
-  float: left;
-}
-
-.parallax1 > use {
-  animation: move-forever1 10s linear infinite;
-  &:nth-child(1) {
-    animation-delay: -2s;
-  }
-}
-.parallax2 > use {
-  animation: move-forever2 8s linear infinite;
-  &:nth-child(1) {
-    animation-delay: -2s;
-  }
-}
-.parallax3 > use {
-  animation: move-forever3 6s linear infinite;
-  &:nth-child(1) {
-    animation-delay: -2s;
-  }
-}
-.parallax4 > use {
-  animation: move-forever4 4s linear infinite;
-  &:nth-child(1) {
-    animation-delay: -2s;
-  }
-}
-@keyframes move-forever1 {
-  0% {
-    transform: translate(85px, 0%);
-  }
-  100% {
-    transform: translate(-90px, 0%);
-  }
-}
-@keyframes move-forever2 {
-  0% {
-    transform: translate(-90px, 0%);
-  }
-  100% {
-    transform: translate(85px, 0%);
-  }
-}
-@keyframes move-forever3 {
-  0% {
-    transform: translate(85px, 0%);
-  }
-  100% {
-    transform: translate(-90px, 0%);
-  }
-}
-@keyframes move-forever4 {
-  0% {
-    transform: translate(-90px, 0%);
-  }
-  100% {
-    transform: translate(85px, 0%);
-  }
-}
-
-.main-content {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding: 2rem;
-  /* background-color: #dde1e7; */
-  background-color: #131313;
-  color: black;
-}
-
-.latest {
-  padding: 20px;
-}
-
-#s-hover-effect {
-  display: inline-block;
-  transform: scale(1) rotate(0deg);
-  transition: all 0.2s ease-in-out;
-  cursor: pointer;
-}
-
-#s-hover-effect:hover {
-  /* make it do some pulsating animation */
-  animation: pulse 0.5s;
-  transform: scale(1.05) rotate(3deg);
-}
-
-@keyframes pulse {
-  0%,
-  100% {
-    transform: rotate(3deg);
-    scale: 1.05;
-  }
-  50% {
-    transform: rotate(-3deg);
-    scale: 1.1;
-  }
-}
-
-#s-hover-effect:active {
-  transform: scale(0.95) rotate(3deg);
-}
-
-@media (max-width: 800px) {
+@media (max-width: 500px) {
   .desktop-nav {
     display: none;
-  }
-
-  .hero {
-    height: 25vh;
   }
 
   .scroll-down-arrow {
