@@ -1,7 +1,7 @@
+
 .footer{
   z-index: 5;
   position: static;
-  margin: 0;
 }
 
 .common-footer {
@@ -204,7 +204,7 @@
 }
 
 /* Media queries for responsiveness (Mobile) */
-@media screen and (max-width: 696px) {
+@media (max-width: 696px) {
   .common-footer{
     row-gap: 1em;
   }

@@ -1,10 +1,8 @@
 .hero {
-    width: 100vw;
     height: 100vh;
     overflow: hidden;
     /* disable selection */
     user-select: none;
-    margin: 0;
 }
 
 .hero-container {

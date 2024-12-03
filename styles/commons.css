@@ -2,9 +2,9 @@
 
 body {
   background-color: #000000;
+  box-sizing: border-box;
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
   display: flex;
   flex-direction: column;
 
@@ -114,8 +114,4 @@ nav ul li a:hover, nav ul li a:focus {
   /* .scroll-down-arrow {
     display: none;
   } */
-
-  .hero-content p {
-    margin-bottom: 0;
-  }
 }
