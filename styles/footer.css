@@ -111,7 +111,7 @@
 .footer-mail-id, .footer-phone-number {
   width: fit-content;
   overflow-wrap: break-word;
-  word-break: break-word;
+  word-break: break-all;
 }
 
 /* Social media icons section */
@@ -152,7 +152,7 @@
 .copyright-text {
   display: flex;
   justify-content: center;
-  align-items: center;
+  text-align: center;
   margin: auto;
   color: white;
   font-size: 0.75rem;
@@ -201,4 +201,37 @@
     gap: 1.5em;
   }
   
+}
+
+/* Media queries for responsiveness (Mobile) */
+@media screen and (max-width: 696px) {
+  .common-footer{
+    row-gap: 1em;
+  }
+
+  .footer-club-info-section{
+    justify-items: center;
+  }
+
+  .footer-club-info-section-logo{
+    float: none;
+  }
+
+  .footer-club-name{
+    text-align: center;
+    margin-bottom: 0;
+  }
+
+  .footer-club-moto{
+    text-align: center;
+  }
+
+  .footer-heading{
+    margin-bottom: 0.25em;
+    padding-bottom: 0;
+  }
+
+  .footer-mail-id{
+    padding: 0 0.5em;
+  }
 }

@@ -111,9 +111,9 @@ nav ul li a:hover, nav ul li a:focus {
     display: none;
   }
 
-  .scroll-down-arrow {
+  /* .scroll-down-arrow {
     display: none;
-  }
+  } */
 
   .hero-content p {
     margin-bottom: 0;

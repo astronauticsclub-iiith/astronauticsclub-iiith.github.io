@@ -63,6 +63,7 @@
 }
 
 
+
 /* For What is astronautics section */
 .what-is-astronautics-container{
     display: grid;
@@ -337,10 +338,22 @@
     border: 1px solid white;
 }
 
+@media screen and (max-width:1000px) {
+    .who-are-we-subheading{
+        font-size: 3vw;
+    }
+    
+    .who-are-we-heading{
+        font-size: 6vw;
+    }
 
+    .who-are-we-content{
+        font-size: 2vw;
+    }
+}
 
 /* Media queries for responsiveness (Tablet) */ 
-@media (max-width: 950px) and (orientation: portrait) {
+@media (max-width: 696px) {
     .who-are-we-container{
         flex-direction: column;
     }
@@ -357,13 +370,18 @@
         text-align: center;
     }
 
+    .who-are-we-subheading{
+        font-size: 1.5rem;
+    }
+
     .who-are-we-heading{
-        font-size: 2.5em;
+        font-size: 2.5rem;
     }
 
     .who-are-we-content{
         /* padding: 0 2em; */
         text-align: center;
+        font-size: 1rem;
     }
 
     .what-is-astronautics-text-container{

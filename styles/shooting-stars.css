@@ -16,6 +16,7 @@
     justify-content: center;
     align-items: center;
     height: 100%;
+    text-align: center;
 }
 
 .hero-content {
@@ -32,15 +33,16 @@
 
 .hero-content h1 {
     font-size: 10vw;
-    margin-top: 1rem;
-    margin-bottom: 1rem;
+    margin: 1rem 0;
     opacity: 0;
     /* entrance animation */
     animation: fadeIn 3s 0.5s forwards;
 }
 
 .hero-content p {
-    font-size: 2vw;
+    font-size: 2.5vw;
+    font-weight: 300;
+    margin: 0 2vw;
     margin-bottom: 2rem;
 
     opacity: 0;
@@ -299,4 +301,56 @@
 
 #s-hover-effect:active {
     transform: scale(0.95) rotate(3deg);
+}
+
+
+/* Responsive design for tablets */
+/* @media screen and (max-width: 700px) {
+    #line-break::after{
+        content: "\A";
+        display: block;
+    }
+    
+    .hero-content h1 {
+        font-size: 4.5rem;
+    }
+
+    .hero-content p {
+        font-size: 2.5vw;
+    }
+
+    .scroll-down-arrow {
+        font-size: 2.5rem;
+    }
+} */
+
+
+@media screen and (max-width: 696px) {
+    .hero-content h1 {
+        font-size: 3.5rem;
+    }
+
+    .hero-content p {
+        font-size: 1.25rem;
+    }
+
+    /* .scroll-down-arrow {
+        font-size: 3rem;
+    } */
+}
+
+
+@media screen and (max-width: 500px) {
+    .hero-content h1 {
+        font-size: 2.8rem;
+    }
+
+    .hero-content p {
+        font-size: 1rem;
+    }
+
+    .scroll-down-arrow {
+        font-size: 2.5rem;
+    }
+    
 }
