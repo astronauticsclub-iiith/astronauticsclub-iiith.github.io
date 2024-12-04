@@ -31,7 +31,7 @@
   padding-top: 0;
   align-content: center;
   align-content: first baseline;
-  width: 42vw;
+  width: 42%;
 }
 
 .footer-club-info-section .footer-text {
@@ -120,9 +120,8 @@
   flex-direction: row;
   justify-content: left;
   gap: 2.5em;
-  align-items: center;
-  margin: auto;
   margin-top: 1em;
+  width: fit-content;
 }
 
 .footer-social-media-icon {
@@ -163,54 +162,36 @@
 
 
 /* Media queries for responsiveness (Tablet) */
-@media (max-width: 950px) and (orientation: portrait) {
+@media (max-width: 1000px) {
+  .footer-club-info-section{
+    width: 30%
+  }
+
+  .footer-club-info-section-logo{
+    align-self: center;
+    float: center;
+    margin-bottom: 0.7em;
+  }
+
+  .footer-club-name{
+    font-size: 1.5rem;
+  }
+}
+
+
+/* Media queries for responsiveness (Mobile) */
+@media (max-width: 696px) {
   .common-footer {
     flex-direction: column;
     align-items: center;
     justify-items: center;
     text-align: center;
-  }
-
-  .footer-club-moto{
-    width: 70%;
-  }
-  
-  .footer-club-info-section {
-    width: 100%;
-    justify-items: center;
-  }
-
-  .footer-quick-nav-section {
-    width: 100%;
-    justify-items: center;
-    text-align: center;
-  }
-
-  .footer-nav-text{
-    justify-items: center;
-  }
-
-  .footer-reach-us-section {
-    width: 100%;
-    justify-items: center;
-  }
-
-  .footer-social-media-handles-section {
-    width: 100%;
-    justify-content: center;
-    gap: 1.5em;
-  }
-  
-}
-
-/* Media queries for responsiveness (Mobile) */
-@media (max-width: 696px) {
-  .common-footer{
     row-gap: 1em;
   }
 
   .footer-club-info-section{
     justify-items: center;
+    width: 90%;
   }
 
   .footer-club-info-section-logo{
@@ -219,16 +200,28 @@
 
   .footer-club-name{
     text-align: center;
-    margin-bottom: 0;
+    margin: 0;
   }
 
   .footer-club-moto{
     text-align: center;
+    width: 80%;
+  }
+
+  .footer-quick-nav-section{
+    text-align: center;
+    justify-items: center;
   }
 
   .footer-heading{
     margin-bottom: 0.25em;
     padding-bottom: 0;
+  }
+  
+  .footer-reach-us-section {
+    text-align: center;
+    justify-items: center;
+    width: 90%;
   }
 
   .footer-mail-id{

@@ -66,6 +66,7 @@
           About
         </a>
     </ul>
+    <img id="navbar-mobile-icon" src="../images/navbar-mobile-icon.png" height="50px">
   </nav>
 </header>
 
@@ -86,15 +87,15 @@
 
   <div class="hero-container">
     <div class="hero-content" style="height: 80%">
-      <h1>A<span id="s-hover-effect">s</span>tronautics
-        <span id="line-break"> </span>
-          Club
+      <h1>
+        <span class="nowrap">A<span id="s-hover-effect">s</span>tronautics</span>
+        <span>  Club</span>
       </h1>
       <p>International Institute of Information Technology, Hyderabad</p>
     </div>
     <div class="hero-content">
       <img
-        class="scroll-down-arrow"
+        id="scroll-down-arrow"
         src="icons/down.png"
         alt="scroll down"
         height="50px"
@@ -318,12 +319,12 @@
 </section> -->
 
 <section class="future-events-container">
-  <div class="future-events-content-container">
-    <h5 class="future-events-heading roboto-light">Future Events</h5>
-    <p class="future-events-content roboto-light">
-      Take a look at our lineup of upcoming events, and feel free to suggest ideas—you could help shape our next big adventure!
+  <div class="future-events-content-container roboto-light">
+    <h5 class="future-events-heading">Future Events</h5>
+    <p class="future-events-content">
+      Take a look at our lineup of upcoming events, and feel free to suggest ideas — you could help shape our next big adventure!
     </p>
-    <a class="future-events-button roboto-light" href="pages/404.html">
+    <a class="future-events-button" href="pages/404.html">
       Join the Journey
     </a>
   </div>
@@ -496,16 +497,31 @@
 
 <script>
     window.onscroll = function () {
-      if (
-        document.body.scrollTop > 50 ||
+      if (document.body.scrollTop > 50 ||
         document.documentElement.scrollTop > 50
-      ) {
+      ) 
+      {
         document.querySelector("nav").style.backgroundColor = "black";
-      } else {
-        document.querySelector("nav").style.backgroundColor = "transparent";
+      } 
+
+      else {
+        document.querySelector("nav").style.opacity = 0.9;
+      }
+
+      // Scroll down arrow
+      if (document.body.scrollTop > 50 ||
+        document.documentElement.scrollTop > 350
+      ) 
+      {
+        document.getElementById("scroll-down-arrow").style.display = "none";
+      } 
+
+      else {
+        document.getElementById("scroll-down-arrow").style.display = "block";
       }
     };
 </script>
+
 
 <script>
     const s = document.getElementById("s-hover-effect");
@@ -514,7 +530,7 @@
     s.addEventListener("click", () => {
       if (s_clicked) {
         s.style.color = "white";
-        logo.src = "images/astro_logo_small.png";
+        logo.src = "images/astronautics_club_logo_brighten.png";
         s_clicked = false;
       } else {
         s.style.color = "#d2042d";

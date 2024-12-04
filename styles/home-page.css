@@ -26,8 +26,7 @@
     padding: 2em;
     padding-bottom: 0;
 
-    overflow-wrap: break-word;
-    word-break: break-word;
+    word-break:normal;
 }
 
 .who-are-we-heading{
@@ -275,7 +274,6 @@
     grid-template-rows: 1fr;
     grid-template-columns: 1fr;
     grid-template-areas: "overlap";
-    height: fit-content;
     margin-bottom: 1em;
 
     background-image: url('../images/future_events_cropped.jpg');
@@ -288,6 +286,7 @@
     display: flex;
     flex-direction: column;
     text-align: center;
+    align-items: center;
 }
 
 .future-events-heading{
@@ -297,19 +296,17 @@
     font-size: 3rem;
     font-weight: 300;
     color: white;
-    padding: 3vw 5vw 1vw 5vw;
+    padding: 3% 5% 1% 5%;
 }
 
 .future-events-content{
-    margin: auto;
     margin-top: 2%;
     margin-bottom: 5%;
+    padding: 0;
     font-size: 1.2rem;
     font-weight: 350;
     color: rgb(211, 205, 205);
-    width: 50vw;
-    min-width: 700px;
-    max-width: 80vw;
+    width: 50%;
 }
 
 .future-events-button{
@@ -322,7 +319,6 @@
     padding: 1em;
     border-radius: 2em;
     border: 1px solid white;
-    align-self: center;
 }
 
 .future-events-button:hover, .future-events-button:focus{
@@ -331,6 +327,8 @@
     border: 1px solid white;
 }
 
+
+/* Media queries for responsiveness (Tablets) */
 @media screen and (max-width:1000px) {
     .who-are-we-subheading{
         font-size: 3vw;
@@ -345,15 +343,17 @@
     }
 }
 
-/* Media queries for responsiveness (Tablet) */ 
+
+/* Media queries for responsiveness (Mobile) */ 
 @media (max-width: 696px) {
     .who-are-we-container{
         flex-direction: column;
+        justify-items: center;
+        align-items: center;
     }
 
     .who-are-we-image{
-        margin: auto;
-        margin-top: 5em;
+        margin-top: 2em;
         width: 90%;
         padding: 0;
     }
@@ -364,6 +364,7 @@
     }
 
     .who-are-we-subheading{
+        margin: 0;
         font-size: 1.5rem;
     }
 
@@ -381,6 +382,13 @@
         width: 90vw;
     }
 
+    .latest-updates-heading {
+        letter-spacing: 0.1rem;
+        font-size: 10vw;
+        margin: 0;
+        padding: 0;
+    }
+
     .latest-updates-content{
         width: 80%;
     }
@@ -388,20 +396,27 @@
     .latest-updates-posts-wrapper{
         flex-direction: column;
         justify-items: center;
+        align-items: center;
         gap: 2em;
     }
 
     .latest-updates-blogpost-subcontainer{
         width: 95%;
+        padding: 0;
+        margin: 0;
+    }
+
+    .future-events-heading{
+        margin-inline: 4%;
+        margin-bottom: 4%;
     }
 
     .future-events-content{
-        padding: 5vw 15vw 15vw 15vw;
+        margin-bottom: 8%;
     }
 
-    .future-events-content{
-        width: 90vw;
-        min-width: 0;
+    .future-events-button{
+        margin-bottom: 15%;
     }
 
     .what-is-astronautics-container{
