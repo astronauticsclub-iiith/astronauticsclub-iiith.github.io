@@ -14,18 +14,14 @@
     <link rel="stylesheet" href="styles/neumorphism.css" />
     <link rel="icon" href="images/astro_logo_small.png" type="image/png" />
 
-    <!-- Font imports -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Exo:ital,wght@0,100..900;1,100..900&family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
-      rel="stylesheet"
-    />
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
-
+    <!-- JS Script imports -->
+    <script src="scripts/scroll.js"></script>
+    <script src="scripts/s-hover-effect.js"></script>
+    <script src="scripts/mobile-navbar.js"></script>
 </head>
 
 <body>
+
 <header>
   <nav class="desktop-nav">
     <div style="height: 80px">
@@ -66,7 +62,12 @@
           About
         </a>
     </ul>
-    <img id="navbar-mobile-icon" src="../images/navbar-mobile-icon.png" height="50px">
+    <img 
+      id="navbar-mobile-icon" 
+      src="../images/navbar-mobile-icon.png" 
+      height="50px" 
+      onclick="showMobileNavbar()"
+    />
   </nav>
 </header>
 
@@ -494,49 +495,4 @@
 </footer>
 
 </body>
-
-<script>
-    window.onscroll = function () {
-      if (document.body.scrollTop > 50 ||
-        document.documentElement.scrollTop > 50
-      ) 
-      {
-        document.querySelector("nav").style.backgroundColor = "black";
-      } 
-
-      else {
-        document.querySelector("nav").style.opacity = 0.9;
-      }
-
-      // Scroll down arrow
-      if (document.body.scrollTop > 50 ||
-        document.documentElement.scrollTop > 350
-      ) 
-      {
-        document.getElementById("scroll-down-arrow").style.display = "none";
-      } 
-
-      else {
-        document.getElementById("scroll-down-arrow").style.display = "block";
-      }
-    };
-</script>
-
-
-<script>
-    const s = document.getElementById("s-hover-effect");
-    const logo = document.getElementById("logo");
-    var s_clicked = false;
-    s.addEventListener("click", () => {
-      if (s_clicked) {
-        s.style.color = "white";
-        logo.src = "images/astronautics_club_logo_brighten.png";
-        s_clicked = false;
-      } else {
-        s.style.color = "#d2042d";
-        logo.src = "icons/moon.gif";
-        s_clicked = true;
-      }
-    });
-</script>
 </html>
