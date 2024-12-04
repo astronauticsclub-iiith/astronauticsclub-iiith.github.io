@@ -7,74 +7,78 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Astronautics Club IIITH</title>
-    <link rel="stylesheet" href="../styles/commons.css" />
-    <link rel="stylesheet" href="../styles/neumorphism.css" />
-    <link rel="stylesheet" href="../styles/cards.css" />
-    <link rel="icon" href="../images/astro_logo_small.png" type="image/png" />
 
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Exo:ital,wght@0,100..900;1,100..900&family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
-      rel="stylesheet"
-    />
+    <!-- CSS Files -->
     <link rel="stylesheet" href="../styles/footer.css" />
     <link rel="stylesheet" href="../styles/font.css" />
+    <link rel="stylesheet" href="../styles/commons.css" />
+    <link rel="icon" href="../images/astro_logo_small.png" type="image/png" />
 
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet"> 
+    <!-- JS Script imports -->
+    <script src="../scripts/scroll.js"></script>
+    <script src="../scripts/mobile-navbar.js"></script>
 </head>
 
 <body>
+
 <!-- NAVBAR -->
-    <header>
-        <nav class="desktop-nav">
-          <div style="height: 80px">
-            <img
-              src="../images/astronautics_club_logo_brighten.png"
-              class="navbar-logo"
-              alt="logo"
-              id="logo"
-              style="opacity:0; animation: fadeIn 0s 0.5s forwards"
-            />
-          </div>
-          <ul class="nav-links">
-            <li>
-              <a
-                href="../index.html"
-                style="animation: fadeIn 0s 0.5s forwards"
-                class="active"
-                >Home</a
-              >
-            </li>
-            <li>
-              <a
-                href="../pages/blogs.html"
-                style="animation: fadeIn 0s 0.5s forwards"
-                >Blogs</a
-              >
-            </li>
-            <li>
-              <a
-                href="../pages/about.html"
-                style="animation: fadeIn 0s 0.5s forwards"
-                >About</a
-              >
-            </li>
-            <li>
-              <a href="../pages/team.html" style="animation: fadeIn 0s 0.5s forwards"
-                >Members</a
-              >
-            </li>
-            <li>
-              <a
-                href="../pages/gallery.html"
-                style="animation: fadeIn 0s 0.5s forwards"
-                >Gallery</a
-              >
-            </li>
-          </ul>
-        </nav>
-      </header>
+<header>
+  <nav class="desktop-nav">
+    <div>
+      <img
+        src="../images/astronautics_club_logo_brighten.png"
+        class="navbar-logo"
+        alt="logo"
+        id="logo"
+      />
+    </div>
+
+    <ul class="nav-links">
+      <li>
+        <a href="../index.html" style="animation: fadeIn 1s 3.25s forwards">
+          Home
+        </a>
+      </li>
+
+      <li>
+        <a href="blogs.html" style="animation: fadeIn 1s 3s forwards">
+          Blogs
+        </a>
+
+      <li>
+        <a href="gallery.html" style="animation: fadeIn 1s 2.75s forwards">
+          Gallery
+        </a>
+
+      <li>
+        <a href="team.html" style="animation: fadeIn 1s 2.5s forwards">
+          Members
+        </a>
+
+      <li>
+        <a href="about.html" style="animation: fadeIn 1s 2.25s forwards">
+          About
+        </a>
+    </ul>
+
+    <img 
+      id="navbar-mobile-icon" 
+      src="../images/navbar-mobile-icon.png" 
+      height="50px" 
+      onclick="showMobileNavbar()"
+    />
+  </nav>
+  
+  <asside>
+    <ul class="mobile-nav">
+      <li><a href="../index.html">Home</a>
+      <li><a href="blogs.html">Blogs</a>
+      <li><a href="gallery.html">Gallery</a>
+      <li><a href="team.html">Members</a>
+      <li><a href="about.html">About</a>
+    </ul>
+  </asside>
+</header>
 
 <!-- MAIN CONTENT -->
 

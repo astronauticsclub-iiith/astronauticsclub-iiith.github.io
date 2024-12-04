@@ -38,6 +38,10 @@ nav {
   /* border-radius: 0 0 2vw 2vw; */
 }
 
+.navbar-logo{
+  height: 80px;
+}
+
 nav a {
   color: rgba(255, 255, 255, 0.5);
   text-decoration: none;
@@ -134,17 +138,23 @@ asside{
 .mobile-nav li{
   padding: 1em;
   text-align: right;
-  font-size: 1.5em;
+  font-size: 1.25em;
 }
 
 .mobile-nav li a{
-  color: #f4f4f4;
+  color: #e3dfdf;
+  display: block;
   text-decoration: none;
 }
 
-.mobile-nav li a:hover{
-  color: white;
+.mobile-nav li .active{
+  text-decoration: underline;
+}
+
+.mobile-nav li a:hover, .mobile-nav li a:focus{
+  color: rgb(253, 252, 255);
   text-decoration: none;
+  font-weight: 500;
 }
 
 
@@ -152,6 +162,10 @@ asside{
 @media (max-width: 696px) {
   nav {
     padding: 0 1rem;
+  }
+
+  .navbar-logo{
+    height: 60px;
   }
 
   nav ul:nth-child(2) {
