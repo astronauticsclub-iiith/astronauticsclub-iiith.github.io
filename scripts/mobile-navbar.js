@@ -1,13 +1,18 @@
 let mobileNavbarOn = false;
 
 function showMobileNavbar() {
-    const navLinks = document.querySelector(".nav-links");
+    const sidebar = document.querySelector("asside");
+    const body = document.querySelector("body");
+    
     if(mobileNavbarOn){
-        navLinks.style.display = "none";
+        sidebar.style.display = "block";
+        body.style.overflow = "hidden";
         mobileNavbarOn = false;
     }
+
     else{
-        navLinks.style.display = "block";
+        sidebar.style.display = "none";
+        body.style.overflow = "scroll";
         mobileNavbarOn = true;
     }
 }
