@@ -1,3 +1,21 @@
+.club-intro{
+    width: 80%;
+    margin-left: 10%;
+}
+
+.club-intro h1{
+    font-size: 3.2rem;
+    font-weight: 300;
+    letter-spacing: 0.01em;
+    margin: 0;
+    /* text-align: center; */
+}
+
+.club-intro p{
+    font-size: 1.2rem;
+    margin: 1em 0;
+}
+
 .faq-container{
     margin: 2em 0;
     display: flex;
