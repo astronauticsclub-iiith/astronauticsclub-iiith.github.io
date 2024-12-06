@@ -1,20 +1,25 @@
+.faq-container{
+    margin-bottom: 2em;
+}
+
 .faq-block{
     margin: 1em 1.5em;
 }
 
 .faq-question{
-    font-size: 1rem;
-    background-color: #dad0d0;
+    font-size: 1.2rem;
+    background-color: #afadad;
     /* background-color: #f3eeee; */
     color: black;
-    padding: 0.5em 1em;
+    padding: 0.5em 1.5em;
     cursor: pointer;
 }
 
 .faq-arrow{
     float: right;
-    width: 1.5em;
-    margin-right: 10px;
+    align-self: center;
+    width: 0.7em;
+    margin-top: 0.5em;
 }
 
 .faq-answer{

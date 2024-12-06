@@ -1,5 +1,5 @@
-const bg_color = "#dad0d0";
-const active_color = "#f3eeee";
+const bg_color = "#afadad";
+const active_color = "#eae5e5";
 
 function toggle_answer(id){
     let question = document.getElementById("question_"+id);
