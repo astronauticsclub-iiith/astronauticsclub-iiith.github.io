@@ -1,9 +1,27 @@
 .faq-container{
-    margin-bottom: 2em;
+    margin: 2em 0;
+    display: flex;
+    flex-direction: column;
+    justify-items: center;
+}
+
+.faq-heading{
+    font-size: 3.2rem;
+    font-weight: 300;
+    letter-spacing: 0.01em;
+    text-align: center;
+    margin: 0;
+}
+
+.faq-subheading{
+    text-align: center;
+    align-self: center;
+    width: 70%;
+    margin-bottom: 4em;
 }
 
 .faq-block{
-    margin: 1em 1.5em;
+    margin: 0.3em 1.5em;
 }
 
 .faq-question{
