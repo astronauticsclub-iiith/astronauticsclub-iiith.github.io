@@ -82,13 +82,93 @@
 
 <!-- MAIN CONTENT -->
 <section class="club-intro">
-  Who hasn't been captivated by the serene vastness of the night sky, dreamt of spending the nights under a sky full of stars or felt a rush of excitement at the sight of a shooting star?
+  Who hasn't been captivated by the serene vastness of the night sky, wished to spend the nights under the stars or felt a rush of excitement at the sight of a shooting star?
   And have you ever wished to be able to connect more deeply with all this celestial magnificence? If yes, this is where your wish will come true.
 </section>
 
-History
-What do we do?
+<section class="faq-container">
 
+  <div class="faq-block">
+    <h3 class="faq-question">
+      What kind of activities does the club organize?
+    </h3>
+    <p class="faq-answer">
+      Our activities include:
+      <ul>
+        <li>Stargazing nights using telescopes
+        <li>Space-related workshops and guest lectures
+        <li>Rocketry and space engineering projects
+        <li>Astronomy quizzes and competitions
+        <li>Observing celestial events like meteor showers, eclipses, and planetary alignments
+      </ul>
+    </p>
+  </div>
+
+
+  <div class="faq-block">
+    <h3 class="faq-question">
+      Who can join the club?
+    </h3>
+    <p class="faq-answer">
+      The club is open to any IIIT student, regardless of their background or expertise level.  
+      The only prerequiste we ask for is a passion for space and astronomy.
+    </p>
+  </div>
+
+
+  <div class="faq-block">
+    <h3 class="faq-question">
+      How do I join the Astronautics Club?
+    </h3>
+    <p class="faq-answer">
+      We hold club recruitment during the second week of November every year. 
+      You can join the club by filling out the recruitment form.
+    </p>
+  </div>
+
+
+  <div class="faq-block">
+    <h3 class="faq-question">
+      How can I stay updated about club events?
+    </h3>
+    <p class="faq-answer">
+    Follow us on social media, subscribe to our newsletter, or check the announcements on our website. 
+    We also have a <a>WhatsApp Notifier Group</a> for Astronomy events.
+    </p>
+  </div>
+
+
+  <div class="faq-block">
+    <h3 class="faq-question">
+      History behind the club?
+    </h3>
+    <p class="faq-answer">
+      The Astronomy club was started by ... with the mentorship from Prof. Subhadip Mitra.
+
+    </p>
+  </div>
+
+
+  <div class="faq-block">
+    <h3 class="faq-question">
+      What kind of projects does the club work on?
+    </h3>
+    <p class="faq-answer">
+      In the past, we have worked on.
+    </p>
+  </div>
+
+
+  <div class="faq-block">
+    <h3 class="faq-question">
+      Can I suggest new activities or projects?
+    </h3>
+    <p class="faq-answer">
+      Of course! We are open to any event idea or club feedback.
+      You may share your ideas with us at this link or through our social media handles.
+    </p>
+  </div>
+</section>
 
 <!-- FOOTER -->
 <footer>
@@ -254,35 +334,4 @@ What do we do?
 </footer>
 
 </body>
-
-<script>
-  window.onscroll = function () {
-    if (
-      document.body.scrollTop > 50 ||
-      document.documentElement.scrollTop > 50
-    ) {
-      document.querySelector("nav").style.backgroundColor = "black";
-    } else {
-      document.querySelector("nav").style.backgroundColor = "transparent";
-    }
-  };
-</script>
-
-<script>
-  const s = document.getElementById("s-hover-effect");
-  const logo = document.getElementById("logo");
-  var s_clicked = false;
-  s.addEventListener("click", () => {
-    if (s_clicked) {
-      s.style.color = "white";
-      logo.src = "../images/astro_logo_small.png";
-      s_clicked = false;
-    } else {
-      s.style.color = "#d2042d";
-      logo.src = "../icons/moon.gif";
-      s_clicked = true;
-    }
-  });
-</script>
-
 </html>
