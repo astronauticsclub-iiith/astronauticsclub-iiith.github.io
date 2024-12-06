@@ -1,0 +1,23 @@
+.faq-block{
+    margin: 1em 1.5em;
+}
+
+.faq-question{
+    font-size: 1rem;
+    background-color: #dad0d0;
+    /* background-color: #f3eeee; */
+    color: black;
+    padding: 0.5em 1em;
+    cursor: pointer;
+}
+
+.faq-arrow{
+    float: right;
+    width: 1.5em;
+    margin-right: 10px;
+}
+
+.faq-answer{
+    display: none;
+    padding: 0.5em 1em;
+}
