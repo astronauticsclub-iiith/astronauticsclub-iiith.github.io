@@ -62,3 +62,20 @@
     display: none;
     padding: 0.5em 1em;
 }
+
+@media screen and (max-width: 696px) {
+    .club-intro p{
+        font-size: 1rem;
+        text-align: left;
+    }
+    
+    .faq-question{
+        font-size: 1rem;
+        padding-inline: 0.5em;
+    }
+
+    .faq-arrow{
+        margin-left: 0.5em;
+        margin-top: 0.5em;
+    }
+}
