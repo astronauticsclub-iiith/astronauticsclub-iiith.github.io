@@ -30,8 +30,7 @@
 }
 
 .who-are-we-heading{
-    font-size: 3.5em;
-    margin: 0;
+    font-size: 3.5rem;
     padding: 0.25em;
     padding-left: 0.1em;
     font-weight: 300;
@@ -55,7 +54,7 @@
 }
 
 .blank-space{
-    height: 1em;
+    height: 2em;
     background-color: #1f1e1e;;
 }
 
@@ -63,15 +62,11 @@
 
 /* For What is astronautics section */
 .what-is-astronautics-container{
-    display: grid;
-    grid-template-rows: 1fr;
-    grid-template-columns: 1fr;
-    grid-template-areas: "overlap";
+    position: relative;
     padding: 2em;
-    padding-top: 0em;
-    max-width: 100%;
-    scroll-snap-align: start;
-    justify-items: center;
+    padding-top: 0;
+    display: flex;
+    justify-content: center;
     align-items: center;
 }
 
@@ -79,43 +74,37 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
-    grid-area: overlap;
-    justify-content: center;
-    clear:both;
 }
 
 .what-is-astronautics-text-container{
-    grid-area: overlap;
+    position: absolute; /* for overlap */
     width: 80%;
     max-width: 1000px;
-    text-align: center;
+
     background-color: rgba(0, 0, 0, 0.5);
     backdrop-filter: blur(10px);
-    padding-top: 0.5em;
-    padding-bottom: 0.5em;
-    font-family: Roboto;
+    padding: 0.5em 0;
+    text-align: center;
+    
     display: flex;
     flex-direction: column;
     justify-content: center;
+    align-items: center;
 }
 
 .what-is-astronautics-heading{
     font-size: 2.3rem;
-    margin: 0px;
-    padding: 0.25em;
     font-weight: 300;
+    padding: 0.25em;
 }
 
 .what-is-astronautics-subheading{
     font-size: 1.2rem;
-    margin: 0px;
     margin-top: 1em;
 }
 
 .what-is-astronautics-content{
-    margin: 0px;
     margin-bottom: 1em;
-    font-size: 1rem;
     padding: 0em 1em;
 }
 
@@ -123,23 +112,18 @@
     border: 1px solid white;
     border-radius: 30px;
     padding: 1em 2em;
-    margin-top: 1em;
-    margin-bottom: 1em;
+    margin: 1em 0;
     text-decoration: none;
     color: black;
     background-color: white;
-    align-self: center;
-    width: 10%;
     min-width: fit-content;
 }
-
 
 .what-is-astronautics-button:hover, .what-is-astronautics-button:focus{
     cursor: pointer;
     background: none;
     color: white;
 }
-
 
 
 
@@ -150,42 +134,40 @@
     text-align: center;
     justify-content: center;
     align-items: center;
-    padding: 0 1em;
+    padding-inline: 1em;
     margin-bottom: 3em;
     word-wrap: normal;
 }
 
 .latest-updates-subheading{
     font-weight: 300;
-    margin: 0px;
     padding: 0.5em;
 }
 
 .latest-updates-heading{
     font-size: 3.5rem;
     font-weight: 300;
-    margin: 0px;
     padding-bottom: 0.5em;
     letter-spacing: 0.13rem;
 }
 
 .latest-updates-content{
-    width: 50%;
-    line-height: 1.5rem;
-    font-weight: 350;
-    color: rgb(213, 211, 211);
+    max-width: 50%;
     margin-bottom:3em;
+    color: rgb(213, 211, 211);
     
     font-size: 1.1rem;
+    font-weight: 350;
+    line-height: 1.5rem;
     letter-spacing: 0.05rem;
 }
 
 .latest-updates-posts-wrapper{
     display: flex;
-    flex-direction: row;
-    justify-content: center;
+    /* flex-flow: row wrap; */
+    justify-content: left;
+    align-content: space-between;
     gap: 3%;
-    max-width: 100%;
     letter-spacing: 0.05rem;
 }
 
@@ -194,6 +176,8 @@
     flex-direction: column;
     width: 30%;
     overflow: hidden;
+    /* min-width: 300px; */
+    text-align: left;
 }
 
 .latest-updates-blogpost-image-date-container{
@@ -242,20 +226,21 @@
 .latest-updates-blogpost-heading{
     font-size: 1.3rem;
     font-weight: 400;
+    letter-spacing: 0.03rem;
     padding: 0.5em;
     margin-bottom: 0.5em;
-    letter-spacing: 0.03rem;
     display: block;
+    text-align: center;
 }
 
 .latest-updates-blogpost-content{
+    color: rgb(213, 211, 211);
     font-size: 1rem;
     font-weight: 300;
+    line-height: 1.5em;
+    
     margin: 0em 1em;
     padding-left: 1em;
-    text-align: left;
-    color: rgb(213, 211, 211);
-    line-height: 1.5em;
 }
 
 .latest-updates-blogpost-readmore{
@@ -263,7 +248,6 @@
     color: white;
     margin-left: 2em;
     padding-top: 1em;
-    text-align: left;
 }
 
 
@@ -285,7 +269,6 @@
 
 .future-events-heading{
     margin-top: 5.5%;
-    margin-bottom: 0;
     padding: 1%;
     font-size: 3rem;
     font-weight: 300;
@@ -296,7 +279,6 @@
 .future-events-content{
     margin-top: 2%;
     margin-bottom: 5%;
-    padding: 0;
     font-size: 1.2rem;
     font-weight: 350;
     color: rgb(211, 205, 205);
@@ -342,7 +324,6 @@
 @media (max-width: 696px) {
     .who-are-we-container{
         flex-direction: column;
-        justify-items: center;
         align-items: center;
     }
 
@@ -389,13 +370,12 @@
 
     .latest-updates-posts-wrapper{
         flex-direction: column;
-        justify-items: center;
         align-items: center;
         gap: 2em;
     }
 
     .latest-updates-blogpost-subcontainer{
-        width: 95%;
+        width: 90%;
         padding: 0;
         margin: 0;
     }

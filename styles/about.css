@@ -32,9 +32,8 @@
 }
 
 .faq-subheading{
-    text-align: center;
     align-self: center;
-    width: 70%;
+    max-width: 70%;
     margin-bottom: 4em;
 }
 
