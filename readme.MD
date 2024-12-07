@@ -1,7 +1,11 @@
 ## Couple of things to keep in mind:
-- Adhere to the self explanatory folder structure when creating new files.
+- Adhere to the self explanatory directory structure when creating new files.
 
-- Write your HTML according to desktop-view and CSS according to the mobile view. Then use media queries to adjust the CSS for desktop-view, otherwise you will be overwriting a lot of CSS code.
+- Styling code should be written in a appropriatory named `.css` file and similarly for JS code as well.
+
+- Import the CSS in the `.html` file in the header and JS at the end of the body (otherwise several document.getElementById will return null).
+
+- As a suggestion, write your HTML according to desktop-view div structure and CSS styling according to the mobile view. After that use media queries to adjust the CSS for desktop-view, otherwise a lot of CSS code needs to be overwritten.
 
 - Use elaborate class names, otherwise collisions are very likely.
 

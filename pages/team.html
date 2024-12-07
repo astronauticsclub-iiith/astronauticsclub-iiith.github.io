@@ -11,10 +11,6 @@
     <link rel="stylesheet" href="../styles/font.css" />
     <link rel="stylesheet" href="../styles/commons.css" />
     <link rel="icon" href="../images/astro_logo_small.png" type="image/png" />
-
-    <!-- JS Script imports -->
-    <script src="../scripts/scroll.js"></script>
-    <script src="../scripts/mobile-navbar.js"></script>
 </head>
 
 <body>
@@ -246,34 +242,7 @@
 
 </body>
 
-<script>
-  window.onscroll = function () {
-    if (
-      document.body.scrollTop > 50 ||
-      document.documentElement.scrollTop > 50
-    ) {
-      document.querySelector("nav").style.backgroundColor = "black";
-    } else {
-      document.querySelector("nav").style.backgroundColor = "transparent";
-    }
-  };
-</script>
-
-<script>
-  const s = document.getElementById("s-hover-effect");
-  const logo = document.getElementById("logo");
-  var s_clicked = false;
-  s.addEventListener("click", () => {
-    if (s_clicked) {
-      s.style.color = "white";
-      logo.src = "../images/astro_logo_small.png";
-      s_clicked = false;
-    } else {
-      s.style.color = "#d2042d";
-      logo.src = "../icons/moon.gif";
-      s_clicked = true;
-    }
-  });
-</script>
-
+<!-- JS Script imports -->
+<script src="../scripts/scroll.js"></script>
+<script src="../scripts/mobile-navbar.js"></script>
 </html>
