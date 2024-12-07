@@ -14,3 +14,5 @@
 - `common.css` is the file which contains the styling for universal-selector, body, navbar. It should not contain any other styling.
 
 - Similarly comming stylings must be done in their respective css files e.g. footer styling must done in `footer.css`.
+
+- Use semantic tags as much as possible.

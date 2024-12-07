@@ -5,8 +5,8 @@
     display: flex;
     flex-direction: row;
     background-color: #1f1e1e;
-    padding: 0;
     padding-bottom: 1em;
+    left: 0;
 }
 
 .who-are-we-image{
@@ -236,15 +236,16 @@
 .latest-updates-blogpost-date{
     font-size: 1.2rem;
     font-weight: bold;
+    display: block;
 }
 
 .latest-updates-blogpost-heading{
     font-size: 1.3rem;
     font-weight: 400;
-    margin: 0px;
     padding: 0.5em;
     margin-bottom: 0.5em;
     letter-spacing: 0.03rem;
+    display: block;
 }
 
 .latest-updates-blogpost-content{
@@ -269,24 +270,17 @@
 
 
 /* For Future events section */
-.future-events-container{
-    display: grid;
-    grid-template-rows: 1fr;
-    grid-template-columns: 1fr;
-    grid-template-areas: "overlap";
-    margin-bottom: 1em;
 
+.future-events-content-container{
     background-image: url('../images/future_events_cropped.jpg');
     background-size: cover;
     background-position: bottom center;
-}
 
-.future-events-content-container{
-    grid-area: overlap;
     display: flex;
     flex-direction: column;
     text-align: center;
     align-items: center;
+    margin-bottom: 1em;
 }
 
 .future-events-heading{

@@ -38,17 +38,17 @@
     margin-bottom: 4em;
 }
 
-.faq-block{
+details{
     margin: 0.3em 1.5em;
 }
 
-.faq-question{
+summary{
     font-size: 1.2rem;
     background-color: #afadad;
-    /* background-color: #f3eeee; */
     color: black;
     padding: 0.5em 1.5em;
     cursor: pointer;
+    list-style: none;
 }
 
 .faq-arrow{
@@ -69,7 +69,7 @@
         text-align: left;
     }
     
-    .faq-question{
+    summary{
         font-size: 1rem;
         padding-inline: 0.5em;
     }

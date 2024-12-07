@@ -1,7 +1,7 @@
 let mobileNavbarOn = false;
 
 function showMobileNavbar() {
-    const sidebar = document.querySelector("asside");
+    const sidebar = document.querySelector("aside");
     const body = document.querySelector("body");
     
     if(mobileNavbarOn){

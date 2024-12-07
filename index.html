@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Club website of Astronautics Club" />
+    <meta name="keywords" content="Astronomy, Space, Astronautics Club, IIIT Hyderabad" />
     <title>Astronautics Club IIITH</title>
     
     <!-- CSS Files -->
@@ -66,7 +68,7 @@
     />
   </nav>
   
-  <asside>
+  <aside>
     <ul class="mobile-nav">
       <li><a href="index.html" class="active">Home</a>
       <li><a href="pages/blogs.html">Blogs</a>
@@ -74,9 +76,12 @@
       <li><a href="pages/team.html">Members</a>
       <li><a href="pages/about.html">About</a>
     </ul>
-  </asside>
+  </aside>
 </header>
 
+<!-- MAIN CONTENT -->
+<main>
+  
 <!-- Shooting stars -->
 <section class="hero">
   <section class="stars-container">
@@ -111,40 +116,38 @@
   </div>
 </section>
 
-  <svg class="separator" viewBox="0 24 150 28 " preserveAspectRatio="none">
-    <defs>
-      <path
-        id="gentle-wave"
-        d="M-160 44c30 0 
-  58-18 88-18s
-  58 18 88 18 
-  58-18 88-18 
-  58 18 88 18
-  v44h-352z"
-      />
-    </defs>
-    <g class="parallax1">
-      <use xlink:href="#gentle-wave" x="50" y="3" fill="#b62f84" />
-    </g>
-    <g class="parallax2">
-      <use xlink:href="#gentle-wave" x="50" y="0" fill="#161148" />
-    </g>
-    <g class="parallax3">
-      <use xlink:href="#gentle-wave" x="50" y="9" fill="#6a71af" />
-    </g>
-    <g class="parallax4">
-      <use xlink:href="#gentle-wave" x="50" y="6" fill="#1f1e1e" />
-    </g>
-  </svg>
-
-<!-- MAIN CONTENT -->
+<svg class="separator" viewBox="0 24 150 28 " preserveAspectRatio="none">
+  <defs>
+    <path
+      id="gentle-wave"
+      d="M-160 44c30 0 
+58-18 88-18s
+58 18 88 18 
+58-18 88-18 
+58 18 88 18
+v44h-352z"
+    />
+  </defs>
+  <g class="parallax1">
+    <use xlink:href="#gentle-wave" x="50" y="3" fill="#b62f84" />
+  </g>
+  <g class="parallax2">
+    <use xlink:href="#gentle-wave" x="50" y="0" fill="#161148" />
+  </g>
+  <g class="parallax3">
+    <use xlink:href="#gentle-wave" x="50" y="9" fill="#6a71af" />
+  </g>
+  <g class="parallax4">
+    <use xlink:href="#gentle-wave" x="50" y="6" fill="#1f1e1e" />
+  </g>
+</svg>
 
 <!-- About Us -->
 <section class="who-are-we-container roboto-light">
-  <img src="images/club_collage.png" class="who-are-we-image"></img>
+  <img src="images/club_collage.png" class="who-are-we-image" />
   <div class="who-are-we-content-container">
-    <h3 class="who-are-we-subheading roboto-light">Who Are We</h3>
-    <p class="who-are-we-heading">A Bunch Of Astromaniacs!</p>
+    <h1 class="who-are-we-subheading roboto-light">Who Are We</h1>
+    <h2 class="who-are-we-heading">A Bunch Of Astromaniacs!</h2>
     <p class="who-are-we-content">
       We are the Astronomy and Space Technology Club at IIIT Hyderabad, a vibrant community united by a shared passion for exploring the universe. 
       From stargazing sessions, star parties to hands-on workshops and exciting projects, we bring space science to life for enthusiasts of all levels.
@@ -155,11 +158,11 @@
   </div>
 </section>
 
-<section class="blank-space"></section>
+<div class="blank-space"></div>
 
 <!-- What is Astronautics? -->
 <section class="what-is-astronautics-container">
-  <img class="what-is-astronautics-image" src="images/astronautics_bg3.png">
+  <img class="what-is-astronautics-image" src="images/astronautics_bg3.png" />
   
   <div class="what-is-astronautics-text-container">
     <h5 class="what-is-astronautics-subheading roboto-light">What is Astronautics?</h5>
@@ -172,7 +175,6 @@
     <a class="what-is-astronautics-button roboto-light" href="pages/404.html">
       Learn More
     </a>
-
   </div>
 </section>
 
@@ -187,12 +189,12 @@
 
   <div class="latest-updates-posts-wrapper">
     <!-- Lastest blog/news -->
-    <div class="latest-updates-blogpost-subcontainer">
+    <article class="latest-updates-blogpost-subcontainer">
       <div class="latest-updates-blogpost-image-date-container">
         <img class="latest-updates-blogpost-image" src="images/blog_1.jpg" />
         <div class="latest-updates-blogpost-date-wrapper">
-          <div class="latest-updates-blogpost-date">14</div>
-          <div class="latest-updates-blogpost-month">Feb</div>
+          <span class="latest-updates-blogpost-date">14</span>
+          <span class="latest-updates-blogpost-month">Feb</span>
         </div>
       </div>
       
@@ -201,15 +203,16 @@
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin quis aliquet sapien. Donec velit lacus, mollis eu…
       </p>
       <a class="latest-updates-blogpost-readmore" href="pages/404.html">read more</a>
-    </div>
+    </article>
+
 
     <!-- Second latest blog/news -->
-    <div class="latest-updates-blogpost-subcontainer">
+    <article class="latest-updates-blogpost-subcontainer">
       <div class="latest-updates-blogpost-image-date-container">
         <img class="latest-updates-blogpost-image" src="images/blog_1.jpg" />
         <div class="latest-updates-blogpost-date-wrapper">
-          <div class="latest-updates-blogpost-date">14</div>
-          <div class="latest-updates-blogpost-month">Feb</div>
+          <span class="latest-updates-blogpost-date">14</span>
+          <span class="latest-updates-blogpost-month">Feb</span>
         </div>
       </div>
       
@@ -218,15 +221,16 @@
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin quis aliquet sapien. Donec velit lacus, mollis eu…
       </p>
       <a class="latest-updates-blogpost-readmore" href="pages/404.html">read more</a>
-    </div>
+    </article>
+
 
     <!-- third latest blog/news -->
-    <div class="latest-updates-blogpost-subcontainer">
+    <article class="latest-updates-blogpost-subcontainer">
       <div class="latest-updates-blogpost-image-date-container">
         <img class="latest-updates-blogpost-image" src="images/blog_1.jpg" />
         <div class="latest-updates-blogpost-date-wrapper">
-          <div class="latest-updates-blogpost-date">14</div>
-          <div class="latest-updates-blogpost-month">Feb</div>
+          <span class="latest-updates-blogpost-date">14</span>
+          <span class="latest-updates-blogpost-month">Feb</span>
         </div>
       </div>
       
@@ -235,7 +239,7 @@
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin quis aliquet sapien. Donec velit lacus, mollis eu…
       </p>
       <a class="latest-updates-blogpost-readmore" href="pages/404.html">read more</a>
-    </div>
+    </article>
   </div>
 </section>
 
@@ -325,8 +329,7 @@
     </div>
 </section> -->
 
-<section class="future-events-container">
-  <div class="future-events-content-container roboto-light">
+<section class="future-events-content-container roboto-light">
     <h5 class="future-events-heading">Future Events</h5>
     <p class="future-events-content">
       Take a look at our lineup of upcoming events, and feel free to suggest ideas — you could help shape our next big adventure!
@@ -334,12 +337,13 @@
     <a class="future-events-button" href="pages/404.html">
       Join the Journey
     </a>
-  </div>
 </section>
+</main>
 
 <!-- FOOTER -->
 <footer>
     <div class="common-footer">
+      
       <!-- Club info footer section -->
       <div class="footer-club-info-section">
         <img
@@ -347,18 +351,18 @@
           class="footer-club-info-section-logo"
           alt="Club logo"
         />
-        <div class="footer-club-name">
+        <h2 class="footer-club-name">
           Astronautics Club
-        </div>
-        <div class="footer-club-moto">
+        </h2>
+        <p class="footer-club-moto">
           Confining our attentions to terrestial matters
           would be to limit the human spirit. Join us to look beyond the horizon.
-        </div>
+        </p>
       </div>
 
       <!-- Quick links footer section -->
       <div class="footer-quick-nav-section">
-        <div class="footer-heading">Links</div>
+        <h3 class="footer-heading">Links</h3>
         <a href="index.html" class="footer-nav-text">Home</a>  <br>
         <a href="pages/blogs.html" class="footer-nav-text">Blogs</a> <br>
         <a href="pages/gallery.html" class="footer-nav-text">Gallery</a> <br>
@@ -367,48 +371,45 @@
       </div>
 
       <!-- Reach us footer section -->
-      <div class="footer-reach-us-section">
+      <address class="footer-reach-us-section">
         <div class="footer-heading">Reach Us</div>
 
         <div class="footer-text">
           Astronautics Club, IIIT Hyderabad<br />
 
           <!-- Mail ID -->
-          <a
-            href="mailto:astronauticsclub@students.iiit.ac.in"
-            class="footer-mail-id"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="16"
-              height="16"
-              fill="currentColor"
-              class="bi bi-envelope"
-              viewBox="0 0 16 16"
-            >
-              <path
-                d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1zm13 2.383-4.708 2.825L15 11.105zm-.034 6.876-5.64-3.471L8 9.583l-1.326-.795-5.64 3.47A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.741M1 11.105l4.708-2.897L1 5.383z"
-              />
-            </svg>
+          <a class="footer-mail-id" href="mailto:astronauticsclub@students.iiit.ac.in">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                fill="currentColor"
+                class="bi bi-envelope"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1zm13 2.383-4.708 2.825L15 11.105zm-.034 6.876-5.64-3.471L8 9.583l-1.326-.795-5.64 3.47A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.741M1 11.105l4.708-2.897L1 5.383z"
+                />
+              </svg>
             &nbsp astronauticsclub@students.iiit.ac.in
           </a>
-          <br />
+          <br>
 
           <!-- Phone number -->
           <a href="tel:+919899199660" class="footer-phone-number">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="16"
-              height="16"
-              fill="currentColor"
-              class="bi bi-telephone"
-              viewBox="0 0 16 16"
-            >
-              <path
-                d="M3.654 1.328a.678.678 0 0 0-1.015-.063L1.605 2.3c-.483.484-.661 1.169-.45 1.77a17.6 17.6 0 0 0 4.168 6.608 17.6 17.6 0 0 0 6.608 4.168c.601.211 1.286.033 1.77-.45l1.034-1.034a.678.678 0 0 0-.063-1.015l-2.307-1.794a.68.68 0 0 0-.58-.122l-2.19.547a1.75 1.75 0 0 1-1.657-.459L5.482 8.062a1.75 1.75 0 0 1-.46-1.657l.548-2.19a.68.68 0 0 0-.122-.58zM1.884.511a1.745 1.745 0 0 1 2.612.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.68.68 0 0 0 .178.643l2.457 2.457a.68.68 0 0 0 .644.178l2.189-.547a1.75 1.75 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.6 18.6 0 0 1-7.01-4.42 18.6 18.6 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877z"
-              />
-            </svg>
-            &nbsp +91 9899199660
+              <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  fill="currentColor"
+                  class="bi bi-telephone"
+                  viewBox="0 0 16 16"
+              >
+                <path
+                  d="M3.654 1.328a.678.678 0 0 0-1.015-.063L1.605 2.3c-.483.484-.661 1.169-.45 1.77a17.6 17.6 0 0 0 4.168 6.608 17.6 17.6 0 0 0 6.608 4.168c.601.211 1.286.033 1.77-.45l1.034-1.034a.678.678 0 0 0-.063-1.015l-2.307-1.794a.68.68 0 0 0-.58-.122l-2.19.547a1.75 1.75 0 0 1-1.657-.459L5.482 8.062a1.75 1.75 0 0 1-.46-1.657l.548-2.19a.68.68 0 0 0-.122-.58zM1.884.511a1.745 1.745 0 0 1 2.612.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.68.68 0 0 0 .178.643l2.457 2.457a.68.68 0 0 0 .644.178l2.189-.547a1.75 1.75 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.6 18.6 0 0 1-7.01-4.42 18.6 18.6 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877z"
+                />
+              </svg>
+              &nbsp +91 9899199660
           </a>
         </div>
 
@@ -489,21 +490,20 @@
           </a>
         </div>
 
-      </div>
+      </address>
 
       
     </div>
 
 
-    <div class="copyright-text">
+    <span class="copyright-text">
       Copyright © 2024 Astronautics Club, IIIT Hyderabad
-    </div>
+    </span>
 </footer>
 
 </body>
 
 <!-- JS Script imports -->
-<script src="scripts/scroll.js"></script>
 <script src="scripts/scroll-down-arrow.js"></script>
 <script src="scripts/s-hover-effect.js"></script>
 <script src="scripts/mobile-navbar.js"></script>
