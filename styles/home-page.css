@@ -175,7 +175,6 @@
     display: flex;
     flex-direction: column;
     width: 30%;
-    overflow: hidden;
     /* min-width: 300px; */
     text-align: left;
 }
@@ -186,6 +185,7 @@
     grid-template-columns: 6fr;
     grid-template-areas: "overlap";
     position: relative;
+    overflow: hidden;
 }
 
 .latest-updates-blogpost-image{

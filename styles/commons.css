@@ -12,6 +12,7 @@ html{
 
 body {
   background-color: #000000;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
 
@@ -23,6 +24,10 @@ body {
 
   transition: all 0.2s ease-in-out;
   -webkit-tap-highlight-color: transparent;
+}
+
+main{
+  flex-grow: 1;
 }
 
 header {
