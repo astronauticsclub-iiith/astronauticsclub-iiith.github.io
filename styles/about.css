@@ -78,3 +78,16 @@ summary{
         margin-top: 0.5em;
     }
 }
+
+canvas{
+    display: inline-block;
+}
+
+canvas#dst:hover {
+	cursor: none;
+}
+
+span, a{
+  color: #dedede;
+  padding: 5px 10px;
+}
