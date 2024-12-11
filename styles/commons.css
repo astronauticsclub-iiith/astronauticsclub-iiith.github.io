@@ -1,4 +1,5 @@
 /* Navbar and Common properties for html, body */
+@import url('font.css');
 
 *{
   box-sizing: border-box;

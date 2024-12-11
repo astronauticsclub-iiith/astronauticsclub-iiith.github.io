@@ -181,8 +181,8 @@
 
 .latest-updates-blogpost-image-date-container{
     display: grid;
-    grid-template-rows: 6fr;
-    grid-template-columns: 6fr;
+    grid-template-rows: 1fr;
+    grid-template-columns: 1fr;
     grid-template-areas: "overlap";
     position: relative;
     overflow: hidden;
@@ -215,6 +215,7 @@
     padding: 0.35em 0.75em;
     align-self: flex-end;
     grid-area: overlap;
+    text-align: center;
 }
 
 .latest-updates-blogpost-date{
