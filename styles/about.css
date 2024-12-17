@@ -7,10 +7,15 @@ main{
     clear: both;
 }
 
+#dst{
+    display: none;
+}
+
 .club-intro{
     width: 80%;
     margin-left: 10%;
     z-index: 10;
+    display: none;
 }
 
 .club-intro h1{
@@ -18,7 +23,6 @@ main{
     font-weight: 300;
     letter-spacing: 0.01em;
     margin: 0;
-    /* text-align: center; */
 }
 
 .club-intro p{
@@ -31,6 +35,7 @@ main{
     display: flex;
     flex-direction: column;
     justify-items: center;
+    width: 80%;
 }
 
 .faq-heading{
@@ -38,38 +43,41 @@ main{
     font-weight: 300;
     letter-spacing: 0.01em;
     text-align: center;
-    margin: 0;
 }
 
 .faq-subheading{
     align-self: center;
     max-width: 70%;
-    margin-bottom: 4em;
+    margin-bottom: 2em;
+    font-weight: 300;
 }
 
 details{
     margin: 0.3em 1.5em;
+    align-self: center;
+    width: 100%;
 }
 
-summary{
-    font-size: 1.2rem;
+details summary{
     background-color: #afadad;
     color: black;
     padding: 0.5em 1.5em;
-    cursor: pointer;
+    font-size: 1.2rem;
     list-style: none;
+    cursor: pointer;
 }
 
 .faq-arrow{
     float: right;
-    align-self: center;
-    width: 0.7em;
     margin-top: 0.5em;
 }
 
 .faq-answer{
-    display: none;
-    padding: 0.5em 1em;
+    padding: 0.5em 1.5em;
+}
+
+.faq-highlight{
+    background-color: #eae5e5;
 }
 
 @media screen and (max-width: 696px) {
@@ -91,8 +99,6 @@ summary{
 
 canvas{
     display: inline-block;
-    /* position: absolute;
-    top: 0; */
 }
 
 canvas#dst:hover {

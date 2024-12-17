@@ -16,9 +16,11 @@
     <link rel="stylesheet" href="../styles/font.css" />
     <link rel="stylesheet" href="../styles/commons.css" />
     <link rel="stylesheet" href="../styles/about.css" />
-    <link rel="icon" href="../images/astro_logo_small.png" type="image/png" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
     <!-- JS Script imports -->
+    <script src="../scripts/faq-block.js" defer></script>
+    <!-- <script src="../scripts/gravitational-lensing.js" defer></script> -->
     <script src="../scripts/main.js" defer></script>
     <script src="../scripts/mobile-navbar.js" defer></script>
     <script src="../scripts/scroll.js" defer></script>
@@ -29,7 +31,6 @@
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
-
       gtag('config', 'G-KNJ0N81KHR');
     </script>
 </head>
@@ -95,16 +96,14 @@
   </aside>
 </header>
 
-<!-- MAIN CONTENT -->
 <main>
+  
+<!-- <section class="club-intro roboto-light hidden" id="clubContent">
 <canvas id="dst" width="1024" height="512">
-
-<section class="club-intro roboto-light hidden" id="clubContent">
   <h1 class="about-us-heading">About Us</h1>
   <p class="about-us-content">
     Who hasn't been captivated by the serene vastness of the midnight sky, 
     mesmerized by the gentle glow of the moon or awestruck at the sight of a shooting star?
-    <!-- <br style="content: 'A'; display: block; margin-bottom: 0.2rem;"> -->
     The universe beckons with its mysteries and wonders, inviting us to explore and connect 
     with its infinite beauty. If you’ve ever yearned to deepen this connection, look no 
     further—this is your gateway into your childhood dream.
@@ -118,24 +117,24 @@
     everyone.
     
   </p>
-</section>
-
 </canvas>
+</section> -->
+
 
 <section class="faq-container roboto-light">
   <h1 class="faq-heading">Frequently Asked Question</h1>
-  <p class="faq-subheading">
+  <h3 class="faq-subheading">
     Curious about who we are and what we do? Find all your answers here!
-  </p>
+  </h3>
 
-  <details class="faq-block">
-    <summary id="question_1" class="faq-question" onclick="toggle_answer(1)">
+  <details>
+    <summary id="question_1" onclick="toggle_answer(1)">
       What kind of activities does the club organize?
-      <img id="arrow_1" class="faq-arrow" src="../icons/down_arrow.png" />
+      <i id="arrow_1" class="fa-solid fa-caret-down faq-arrow"></i>
     </summary>
-    <div id="ans_1" class="faq-answer">
+    <div class="faq-answer">
       Our activities include:
-      <ul>
+      <ul style="list-style-position: inside;">
         <li>Stargazing nights using telescopes
         <li>Space-related workshops and guest lectures
         <li>Rocketry and space engineering projects
@@ -146,82 +145,82 @@
   </details>
 
 
-  <details class="faq-block">
-    <summary id="question_2" class="faq-question" onclick="toggle_answer(2)">
+  <details>
+    <summary id="question_2" onclick="toggle_answer(2)">
       Who can join the club?
-      <img id="arrow_2" class="faq-arrow" src="../icons/down_arrow.png" />
+      <i id="arrow_2" class="fa-solid fa-caret-down faq-arrow"></i>
     </summary>
-    <p id="ans_2" class="faq-answer">
+    <p class="faq-answer">
       The club is open to any IIIT student, regardless of their background or expertise level.  
       The only prerequiste we ask for is a passion for space and astronomy.
     </p>
   </details>
 
 
-  <details class="faq-block">
-    <summary id="question_3" class="faq-question" onclick="toggle_answer(3)">
+  <details>
+    <summary id="question_3" onclick="toggle_answer(3)">
       How do I join the Astronautics Club?
-      <img id="arrow_3" class="faq-arrow" src="../icons/down_arrow.png" />
+      <i id="arrow_3" class="fa-solid fa-caret-down faq-arrow"></i>
     </summary>
-    <p id="ans_3" class="faq-answer">
+    <p class="faq-answer">
       We hold club recruitment during the second week of November every year. 
       You can join the club by filling out the recruitment form.
     </p>
   </details>
 
 
-  <details class="faq-block">
-    <summary id="question_4" class="faq-question" onclick="toggle_answer(4)">
+  <details>
+    <summary id="question_4" onclick="toggle_answer(4)">
       How can I stay updated about club events?
-      <img id="arrow_4" class="faq-arrow" src="../icons/down_arrow.png" />
+      <i id="arrow_4" class="fa-solid fa-caret-down faq-arrow"></i>
     </summary>
-    <p id="ans_4" class="faq-answer">
+    <p class="faq-answer">
       Follow us on social media, subscribe to our newsletter, or check the announcements on our website. 
-      We also have a <a>WhatsApp Notifier Group</a> for Astronomy events.
+      We also have a <a href="">WhatsApp Notifier Group</a> for Astronomy events.
     </p>
   </details>
 
 
-  <details class="faq-block">
-    <summary id="question_5" class="faq-question" onclick="toggle_answer(5)">
+  <details>
+    <summary id="question_5" onclick="toggle_answer(5)">
       History behind the club?
-      <img id="arrow_5" class="faq-arrow" src="../icons/down_arrow.png" />
+      <i id="arrow_5" class="fa-solid fa-caret-down faq-arrow"></i>
     </summary>
-    <p id="ans_5" class="faq-answer">
+    <p class="faq-answer">
       The Astronomy club was started by ... with the mentorship from Prof. Subhadip Mitra.
     </p>
   </details>
 
 
-  <details class="faq-block">
-    <summary id="question_6" class="faq-question" onclick="toggle_answer(6)">
+  <details>
+    <summary id="question_6" onclick="toggle_answer(6)">
       What kind of projects does the club work on?
-      <img id="arrow_6" class="faq-arrow" src="../icons/down_arrow.png" />
+      <i id="arrow_6" class="fa-solid fa-caret-down faq-arrow"></i>
     </summary>
-    <p id="ans_6" class="faq-answer">
+    <p class="faq-answer">
       In the past, we have worked on.
     </p>
   </details>
 
 
-  <details class="faq-block">
-    <summary id="question_7" class="faq-question" onclick="toggle_answer(7)">
+  <details>
+    <summary id="question_7" onclick="toggle_answer(7)">
       I'm interested in learning about Astronomy and Astrophysics.
       Where do I start learning from?
-      <img id="arrow_7" class="faq-arrow" src="../icons/down_arrow.png" />
+      <i id="arrow_7" class="fa-solid fa-caret-down faq-arrow"></i>
     </summary>
-    <p id="ans_7" class="faq-answer">
+    <p class="faq-answer">
       We wrote a blog on introduction to Astronomy here.
     </p>
   </details>
 
 
-  <details class="faq-block">
-    <summary id="question_8" class="faq-question" onclick="toggle_answer(8)">
+  <details>
+    <summary id="question_8" onclick="toggle_answer(8)">
       Can I suggest new activities or projects?
-      <img id="arrow_8" class="faq-arrow" src="../icons/down_arrow.png" />
+      <i id="arrow_8" class="fa-solid fa-caret-down faq-arrow"></i>
     </summary>
-    <p id="ans_8" class="faq-answer">
+    <p class="faq-answer">
       Of course! We are open to any event idea or club feedback.
       You may share your ideas with us at this link or through our social media handles.
     </p>
@@ -229,7 +228,6 @@
 </section>
 </main>
 
-<!-- FOOTER -->
 <footer> 
     <!-- Club info footer section -->
     <div class="footer-club-info-section">
@@ -384,12 +382,6 @@
   <span class="nowrap">Copyright © <time id="yearId"></time> </span>
   <span class="nowrap">&nbsp Astronautics Club, IIIT Hyderabad</span>
 </h4>
+
 </body>
-
-<!-- JS Script imports -->
-<script src="../scripts/scroll.js"></script>
-<script src="../scripts/mobile-navbar.js"></script>
-<script src="../scripts/faq-block.js"></script>
-<script src="../scripts/gravitational-lensing.js"></script>
-
 </html>

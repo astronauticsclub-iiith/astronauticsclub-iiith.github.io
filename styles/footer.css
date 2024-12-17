@@ -1,3 +1,16 @@
+/* Copyright line section */
+.copyright-text {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  color: white;
+  font-size: 0.75rem;
+  font-weight: 300;
+  margin-top: 1em;
+  margin-bottom: 0.3em;
+  width: 100%;
+}
+
 footer{
   bottom: 0;
   display: flex;
@@ -58,7 +71,7 @@ footer{
 /* Quick nav section of footer */
 .footer-quick-nav-section{
   padding: 0.5em;
-  width: 15vw;
+  width: 10%;
   flex-direction: column;
   justify-content: center;
   text-align: left;
@@ -84,7 +97,6 @@ footer{
 .footer-reach-us-section {
   line-height: 2rem;
   font-style: normal;
-  width: 28vw;
 }
 
 .footer-reach-us-section a {
@@ -141,19 +153,6 @@ footer{
 
 .discord:hover, .discord:focus{
   fill: #5865f2;
-}
-
-/* Copyright line section */
-.copyright-text {
-  display: flex;
-  justify-content: center;
-  text-align: center;
-  margin: auto;
-  color: white;
-  font-size: 0.75rem;
-  font-weight: 300;
-  margin-top: 1em;
-  margin-bottom: 0.3em;
 }
 
 
