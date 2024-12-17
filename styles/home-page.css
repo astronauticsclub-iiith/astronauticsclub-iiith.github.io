@@ -1,6 +1,6 @@
 /* For index.html file */
 
-/* Who are we section */
+/************************* Section: Who are we *************************/
 .who-are-we-container{
     display: flex;
     flex-direction: row;
@@ -60,7 +60,7 @@
 
 
 
-/* For What is astronautics section */
+/********************* Section: What is astronautics ******************/
 .what-is-astronautics-container{
     position: relative;
     padding: 2em;
@@ -127,7 +127,7 @@
 
 
 
-/* For Latest Events and Blog section */
+/***************** Section: Latest Events and Blog section ************/
 .latest-updates-container{
     display: flex;
     flex-direction: column;
@@ -254,7 +254,7 @@
 
 
 
-/* For Future events section */
+/*********************** Section: Future events ***********************/
 
 .future-events-content-container{
     background-image: url('../images/future_events_cropped.jpg');
@@ -269,30 +269,29 @@
 }
 
 .future-events-heading{
-    margin-top: 5.5%;
-    padding: 1%;
+    color: white;
     font-size: 3rem;
     font-weight: 300;
-    color: white;
+    margin-top: 5.5%;
     padding: 3% 5% 1% 5%;
 }
 
 .future-events-content{
-    margin-top: 2%;
-    margin-bottom: 5%;
     font-size: 1.2rem;
     font-weight: 350;
     color: rgb(211, 205, 205);
     width: 50%;
+    margin-top: 2%;
+    margin-bottom: 5%;
 }
 
 .future-events-button{
-    width: max-content;
     background-color: white;
     color: black;
     text-decoration: none;
-    margin-bottom: 5%;
 
+    width: max-content;
+    margin-bottom: 5%;
     padding: 1em;
     border-radius: 2em;
     border: 1px solid white;
@@ -301,11 +300,10 @@
 .future-events-button:hover, .future-events-button:focus{
     background: none;
     color: white;
-    border: 1px solid white;
 }
 
 
-/* Media queries for responsiveness (Tablets) */
+/***************** Media queries for responsiveness (Tablets) ************/
 @media screen and (max-width:1000px) {
     .who-are-we-subheading{
         font-size: 3vw;
@@ -321,9 +319,12 @@
 }
 
 
-/* Media queries for responsiveness (Mobile) */ 
+/******************* Media queries for responsiveness (Mobile) ********/ 
 @media (max-width: 696px) {
+    
+    /************** Section: Who are we section **********/
     .who-are-we-container{
+        padding-top: 1.5em;
         flex-direction: column;
         align-items: center;
     }
@@ -337,6 +338,7 @@
     .who-are-we-content-container{
         padding: 1em;
         text-align: center;
+        display: none;
     }
 
     .who-are-we-subheading{
@@ -349,13 +351,29 @@
     }
 
     .who-are-we-content{
-        /* padding: 0 2em; */
         text-align: center;
         font-size: 1rem;
     }
 
+    /************** Section: What is astronautics **********/
+    .what-is-astronautics-container{
+        margin-bottom: 2em;
+        padding: 1em;
+    }
+
     .what-is-astronautics-text-container{
         width: 90vw;
+        max-width: 80%;
+    }
+
+    .what-is-astronautics-image{
+        width: 100%;
+        object-fit: cover;
+    }
+
+    /************** Section: Events and blogs ************/
+    .latest-updates-content{
+        width: 80%;
     }
 
     .latest-updates-heading {
@@ -363,10 +381,6 @@
         font-size: 10vw;
         margin: 0;
         padding: 0;
-    }
-
-    .latest-updates-content{
-        width: 80%;
     }
 
     .latest-updates-posts-wrapper{
@@ -381,6 +395,7 @@
         margin: 0;
     }
 
+    /*************** Section: Future events **********/
     .future-events-heading{
         margin-inline: 4%;
         margin-bottom: 4%;
@@ -392,20 +407,5 @@
 
     .future-events-button{
         margin-bottom: 15%;
-    }
-
-    .what-is-astronautics-container{
-        margin-bottom: 2em;
-        padding: 1em;
-    }
-
-    .what-is-astronautics-image{
-        width: 100%;
-        height: 120%;
-        object-fit: cover;
-    }
-
-    .what-is-astronautics-text-container{
-        max-width: 80%;
     }
 }

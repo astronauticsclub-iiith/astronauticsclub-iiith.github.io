@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Club website of Astronautics Club" />
+    <meta name="description" content="Official club website of Astronautics Club" />
     <meta name="keywords" content="Astronomy, Space, Astronautics Club, IIIT Hyderabad" />
     <title>Astronautics Club IIITH</title>
     
@@ -14,21 +14,28 @@
     <link rel="stylesheet" href="styles/shooting-stars.css" />
     <link rel="stylesheet" href="styles/home-page.css" />
     <link rel="stylesheet" href="styles/neumorphism.css" />
-    <link rel="icon" href="images/astro_logo_small.png" type="image/png" />
+    <!-- <link rel="icon" href="images/astro_logo_small.png" type="image/png" /> -->
+
+    <!-- JS Script imports -->
+  <script src="scripts/main.js" defer></script>
+  <script src="scripts/mobile-navbar.js" defer></script>
+  <script src="scripts/scroll-down-arrow.js" defer></script>
+  <script src="scripts/s-hover-effect.js" defer></script>
+
+  <!-- Google tag (gtag.js) for Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-KNJ0N81KHR"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+  
+    gtag('config', 'G-KNJ0N81KHR');
+  </script>
+
 </head>
 
-<!-- Google tag (gtag.js) for Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-KNJ0N81KHR"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-KNJ0N81KHR');
-</script>
 
 <body>
-
 <header>
   <nav class="desktop-nav">
     <div>
@@ -89,7 +96,6 @@
   </aside>
 </header>
 
-<!-- MAIN CONTENT -->
 <main>
   
 <!-- Shooting stars -->
@@ -126,6 +132,7 @@
   </div>
 </section>
 
+<!-- Wave animation -->
 <svg class="separator" viewBox="0 24 150 28 " preserveAspectRatio="none">
   <defs>
     <path
@@ -152,7 +159,7 @@ v44h-352z"
   </g>
 </svg>
 
-<!-- About Us -->
+<!-- Section: About Us -->
 <section class="who-are-we-container roboto-light">
   <img src="images/club_collage.png" class="who-are-we-image" />
   <div class="who-are-we-content-container">
@@ -170,7 +177,7 @@ v44h-352z"
 
 <div class="blank-space"></div>
 
-<!-- What is Astronautics? -->
+<!-- Section: What is Astronautics? -->
 <section class="what-is-astronautics-container">
   <img class="what-is-astronautics-image" src="images/astronautics_bg3.png" />
   
@@ -189,7 +196,7 @@ v44h-352z"
 </section>
 
 
-<!-- Latest updates section -->
+<!-- Section: Latest updates section -->
 <section class="latest-updates-container roboto-light">
   <h3 class="latest-updates-subheading">Our Blog</h3>
   <h1 class="latest-updates-heading">Events & Blog</h1>
@@ -339,7 +346,7 @@ v44h-352z"
     </div>
 </section> -->
 
-<section class="future-events-content-container roboto-light">
+<article class="future-events-content-container roboto-light">
     <h5 class="future-events-heading">Future Events</h5>
     <p class="future-events-content">
       Take a look at our lineup of upcoming events, and feel free to suggest ideas — you could help shape our next big adventure!
@@ -347,13 +354,10 @@ v44h-352z"
     <a class="future-events-button" href="pages/404.html">
       Join the Journey
     </a>
-</section>
+</article>
 </main>
 
-<!-- FOOTER -->
 <footer>
-    <div class="common-footer">
-      
       <!-- Club info footer section -->
       <div class="footer-club-info-section">
         <img
@@ -501,20 +505,12 @@ v44h-352z"
         </div>
 
       </address>
-
-      
-    </div>
-
-
-    <span class="copyright-text">
-      Copyright © 2024 Astronautics Club, IIIT Hyderabad
-    </span>
 </footer>
+
+<h4 class="copyright-text">
+  Copyright © <time id="yearId"></time>
+  &nbspAstronautics Club, IIIT Hyderabad
+</h4>
+
 </body>
-
-<!-- JS Script imports -->
-<script src="scripts/scroll-down-arrow.js"></script>
-<script src="scripts/s-hover-effect.js"></script>
-<script src="scripts/mobile-navbar.js"></script>
-
 </html>

@@ -14,17 +14,22 @@
     <link rel="stylesheet" href="../styles/commons.css" />
     <link rel="stylesheet" href="../styles/about.css" />
     <link rel="icon" href="../images/astro_logo_small.png" type="image/png" />
+
+    <!-- JS Script imports -->
+    <script src="../scripts/main.js" defer></script>
+    <script src="../scripts/mobile-navbar.js" defer></script>
+    <script src="../scripts/scroll.js" defer></script>
+
+    <!-- Google tag (gtag.js) for Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-KNJ0N81KHR"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-KNJ0N81KHR');
+    </script>
 </head>
-
-<!-- Google tag (gtag.js) for Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-KNJ0N81KHR"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-KNJ0N81KHR');
-</script>
 
 <body>
   
@@ -89,7 +94,9 @@
 
 <!-- MAIN CONTENT -->
 <main>
-<section class="club-intro roboto-light">
+<canvas id="dst" width="1024" height="512">
+
+<section class="club-intro roboto-light hidden" id="clubContent">
   <h1 class="about-us-heading">About Us</h1>
   <p class="about-us-content">
     Who hasn't been captivated by the serene vastness of the midnight sky, 
@@ -106,11 +113,10 @@
     <br><br>
     Whether you’re a seasoned astronomer or just starting your journey, we have something for
     everyone.
+    
   </p>
 </section>
 
-<canvas id="dst" width="1024" height="512">
-  Random Canvas
 </canvas>
 
 <section class="faq-container roboto-light">
@@ -221,9 +227,7 @@
 </main>
 
 <!-- FOOTER -->
-<footer>
-  <div class="common-footer">
-    
+<footer> 
     <!-- Club info footer section -->
     <div class="footer-club-info-section">
       <img
@@ -371,16 +375,12 @@
       </div>
 
     </address>
-
-    
-  </div>
-
-
-  <span class="copyright-text">
-    Copyright © 2024 Astronautics Club, IIIT Hyderabad
-  </span>
 </footer>
-
+  
+<h4 class="copyright-text">
+  <span class="nowrap">Copyright © <time id="yearId"></time> </span>
+  <span class="nowrap">&nbsp Astronautics Club, IIIT Hyderabad</span>
+</h4>
 </body>
 
 <!-- JS Script imports -->

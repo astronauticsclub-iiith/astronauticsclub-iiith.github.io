@@ -3,14 +3,51 @@ let oldy = 0;
 
 let imageDataDst, imageDataSrc;
 
-w = 1024;
-h = 512;
+let w = 1024;
+let h = 512;
 
 let img = new Image();
 img.src = "../images/gravitational_lensing.png";
 
 let lerp = function(a, b, t) {
     return (b - a) * (1-Math.exp(-t)) + a;
+}
+
+function writeText(ctx) {
+    // Get the text content from the hidden section
+    const contentElement = document.getElementById('clubContent');
+    const contentText = contentElement.textContent.trim();
+
+    // Set up the canvas font and styles
+    ctx.font = "1.5rem Roboto, sans-serif";
+    ctx.fillStyle = "#fff";
+    ctx.textAlign = "left";
+
+    // Split the content into lines for better formatting on the canvas
+    const lines = contentText.split(/\r?\n/).map(line => line.trim());
+    const lineHeight = 30; // Set line height
+    let x = 20; // Left padding
+    let y = 50; // Top padding
+
+    // Draw each line on the canvas
+    lines.forEach(line => {
+    const words = line.split(" ");
+    let currentLine = "";
+    
+    words.forEach(word => {
+        const testLine = currentLine + word + " ";
+        const testWidth = ctx.measureText(testLine).width;
+        if (testWidth > canvas.width - 40) { // 40 for padding
+        ctx.fillText(currentLine, x, y);
+        currentLine = word + " ";
+        y += lineHeight;
+        } else {
+        currentLine = testLine;
+        }
+    });
+    ctx.fillText(currentLine, x, y);
+    y += lineHeight;
+    });
 }
 
 window.onload = function() {
@@ -21,14 +58,11 @@ window.onload = function() {
     canvas.width = w;
     canvas.height = h;
 
-    dst = canvas.getContext("2d");
-
-    dst.drawImage(img, 0, 0, w, h);
+    ctx = canvas.getContext("2d");
+    ctx.drawImage(img, 0, 0, w, h);
     i = 0;
-    imageDataSrc = dst.getImageData(0, 0, w, h);
-    imageDataDst = dst.getImageData(0, 0, w, h);
-
-
+    imageDataSrc = ctx.getImageData(0, 0, w, h);
+    imageDataDst = ctx.getImageData(0, 0, w, h);
 
     px = 0;
     py = 320;
@@ -39,15 +73,13 @@ window.onload = function() {
             clearInterval(timer);
 
         updatecanvas(canvas, lerp(0,900 , ti / 20), py);
-
-
     }, 16);
 
     canvas.addEventListener('mousemove', function(evt) {
         let mousePos = getMousePos(canvas, evt);
         updatecanvas(canvas, mousePos.x, mousePos.y);
     }, false);
-
+    writeText(ctx);
 };
 
 
@@ -158,7 +190,8 @@ function updatecanvas(canvas, px, py) {
     }
 
     imageDataDst.data = dstdata;
-    dst.putImageData(imageDataDst, 0, 0);
+    ctx.putImageData(imageDataDst, 0, 0);
+    writeText(ctx);
     oldx = px;
     oldy = py;
 }

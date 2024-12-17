@@ -1,7 +1,7 @@
 /* Navbar and Common properties for html, body */
 @import url('font.css');
 
-*{
+*, *::before, *::after {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
@@ -29,14 +29,18 @@ body {
 
 main{
   flex-grow: 1;
+  display: flex;
+  flex-direction: column;
 }
 
 header {
   position: sticky;
   z-index: 1000;
   top: 0;
-  margin: 0;
-  padding: 0;
+}
+
+.nowrap {
+  white-space: nowrap;
 }
 
 nav {
@@ -52,7 +56,8 @@ nav {
 }
 
 .navbar-logo{
-  height: 80px;
+  height: 70px;
+  padding: 2px;
 }
 
 nav a {
@@ -62,7 +67,7 @@ nav a {
   transition: all 0.2s ease-in-out;
 }
 
-nav a:hover, nav a:focus {
+nav :is(a:hover, a:focus) {
   color: white;
 }
 
@@ -80,7 +85,7 @@ nav ul li a {
   opacity: 0;
 }
 
-nav ul li a:hover, nav ul li a:focus {
+nav ul li :is(a:hover,  a:focus) {
   color: white;
 }
 
@@ -92,37 +97,12 @@ nav ul li a:hover, nav ul li a:focus {
   text-decoration-color: white;
 }
 
-.navbar-logo{
-  height: 70px;
-  padding: 2px;
-}
-
-.nowrap {
-  white-space: nowrap;
-}
-
 @keyframes fadeIn {
   from {
     opacity: 0;
   }
   to {
     opacity: 1;
-  }
-}
-
-@keyframes bounce {
-  0%,
-  20%,
-  50%,
-  80%,
-  100% {
-    transform: translateY(0);
-  }
-  40% {
-    transform: translateY(-10px);
-  }
-  60% {
-    transform: translateY(-5px);
   }
 }
 
@@ -145,7 +125,6 @@ aside{
   list-style-type: none;
   display: flex;
   flex-direction: column;
-  margin: 0;
 }
 
 .mobile-nav li{
@@ -164,7 +143,7 @@ aside{
   text-decoration: underline;
 }
 
-.mobile-nav li a:hover, .mobile-nav li a:focus{
+.mobile-nav li :is(a:hover, a:focus){
   color: rgb(253, 252, 255);
   text-decoration: none;
   font-weight: 500;
