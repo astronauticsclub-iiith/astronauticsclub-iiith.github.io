@@ -164,8 +164,7 @@
 
 .latest-updates-posts-wrapper{
     display: flex;
-    /* flex-flow: row wrap; */
-    justify-content: left;
+    justify-content: center;
     align-content: space-between;
     gap: 3%;
     letter-spacing: 0.05rem;
