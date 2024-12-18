@@ -20,7 +20,7 @@
 
     <!-- JS Script imports -->
     <script src="../scripts/faq-block.js" defer></script>
-    <!-- <script src="../scripts/gravitational-lensing.js" defer></script> -->
+    <script src="../scripts/gravitational-lensing.js" defer></script>
     <script src="../scripts/main.js" defer></script>
     <script src="../scripts/mobile-navbar.js" defer></script>
     <script src="../scripts/scroll.js" defer></script>
@@ -37,7 +37,6 @@
 
 <body>
   
-<!-- NAVBAR -->
 <header>
   <nav class="desktop-nav">
     <div>
@@ -97,30 +96,41 @@
 </header>
 
 <main>
-  
-<!-- <section class="club-intro roboto-light hidden" id="clubContent">
-<canvas id="dst" width="1024" height="512">
+ 
+<canvas id="gravitational_lensing">
+</canvas>
+
+<section id="aboutUs" class="club-intro roboto-light">
   <h1 class="about-us-heading">About Us</h1>
   <p class="about-us-content">
     Who hasn't been captivated by the serene vastness of the midnight sky, 
     mesmerized by the gentle glow of the moon or awestruck at the sight of a shooting star?
     The universe beckons with its mysteries and wonders, inviting us to explore and connect 
     with its infinite beauty. If you’ve ever yearned to deepen this connection, look no 
-    further—this is your gateway into your childhood dream.
-    <br><br>
+    further into your childhood dream.
     The Astronautics Club at IIIT Hyderabad is a student-run organization dedicated to making 
     about Space Science and Technology. From exploring the intricate beauty of the moon, 
     planets, and far-off nebulae through our telescopes to diving into the mysteries of the universe 
     through discussions, quizzes, and projects — we’ve got something for every space enthusiast.
-    <br><br>
     Whether you’re a seasoned astronomer or just starting your journey, we have something for
     everyone.
-    
   </p>
-</canvas>
-</section> -->
+</section>
 
-
+<!-- SVG Filter for Realistic Lensing -->
+<svg width="0" height="0">
+  <defs>
+      <filter id="lensingFilter">
+          <!-- Noise to create distortions -->
+          <feTurbulence type="fractalNoise" baseFrequency="0.02 0.03" numOctaves="3" result="noise" />
+          <!-- Blur to smoothen the turbulence -->
+          <feGaussianBlur in="noise" stdDeviation="8" result="blurred" />
+          <!-- Apply displacement to bend light -->
+          <feDisplacementMap in="SourceGraphic" in2="blurred" scale="20" xChannelSelector="R" yChannelSelector="G" />
+      </filter>
+  </defs>
+</svg>
+`
 <section class="faq-container roboto-light">
   <h1 class="faq-heading">Frequently Asked Question</h1>
   <h3 class="faq-subheading">

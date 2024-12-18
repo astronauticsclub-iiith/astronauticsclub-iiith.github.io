@@ -7,22 +7,26 @@ main{
     clear: both;
 }
 
-#dst{
-    display: none;
+#gravitational_lensing{
+    display: block;
+    overflow: hidden;
 }
 
 .club-intro{
     width: 80%;
     margin-left: 10%;
     z-index: 10;
-    display: none;
+    text-wrap: wrap;
+    position: absolute;
+    user-select: none;
+    top: 0;
+    left: 0;
 }
 
 .club-intro h1{
     font-size: 3.2rem;
     font-weight: 300;
     letter-spacing: 0.01em;
-    margin: 0;
 }
 
 .club-intro p{
@@ -30,12 +34,24 @@ main{
     margin: 1em 0;
 }
 
+.club-intro span{
+    display: inline-block;
+    transition: transform 0.1s ease, filter 0.1s ease; /* Smooth effect */
+}
+
+/* SVG Filter */
+/* Class to apply SVG filter */
+.lensing {
+    filter: url(#lensingFilter);
+}
+
+/***************************** FAQ Section ******************************/
 .faq-container{
     margin: 2em 0;
     display: flex;
     flex-direction: column;
     justify-items: center;
-    width: 80%;
+    width: 90%;
 }
 
 .faq-heading{
@@ -101,15 +117,11 @@ canvas{
     display: inline-block;
 }
 
-canvas#dst:hover {
+canvas:hover {
 	cursor: none;
 }
 
 span, a{
   color: #dedede;
   padding: 5px 10px;
-}
-
-.hidden{
-  display: none;
 }

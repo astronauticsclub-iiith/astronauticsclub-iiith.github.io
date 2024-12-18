@@ -43,6 +43,12 @@ header {
   white-space: nowrap;
 }
 
+.hidden{
+  display: none;
+}
+
+/***************************** Desktop Navbar ************************/
+
 nav {
   display: flex;
   flex-direction: row;
