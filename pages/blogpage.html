@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Individual blog for Astronautics Club" />
+    <meta name="keywords" content="Astronomy, Space, Blog, Astronautics Club, IIIT Hyderabad" />
+    <link rel="icon" type="image/x-icon" sizes="16x16" href="../icons/favicon.ico">
+    <title>Astronautics Club IIITH - Blog</title>
+
+    <!-- CSS Files -->
+    <link rel="stylesheet" href="../styles/footer.css" />
+    <link rel="stylesheet" href="../styles/font.css" />
+    <link rel="stylesheet" href="../styles/commons.css" />
+    <link rel="stylesheet" href="../styles/blogpage.css" />
+    <link rel="icon" href="../images/astro_logo_small.png" type="image/png" />
+
+    <!-- JS Script imports -->
+    <script src="../scripts/main.js" defer></script>
+    <script src="../scripts/mobile-navbar.js" defer></script>
+    <script src="../scripts/scroll.js" defer></script>
+    <script src="../scripts/blogpage.js" defer></script>
+
+    <!-- Google tag (gtag.js) for Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-KNJ0N81KHR"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-KNJ0N81KHR');
+    </script>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<header>
+  <nav class="desktop-nav">
+    <div>
+      <img
+        src="../images/astronautics_club_logo_brighten.png"
+        class="navbar-logo"
+        alt="logo"
+        id="logo"
+      />
+    </div>
+
+    <ul class="nav-links">
+      <li>
+        <a href="../index.html" style="animation: fadeIn 1s 3.25s forwards">
+          Home
+        </a>
+      </li>
+
+      <li>
+        <a href="blogs.html" style="animation: fadeIn 1s 3s forwards">
+          Blogs
+        </a>
+      </li>
+
+      <li>
+        <a href="gallery.html" style="animation: fadeIn 1s 2.75s forwards">
+          Gallery
+        </a>
+      </li>
+
+      <li>
+        <a href="team.html" style="animation: fadeIn 1s 2.5s forwards">
+          Members
+        </a>
+      </li>
+
+      <li>
+        <a href="about.html" style="animation: fadeIn 1s 2.25s forwards">
+          About
+        </a>
+      </li>
+    </ul>
+
+    <img 
+      id="navbar-mobile-icon" 
+      src="../images/navbar-mobile-icon.png" 
+      height="50px" 
+      onclick="showMobileNavbar()"
+    />
+  </nav>
+  
+  <aside>
+    <ul class="mobile-nav">
+      <li><a href="../index.html">Home</a></li>
+      <li><a href="blogs.html">Blogs</a></li>
+      <li><a href="gallery.html">Gallery</a></li>
+      <li><a href="team.html">Members</a></li>
+      <li><a href="about.html">About</a></li>
+    </ul>
+  </aside>
+</header>
+
+<!-- MAIN CONTENT -->
+<main>
+    <div class="blog-container">
+        <h1 class="blog-title">The Future of Space Exploration</h1>
+        <p class="blog-author">By John Doe | Published on December 18, 2024</p>
+        
+        <div class="blog-content">
+            <p>Space exploration has always fascinated humanity, and the prospects of future missions beyond Earth are more exciting than ever before...</p>
+            <img src="../images/bg.jpg" alt="Space Exploration Image" class="blog-image" />
+            <p>With advancements in technology, private companies are making significant strides toward space travel and exploration...</p>
+            <h2>Technological Innovations</h2>
+            <p>Innovations in propulsion systems, like reusable rockets, are making space exploration more feasible...</p>
+            <h2>Impact on Society</h2>
+            <p>Space exploration offers potential benefits not just for scientific discovery but also for humanity's long-term survival...</p>
+        </div>
+
+        <!-- Like Button and Counter -->
+        <div class="like-container">
+            <button id="like-button" onclick="incrementLike()">Like 👍</button>
+            <span id="like-count">0 Likes</span>
+        </div>
+
+        <!-- Comment Section -->
+        <div class="comment-section">
+            <h3>Comments</h3>
+            <div id="comments-list">
+                <!-- Existing comments will be inserted here -->
+                <div class="comment">
+                    <p><strong>Jane Doe:</strong> This is an amazing read! I can't wait for the future of space exploration!</p>
+                </div>
+            </div>
+            <textarea id="comment-input" placeholder="Leave a comment..."></textarea>
+            <button onclick="addComment()">Post Comment</button>
+        </div>
+    </div>
+</main>
+
+<!-- FOOTER -->
+<footer> 
+  <!-- Club info footer section -->
+  <div class="footer-club-info-section">
+    <img
+      src="../images/astronautics_club_logo_brighten.png"
+      class="footer-club-info-section-logo"
+      alt="Club logo"
+    />
+    <h2 class="footer-club-name">
+      Astronautics Club
+    </h2>
+    <p class="footer-club-moto">
+      Confining our attentions to terrestrial matters would be to limit the human spirit. Join us to look beyond the horizon.
+    </p>
+  </div>
+
+  <!-- Quick links footer section -->
+  <div class="footer-quick-nav-section">
+    <h3 class="footer-heading">Links</h3>
+    <a href="../index.html" class="footer-nav-text">Home</a>  <br>
+    <a href="blogs.html" class="footer-nav-text">Blogs</a> <br>
+    <a href="gallery.html" class="footer-nav-text">Gallery</a> <br>
+    <a href="team.html" class="footer-nav-text">Members</a> <br>
+    <a href="about.html" class="footer-nav-text">About</a> <br>
+  </div>
+
+  <!-- Reach us footer section -->
+  <address class="footer-reach-us-section">
+    <div class="footer-heading">Reach Us</div>
+
+    <div class="footer-text">
+      Astronautics Club, IIIT Hyderabad<br />
+
+      <!-- Mail ID -->
+      <a class="footer-mail-id" href="mailto:astronauticsclub@students.iiit.ac.in">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            fill="currentColor"
+            class="bi bi-envelope"
+            viewBox="0 0 16 16"
+          >
+            <path
+              d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1zm13 2.383-4.708 2.825L15 11.105zm-.034 6.876-5.64-3.471L8 9.583l-1.326-.795-5.64 3.47A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.741M1 11.105l4.708-2.897L1 5.383z"
+            />
+          </svg>
+        &nbsp astronauticsclub@students.iiit.ac.in
+      </a>
+      <br>
+
+      <!-- Phone number -->
+      <a href="tel:+919899199660" class="footer-phone-number">
+          <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              fill="currentColor"
+              class="bi bi-telephone"
+              viewBox="0 0 16 16"
+          >
+            <path
+              d="M3.654 1.328a.5.5 0 0 1 .708 0l1.757 1.757a.5.5 0 0 1 0 .708l-1.084 1.084a5.6 5.6 0 0 0 3.442 3.442l1.684-.576c.897-.356 1.948-.176 2.637.513l2.09 2.09a1.745 1.745 0 0 1-.06 2.612L11.2 9.697a3.002 3.002 0 0 0-2.095-.99l-1.836 2.543a3.002 3.002 0 0 0-.99 2.095l-2.217 1.47a.678.678 0 0 1-.846-.416l-.543-2.09a2.25 2.25 0 0 1 1.55-2.51l1.55-.825a2.25 2.25 0 0 1 2.51 1.55l2.09-.543a.678.678 0 0 1 .416-.846L15.195 1.884z"
+            />
+          </svg>
+        &nbsp +91 9899199660
+      </a>
+    </div>
+  </address>
+</footer>
+
+</body>
+</html>

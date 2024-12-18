@@ -7,18 +7,23 @@
     <meta name="description" content="Blogs page for Astronautics Club" />
     <meta name="keywords" content="Astronomy, Space, Astronautics Club, IIIT Hyderabad, Astronautics" />
     <link rel="icon" type="image/x-icon" sizes="16x16" href="../icons/favicon.ico">
-    <title>Astronautics Club IIITH</title>
+    <title>Blogs - Astronautics Club IIITH</title>
 
     <!-- CSS Files -->
+    <link rel="stylesheet" href="../styles/commons.css" />
     <link rel="stylesheet" href="../styles/footer.css" />
     <link rel="stylesheet" href="../styles/font.css" />
-    <link rel="stylesheet" href="../styles/commons.css" />
-    <link rel="icon" href="../images/astro_logo_small.png" type="image/png" />
+    <link rel="stylesheet" href="../styles/home-page.css" />
+    <link rel="stylesheet" href="../styles/neumorphism.css" />
+    <link rel="stylesheet" href="../styles/shooting-stars.css" />
+    <link rel="stylesheet" href="../styles/blogs.css" />
 
     <!-- JS Script imports -->
     <script src="../scripts/main.js" defer></script>
     <script src="../scripts/mobile-navbar.js" defer></script>
-    <script src="../scripts/scroll.js" defer></script>
+    <script src="../scripts/scroll-down-arrow.js" defer></script>
+    <script src="../scripts/blogs.js" defer></script>
+
 
     <!-- Google tag (gtag.js) for Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-KNJ0N81KHR"></script>
@@ -32,8 +37,7 @@
 </head>
 
 <body>
-
-<!-- NAVBAR -->
+<!-- Navbar -->
 <header>
   <nav class="desktop-nav">
     <div>
@@ -56,21 +60,25 @@
         <a href="blogs.html" style="animation: fadeIn 1s 3s forwards" class="active">
           Blogs
         </a>
+      </li>
 
       <li>
         <a href="gallery.html" style="animation: fadeIn 1s 2.75s forwards">
           Gallery
         </a>
+      </li>
 
       <li>
         <a href="team.html" style="animation: fadeIn 1s 2.5s forwards">
           Members
         </a>
+      </li>
 
       <li>
         <a href="about.html" style="animation: fadeIn 1s 2.25s forwards">
           About
         </a>
+      </li>
     </ul>
 
     <img 
@@ -92,11 +100,131 @@
   </aside>
 </header>
 
-<!-- MAIN CONTENT -->
-<main>
+<!-- Shooting stars background -->
+<section class="hero">
+  <section class="stars-container">
+    <span></span><span></span><span></span><span></span>
+    <span></span><span></span><span></span><span></span>
+    <span></span><span></span>
+  </section>
+
+  <div class="hero-container">
+    <div class="hero-content">
+      <h1>Club <span class="nowrap">B<span id="s-hover-effect">l</span>ogs</span></h1>
+      <p>Exploring the Universe, One Story at a Time</p>
+    </div>
+  </div>
+</section>
+
+<!-- Wave separator -->
+<svg class="separator" viewBox="0 24 150 28" preserveAspectRatio="none">
+  <defs>
+    <path
+      id="gentle-wave"
+      d="M-160 44c30 0 
+58-18 88-18s
+58 18 88 18 
+58-18 88-18 
+58 18 88 18
+v44h-352z"
+    />
+  </defs>
+  <g class="parallax1">
+    <use xlink:href="#gentle-wave" x="50" y="3" fill="#b62f84" />
+  </g>
+  <g class="parallax2">
+    <use xlink:href="#gentle-wave" x="50" y="0" fill="#161148" />
+  </g>
+  <g class="parallax3">
+    <use xlink:href="#gentle-wave" x="50" y="9" fill="#6a71af" />
+  </g>
+  <g class="parallax4">
+    <use xlink:href="#gentle-wave" x="50" y="6" fill="#1f1e1e" />
+  </g>
+</svg>
+
+<!-- Main Content: Blogs Section -->
+<div class="blog-search-bar">
+  <input type="text" id="search-bar" placeholder="Search blog posts..." />
+</div>
+
+<main class="latest-updates-container roboto-light">
+  <h3 class="latest-updates-subheading">Explore</h3>
+  <h1 class="latest-updates-heading">Our Blog Posts</h1>
+  <p class="latest-updates-content roboto-regular">
+    Dive into our collection of articles that explore the fascinating world of space, astronomy, and technological innovations. From in-depth scientific analyses to personal experiences and club adventures, our blogs offer insights into the cosmos.
+  </p>
+
+  <div class="latest-updates-posts-wrapper">
+    <!-- Blog Post 1 -->
+    <article class="latest-updates-blogpost-subcontainer">
+      <div class="latest-updates-blogpost-image-date-container">
+        <img class="latest-updates-blogpost-image" src="../images/blog_1.jpg" alt="Blog Post Image" />
+        <div class="latest-updates-blogpost-date-wrapper">
+          <span class="latest-updates-blogpost-date">15</span>
+          <span class="latest-updates-blogpost-month">Mar</span>
+        </div>
+      </div>
+      
+      <h3 class="latest-updates-blogpost-heading">Journey to the Stars</h3>
+      <p class="latest-updates-blogpost-content">
+        Explore our club's recent stargazing expedition and the incredible astronomical phenomena we witnessed during our night under the open sky.
+      </p>
+      <a class="latest-updates-blogpost-readmore" href="blogpage.html">read more</a>
+    </article>
+
+    <!-- Blog Post 2 -->
+    <article class="latest-updates-blogpost-subcontainer">
+      <div class="latest-updates-blogpost-image-date-container">
+        <img class="latest-updates-blogpost-image" src="../images/astronautics_bg.png" alt="Blog Post Image" />
+        <div class="latest-updates-blogpost-date-wrapper">
+          <span class="latest-updates-blogpost-date">22</span>
+          <span class="latest-updates-blogpost-month">Apr</span>
+        </div>
+      </div>
+      
+      <h3 class="latest-updates-blogpost-heading">SpaceTech Innovations</h3>
+      <p class="latest-updates-blogpost-content">
+        An in-depth look at the latest technological breakthroughs in space exploration and how they're reshaping our understanding of the universe.
+      </p>
+      <a class="latest-updates-blogpost-readmore" href="blogpage.html">read more</a>
+    </article>
+
+    <!-- Blog Post 3 -->
+    <article class="latest-updates-blogpost-subcontainer">
+      <div class="latest-updates-blogpost-image-date-container">
+        <img class="latest-updates-blogpost-image" src="../images/astronautics_club_logo_bright.png" alt="Blog Post Image" />
+        <div class="latest-updates-blogpost-date-wrapper">
+          <span class="latest-updates-blogpost-date">10</span>
+          <span class="latest-updates-blogpost-month">May</span>
+        </div>
+      </div>
+      
+      <h3 class="latest-updates-blogpost-heading">Astronomy Workshop Recap</h3>
+      <p class="latest-updates-blogpost-content">
+        Highlights from our recent workshop where members learned advanced techniques in telescope operation and celestial observation.
+      </p>
+      <a class="latest-updates-blogpost-readmore" href="blogpage.html">read more</a>
+    </article>
+  </div>
+
+  <br>
+
+  <!-- Future Events Section -->
+  <article class="future-events-content-container roboto-light">
+    <h5 class="future-events-heading">Contribute to Our Blogs</h5>
+    <p class="future-events-content">
+      Are you passionate about space and astronomy? We welcome guest posts and member contributions. Share your insights, research, and experiences with our community!
+    </p>
+    <a class="future-events-button" href="mailto:astronauticsclub@students.iiit.ac.in">
+      Submit a Blog Post
+    </a>
+  </article>
+
+  <button id="back-to-top" title="Go to top">⬆ Back to Top</button>
 </main>
 
-<!-- FOOTER -->
+<!-- Footer -->
 <footer> 
   <!-- Club info footer section -->
   <div class="footer-club-info-section">
