@@ -13,8 +13,9 @@ main{
 }
 
 .club-intro{
-    width: 80%;
+    width: 78%;
     margin-left: 10%;
+    padding-bottom: 1em;
     z-index: 10;
     text-wrap: wrap;
     position: absolute;
@@ -22,6 +23,8 @@ main{
     cursor:none;
     top: 0;
     left: 0;
+    align-self: center;
+    /* border: 1px solid #dedede; */
 }
 
 .club-intro h1{
@@ -47,6 +50,10 @@ main{
     font-style: italic;
 }
 
+.link:hover {
+    opacity: 0.8;
+}
+
 /* SVG Filter */
 /* Class to apply SVG filter */
 .lensing {
@@ -55,7 +62,7 @@ main{
 
 /***************************** FAQ Section ******************************/
 .faq-container{
-    margin: 2em 0;
+    margin: 1em 0;
     display: flex;
     flex-direction: column;
     justify-items: center;
@@ -83,7 +90,8 @@ details{
 }
 
 details summary{
-    background-color: #afadad;
+    /* background-color: #afadad; */
+    background-color: #847bfe;
     color: black;
     padding: 0.5em 1.5em;
     font-size: 1.2rem;
@@ -101,7 +109,8 @@ details summary{
 }
 
 .faq-highlight{
-    background-color: #eae5e5;
+    /* background-color: #eae5e5; */
+    background-color: #dad2eb;
 }
 
 @media screen and (max-width: 696px) {
