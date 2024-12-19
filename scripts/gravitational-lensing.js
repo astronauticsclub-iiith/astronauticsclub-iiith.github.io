@@ -1,39 +1,52 @@
+let canvas, w, h;
+
 // Select the text container
 const textContainer = document.getElementById("aboutUs");
 
 // Split text into individual letters wrapped in spans
 const text = textContainer.innerHTML;
 const heading = textContainer.children[0].textContent
-const content = textContainer.children[1].textContent
-textContainer.innerHTML = ""; // Clear existing text
 
-let canvas, w, h;
+let contents =  [];
+for(let i = 1; i < textContainer.children.length; i++) {
+    contents.push(textContainer.children[i].textContent);
+}
+textContainer.innerHTML = ""; // Clear existing text
 
 heading.split("").forEach(char => {
     const span = document.createElement("span");
     span.textContent = char === " " ? "\u00A0" : char; // Keep spaces visible
     span.style.padding = "0";
+    span.style.marginBottom = "1.5rem";
     span.style.fontSize = "3.2rem";
     span.style.fontWeight = 300;
     span.style.letterSpacing = "0.01em";
     textContainer.appendChild(span);
 });
 
-const br = document.createElement("br");
+let br = document.createElement("br");
 textContainer.appendChild(br);
 
-content.split("").forEach(char => {
-    const span = document.createElement("span");
-    span.textContent = char === " " ? "\u00A0" : char; // Keep spaces visible
-    span.style.padding = "0";
-    span.style.fontSize = "1.2rem";
-    textContainer.appendChild(span);
-});
+contents.forEach(content => {
+    content = content.replace(/[\r\n]+/gm, " ");
+    content = content.replace(/\s{2,}/g, ' ').trim();
+
+    content.split("").forEach(char => {
+        const span = document.createElement("span");
+        span.textContent = char === " " ? "\u00A0" : char; // Keep spaces visible
+        span.style.padding = "0";
+        span.style.fontSize = "1.2rem";
+        textContainer.appendChild(span);
+    });
+
+    br = document.createElement("p");
+    textContainer.appendChild(br); 
+})
 
 const spans = document.querySelectorAll("#aboutUs span");
 
 // Listen for mouse movement
-document.addEventListener("mousemove", (e) => {
+textContainer.addEventListener("mousemove", (e) => {
     const mouseX = e.clientX;
     const mouseY = e.clientY;
 
@@ -71,8 +84,15 @@ document.addEventListener("mousemove", (e) => {
 });
 
 
-/////////////////////// Gravitational Lensing Effect for Image ///////////////////////
+textContainer.addEventListener("mouseleave", () => {
+    spans.forEach(span => {
+        span.style.transform = "none";
+        span.classList.remove("lensing");
+    });
+})
 
+
+/////////////////////// Gravitational Lensing Effect for Image ///////////////////////
 let oldx = 0;
 let oldy = 0;
 
@@ -162,10 +182,10 @@ window.onload = function() {
         updatecanvas(canvas, lerp(0,900 , ti / 20), py);
     }, 16);
 
-    // canvas.addEventListener('mousemove', function(evt) {
-    //     let mousePos = getMousePos(canvas, evt);
-    //     updatecanvas(canvas, mousePos.x, mousePos.y);
-    // }, false);
+    canvas.addEventListener('mousemove', function(evt) {
+        let mousePos = getMousePos(canvas, evt);
+        updatecanvas(canvas, mousePos.x, mousePos.y);
+    }, false);
 };
 
 
