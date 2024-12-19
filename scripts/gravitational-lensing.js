@@ -1,3 +1,4 @@
+// Refresh the page in case of zoom due to canvas.
 let canvas, w, h;
 
 // Select the text container
@@ -23,9 +24,10 @@ heading.split(" ").forEach(word => {
         span.textContent = char;
         span.style.padding = "0";
         span.style.marginBottom = "1.5rem";
-        span.style.fontSize = "3.2rem";
+        span.style.fontSize = "3rem";
         span.style.fontWeight = 400;
-        span.style.letterSpacing = "0.01em";
+        span.style.letterSpacing = "0.02em";
+        // span.style.color = "#e3d7ff";
         wordWrapper.appendChild(span);
     });
 
@@ -169,23 +171,27 @@ function getMousePos(canvas, evt) {
     };
 }
 
-window.onload = function() {
+function resizeCanvas() {
     w = window.innerWidth;
-    h = window.innerHeight;
-
-    canvas = document.querySelector("canvas");
+    h = textContainer.offsetHeight;
+    
     canvas.width = w;
     canvas.height = h;
-
     ctx = canvas.getContext("2d");
     ctx.drawImage(img, 0, 0, w, h);
-    i = 0;
+}
+
+window.addEventListener("resize", resizeCanvas);
+
+window.onload = function() {
+    canvas = document.querySelector("canvas");
+    resizeCanvas();
+
     imageDataSrc = ctx.getImageData(0, 0, w, h);
     imageDataDst = ctx.getImageData(0, 0, w, h);
 
     px = 0;
     py = 310;
-
     ti = 0;
     
     let timer = setInterval(function() {
