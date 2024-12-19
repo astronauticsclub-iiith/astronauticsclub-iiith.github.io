@@ -13,15 +13,24 @@ for(let i = 1; i < textContainer.children.length; i++) {
 }
 textContainer.innerHTML = ""; // Clear existing text
 
-heading.split("").forEach(char => {
-    const span = document.createElement("span");
-    span.textContent = char === " " ? "\u00A0" : char; // Keep spaces visible
-    span.style.padding = "0";
-    span.style.marginBottom = "1.5rem";
-    span.style.fontSize = "3.2rem";
-    span.style.fontWeight = 300;
-    span.style.letterSpacing = "0.01em";
-    textContainer.appendChild(span);
+heading.split(" ").forEach(word => {
+    const wordWrapper = document.createElement("span");
+    wordWrapper.style.whiteSpace = "nowrap"; // Prevent word breaking
+    wordWrapper.style.display = "inline-block"; // Ensure words are grouped inline
+
+    word.split("").forEach(char => {
+        const span = document.createElement("span");
+        span.textContent = char;
+        span.style.padding = "0";
+        span.style.marginBottom = "1.5rem";
+        span.style.fontSize = "3.2rem";
+        span.style.fontWeight = 400;
+        span.style.letterSpacing = "0.01em";
+        wordWrapper.appendChild(span);
+    });
+
+    textContainer.appendChild(wordWrapper);
+    textContainer.appendChild(document.createTextNode("\u00A0")); // Add a space after the word
 });
 
 let br = document.createElement("br");
@@ -31,17 +40,30 @@ contents.forEach(content => {
     content = content.replace(/[\r\n]+/gm, " ");
     content = content.replace(/\s{2,}/g, ' ').trim();
 
-    content.split("").forEach(char => {
-        const span = document.createElement("span");
-        span.textContent = char === " " ? "\u00A0" : char; // Keep spaces visible
-        span.style.padding = "0";
-        span.style.fontSize = "1.2rem";
-        textContainer.appendChild(span);
+    content.split(" ").forEach(word => {
+        const wordWrapper = document.createElement("span");
+        wordWrapper.style.whiteSpace = "nowrap"; // Prevent word breaking
+        wordWrapper.style.display = "inline-block"; // Ensure words are grouped inline
+        wordWrapper.style.wordSpacing = "0rem";
+        wordWrapper.style.padding = "0";
+
+        word.split("").forEach(char => {
+            const span = document.createElement("span");
+            span.textContent = char;
+            span.style.padding = "0";
+            span.style.fontSize = "1.1rem";
+            span.style.fontWeight = "400";
+            span.style.letterSpacing = "0.01em";
+            wordWrapper.appendChild(span);
+        });
+
+        textContainer.appendChild(wordWrapper);
+        textContainer.appendChild(document.createTextNode("\u00A0")); // Add a space after the word
     });
 
     br = document.createElement("p");
-    textContainer.appendChild(br); 
-})
+    textContainer.appendChild(br);
+});
 
 const spans = document.querySelectorAll("#aboutUs span");
 
@@ -92,6 +114,7 @@ textContainer.addEventListener("mouseleave", () => {
 })
 
 
+
 /////////////////////// Gravitational Lensing Effect for Image ///////////////////////
 let oldx = 0;
 let oldy = 0;
@@ -109,6 +132,10 @@ let lerp = function(a, b, t) {
     return (b - a) * (1-Math.exp(-t)) + a;
 }
 
+let smootherstep = function(t) {
+    return 1 / (Math.exp(-6 * t + 3)) - Math.exp(-3);
+};
+
 // Function to get the mouse position on the canvas
 function getMousePos(canvas, evt) {
     let rect = canvas.getBoundingClientRect();
@@ -119,43 +146,6 @@ function getMousePos(canvas, evt) {
         y: evt.clientY
     };
 }
-
-// function writeText(ctx) {
-//     // Get the text content from the hidden section
-//     const contentElement = document.getElementById('aboutUs');
-//     const contentText = contentElement.textContent.trim();
-
-//     // Set up the canvas font and styles
-//     ctx.font = "1.5rem Roboto, sans-serif";
-//     ctx.fillStyle = "#fff";
-//     ctx.textAlign = "left";
-
-//     // Split the content into lines for better formatting on the canvas
-//     const lines = contentText.split(/\r?\n/).map(line => line.trim());
-//     const lineHeight = 30; // Set line height
-//     let x = 20; // Left padding
-//     let y = 50; // Top padding
-
-//     // Draw each line on the canvas
-//     lines.forEach(line => {
-//     const words = line.split(" ");
-//     let currentLine = "";
-    
-//     words.forEach(word => {
-//         const testLine = currentLine + word + " ";
-//         const testWidth = ctx.measureText(testLine).width;
-//         if (testWidth > canvas.width - 40) { // 40 for padding
-//         ctx.fillText(currentLine, x, y);
-//         currentLine = word + " ";
-//         y += lineHeight;
-//         } else {
-//         currentLine = testLine;
-//         }
-//     });
-//     ctx.fillText(currentLine, x, y);
-//     y += lineHeight;
-//     });
-// }
 
 window.onload = function() {
     w = window.innerWidth;
@@ -172,27 +162,20 @@ window.onload = function() {
     imageDataDst = ctx.getImageData(0, 0, w, h);
 
     px = 0;
-    py = 290;
+    py = 310;
 
     ti = 0;
     
     let timer = setInterval(function() {
         if (ti++ > 100)
             clearInterval(timer);
-        updatecanvas(canvas, lerp(0,900 , ti / 20), py);
+        updatecanvas(canvas, lerp(0,850 , ti / 20), py);
     }, 16);
 
     canvas.addEventListener('mousemove', function(evt) {
         let mousePos = getMousePos(canvas, evt);
         updatecanvas(canvas, mousePos.x, mousePos.y);
     }, false);
-};
-
-
-
-let smootherstep = function(t) {
-    //return 1/(Math.exp(-5*t+Math.E)) - Math.exp(-Math.E);
-    return 1 / (Math.exp(-6 * t + 3)) - Math.exp(-3);
 };
 
 
@@ -256,6 +239,7 @@ function updatecanvas(canvas, px, py) {
                     sc = 0.1;
                 else
                     sc = 1;
+
                 //end of lens math
                 index2 = ((xx + yy * w) % maxSize) << 2;
                 dstdata[index++] = sc * srcdata[index2 + 0];
@@ -270,7 +254,6 @@ function updatecanvas(canvas, px, py) {
 
     imageDataDst.data = dstdata;
     ctx.putImageData(imageDataDst, 0, 0);
-    // writeText(ctx);
     oldx = px;
     oldy = py;
 }

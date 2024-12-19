@@ -20,15 +20,13 @@ function toggle_answer(id){
 
     if (active_cell != id){
         reset_faqs(); // only one answer can be active at a time
-        arrow.classList.remove("fa-caret-down");
-        arrow.classList.add("fa-caret-up");
-        question.classList.add("faq-highlight");
         active_cell = id;
     } 
     else {
-        question.classList.remove("faq-highlight");
-        arrow.classList.remove("fa-caret-up");
-        arrow.classList.add("fa-caret-down");
         active_cell = -1000;
     }
+
+    arrow.classList.toggle("fa-caret-down");
+    arrow.classList.toggle("fa-caret-up");
+    question.classList.toggle("faq-highlight");
 }
