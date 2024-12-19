@@ -66,6 +66,7 @@ contents.forEach(content => {
 });
 
 const spans = document.querySelectorAll("#aboutUs span");
+const letterRadius = 70;
 
 // Listen for mouse movement
 textContainer.addEventListener("mousemove", (e) => {
@@ -73,32 +74,53 @@ textContainer.addEventListener("mousemove", (e) => {
     const mouseY = e.clientY;
 
     spans.forEach(span => {
-        // Get the position of each letter
-        const rect = span.getBoundingClientRect();
+        const rect = span.getBoundingClientRect(); // Get the position of each letter
         const letterX = rect.left + rect.width / 2; // Center X of the letter
         const letterY = rect.top + rect.height / 2; // Center Y of the letter
 
-        // Calculate distance between the mouse and the letter
-        const dx = mouseX - letterX;
-        const dy = mouseY - letterY;
+        const dx = letterX - mouseX;
+        const dy = letterY - mouseY;
         const distance = Math.sqrt(dx * dx + dy * dy);
-        const lensRadius = 70;
 
-        if (distance < lensRadius) {
-            // Non-linear scaling and translation for lensing effect
-            const distortionFactor = 1 - distance / lensRadius; // Proximity effect
-            const scale = 1 + distortionFactor * 0.6; // Scale letters closer to the lens
-            const translateX = dx * distortionFactor * 0.3; // Displacement X
-            const translateY = dy * distortionFactor * 0.3; // Displacement Y
+        if (distance < letterRadius) {
+            // Apply lensing transformation
+            const d = distance / letterRadius; // Normalize distance
+            const scale = 0.2 * (1 - smootherstep(1 - d)); // Compute scaling factor
+            const offsetX = dx * scale * 0.1; // Displace X based on distance
+            const offsetY = dy * scale * 0.1; // Displace Y based on distance
 
-            // Apply CSS transform for position and scale
-            span.style.transform = `scale(${scale}) translate(${translateX}px, ${translateY}px)`;
-            span.classList.add("lensing"); // Add SVG filter for subtle warping
+            span.style.transform = `scale(${1 + scale}) translate(${offsetX}px, ${offsetY}px)`;
         } else {
-            // Reset transform and remove filter when outside the radius
+            // Reset transformations for letters outside the lens radius
             span.style.transform = "none";
-            span.classList.remove("lensing");
         }
+
+        // Old code
+        // const rect = span.getBoundingClientRect();
+        // const letterX = rect.left + rect.width / 2; // Center X of the letter
+        // const letterY = rect.top + rect.height / 2; // Center Y of the letter
+
+        // // Calculate distance between the mouse and the letter
+        // const dx = mouseX - letterX;
+        // const dy = mouseY - letterY;
+        // const distance = Math.sqrt(dx * dx + dy * dy);
+        // const lensRadius = 70;
+
+        // if (distance < lensRadius) {
+        //     // Non-linear scaling and translation for lensing effect
+        //     const distortionFactor = 1 - distance / lensRadius; // Proximity effect
+        //     const scale = 1 + distortionFactor * 0.6; // Scale letters closer to the lens
+        //     const translateX = dx * distortionFactor * 0.3; // Displacement X
+        //     const translateY = dy * distortionFactor * 0.3; // Displacement Y
+
+        //     // Apply CSS transform for position and scale
+        //     span.style.transform = `scale(${scale}) translate(${translateX}px, ${translateY}px)`;
+        //     span.classList.add("lensing"); // Add SVG filter for subtle warping
+        // } else {
+        //     // Reset transform and remove filter when outside the radius
+        //     span.style.transform = "none";
+        //     span.classList.remove("lensing");
+        // }
     });
 
     let mousePos = getMousePos(canvas, e);
