@@ -1,3 +1,4 @@
+/* For mobile display (< 696px) */
 main{
     display: flex;
     flex-direction: column;
@@ -5,55 +6,6 @@ main{
     justify-content: center;
     position: relative;
     clear: both;
-}
-
-#gravitational_lensing{
-    display: block;
-    overflow: hidden;
-}
-
-canvas{
-    display: inline-block;
-}
-
-canvas:hover {
-	cursor: none;
-}
-
-span, a{
-  color: #dedede;
-  padding: 5px 10px;
-}
-
-.club-intro{
-    width: 78%;
-    margin-left: 10%;
-    padding-bottom: 1em;
-    z-index: 10;
-    text-wrap: wrap;
-    position: absolute;
-    user-select: none;
-    cursor:none;
-    top: 0;
-    left: 0;
-    align-self: center;
-    /* border: 1px solid #dedede; */
-}
-
-.club-intro h1{
-    font-size: 3.2rem;
-    font-weight: 300;
-    letter-spacing: 0.01em;
-}
-
-.club-intro p{
-    font-size: 1.2rem;
-    margin: 1em 0;
-}
-
-.club-intro span{
-    display: inline-block;
-    transition: transform 0.1s ease, filter 0.1s ease; /* Smooth effect */
 }
 
 .link {
@@ -67,48 +19,84 @@ span, a{
     opacity: 0.8;
 }
 
-/* SVG Filter */
-/* Class to apply SVG filter */
-.lensing {
-    filter: url(#lensingFilter);
+canvas {
+    display: block;
+    overflow: hidden;
+}
+
+.club-intro{
+    margin-left: 8%;
+    width: 85%;
+    padding-bottom: 1em;
+    top: 0;
+    left: 0;
+    z-index: 3;
+    position: absolute;
+    user-select: none;
+    cursor:none;
+    text-align: center;
+}
+
+.about-us-heading{
+    margin-bottom: 1.5rem;
+    font-size: 3rem;
+    font-weight: 400;
+    letter-spacing: 0.02em;
+}
+
+.about-us-content{
+    font-size: 1.1rem;
+    font-weight: 400;
+    letter-spacing: 0.01em;
+}
+
+.club-intro p{
+    font-size: 1.2rem;
+    margin: 1em 0;
+}
+
+.club-intro span{
+    display: inline-block;
+    transition: transform 0.1s ease, filter 0.1s ease; /* Smooth effect */
 }
 
 /***************************** FAQ Section ******************************/
 .faq-container{
-    margin: 1em 0;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: 90%;
+    text-align: center;
+    width: 85%;
+    gap: 0.1em;
 }
 
 .faq-heading{
-    font-size: 3.2rem;
+    font-size: 2.2rem;
     font-weight: 300;
     letter-spacing: 0.01em;
     margin-bottom: 0.2em;
-    text-align: center;
 }
 
 .faq-subheading{
-    max-width: 70%;
-    margin-bottom: 2em;
+    max-width: 90%;
     font-weight: 300;
-    text-align: center;
+    margin-bottom: 1em;
 }
 
 details{
-    margin: 0.3em 1.5em;
     align-self: center;
     width: 100%;
+    margin: 0.3em;
+    text-align: left;
+    font-size: 1rem;
 }
 
 details summary{
     /* background-color: #afadad; */
     background-color: #847bfe;
     color: black;
-    padding: 0.5em 1.5em;
+    padding: 0.3em 0.5em;
     font-size: 1.2rem;
     list-style: none;
     cursor: pointer;
@@ -120,7 +108,7 @@ details summary{
 }
 
 .faq-answer{
-    padding: 0.5em 1.5em;
+    padding: 0.5em;
 }
 
 .faq-highlight{
@@ -129,33 +117,29 @@ details summary{
     color: rgb(0, 0, 0);
 }
 
-@media screen and (max-width: 696px) {
-    .club-intro{
-        margin-left: 8%;
-        width: 85%;
-        text-align: left;
-    }
 
-    .about-us-heading{
-        text-align: center;
-    }
-    
-    summary{
-        font-size: 1rem;
-        padding-inline: 0.5em;
+/* Fore desktop display */
+@media screen and (min-width: 696px){
+    .club-intro {
+        text-align: left;
+        margin-left: 10%;
+        width: 78%;
     }
 
     .faq-container{
-        gap: 0.1em;
-        width: 85%;
+        margin: 1em 0;
+        width: 90%;
     }
 
     .faq-heading{
-        font-size: 2.2rem;
+        font-size: 3.2rem;
     }
 
     .faq-subheading{
-        font-size: 1.2rem;
-        width: 90%;
+        width: 70%;
+    }
+
+    details summary{
+        padding: 0.5em 1.5em;
     }
 }

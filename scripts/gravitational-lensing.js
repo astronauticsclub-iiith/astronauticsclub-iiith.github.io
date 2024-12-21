@@ -17,18 +17,13 @@ textContainer.innerHTML = ""; // Clear existing text
 function writeText(){
     heading.split(" ").forEach(word => {
         const wordWrapper = document.createElement("span");
+        wordWrapper.classList.add("about-us-heading")
         wordWrapper.style.whiteSpace = "nowrap"; // Prevent word breaking
         wordWrapper.style.display = "inline-block"; // Ensure words are grouped inline
 
         word.split("").forEach(char => {
             const span = document.createElement("span");
             span.textContent = char;
-            span.style.padding = "0";
-            span.style.marginBottom = "1.5rem";
-            span.style.fontSize = "3rem";
-            span.style.fontWeight = 400;
-            span.style.letterSpacing = "0.02em";
-            // span.style.color = "#e3d7ff";
             wordWrapper.appendChild(span);
         });
 
@@ -45,18 +40,13 @@ function writeText(){
 
         content.split(" ").forEach(word => {
             const wordWrapper = document.createElement("span");
+            wordWrapper.classList.add("about-us-content")
             wordWrapper.style.whiteSpace = "nowrap"; // Prevent word breaking
             wordWrapper.style.display = "inline-block"; // Ensure words are grouped inline
-            wordWrapper.style.wordSpacing = "0rem";
-            wordWrapper.style.padding = "0";
 
             word.split("").forEach(char => {
                 const span = document.createElement("span");
                 span.textContent = char;
-                span.style.padding = "0";
-                span.style.fontSize = "1.1rem";
-                span.style.fontWeight = "400";
-                span.style.letterSpacing = "0.01em";
                 wordWrapper.appendChild(span);
             });
 
@@ -138,7 +128,6 @@ function writeText(){
         });
     })
 }
-
 
 
 
