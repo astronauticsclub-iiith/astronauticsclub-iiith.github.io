@@ -1,23 +1,19 @@
-/* Copyright line section */
-.copyright-text {
+footer{
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
   text-align: center;
-  color: white;
-  font-size: 0.75rem;
-  font-weight: 300;
-  margin-top: 1em;
-  margin-bottom: 0.3em;
+  row-gap: 1em;
   width: 100%;
+  bottom: 0;
+  padding: 1em 0;
 }
 
-footer{
-  bottom: 0;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  justify-content: space-evenly;
-  padding-top: 1em;
+.footer-heading {
+  font-size: 1.5rem;
+  font-weight: 500;
+  margin-bottom: 0.25em;
+  color: #76a6c9;
 }
 
 .footer-text {
@@ -26,77 +22,60 @@ footer{
     "Helvetica Neue", sans-serif, system-ui;
 }
 
-.footer-heading {
-  font-size: 1.5rem;
-  font-weight: 500;
-  margin-bottom: 0.8em;
-  color: #76a6c9;
-}
-
-/* Club info section of footer */
-.footer-club-info-section {
-  padding: 0.5em;
-  padding-top: 0;
-  align-content: center;
-  align-content: first baseline;
-  width: 42%;
-}
-
-.footer-club-info-section .footer-text {
-  margin-top: 0.1em;
+/* Club Info section */
+.footer-club-info-section{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .footer-club-info-section-logo {
   height: 100px;
   width: 102px;
-  margin-right: 1em;
-  float: left;
 }
 
 .footer-club-name{
   font-size: 1.8rem;
   font-weight: 500;
-  margin-top: 0.9em;
-  margin-bottom: 1em;
 }
 
 .footer-club-moto{
-  font-size: 1rem;
   font-weight: 300;
-  margin-top: 0.5em;
-  margin-bottom: 0.5em;
   color: #e9e4e4;
+  width: 60%;
 }
+
 
 /* Quick nav section of footer */
 .footer-quick-nav-section{
-  padding: 0.5em;
-  width: 10%;
+  display: flex;
   flex-direction: column;
-  justify-content: center;
-  text-align: left;
-  line-height: 1.75rem;
-  margin-top: 0.1em;
-  padding-left: 0.4em;
-  padding-top: 0em;
 }
 
 .footer-nav-text{
-  font-size: 1rem;
   font-weight: 400;
-  margin-bottom: 0.5rem;
   text-decoration: none;
   color: #d3cfcf;
+  margin-bottom: 0.5em;
+}
+
+.footer-nav-text:last-child{
+  margin-bottom: 0;
 }
 
 .footer-nav-text:hover, .footer-nav-text:focus{
   color: #ffffff;
 }
 
+
 /* Reach us section of footer */
 .footer-reach-us-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   line-height: 2rem;
   font-style: normal;
+  width: 90%;
 }
 
 .footer-reach-us-section a {
@@ -105,7 +84,6 @@ footer{
 }
 
 .footer-reach-us-section a:hover {
-  text-decoration: none;
   color: #4ecfdd;
 }
 
@@ -117,19 +95,17 @@ footer{
 }
 
 .footer-mail-id, .footer-phone-number {
-  width: fit-content;
   overflow-wrap: break-word;
   word-break: break-all;
 }
 
-/* Social media icons section */
+/* Social media icons */
 .footer-social-media-handles-section {
-  display: flex;
-  flex-direction: row;
-  justify-content: left;
-  gap: 2.5em;
-  margin-top: 1em;
-  width: fit-content;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 2em;
+    margin-top: 0.5em;
 }
 
 .footer-social-media-icon {
@@ -155,71 +131,54 @@ footer{
   fill: #5865f2;
 }
 
-
-/* Media queries for responsiveness (Tablet) */
-@media (max-width: 1000px) {
-  .footer-club-info-section{
-    width: 30%
-  }
-
-  .footer-club-info-section-logo{
-    align-self: center;
-    float: center;
-    margin-bottom: 0.7em;
-  }
-
-  .footer-club-name{
-    font-size: 1.5rem;
-  }
+/* Copyright line section */
+.copyright-text {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  color: white;
+  font-size: 0.75rem;
+  font-weight: 300;
+  margin-top: 1em;
+  margin-bottom: 0.3em;
+  width: 100%;
 }
 
 
-/* Media queries for responsiveness (Mobile) */
-@media (max-width: 696px) {
+
+@media screen and (min-width: 900px) {
   footer {
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    row-gap: 1em;
-  }
-
-  .footer-club-info-section{
-    width: 90%;
-    justify-items: center;
-  }
-
-  .footer-club-info-section-logo{
-    float: none;
-  }
-
-  .footer-club-name{
-    text-align: center;
-    margin: 0;
-  }
-
-  .footer-club-moto{
-    text-align: center;
-    width: 80%;
-  }
-
-  .footer-quick-nav-section{
-    text-align: center;
-    justify-items: center;
+    flex-direction: row;
+    row-gap: 0;
+    justify-content: space-evenly;
+    text-align: left;
   }
 
   .footer-heading{
-    margin-bottom: 0.25em;
-    padding-bottom: 0;
-  }
-  
-  .footer-reach-us-section {
-    text-align: center;
-    justify-items: center;
-    width: 90%;
+    margin-bottom: 0.5em;
   }
 
-  .footer-mail-id{
-    padding: 0 0.5em;
+  /* Club info section of footer */
+  .footer-club-info-section {
+    align-self: first baseline;
+    align-items: flex-start;
+    gap: 0.5em;
+    max-width: 40%;
+  }
+
+  .footer-club-name-logo-wrapper{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 0.7em
+  }
+
+  .footer-club-moto{
+    width: 100%;
+  }
+
+  .footer-reach-us-section{
+    width: max-content;
+    align-items: first baseline;
   }
 }
