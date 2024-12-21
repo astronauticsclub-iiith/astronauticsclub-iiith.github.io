@@ -12,6 +12,19 @@ main{
     overflow: hidden;
 }
 
+canvas{
+    display: inline-block;
+}
+
+canvas:hover {
+	cursor: none;
+}
+
+span, a{
+  color: #dedede;
+  padding: 5px 10px;
+}
+
 .club-intro{
     width: 78%;
     margin-left: 10%;
@@ -65,7 +78,8 @@ main{
     margin: 1em 0;
     display: flex;
     flex-direction: column;
-    justify-items: center;
+    justify-content: center;
+    align-items: center;
     width: 90%;
 }
 
@@ -73,14 +87,15 @@ main{
     font-size: 3.2rem;
     font-weight: 300;
     letter-spacing: 0.01em;
+    margin-bottom: 0.2em;
     text-align: center;
 }
 
 .faq-subheading{
-    align-self: center;
     max-width: 70%;
     margin-bottom: 2em;
     font-weight: 300;
+    text-align: center;
 }
 
 details{
@@ -110,13 +125,19 @@ details summary{
 
 .faq-highlight{
     /* background-color: #eae5e5; */
-    background-color: #dad2eb;
+    background-color: #c5c0d0;
+    color: rgb(0, 0, 0);
 }
 
 @media screen and (max-width: 696px) {
-    .club-intro p{
-        font-size: 1rem;
+    .club-intro{
+        margin-left: 8%;
+        width: 85%;
         text-align: left;
+    }
+
+    .about-us-heading{
+        text-align: center;
     }
     
     summary{
@@ -124,21 +145,17 @@ details summary{
         padding-inline: 0.5em;
     }
 
-    .faq-arrow{
-        margin-left: 0.5em;
-        margin-top: 0.5em;
+    .faq-container{
+        gap: 0.1em;
+        width: 85%;
     }
-}
 
-canvas{
-    display: inline-block;
-}
+    .faq-heading{
+        font-size: 2.2rem;
+    }
 
-canvas:hover {
-	cursor: none;
-}
-
-span, a{
-  color: #dedede;
-  padding: 5px 10px;
+    .faq-subheading{
+        font-size: 1.2rem;
+        width: 90%;
+    }
 }

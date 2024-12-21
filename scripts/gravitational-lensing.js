@@ -14,48 +14,21 @@ for(let i = 1; i < textContainer.children.length; i++) {
 }
 textContainer.innerHTML = ""; // Clear existing text
 
-heading.split(" ").forEach(word => {
-    const wordWrapper = document.createElement("span");
-    wordWrapper.style.whiteSpace = "nowrap"; // Prevent word breaking
-    wordWrapper.style.display = "inline-block"; // Ensure words are grouped inline
-
-    word.split("").forEach(char => {
-        const span = document.createElement("span");
-        span.textContent = char;
-        span.style.padding = "0";
-        span.style.marginBottom = "1.5rem";
-        span.style.fontSize = "3rem";
-        span.style.fontWeight = 400;
-        span.style.letterSpacing = "0.02em";
-        // span.style.color = "#e3d7ff";
-        wordWrapper.appendChild(span);
-    });
-
-    textContainer.appendChild(wordWrapper);
-    textContainer.appendChild(document.createTextNode("\u00A0")); // Add a space after the word
-});
-
-let br = document.createElement("br");
-textContainer.appendChild(br);
-
-contents.forEach(content => {
-    content = content.replace(/[\r\n]+/gm, " ");
-    content = content.replace(/\s{2,}/g, ' ').trim();
-
-    content.split(" ").forEach(word => {
+function writeText(){
+    heading.split(" ").forEach(word => {
         const wordWrapper = document.createElement("span");
         wordWrapper.style.whiteSpace = "nowrap"; // Prevent word breaking
         wordWrapper.style.display = "inline-block"; // Ensure words are grouped inline
-        wordWrapper.style.wordSpacing = "0rem";
-        wordWrapper.style.padding = "0";
 
         word.split("").forEach(char => {
             const span = document.createElement("span");
             span.textContent = char;
             span.style.padding = "0";
-            span.style.fontSize = "1.1rem";
-            span.style.fontWeight = "400";
-            span.style.letterSpacing = "0.01em";
+            span.style.marginBottom = "1.5rem";
+            span.style.fontSize = "3rem";
+            span.style.fontWeight = 400;
+            span.style.letterSpacing = "0.02em";
+            // span.style.color = "#e3d7ff";
             wordWrapper.appendChild(span);
         });
 
@@ -63,15 +36,43 @@ contents.forEach(content => {
         textContainer.appendChild(document.createTextNode("\u00A0")); // Add a space after the word
     });
 
-    br = document.createElement("p");
+    let br = document.createElement("br");
     textContainer.appendChild(br);
-});
 
-const spans = document.querySelectorAll("#aboutUs span");
-const letterRadius = 70;
+    contents.forEach(content => {
+        content = content.replace(/[\r\n]+/gm, " ");
+        content = content.replace(/\s{2,}/g, ' ').trim();
 
-// Listen for mouse movement
-textContainer.addEventListener("mousemove", (e) => {
+        content.split(" ").forEach(word => {
+            const wordWrapper = document.createElement("span");
+            wordWrapper.style.whiteSpace = "nowrap"; // Prevent word breaking
+            wordWrapper.style.display = "inline-block"; // Ensure words are grouped inline
+            wordWrapper.style.wordSpacing = "0rem";
+            wordWrapper.style.padding = "0";
+
+            word.split("").forEach(char => {
+                const span = document.createElement("span");
+                span.textContent = char;
+                span.style.padding = "0";
+                span.style.fontSize = "1.1rem";
+                span.style.fontWeight = "400";
+                span.style.letterSpacing = "0.01em";
+                wordWrapper.appendChild(span);
+            });
+
+            textContainer.appendChild(wordWrapper);
+            textContainer.appendChild(document.createTextNode("\u00A0")); // Add a space after the word
+        });
+
+        br = document.createElement("p");
+        textContainer.appendChild(br);
+    });
+
+    const spans = document.querySelectorAll("#aboutUs span");
+    const letterRadius = 70;
+
+    // Listen for mouse movement
+    textContainer.addEventListener("mousemove", (e) => {
     const mouseX = e.clientX;
     const mouseY = e.clientY;
 
@@ -126,16 +127,18 @@ textContainer.addEventListener("mousemove", (e) => {
     });
 
     let mousePos = getMousePos(canvas, e);
-    updatecanvas(canvas, mousePos.x, mousePos.y);
-});
-
-
-textContainer.addEventListener("mouseleave", () => {
-    spans.forEach(span => {
-        span.style.transform = "none";
-        span.classList.remove("lensing");
+        updatecanvas(canvas, mousePos.x, mousePos.y);
     });
-})
+
+
+    textContainer.addEventListener("mouseleave", () => {
+        spans.forEach(span => {
+            span.style.transform = "none";
+            span.classList.remove("lensing");
+        });
+    })
+}
+
 
 
 
@@ -171,6 +174,16 @@ function getMousePos(canvas, evt) {
     };
 }
 
+function initCanvas() {
+    w = window.innerWidth;
+    h = window.innerHeight;
+    
+    canvas.width = w;
+    canvas.height = h;
+    ctx = canvas.getContext("2d");
+    ctx.drawImage(img, 0, 0, w, h);
+}
+
 function resizeCanvas() {
     w = window.innerWidth;
     h = textContainer.offsetHeight;
@@ -185,6 +198,8 @@ window.addEventListener("resize", resizeCanvas);
 
 window.onload = function() {
     canvas = document.querySelector("canvas");
+    initCanvas();
+    writeText();
     resizeCanvas();
 
     imageDataSrc = ctx.getImageData(0, 0, w, h);
