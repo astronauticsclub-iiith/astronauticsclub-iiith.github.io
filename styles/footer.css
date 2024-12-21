@@ -17,7 +17,6 @@ footer{
 }
 
 .footer-text {
-  font-size: 1rem;
   font-family: Roboto, "Segoe UI", Oxygen, Ubuntu, Cantarell, "Open Sans",
     "Helvetica Neue", sans-serif, system-ui;
 }
@@ -163,7 +162,7 @@ footer{
     align-self: first baseline;
     align-items: flex-start;
     gap: 0.5em;
-    max-width: 40%;
+    max-width: 38%;
   }
 
   .footer-club-name-logo-wrapper{
