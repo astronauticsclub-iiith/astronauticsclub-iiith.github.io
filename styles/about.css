@@ -23,6 +23,7 @@ canvas {
     display: block;
     overflow: hidden;
     width: 100%;
+    cursor: none;
 }
 
 .club-intro{

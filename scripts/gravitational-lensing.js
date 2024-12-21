@@ -154,12 +154,12 @@ let smootherstep = function(t) {
 
 // Function to get the mouse position on the canvas
 function getMousePos(canvas, evt) {
-    // let rect = canvas.getBoundingClientRect();
+    let rect = canvas.getBoundingClientRect();
     // x: evt.clientX - rect.left,
     // y: evt.clientY - rect.top
     return {
-        x: evt.clientX,
-        y: evt.clientY
+        x: evt.pageX,
+        y: evt.pageY
     };
 }
 
@@ -195,7 +195,7 @@ window.onload = function() {
     imageDataDst = ctx.getImageData(0, 0, w, h);
 
     px = 0;
-    py = 310;
+    py = 270;
     ti = 0;
     
     let timer = setInterval(function() {
