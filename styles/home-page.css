@@ -1,61 +1,53 @@
 /* For index.html file */
+@import url('font.css');
+
+:root{
+    --M-HEADING-FONT-SIZE: 2.3rem;
+    --M-SUBHEADING-FONT-SIZE: 1rem;
+}
 
 /************************* Section: Who are we *************************/
 .who-are-we-container{
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
+    padding: 2em 0;
+    align-items: center;
     background-color: #1f1e1e;
-    padding-bottom: 1em;
-    left: 0;
 }
 
 .who-are-we-image{
-    padding-top: 3em;
-    padding-left: 2em;
-    width: 40vw;
-    max-height: max-content;
-    float: left;
+    width: 90%;
 }
 
 .who-are-we-content-container{
+    align-self: last baseline;
+    padding-top: 1em;
+    word-break:normal;
+    font-family: inherit;
+    
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
-    align-items: left;
-
-    padding: 2em;
-    padding-bottom: 0;
-
-    word-break:normal;
-}
-
-.who-are-we-heading{
-    font-size: 3.5rem;
-    padding: 0.25em;
-    padding-left: 0.1em;
-    font-weight: 300;
-    line-height: 1em;
+    align-items: center;
+    text-align: center;
 }
 
 .who-are-we-subheading{
-    font-size: 1.3rem;
-    margin: 0;
-    margin-top: 1em;
-    padding-left: 0.25em;
+    font-size: var(--M-SUBHEADING-FONT-SIZE);
+    font-weight: 300;
+}
+
+.who-are-we-heading{
+    font-size: var(--M-HEADING-FONT-SIZE);
+    font-weight: 300;
 }
 
 .who-are-we-content{
-    margin: 1em 0 0 0.3em;
-    /* margin-bottom: 2em; */
-    padding-right: 5%;
+    width: 85%;
+    margin-top: 1em;
     font-weight: 200;
-    font-size: 1.05rem;
+    font-size: 0.85rem;
     text-align: justify;
-}
-
-.blank-space{
-    height: 2em;
-    background-color: #1f1e1e;;
 }
 
 
@@ -127,134 +119,106 @@
 
 
 
-/***************** Section: Latest Events and Blog section ************/
-.latest-updates-container{
+/***************** Section: Latest Blog section ************/
+.blog-section-container{
     display: flex;
     flex-direction: column;
     text-align: center;
-    justify-content: center;
     align-items: center;
     padding-inline: 1em;
-    margin-bottom: 3em;
+    margin-bottom: 2em;
     word-wrap: normal;
 }
 
-.latest-updates-subheading{
+.blog-section-heading{
     font-weight: 300;
-    padding: 0.5em;
+    font-size: var(--M-HEADING-FONT-SIZE);
+    letter-spacing: 0.1rem;
+    margin-top: 0.25em;
 }
 
-.latest-updates-heading{
-    font-size: 3.5rem;
+.blog-section-subheading{
     font-weight: 300;
-    padding-bottom: 0.5em;
-    letter-spacing: 0.13rem;
+    font-size: var(--M-SUBHEADING-FONT-SIZE);
+    margin-bottom: 2em;
+    width: 80%;
 }
 
-.latest-updates-content{
-    max-width: 50%;
-    margin-bottom:3em;
-    color: rgb(213, 211, 211);
-    
-    font-size: 1.1rem;
-    font-weight: 350;
-    line-height: 1.5rem;
-    letter-spacing: 0.05rem;
+.blog-section-posts-wrapper{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    row-gap: 1.5em;
+    gap: 1em;
+    width: 90%;
 }
 
-.latest-updates-posts-wrapper{
-    display: flex;
-    justify-content: center;
-    align-content: space-between;
-    gap: 3%;
-    letter-spacing: 0.05rem;
-}
-
-.latest-updates-blogpost-subcontainer{
+.blogpost-subcontainer{
     display: flex;
     flex-direction: column;
-    width: 30%;
-    /* min-width: 300px; */
     text-align: left;
 }
 
-.latest-updates-blogpost-image-date-container{
+.blogpost-imagedate-wrapper{
     display: grid;
-    grid-template-rows: 1fr;
-    grid-template-columns: 1fr;
     grid-template-areas: "overlap";
-    position: relative;
     overflow: hidden;
 }
 
-.latest-updates-blogpost-image{
+.blogpost-image{
     max-width: 100%;
-    max-height: 100%;
     object-fit: cover;
     grid-area: overlap;
     padding-bottom: 1.5em;
-    z-index: 2;
 }
 
-.latest-updates-blogpost-image:hover{
+.blogpost-image:hover{
     transform: rotate(5deg);
     transition: transform 0s ease-in-out, rotate 8s ease-in-out;
     scale: 1.1;
 }
 
-.latest-updates-blogpost-date-wrapper{
+.blogpost-date-wrapper{
     background-color: white;
     color: black;
     border-radius: 50%;
     max-width: fit-content;
-    max-height: fit-content;
-    z-index: 5;
+    z-index: 2;
+    font-family: "Roboto";
     
-    margin-left: 0.2em;
-    padding: 0.35em 0.75em;
+    padding: 0.35em 0.76em;
     align-self: flex-end;
     grid-area: overlap;
     text-align: center;
 }
 
-.latest-updates-blogpost-date{
-    font-size: 1.2rem;
+.blogpost-date{
+    font-size: 1.1rem;
     font-weight: bold;
     display: block;
 }
 
-.latest-updates-blogpost-heading{
-    font-size: 1.3rem;
+.blogpost-heading{
+    font-size: 1.2rem;
     font-weight: 400;
-    letter-spacing: 0.03rem;
-    padding: 0.5em;
     margin-bottom: 0.5em;
-    display: block;
     text-align: center;
 }
 
-.latest-updates-blogpost-content{
+.blogpost-content{
     color: rgb(213, 211, 211);
-    font-size: 1rem;
     font-weight: 300;
-    line-height: 1.5em;
-    
-    margin: 0em 1em;
-    padding-left: 1em;
+    margin-left: 1.5em;
 }
 
-.latest-updates-blogpost-readmore{
+.blogpost-readmore-link{
     text-decoration: none;
     color: white;
-    margin-left: 2em;
-    padding-top: 1em;
+    margin-left: 1.5em;
+    padding-top: 0.5em;
 }
-
-
 
 
 /*********************** Section: Future events ***********************/
-
 .future-events-content-container{
     background-image: url('../images/future_events_cropped.jpg');
     background-size: cover;
@@ -271,17 +235,16 @@
     color: white;
     font-size: 3rem;
     font-weight: 300;
-    margin-top: 5.5%;
-    padding: 3% 5% 1% 5%;
+    margin-top: 1em;
 }
 
 .future-events-content{
     font-size: 1.2rem;
-    font-weight: 350;
+    font-weight: 300;
     color: rgb(211, 205, 205);
-    width: 50%;
-    margin-top: 2%;
-    margin-bottom: 5%;
+    width: 80%;
+    margin-top: 1em;
+    margin-bottom: 2em;
 }
 
 .future-events-button{
@@ -290,7 +253,7 @@
     text-decoration: none;
 
     width: max-content;
-    margin-bottom: 5%;
+    margin-bottom: 3.2em;
     padding: 1em;
     border-radius: 2em;
     border: 1px solid white;
@@ -302,56 +265,51 @@
 }
 
 
-/***************** Media queries for responsiveness (Tablets) ************/
-@media screen and (max-width:1000px) {
-    .who-are-we-subheading{
-        font-size: 3vw;
-    }
-    
-    .who-are-we-heading{
-        font-size: 6vw;
-    }
-
-    .who-are-we-content{
-        font-size: 2vw;
-    }
-}
-
-
 /******************* Media queries for responsiveness (Mobile) ********/ 
-@media (max-width: 696px) {
+@media screen and (min-width: 696px) {
     
     /************** Section: Who are we section **********/
     .who-are-we-container{
-        padding-top: 1.5em;
-        flex-direction: column;
-        align-items: center;
+        flex-direction: row;
     }
 
     .who-are-we-image{
-        margin-top: 2em;
-        width: 90%;
-        padding: 0;
+        max-width: 45%;
+        padding-inline: 1.8em;
     }
 
     .who-are-we-content-container{
-        padding: 1em;
-        text-align: center;
-        display: none;
+        align-items:flex-start;
+        text-align: left;
     }
 
     .who-are-we-subheading{
-        margin: 0;
-        font-size: 1.5rem;
+        font-size: 1.3rem;
     }
 
     .who-are-we-heading{
-        font-size: 2.5rem;
+        font-size: 3.2rem;
+        padding: 0.2em 0;
+        line-height: 1em;
     }
 
     .who-are-we-content{
-        text-align: center;
         font-size: 1rem;
+    }
+
+    /**************** Section: Blog **********************/
+    .blog-section-heading{
+        font-size: 3.5rem;
+        margin-top: 0;
+    }
+
+    .blog-section-posts-wrapper{
+        width: 95%;
+    }
+
+    /*************** Section: Future events **********/
+    .future-events-content{
+        width: 60%;
     }
 
     /************** Section: What is astronautics **********/
@@ -368,43 +326,5 @@
     .what-is-astronautics-image{
         width: 100%;
         object-fit: cover;
-    }
-
-    /************** Section: Events and blogs ************/
-    .latest-updates-content{
-        width: 80%;
-    }
-
-    .latest-updates-heading {
-        letter-spacing: 0.1rem;
-        font-size: 10vw;
-        margin: 0;
-        padding: 0;
-    }
-
-    .latest-updates-posts-wrapper{
-        flex-direction: column;
-        align-items: center;
-        gap: 2em;
-    }
-
-    .latest-updates-blogpost-subcontainer{
-        width: 90%;
-        padding: 0;
-        margin: 0;
-    }
-
-    /*************** Section: Future events **********/
-    .future-events-heading{
-        margin-inline: 4%;
-        margin-bottom: 4%;
-    }
-
-    .future-events-content{
-        margin-bottom: 8%;
-    }
-
-    .future-events-button{
-        margin-bottom: 15%;
     }
 }

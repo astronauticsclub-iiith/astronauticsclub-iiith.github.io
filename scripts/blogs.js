@@ -11,13 +11,13 @@ backToTopButton.addEventListener('click', () => {
 });
 
 const searchBar = document.getElementById('search-bar');
-  const blogPosts = document.querySelectorAll('.latest-updates-blogpost-subcontainer');
+  const blogPosts = document.querySelectorAll('.blogpost-subcontainer');
 
   searchBar.addEventListener('input', () => {
     const searchText = searchBar.value.toLowerCase();
     blogPosts.forEach(post => {
-      const title = post.querySelector('.latest-updates-blogpost-heading').innerText.toLowerCase();
-      const content = post.querySelector('.latest-updates-blogpost-content').innerText.toLowerCase();
+      const title = post.querySelector('.blogpost-heading').innerText.toLowerCase();
+      const content = post.querySelector('.blogpost-content').innerText.toLowerCase();
       post.style.display = (title.includes(searchText) || content.includes(searchText)) ? 'block' : 'none';
     });
   });
