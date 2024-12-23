@@ -4,12 +4,13 @@
   background-position: center;
   background-repeat: no-repeat;
   width: 100%;
-  height: 60vh;
+  height: 67vh;
 
   display: flex;
   flex-direction: row;
   align-items: flex-end;
   justify-content: space-between;
+  top: 0;
 }
 
 .blog-details-wrapper{
@@ -98,8 +99,67 @@
 }
 
 
+/********************* All blog list ***************************/
+.all-blogs{
+  display: flex;
+  flex-direction: column;
+  padding-top: 1em;
+  padding-bottom: 2em;
+}
 
+.all-blog-header{
+  margin-left: 5%;
+}
 
+.blog-filters{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding-bottom: 1em;
+}
+
+.all-blogs-heading{
+  font-size: 3rem;
+  font-weight: 400;
+  line-height: 3rem;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+.all-blogs-subheading{
+  font-size: 1rem;
+  font-weight: 400;
+  font-family: cursive;
+}
+
+.blog-categories{
+  display: flex;
+  flex-direction: row;
+  gap: 0.6em;
+  margin: 0.5em 0;
+}
+
+.blog-category-type{
+  max-width: fit-content;
+  margin-bottom: 0.5em;
+  padding: 0.6em 0.9em;
+  font-size: 0.8rem;
+  background-color: rgb(224, 225, 232);
+  color: rgb(41, 39, 39);
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+#blog-sort {
+  margin-right: 5%;
+}
+
+#blog-sort select{
+  padding: 0.3em 1em;
+  border-radius: 20px;
+  -webkit-appearance: none !important;
+  appearance: none !important;
+}
 
 
 

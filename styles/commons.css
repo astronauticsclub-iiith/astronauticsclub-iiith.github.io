@@ -1,6 +1,7 @@
-/* Navbar and Common properties for html, body */
 @import url('font.css');
+@import url('/font-awesome-4.6.3/css/font-awesome.min.css');
 
+/* Navbar and Common properties for html, body */
 *, *::before, *::after {
   box-sizing: border-box;
   margin: 0;
@@ -58,6 +59,7 @@ nav {
   background-color: transparent;
   color: white;
   user-select: none;
+  width: 100%;
   /* border-radius: 0 0 2vw 2vw; */
 }
 

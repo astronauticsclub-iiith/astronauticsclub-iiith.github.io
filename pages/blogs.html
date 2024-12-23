@@ -7,16 +7,16 @@
     <meta name="description" content="Blogs page for Astronautics Club" />
     <meta name="keywords" content="Astronomy, Space, Astronautics Club, IIIT Hyderabad, Astronautics" />
     <link rel="icon" type="image/x-icon" sizes="16x16" href="../icons/favicon.ico">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <title>Blogs - Astronautics Club IIITH</title>
 
     <!-- CSS Files -->
+    <link rel="stylesheet" href="../styles/blogs.css" />
+    <link rel="stylesheet" href="../styles/blogpost.css" />
     <link rel="stylesheet" href="../styles/commons.css" />
     <link rel="stylesheet" href="../styles/footer.css" />
-    <link rel="stylesheet" href="../styles/font.css" />
-    <link rel="stylesheet" href="../styles/home-page.css" />
     <link rel="stylesheet" href="../styles/neumorphism.css" />
     <link rel="stylesheet" href="../styles/shooting-stars.css" />
-    <link rel="stylesheet" href="../styles/blogs.css" />
 
     <!-- JS Script imports -->
     <script src="../scripts/main.js" defer></script>
@@ -39,7 +39,7 @@
 <body>
 <!-- Navbar -->
 <header>
-  <nav class="desktop-nav">
+  <nav style="position: absolute;" class="desktop-nav">
     <div>
       <img
         src="../images/astronautics_club_logo_brighten.png"
@@ -119,7 +119,7 @@
     </div>
   </div>
 
-  <div class="blog-author-details-wrapper">
+  <!-- <div class="blog-author-details-wrapper">
     <div class="author-details">
       <img class="blog-author-pic" height="30px" width="30px"
         src="../images/team_members_dp/mayank_photo.jpeg" />
@@ -129,8 +129,101 @@
         27th Dec 2024 
     </span> •
     <span class="blod-read-min">12 mins read</span>
-  </div>
+  </div> -->
 </article>
+
+<section class="all-blogs">
+  <div class="all-blog-header">
+    <h3 class="all-blogs-heading">Cosmic Chronicles</h3>
+    <p class="all-blogs-subheading">Exploring the universe, one story at a time!</p>
+    <div class="blog-filters">
+      <div class="blog-categories">
+        <button class="blog-category-type">All</button>
+        <button class="blog-category-type">Astronomy</button>
+        <button class="blog-category-type">Astrophotography</button>
+        <button class="blog-category-type">Projects</button>
+        <button class="blog-category-type">Events</button>
+      </div>
+      <div id="blog-sort">
+        <label for="sort">Sort by: </label>
+        <select name="sort">
+          <option value="newest">
+            Newest <i class="fa-solid fa-caret-down faq-arrow"></i>
+          </option>
+          <option value="oldest">Oldest</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <div class="blog-section-posts-wrapper">
+    <article class="blogpost-subcontainer">
+      <div class="blogpost-imagedate-wrapper">
+        <img class="blogpost-image" src="../images/blog_1.jpg" />
+        <div class="blogpost-date-wrapper">
+          <span class="blogpost-date">14</span>
+          <span class="blogpost-month">Feb</span>
+        </div>
+      </div>
+      
+      <h3 class="blogpost-heading">Space is Full of Surprises</h3>
+      <p class="blogpost-content">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin quis aliquet sapien. Donec velit lacus, mollis eu…
+      </p>
+      <a class="blogpost-readmore-link" href="../pages/404.html">read more</a>
+    </article>
+
+
+    <article class="blogpost-subcontainer">
+      <div class="blogpost-imagedate-wrapper">
+        <img class="blogpost-image" src="../images/telescope_blog.jpg" />
+        <div class="blogpost-date-wrapper roboto-light">
+          <span class="blogpost-date">14</span>
+          <span class="blogpost-month">Feb</span>
+        </div>
+      </div>
+      
+      <h3 class="blogpost-heading">Space is Full of Surprises</h3>
+      <p class="blogpost-content">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin quis aliquet sapien. Donec velit lacus, mollis eu…
+      </p>
+      <a class="blogpost-readmore-link" href="../pages/404.html">read more</a>
+    </article>
+
+
+    <article class="blogpost-subcontainer">
+      <div class="blogpost-imagedate-wrapper">
+        <img class="blogpost-image" src="../images/blog_1.jpg" />
+        <div class="blogpost-date-wrapper roboto-light">
+          <span class="blogpost-date">14</span>
+          <span class="blogpost-month">Feb</span>
+        </div>
+      </div>
+      
+      <h3 class="blogpost-heading">Space is Full of Surprises</h3>
+      <p class="blogpost-content">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin quis aliquet sapien. Donec velit lacus, mollis eu…
+      </p>
+      <a class="blogpost-readmore-link" href="../pages/404.html">read more</a>
+    </article>
+
+    <article class="blogpost-subcontainer">
+      <div class="blogpost-imagedate-wrapper">
+        <img class="blogpost-image" src="../images/blog_1.jpg" />
+        <div class="blogpost-date-wrapper roboto-light">
+          <span class="blogpost-date">14</span>
+          <span class="blogpost-month">Feb</span>
+        </div>
+      </div>
+      
+      <h3 class="blogpost-heading">Space is Full of Surprises</h3>
+      <p class="blogpost-content">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin quis aliquet sapien. Donec velit lacus, mollis eu…
+      </p>
+      <a class="blogpost-readmore-link" href="../pages/404.html">read more</a>
+    </article>
+  </div>
+</section>
 
 </main>
 
