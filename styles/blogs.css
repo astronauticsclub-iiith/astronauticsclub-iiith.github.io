@@ -1,3 +1,109 @@
+.top-blog-section{
+  background-image: url(../images/telescope_blog.jpg);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  width: 100%;
+  height: 60vh;
+
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  justify-content: space-between;
+}
+
+.blog-details-wrapper{
+  max-width: fit-content;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1.5em;
+  margin-left: 1em;
+}
+
+.blog-category{
+    max-width: fit-content;
+    margin-bottom: 0.5em;
+    border-radius: 30px;
+    padding: 0.5em 1em;
+    font-size: 0.6rem;
+    background-color: gray;
+    color: white;
+}
+
+.blog-title{
+  color: white;
+  font-weight: 400;
+  font-size: 1.8rem;
+}
+
+.blog-description{
+  color: white;
+  font-weight: 400;
+  font-size: 0.8rem;
+}
+
+.blog-number{
+  margin-top: 0.8em;
+}
+
+.circle{
+  display: inline-block;
+  width: 0.7em;
+  height: 0.7em;
+  border-radius: 50%;
+  border: 1px solid white;
+  background-color: transparent;
+}
+
+.filled{
+  background-color: white;
+}
+
+
+
+.blog-author-details-wrapper{
+  width: 50%;
+  text-align: right;
+  margin-bottom: 3em;
+  margin-right: 1em;
+  opacity: 0.9;
+  color: #ffeded;
+}
+
+.author-details{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.5em;
+  justify-content: flex-end;
+}
+
+.blog-author-pic{
+  width: 1.4em;
+  height: auto;
+  border-radius: 50%;
+  border: 1px solid #2c2c2c;
+}
+
+.blog-author-name{
+  font-size: 0.7rem;
+}
+
+.blog-date{
+  font-size: 0.6rem;
+}
+
+.blod-read-min{
+  font-size: 0.6rem;
+}
+
+
+
+
+
+
+
+
 #back-to-top {
     position: fixed;
     bottom: 20px;
@@ -48,3 +154,4 @@
     font-style: italic;
   }
   
+
