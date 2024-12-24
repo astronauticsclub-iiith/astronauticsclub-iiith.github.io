@@ -45,7 +45,7 @@
   max-width: fit-content;
   display: flex;
   flex-direction: column;
-  margin-bottom: 1.5em;
+  margin-bottom: 1.6em;
   margin-left: 1em;
 }
 
@@ -69,10 +69,14 @@
   color: white;
   font-weight: 400;
   font-size: 0.8rem;
+  /* margin-bottom: 0.8em; */
 }
 
-.blog-number{
-  margin-top: 0.8em;
+.topblogCircle{
+  display: flex;
+  flex-direction: row;
+  gap: 0.3em;
+  margin-top: 1.2em;
 }
 
 .circle{
