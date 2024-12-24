@@ -21,7 +21,7 @@
     <!-- JS Script imports -->
     <script src="../scripts/main.js" defer></script>
     <script src="../scripts/mobile-navbar.js" defer></script>
-    <script src="../scripts/scroll-down-arrow.js" defer></script>
+    <!-- <script src="../scripts/scroll-down-arrow.js" defer></script> -->
     <script src="../scripts/blogs.js" defer></script>
 
 
@@ -103,9 +103,6 @@
 
 <!-- Main Content: Blogs Section -->
 <main>
-<!-- <div class="blog-search-bar">
-  <input type="text" id="search-bar" placeholder="Search blog posts..." />
-</div> -->
 
 <article class="top-blog-section">
   <div class="blog-details-wrapper">
@@ -134,25 +131,19 @@
 
 <section class="all-blogs">
   <div class="all-blog-header">
-    <h3 class="all-blogs-heading">Cosmic Chronicles</h3>
-    <p class="all-blogs-subheading">Exploring the universe, one story at a time!</p>
+    <h3 class="all-blogs-heading">Our Blogs</h3>
+    <!-- <p class="all-blogs-subheading">“Whispers from a boundless universe.”!</p> -->
+    <p class="all-blogs-subheading">Exploring the universe, One story at a time</p>
+
     <div class="blog-filters">
       <div class="blog-categories">
-        <button class="blog-category-type">All</button>
-        <button class="blog-category-type">Astronomy</button>
-        <button class="blog-category-type">Astrophotography</button>
-        <button class="blog-category-type">Projects</button>
-        <button class="blog-category-type">Events</button>
+        <span class="blog-category-type blog-category-active">All</span>
+        <span class="blog-category-type">Astronomy</span>
+        <span class="blog-category-type">Astrophotography</span>
+        <span class="blog-category-type">Projects</span>
+        <span class="blog-category-type">Events</span>
       </div>
-      <div id="blog-sort">
-        <label for="sort">Sort by: </label>
-        <select name="sort">
-          <option value="newest">
-            Newest <i class="fa-solid fa-caret-down faq-arrow"></i>
-          </option>
-          <option value="oldest">Oldest</option>
-        </select>
-      </div>
+      <input type="text" id="search-bar" placeholder="Search blog posts.." />
     </div>
   </div>
 
@@ -387,4 +378,21 @@
 </h4>
 
 </body>
+
+<script>
+  window.onscroll = function () {
+    if (document.body.scrollTop > 500 ||
+        document.documentElement.scrollTop > 500) 
+    {
+      document.querySelector("nav").style.backgroundColor = "black";
+      document.getElementById("scroll-down-arrow").style.display = "none";
+    } 
+
+    else {
+      document.querySelector("nav").style.opacity = 0.85;
+      document.getElementById("scroll-down-arrow").style.display = "block";
+    }
+};
+</script>
+
 </html>

@@ -102,6 +102,7 @@ details summary{
     font-size: 1.2rem;
     list-style: none;
     cursor: pointer;
+    font-weight: 300;
 }
 
 .faq-arrow{
