@@ -7,7 +7,6 @@
     <meta name="description" content="Blogs page for Astronautics Club" />
     <meta name="keywords" content="Astronomy, Space, Astronautics Club, IIIT Hyderabad, Astronautics" />
     <link rel="icon" type="image/x-icon" sizes="16x16" href="../icons/favicon.ico">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <title>Blogs - Astronautics Club IIITH</title>
 
     <!-- CSS Files -->
@@ -19,10 +18,10 @@
     <link rel="stylesheet" href="../styles/shooting-stars.css" />
 
     <!-- JS Script imports -->
+    <script src="../scripts/blogs.js" defer></script>
     <script src="../scripts/main.js" defer></script>
     <script src="../scripts/mobile-navbar.js" defer></script>
     <!-- <script src="../scripts/scroll-down-arrow.js" defer></script> -->
-    <script src="../scripts/blogs.js" defer></script>
 
 
     <!-- Google tag (gtag.js) for Analytics -->
@@ -39,7 +38,7 @@
 <body>
 <!-- Navbar -->
 <header>
-  <nav style="position: absolute;" class="desktop-nav">
+  <nav class="desktop-nav">
     <div>
       <img
         src="../images/astronautics_club_logo_brighten.png"
@@ -105,11 +104,32 @@
 <main>
 
 <article class="top-blog-section">
+  <div class="blog-slider-arrows">
+    <svg class="slider-arrow" id="slider-left-arrow" fill="#000000" width="60px" height="60px" viewBox="0 0 256 256" id="Flat" xmlns="http://www.w3.org/2000/svg">
+      <g opacity="0.2">
+        <circle cx="128" cy="128" r="96"/>
+      </g>
+      <g>
+        <path d="M128,24A104,104,0,1,0,232,128,104.11791,104.11791,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.09957,88.09957,0,0,1,128,216Z"/>
+        <path d="M149.94629,86.64844a7.99931,7.99931,0,0,0-11.29785-.59473l-40,36a7.99954,7.99954,0,0,0,0,11.89258l40,36a7.99985,7.99985,0,1,0,10.70312-11.89258L115.959,128l33.39258-30.05371A7.99973,7.99973,0,0,0,149.94629,86.64844Z"/>
+      </g>
+    </svg>
+
+    <svg class="slider-arrow" id="slider-right-arrow" fill="#000000" width="60px" height="60px" viewBox="0 0 256 256" id="Flat" xmlns="http://www.w3.org/2000/svg">
+      <g opacity="0.2">
+        <circle cx="128" cy="128" r="96"/>
+      </g>
+      <g>
+        <path d="M128,24A104,104,0,1,0,232,128,104.11791,104.11791,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.09957,88.09957,0,0,1,128,216Z"/>
+        <path d="M121.35156,86.05371a7.99985,7.99985,0,1,0-10.70312,11.89258L144.041,128l-33.39258,30.05371a7.99985,7.99985,0,1,0,10.70312,11.89258l40-36a7.99954,7.99954,0,0,0,0-11.89258Z"/>
+      </g>
+    </svg>
+  </div>
   <div class="blog-details-wrapper">
-    <span class="blog-category">Astronomy</span>
-    <h2 class="blog-title">A Beginner’s Guide to Telescopes</h2>
-    <h5 class="blog-description">Explore the fascinating world of telescopes! Learn about their types, how they work, and essential tips for handling</h5>
-    <div class="blog-number">
+    <span id="top-blog-category" class="blog-category">Astronomy</span>
+    <h2 id="top-blog-title" class="blog-title">A Beginner’s Guide to Telescopes</h2>
+    <h5 id="top-blog-description" class="blog-description">Explore the fascinating world of telescopes! Learn about their types, how they work, and essential tips for handling</h5>
+    <div id="topblog-number" class="blog-number">
       <span class="circle filled"></span>
       <span class="circle"></span>
       <span class="circle"></span>
@@ -385,12 +405,10 @@
         document.documentElement.scrollTop > 500) 
     {
       document.querySelector("nav").style.backgroundColor = "black";
-      document.getElementById("scroll-down-arrow").style.display = "none";
     } 
 
     else {
       document.querySelector("nav").style.opacity = 0.85;
-      document.getElementById("scroll-down-arrow").style.display = "block";
     }
 };
 </script>
