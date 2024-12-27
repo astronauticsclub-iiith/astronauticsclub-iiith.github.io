@@ -163,11 +163,14 @@
   flex-direction: row;
   justify-content: space-between;
   margin: 1.5em 0;
+  flex-wrap: wrap;
+  row-gap: 1em;
 }
 
 .blog-categories{
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
   gap: 0.5em;
 }
 
@@ -223,4 +226,10 @@
 
 #search-bar::placeholder {
   color: #b0b0b0;  /* Lighter placeholder text */
+}
+
+@media screen and (max-width: 696px) {
+  .blog-slider-arrows{
+    display: none;
+  }
 }
