@@ -1,43 +1,104 @@
+main{
+  position: relative;
+}
+
 .gallery {
     column-count: 4;
     --webkit-column-count: 4;
     --moz-column-count: 4;
     gap: 1rem;
-    padding: 2rem;
+    padding: 1rem;
     break-inside: avoid;
 }
 
 figure{
     margin-bottom: 0.5em;
+    cursor: pointer;
+}
+
+figure:hover {
+  filter: blur(3px);
+  -webkit-filter: blur(3px);
 }
 
 figure img{
-    height: auto;
-    width: 100%;
-    
-  }
+  height: auto;
+  width: 100%;
   
-  /* Responsive-ness for different screen-sizes */
-  @media screen and (max-width: 810px) {
-    .gallery {
-      column-count: 3;
-      --webkit-column-count: 3;
-      --moz-column-count: 3;
-    }
+}
+
+.zoomed-image{
+  position: fixed;
+  z-index: 3;
+  width: max-content;
+  height: 85vh;
+  align-self: center;
+
+  margin-top: 0.5em;
+  background-color: aliceblue;
+  color: rgb(241, 46, 46);
+  /* padding: 0.25em; */
+  display: flex;
+  /* border-radius: 1em; */
+  flex-direction: column;
+  align-items: center;
+  display: none;
+}
+
+.zoomed-image h2{
+  position: absolute;
+  top: 0.5em;
+  right: 0.5em;
+  text-align: right;
+  cursor: pointer;
+  font-size: 1.5rem;
+}
+
+.zoomed-image img{
+  /* width: 100%; */
+  max-height: 100%;
+  aspect-ratio: auto;
+  /* border-radius: 1em; */
+}
+
+#blurOverlay{
+  top: 0;
+  width: 100%;
+  height: 100vh;
+  position: fixed;
+  z-index: 3;
+  background-color: rgba(47, 46, 46, 0.7);
+  backdrop-filter: blur(10px);
+  display: none;
+}
+
+/* :not(:hover) {
+  filter: blur(50%);
+  color: transparent;
+} */
+
+
+/* Responsive-ness for different screen-sizes */
+@media screen and (max-width: 810px) {
+  .gallery {
+    column-count: 3;
+    --webkit-column-count: 3;
+    --moz-column-count: 3;
   }
-  
-  @media screen and (max-width: 500px) {
-    .gallery {
-      column-count: 2;
-      --webkit-column-count: 2;
-      --moz-column-count: 2;
-    }
+}
+
+@media screen and (max-width: 500px) {
+  .gallery {
+    column-count: 2;
+    --webkit-column-count: 2;
+    --moz-column-count: 2;
   }
-  
-  @media screen and (max-width: 400px) {
-    .gallery {
-      column-count: 1;
-      --webkit-column-count: 1;
-      --moz-column-count: 1;
-    }
-  }  
+}
+
+@media screen and (max-width: 400px) {
+  .gallery {
+    column-count: 1;
+    --webkit-column-count: 1;
+    --moz-column-count: 1;
+  }
+}  
