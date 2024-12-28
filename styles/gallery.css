@@ -1,7 +1,3 @@
-main{
-  position: relative;
-}
-
 .gallery {
     column-count: 4;
     --webkit-column-count: 4;
@@ -12,19 +8,26 @@ main{
 }
 
 figure{
+    position: relative;
+    display: inline-block;
     margin-bottom: 0.5em;
     cursor: pointer;
 }
 
-figure:hover {
-  filter: blur(3px);
-  -webkit-filter: blur(3px);
-}
-
 figure img{
   height: auto;
-  width: 100%;
-  
+  width: 100%; 
+}
+
+figure figcaption{
+    position: absolute;
+    top: 50%; 
+    left: 50%;
+    display: none;
+    transform: translate(-50%, -50%); 
+    text-align: center;
+    width: 60%;
+    font-family: "Roboto";
 }
 
 .zoomed-image{
@@ -45,14 +48,6 @@ figure img{
   display: none;
 }
 
-.zoomed-image h2{
-  position: absolute;
-  top: 0.5em;
-  right: 0.5em;
-  text-align: right;
-  cursor: pointer;
-  font-size: 1.5rem;
-}
 
 .zoomed-image img{
   /* width: 100%; */

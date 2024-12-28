@@ -7,14 +7,31 @@ images.forEach(img => {
     img.addEventListener("click", (e)=>{
         const src = e.target.src;
         blurOverlay.style.display = "block";
-        imageFocus.style.display = "block";
         imageFocus.children[1].src = src
+        imageFocus.style.display = "block";
     })
 
-    // img.addEventListener("mouseover", )
+    img.addEventListener("mouseenter", (e)=>{
+        e.target.children[0].style.filter = "3px"
+        e.target.children[0].setAttribute("style", "-webkit-filter: blur(3px)"); 
+        e.target.children[1].style.display = "inline"
+    })
+
+    img.addEventListener("mouseleave", (e)=>{
+        e.target.children[0].style.filter = "none"
+        e.target.children[1].style.display = "none"
+    })
 })
 
 cross.addEventListener("click", ()=>{
     imageFocus.style.display = "none"
     blurOverlay.style.display = "none"
 })
+
+blurOverlay.addEventListener("click", (e)=>{
+    let isClicked = imageFocus.contains(e.target)
+    if(!isClicked){
+        imageFocus.style.display = "none"
+        blurOverlay.style.display = "none"
+    }
+}, true)
