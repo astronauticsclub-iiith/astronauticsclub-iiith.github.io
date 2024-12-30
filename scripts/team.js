@@ -12,43 +12,64 @@ window.addEventListener("resize", () => {
   drawScene();
 });
 
-// Zoom and pan variables
+// Zoom, pan, and rotation variables
 let scale = 1;
 let offsetX = canvas.width / 2;
 let offsetY = canvas.height / 2;
 let isDragging = false;
 let dragStartX, dragStartY;
+let rotationAngle = 0; // Rotation angle in radians
 
 // Star and constellation data (sample dataset)
 const stars = [
-  { ra: 0, dec: 0, magnitude: 2.5 },  // Example Star: Sun
-  { ra: 10, dec: -8, magnitude: 1.46 }, // Star: Aldebaran
-  { ra: 20, dec: 15, magnitude: 0.45 }, // Star: Betelgeuse
-  { ra: 30, dec: -10, magnitude: 2.1 }, // Star: Sirius
-  { ra: 50, dec: -60, magnitude: 1.98 }, // Star: Canopus
-  { ra: 100, dec: -10, magnitude: 1.94 }, // Star: Antares
-  { ra: 150, dec: 30, magnitude: 1.67 }, // Star: Vega
-  { ra: 180, dec: 0, magnitude: 2.2 }, // Star: Spica
-  { ra: 230, dec: -40, magnitude: 1.5 }, // Star: Arcturus
-  { ra: 270, dec: 15, magnitude: 1.25 }, // Star: Altair
-  { ra: 330, dec: -60, magnitude: 0.82 }, // Star: Fomalhaut
-  { ra: 10.5, dec: -60, magnitude: 0.98 }, // Star: Rigel
-  { ra: 35, dec: 60, magnitude: 1.23 }, // Star: Pollux
-  { ra: 70, dec: 30, magnitude: 2.87 }, // Star: Castor
-  { ra: 85, dec: 15, magnitude: 1.62 }, // Star: Procyon
-  { ra: 100, dec: -20, magnitude: 1.46 }, // Star: Alpha Centauri
-  { ra: 120, dec: 5, magnitude: 2.61 }, // Star: Deneb
-  { ra: 180, dec: 40, magnitude: 1.21 }, // Star: Altair
-  { ra: 195, dec: -10, magnitude: 2.05 }, // Star: Zeta Tauri
-  { ra: 210, dec: -5, magnitude: 2.11 }, // Star: Antares
-  { ra: 220, dec: 50, magnitude: 1.34 }, // Star: Aldebaran
+  // Orion Constellation
+  { ra: 5.919, dec: -5.232, magnitude: 0.18 },  // Betelgeuse (Alpha Orionis)
+  { ra: 5.919, dec: -1.201, magnitude: 0.42 },  // Bellatrix (Gamma Orionis)
+  { ra: 5.388, dec: -0.295, magnitude: 1.64 },  // Alnilam (Epsilon Orionis)
+  { ra: 5.462, dec: -2.435, magnitude: 1.70 },  // Alnitak (Zeta Orionis)
+  { ra: 6.752, dec: -0.302, magnitude: 1.97 },  // Saiph (Kappa Orionis)
+  { ra: 5.789, dec: -7.406, magnitude: 1.97 },  // Rigel (Beta Orionis)
+
+  // Ursa Major Constellation
+  { ra: 11.971, dec: 56.744, magnitude: 1.97 },  // Dubhe (Alpha Ursae Majoris)
+  { ra: 13.718, dec: 55.958, magnitude: 1.86 },  // Merak (Beta Ursae Majoris)
+  { ra: 11.816, dec: 55.616, magnitude: 1.98 },  // Phecda (Gamma Ursae Majoris)
+  { ra: 9.608, dec: 56.735, magnitude: 2.38 },   // Megrez (Delta Ursae Majoris)
+  { ra: 9.222, dec: 55.945, magnitude: 1.95 },   // Alkaid (Eta Ursae Majoris)
+
+  // Canis Major Constellation
+  { ra: 6.752, dec: -16.716, magnitude: -1.46 }, // Sirius (Alpha Canis Majoris)
+  { ra: 7.406, dec: -26.697, magnitude: 1.85 },  // Mirzam (Beta Canis Majoris)
+  { ra: 7.105, dec: -22.575, magnitude: 2.97 },  // Muliphen (Gamma Canis Majoris)
+
+  // Taurus Constellation
+  { ra: 4.527, dec: 16.501, magnitude: 0.85 },   // Aldebaran (Alpha Tauri)
+  { ra: 4.625, dec: 26.090, magnitude: 3.75 },   // Elnath (Beta Tauri)
+  { ra: 3.899, dec: 20.107, magnitude: 3.75 },   // Zeta Tauri
+  { ra: 5.217, dec: 24.659, magnitude: 3.40 },   // 16 Tauri
+  { ra: 5.736, dec: 18.475, magnitude: 4.45 },   // 17 Tauri
+
+  // Other stars
+  { ra: 3.489, dec: -9.563, magnitude: 2.02 },   // Procyon (Alpha Canis Minoris)
+  { ra: 22.700, dec: -29.862, magnitude: 0.99 },  // Antares (Alpha Scorpii)
+  { ra: 23.028, dec: -8.201, magnitude: 2.21 },   // Shaula (Lambda Scorpii)
 ];
 
 const constellations = [
-  [0, 1], // Connect star 0 to star 1
-  [1, 2],
-  [2, 3],
-  [3, 4],
+  // Orion Constellation
+  [0, 1], [1, 2], [2, 3], [3, 4], [4, 5], // Connect stars in Orion
+  
+  // Ursa Major Constellation
+  [6, 7], [7, 8], [8, 9], [9, 10], // Connect stars in Ursa Major
+  
+  // Canis Major Constellation
+  [11, 12], [12, 13], // Connect stars in Canis Major
+  
+  // Taurus Constellation
+  [14, 15], [15, 16], [16, 17], // Connect stars in Taurus
+
+  // Other stars
+  [18, 19]  // Connect stars in other constellations
 ];
 
 // Convert RA/Dec to polar projection
@@ -56,8 +77,21 @@ function projectCelestial(ra, dec) {
   const radius = Math.min(canvas.width, canvas.height) / 2;
   const radRA = (ra / 360) * 2 * Math.PI; // Convert RA to radians
   const radDec = (dec / 180) * Math.PI; // Convert Dec to radians
-  const x = radius * Math.cos(radDec) * Math.sin(radRA) + offsetX;
-  const y = radius * Math.sin(radDec) + offsetY;
+  let x = radius * Math.cos(radDec) * Math.sin(radRA) + offsetX;
+  let y = radius * Math.sin(radDec) + offsetY;
+
+  // Apply rotation transformation around the celestial pole (center of canvas)
+  const cosTheta = Math.cos(rotationAngle);
+  const sinTheta = Math.sin(rotationAngle);
+  const dx = x - offsetX;
+  const dy = y - offsetY;
+  x = offsetX + dx * cosTheta - dy * sinTheta;
+  y = offsetY + dx * sinTheta + dy * cosTheta;
+
+  // Apply scaling transformation based on the zoom level
+  x = offsetX + (x - offsetX) * scale;
+  y = offsetY + (y - offsetY) * scale;
+
   return { x, y };
 }
 
@@ -136,14 +170,16 @@ function drawScene() {
 // Mouse interactions for panning
 canvas.addEventListener("mousedown", (e) => {
   isDragging = true;
-  dragStartX = e.clientX - offsetX;
-  dragStartY = e.clientY - offsetY;
+  dragStartX = e.clientX;
+  dragStartY = e.clientY;
 });
 
 canvas.addEventListener("mousemove", (e) => {
   if (isDragging) {
-    offsetX = e.clientX - dragStartX;
-    offsetY = e.clientY - dragStartY;
+    offsetX += e.clientX - dragStartX;
+    offsetY += e.clientY - dragStartY;
+    dragStartX = e.clientX;
+    dragStartY = e.clientY;
     drawScene();
   }
 });
@@ -160,8 +196,23 @@ canvas.addEventListener("mouseleave", () => {
 canvas.addEventListener("wheel", (e) => {
   e.preventDefault();
   const zoomSpeed = 0.001;
-  scale *= 1 - e.deltaY * zoomSpeed;
+  scale *= 1 - e.deltaY * zoomSpeed; // Adjust zoom sensitivity
   drawScene();
+});
+
+// Mouse drag for rotation (around celestial pole)
+let lastMouseX = 0;
+canvas.addEventListener("mousedown", (e) => {
+  lastMouseX = e.clientX;
+});
+
+canvas.addEventListener("mousemove", (e) => {
+  if (e.buttons === 1) { // Check if left mouse button is pressed
+    const deltaX = e.clientX - lastMouseX;
+    rotationAngle += deltaX * 0.01; // Adjust rotation sensitivity
+    lastMouseX = e.clientX;
+    drawScene();
+  }
 });
 
 // Initial draw
