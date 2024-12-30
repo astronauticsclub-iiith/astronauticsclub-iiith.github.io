@@ -1,0 +1,71 @@
+{
+    "Andromeda": {
+      "stars": {
+        "Alpheratz": { "ra": 2.098, "dec": 29.09, "magnitude": 2.07 },
+        "Mirach": { "ra": 17.43, "dec": 35.62, "magnitude": 2.06 },
+        "Almach": { "ra": 30.97, "dec": 42.33, "magnitude": 2.1 }
+      },
+      "lines": [
+        ["Alpheratz", "Mirach"],
+        ["Mirach", "Almach"]
+      ]
+    },
+    "Cassiopeia": {
+      "stars": {
+        "Schedar": { "ra": 10.12, "dec": 56.54, "magnitude": 2.24 },
+        "Caph": { "ra": 0.151, "dec": 59.15, "magnitude": 2.28 },
+        "Gamma Cassiopeiae": { "ra": 6.07, "dec": 60.72, "magnitude": 2.47 },
+        "Ruchbah": { "ra": 12.19, "dec": 64.33, "magnitude": 2.68 },
+        "Segin": { "ra": 358.84, "dec": 63.67, "magnitude": 3.35 }
+      },
+      "lines": [
+        ["Schedar", "Caph"],
+        ["Caph", "Gamma Cassiopeiae"],
+        ["Gamma Cassiopeiae", "Ruchbah"],
+        ["Ruchbah", "Segin"],
+        ["Segin", "Schedar"]
+      ]
+    },
+    "Ursa Major": {
+      "stars": {
+        "Dubhe": { "ra": 165.46, "dec": 61.75, "magnitude": 1.79 },
+        "Merak": { "ra": 165.93, "dec": 56.38, "magnitude": 2.37 },
+        "Phecda": { "ra": 177.26, "dec": 53.69, "magnitude": 2.43 },
+        "Megrez": { "ra": 183.86, "dec": 57.03, "magnitude": 3.32 },
+        "Alioth": { "ra": 193.51, "dec": 55.96, "magnitude": 1.76 },
+        "Mizar": { "ra": 200.98, "dec": 54.92, "magnitude": 2.23 },
+        "Alkaid": { "ra": 206.89, "dec": 49.31, "magnitude": 1.86 }
+      },
+      "lines": [
+        ["Dubhe", "Merak"],
+        ["Merak", "Phecda"],
+        ["Phecda", "Megrez"],
+        ["Megrez", "Alioth"],
+        ["Alioth", "Mizar"],
+        ["Mizar", "Alkaid"]
+      ]
+    },
+    "Lyra": {
+      "stars": {
+        "Vega": { "ra": 279.23, "dec": 38.78, "magnitude": 0.03 },
+        "Sheliak": { "ra": 281.27, "dec": 33.36, "magnitude": 3.52 },
+        "Sulafat": { "ra": 283.45, "dec": 32.69, "magnitude": 3.24 }
+      },
+      "lines": [
+        ["Vega", "Sheliak"],
+        ["Sheliak", "Sulafat"],
+        ["Sulafat", "Vega"]
+      ]
+    },
+    "Cygnus": {
+      "stars": {
+        "Deneb": { "ra": 310.36, "dec": 45.28, "magnitude": 1.25 },
+        "Sadr": { "ra": 305.25, "dec": 40.73, "magnitude": 2.23 },
+        "Albireo": { "ra": 292.68, "dec": 27.96, "magnitude": 3.05 }
+      },
+      "lines": [
+        ["Deneb", "Sadr"],
+        ["Sadr", "Albireo"]
+      ]
+    }
+  }
