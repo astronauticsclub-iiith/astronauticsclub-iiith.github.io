@@ -13,20 +13,44 @@ let constellations = {
       ["Mirach", "Almach"]
     ]
   },
-  "Cassiopeia": {
+  "Orion": {
     "stars": {
-      "Schedar": { "ra": 10.12, "dec": 56.54, "magnitude": 2.24 },
-      "Caph": { "ra": 0.151, "dec": 59.15, "magnitude": 2.28 },
-      "Gamma Cassiopeiae": { "ra": 6.07, "dec": 60.72, "magnitude": 2.47 },
-      "Ruchbah": { "ra": 12.19, "dec": 64.33, "magnitude": 2.68 },
-      "Segin": { "ra": 358.84, "dec": 63.67, "magnitude": 3.35 }
+      "Betelgeuse": { "ra": 88.79, "dec": 7.41, "magnitude": 0.42 },
+      "Bellatrix": { "ra": 81.28, "dec": 6.35, "magnitude": 1.64 },
+      "Rigel": { "ra": 78.63, "dec": -8.2, "magnitude": 0.13 },
+      "Saiph": { "ra": 83.00, "dec": -9.67, "magnitude": 2.07 },
+      "Alnitak": { "ra": 85.19, "dec": -1.94, "magnitude": 1.72 },
+      "Alnilam": { "ra": 84.05, "dec": -1.20, "magnitude": 1.69 },
+      "Mintaka": { "ra": 83.00, "dec": 0.30, "magnitude": 2.23 }
     },
     "lines": [
-      ["Schedar", "Caph"],
-      ["Caph", "Gamma Cassiopeiae"],
-      ["Gamma Cassiopeiae", "Ruchbah"],
-      ["Ruchbah", "Segin"],
-      ["Segin", "Schedar"]
+      ["Betelgeuse", "Bellatrix"],
+      ["Bellatrix", "Mintaka"],
+      ["Mintaka", "Alnilam"],
+      ["Alnilam", "Alnitak"],
+      ["Alnitak", "Rigel"],
+      ["Rigel", "Saiph"],
+      ["Saiph", "Betelgeuse"]
+    ]
+  },
+  "Gemini": {
+    "stars": {
+      "Castor": { "ra": 113.65, "dec": 31.89, "magnitude": 1.58 },
+      "Pollux": { "ra": 116.33, "dec": 28.02, "magnitude": 1.15 },
+      "Alhena": { "ra": 99.43, "dec": 16.40, "magnitude": 1.93 }
+    },
+    "lines": [
+      ["Castor", "Pollux"],
+      ["Pollux", "Alhena"]
+    ]
+  },
+  "Taurus": {
+    "stars": {
+      "Aldebaran": { "ra": 68.98, "dec": 16.51, "magnitude": 0.85 },
+      "Elnath": { "ra": 81.57, "dec": 28.61, "magnitude": 1.65 }
+    },
+    "lines": [
+      ["Aldebaran", "Elnath"]
     ]
   },
   "Ursa Major": {
@@ -48,18 +72,6 @@ let constellations = {
       ["Mizar", "Alkaid"]
     ]
   },
-  "Lyra": {
-    "stars": {
-      "Vega": { "ra": 279.23, "dec": 38.78, "magnitude": 0.03 },
-      "Sheliak": { "ra": 281.27, "dec": 33.36, "magnitude": 3.52 },
-      "Sulafat": { "ra": 283.45, "dec": 32.69, "magnitude": 3.24 }
-    },
-    "lines": [
-      ["Vega", "Sheliak"],
-      ["Sheliak", "Sulafat"],
-      ["Sulafat", "Vega"]
-    ]
-  },
   "Cygnus": {
     "stars": {
       "Deneb": { "ra": 310.36, "dec": 45.28, "magnitude": 1.25 },
@@ -70,7 +82,62 @@ let constellations = {
       ["Deneb", "Sadr"],
       ["Sadr", "Albireo"]
     ]
-  }
+  },
+  "Cassiopeia": {
+    "stars": {
+      "Schedar": { "ra": 10.12, "dec": 56.54, "magnitude": 2.24 },
+      "Caph": { "ra": 0.151, "dec": 59.15, "magnitude": 2.28 },
+      "Gamma Cassiopeiae": { "ra": 6.07, "dec": 60.72, "magnitude": 2.47 },
+      "Ruchbah": { "ra": 12.19, "dec": 64.33, "magnitude": 2.68 },
+      "Segin": { "ra": 358.84, "dec": 63.67, "magnitude": 3.35 }
+    },
+    "lines": [
+      ["Schedar", "Caph"],
+      ["Caph", "Gamma Cassiopeiae"],
+      ["Gamma Cassiopeiae", "Ruchbah"],
+      ["Ruchbah", "Segin"],
+      ["Segin", "Schedar"]
+    ]
+  },
+  "Auriga": {
+  "stars": {
+    "Capella": { "ra": 79.17, "dec": 45.99, "magnitude": 0.08 },
+    "Menkalinan": { "ra": 81.57, "dec": 44.95, "magnitude": 1.9 },
+    "El Nath": { "ra": 81.12, "dec": 28.61, "magnitude": 1.65 }
+  },
+  "lines": [
+    ["Capella", "Menkalinan"],
+    ["Menkalinan", "El Nath"]
+  ]
+},
+"Boötes": {
+  "stars": {
+    "Arcturus": { "ra": 213.91, "dec": 19.18, "magnitude": -0.05 },
+    "Izar": { "ra": 221.25, "dec": 27.07, "magnitude": 2.35 },
+    "Seginus": { "ra": 207.37, "dec": 33.96, "magnitude": 3.04 }
+  },
+  "lines": [
+    ["Arcturus", "Izar"],
+    ["Izar", "Seginus"]
+  ]
+},
+"Hydra": {
+  "stars": {
+    "Alphard": { "ra": 141.89, "dec": -8.65, "magnitude": 1.98 },
+    "Gamma Hydrae": { "ra": 131.17, "dec": -23.3, "magnitude": 3.0 },
+    "Zeta Hydrae": { "ra": 140.52, "dec": -23.11, "magnitude": 3.1 },
+    "Epsilon Hydrae": { "ra": 132.55, "dec": 6.42, "magnitude": 3.38 },
+    "Delta Hydrae": { "ra": 126.15, "dec": 5.83, "magnitude": 4.14 },
+    "Eta Hydrae": { "ra": 151.91, "dec": -2.31, "magnitude": 3.9 }
+  },
+  "lines": [
+    ["Alphard", "Gamma Hydrae"],
+    ["Gamma Hydrae", "Zeta Hydrae"],
+    ["Zeta Hydrae", "Epsilon Hydrae"],
+    ["Epsilon Hydrae", "Delta Hydrae"],
+    ["Delta Hydrae", "Eta Hydrae"]
+  ]
+}
 }
 
 // fetch('../data/constellation.json')
@@ -106,8 +173,10 @@ function projectCelestial(ra, dec) {
   const radius = Math.min(canvas.width, canvas.height) / 2;
   const radRA = (ra / 360) * 2 * Math.PI; // Convert RA to radians
   const radDec = (dec / 360) * 2 * Math.PI; // Convert Dec to radians
+  // let x = radius * Math.cos(radDec) * Math.sin(radRA) + offsetX;
+  // let y = radius * Math.sin(radDec) + offsetY;
   let x = radius * Math.cos(radDec) * Math.sin(radRA) + offsetX;
-  let y = radius * Math.sin(radDec) + offsetY;
+  let y = -radius * Math.cos(radDec) * Math.cos(radRA) + offsetY;
 
   // Apply rotation transformation around the celestial pole (center of canvas)
   const cosTheta = Math.cos(rotationAngle);
@@ -132,7 +201,7 @@ function drawCelestialGrid() {
   ctx.lineWidth = 1;
 
   // Draw concentric circles (declination lines)
-  for (let dec = -90; dec <= 90; dec += 15) {
+  for (let dec = 0; dec <= 90; dec += 15) {
     const r = (radius * (90 - Math.abs(dec))) / 90;
     ctx.beginPath();
     ctx.arc(offsetX, offsetY, r * scale, 0, 2 * Math.PI);
