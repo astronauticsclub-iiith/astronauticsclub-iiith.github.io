@@ -11,39 +11,59 @@ let constellations = {
     "lines": [
       ["Alpheratz", "Mirach"],
       ["Mirach", "Almach"]
-    ]
+    ],
+    "team": "Co-ordinators, Co-coordinators"
   },
+
   "Orion": {
     "stars": {
-      "Betelgeuse": { "ra": 88.79, "dec": 7.41, "magnitude": 0.42 },
-      "Bellatrix": { "ra": 81.28, "dec": 6.35, "magnitude": 1.64 },
-      "Rigel": { "ra": 78.63, "dec": -8.2, "magnitude": 0.13 },
-      "Saiph": { "ra": 83.00, "dec": -9.67, "magnitude": 2.07 },
-      "Alnitak": { "ra": 85.19, "dec": -1.94, "magnitude": 1.72 },
-      "Alnilam": { "ra": 84.05, "dec": -1.20, "magnitude": 1.69 },
-      "Mintaka": { "ra": 83.00, "dec": 0.30, "magnitude": 2.23 }
+      "Betelgeuse": { "ra": 88.79, "dec": 67.41, "magnitude": 0.42 },
+      "Bellatrix": { "ra": 81.28, "dec": 66.35, "magnitude": 1.64 },
+      "Rigel": { "ra": 78.63, "dec": 51.8, "magnitude": 0.13 },
+      "Saiph": { "ra": 83.00, "dec": 51.33, "magnitude": 2.07 },
+      "Alnitak": { "ra": 85.19, "dec": 58.06, "magnitude": 1.72 },
+      "Alnilam": { "ra": 84.05, "dec": 58.80, "magnitude": 1.69 },
+      "Mintaka": { "ra": 83.00, "dec": 61.30, "magnitude": 2.23 }
     },
     "lines": [
-      ["Betelgeuse", "Bellatrix"],
-      ["Bellatrix", "Mintaka"],
-      ["Mintaka", "Alnilam"],
-      ["Alnilam", "Alnitak"],
-      ["Alnitak", "Rigel"],
-      ["Rigel", "Saiph"],
-      ["Saiph", "Betelgeuse"]
-    ]
+      ["Betelgeuse", "Alnitak"],
+      ["Alnitak", "Saiph"],
+      ["Alnitak", "Alnilam"],
+      ["Alnilam", "Mintaka"],
+      ["Mintaka", "Bellatrix"],
+      ["Bellatrix", "Betelgeuse"],
+      ["Rigel", "Mintaka"]
+    ],
+    "team": "Events"
   },
+
   "Gemini": {
-    "stars": {
-      "Castor": { "ra": 113.65, "dec": 31.89, "magnitude": 1.58 },
-      "Pollux": { "ra": 116.33, "dec": 28.02, "magnitude": 1.15 },
-      "Alhena": { "ra": 99.43, "dec": 16.40, "magnitude": 1.93 }
-    },
-    "lines": [
-      ["Castor", "Pollux"],
-      ["Pollux", "Alhena"]
-    ]
+  "stars": {
+    "Castor": { "ra": 113.65, "dec": 31.89, "magnitude": 1.58 },
+    "Pollux": { "ra": 116.33, "dec": 28.02, "magnitude": 1.15 },
+    "Alhena": { "ra": 99.43, "dec": 16.40, "magnitude": 1.93 },
+    "Wasat": { "ra": 112.11, "dec": 21.98, "magnitude": 3.53 },
+    "Mebsuta": { "ra": 99.41, "dec": 25.13, "magnitude": 3.02 },
+    "Tejat": { "ra": 92.76, "dec": 22.51, "magnitude": 2.87 },
+    "Propus": { "ra": 93.71, "dec": 22.51, "magnitude": 3.28 },
+    "Mekbuda": { "ra": 100.56, "dec": 16.76, "magnitude": 4.02 },
+    "Alzirr": { "ra": 107.79, "dec": 17.05, "magnitude": 4.64 }
   },
+  "lines": [
+    ["Castor", "Pollux"],
+    ["Castor", "Mebsuta"],
+    ["Pollux", "Wasat"],
+    ["Wasat", "Mebsuta"],
+    ["Mebsuta", "Tejat"],
+    ["Tejat", "Propus"],
+    ["Propus", "Alhena"],
+    ["Alhena", "Mekbuda"],
+    ["Mekbuda", "Alzirr"],
+    ["Alzirr", "Pollux"]
+  ],
+  "team": "Tech"
+},
+
   "Taurus": {
     "stars": {
       "Aldebaran": { "ra": 68.98, "dec": 16.51, "magnitude": 0.85 },
@@ -53,6 +73,7 @@ let constellations = {
       ["Aldebaran", "Elnath"]
     ]
   },
+
   "Ursa Major": {
     "stars": {
       "Dubhe": { "ra": 165.46, "dec": 61.75, "magnitude": 1.79 },
@@ -83,6 +104,7 @@ let constellations = {
       ["Sadr", "Albireo"]
     ]
   },
+
   "Cassiopeia": {
     "stars": {
       "Schedar": { "ra": 10.12, "dec": 56.54, "magnitude": 2.24 },
@@ -97,47 +119,65 @@ let constellations = {
       ["Gamma Cassiopeiae", "Ruchbah"],
       ["Ruchbah", "Segin"],
       ["Segin", "Schedar"]
-    ]
+    ],
+    "team": "Astrophotography"
   },
+
   "Auriga": {
   "stars": {
     "Capella": { "ra": 79.17, "dec": 45.99, "magnitude": 0.08 },
-    "Menkalinan": { "ra": 81.57, "dec": 44.95, "magnitude": 1.9 },
-    "El Nath": { "ra": 81.12, "dec": 28.61, "magnitude": 1.65 }
+    "Menkalinan": { "ra": 81.57, "dec": 44.95, "magnitude": 1.90 },
+    "Mahasim": { "ra": 75.50, "dec": 40.00, "magnitude": 3.18 },
+    "Haedus I": { "ra": 78.63, "dec": 41.23, "magnitude": 3.72 },
+    "Haedus II": { "ra": 79.02, "dec": 37.18, "magnitude": 3.95 },
+    "Almaaz": { "ra": 77.71, "dec": 43.82, "magnitude": 2.99 },
+    "Elnath": { "ra": 81.57, "dec": 28.61, "magnitude": 1.65 },
+    "Hassaleh": { "ra": 74.25, "dec": 33.17, "magnitude": 2.69 },
+    "Theta Aurigae": { "ra": 86.94, "dec": 37.14, "magnitude": 2.62 }
   },
   "lines": [
     ["Capella", "Menkalinan"],
-    ["Menkalinan", "El Nath"]
-  ]
+    ["Capella", "Almaaz"],
+    ["Almaaz", "Haedus II"],
+    ["Haedus II", "Haedus I"],
+    ["Menkalinan", "Theta Aurigae"],
+    ["Elnath", "Theta Aurigae"],
+    ["Elnath", "Hassaleh"],
+    ["Haedus I", "Hassaleh"]
+  ],
+  "team": "Design"
 },
-"Boötes": {
-  "stars": {
-    "Arcturus": { "ra": 213.91, "dec": 19.18, "magnitude": -0.05 },
-    "Izar": { "ra": 221.25, "dec": 27.07, "magnitude": 2.35 },
-    "Seginus": { "ra": 207.37, "dec": 33.96, "magnitude": 3.04 }
+
+  "Boötes": {
+      "stars": {
+      "Arcturus": { "ra": 213.91, "dec": 19.18, "magnitude": -0.05 },
+      "Izar": { "ra": 221.25, "dec": 27.07, "magnitude": 2.35 },
+      "Seginus": { "ra": 207.37, "dec": 33.96, "magnitude": 3.04 }
+      },
+      "lines": [
+      ["Arcturus", "Izar"],
+      ["Izar", "Seginus"]
+      ]
   },
-  "lines": [
-    ["Arcturus", "Izar"],
-    ["Izar", "Seginus"]
-  ]
-},
-"Hydra": {
-  "stars": {
-    "Alphard": { "ra": 141.89, "dec": -8.65, "magnitude": 1.98 },
-    "Gamma Hydrae": { "ra": 131.17, "dec": -23.3, "magnitude": 3.0 },
-    "Zeta Hydrae": { "ra": 140.52, "dec": -23.11, "magnitude": 3.1 },
-    "Epsilon Hydrae": { "ra": 132.55, "dec": 6.42, "magnitude": 3.38 },
-    "Delta Hydrae": { "ra": 126.15, "dec": 5.83, "magnitude": 4.14 },
-    "Eta Hydrae": { "ra": 151.91, "dec": -2.31, "magnitude": 3.9 }
-  },
-  "lines": [
-    ["Alphard", "Gamma Hydrae"],
-    ["Gamma Hydrae", "Zeta Hydrae"],
-    ["Zeta Hydrae", "Epsilon Hydrae"],
-    ["Epsilon Hydrae", "Delta Hydrae"],
-    ["Delta Hydrae", "Eta Hydrae"]
-  ]
-}
+
+  "Hydra": {
+      "stars": {
+          "Alphard": { "ra": 141.89, "dec": -8.65, "magnitude": 1.98 },
+          "Gamma Hydrae": { "ra": 131.17, "dec": -23.3, "magnitude": 3.0 },
+          "Zeta Hydrae": { "ra": 140.52, "dec": -23.11, "magnitude": 3.1 },
+          "Epsilon Hydrae": { "ra": 132.55, "dec": 6.42, "magnitude": 3.38 },
+          "Delta Hydrae": { "ra": 126.15, "dec": 5.83, "magnitude": 4.14 },
+          "Eta Hydrae": { "ra": 151.91, "dec": -2.31, "magnitude": 3.9 }
+      },
+      "lines": [
+          ["Alphard", "Gamma Hydrae"],
+          ["Gamma Hydrae", "Zeta Hydrae"],
+          ["Zeta Hydrae", "Epsilon Hydrae"],
+          ["Epsilon Hydrae", "Delta Hydrae"],
+          ["Delta Hydrae", "Eta Hydrae"]
+      ],
+      "team": "Projects"
+  }
 }
 
 // fetch('../data/constellation.json')

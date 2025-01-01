@@ -1,5 +1,6 @@
 main {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     width: 100%;
@@ -14,9 +15,8 @@ main {
         0 0 20px rgba(79, 195, 247, 0.2),
         0 0 50px rgba(74, 20, 140, 0.1);
     border: 1px solid rgba(79, 195, 247, 0.2);
-    max-width: 800px;
-    width: 100%;
-    margin: 50px auto;
+    width: 90%;
+    margin: 2em 0;
     display: flex;
     flex-direction: column;
     align-items: center;
