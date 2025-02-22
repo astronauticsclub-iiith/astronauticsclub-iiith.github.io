@@ -150,6 +150,7 @@ function drawScene() {
 // Display star details in the box
 function displayStarDetails(name, star) {
   document.getElementById("starName").textContent = name;
+  document.getElementById("starPhoto").src = `../images/team_member_photos/${star.photo}`;
   document.getElementById("starRA").textContent = `${star.ra}h`;
   document.getElementById("starDec").textContent = `${star.dec}°`;
   document.getElementById("starMagnitude").textContent = star.magnitude;
@@ -161,23 +162,21 @@ function displayStarDetails(name, star) {
 // Event listener for clicking on a star
 canvas.addEventListener("click", (e) => {
   const { mouseX, mouseY } = getCanvasMousePosition(e.clientX, e.clientY)
-  console.log(mouseX, mouseY)
 
   for(const name in constellations){
     const constellation = constellations[name]
     const stars = constellation["stars"]
 
-    for (const star in stars){
-        details = stars[star]
+    for (const starName in stars){
+        const star = stars[starName];
 
         // Loop through stars to check if the click is near any star
-        const { x, y } = projectCelestial(details.ra, details.dec);
+        const { x, y } = projectCelestial(star.ra, star.dec);
         const distance = Math.sqrt(Math.pow(mouseX - x, 2) + Math.pow(mouseY - y, 2));
         
         // Star clicked, display the details
-        if (distance <= 10) {
-            starDetailsBox.style.display = "block";
-            displayStarDetails(star, details);
+        if (distance <= 10 && star.clickable) {
+            displayStarDetails(starName, star);
             return
         }
         else{
@@ -202,7 +201,7 @@ canvas.addEventListener("mousemove", (e) => {
             const { x, y } = projectCelestial(star.ra, star.dec);
             const distance = Math.sqrt(Math.pow(mouseX - x, 2) + Math.pow(mouseY - y, 2));
 
-            if (distance <= 10) { // Match click hit radius
+            if (distance <= 10 && star.clickable) { // Match click hit radius
                 currentHover = starName;
                 break;
             }
@@ -251,16 +250,13 @@ canvas.addEventListener("mousemove", (e) => {
     dragStartX = e.clientX;
     dragStartY = e.clientY;
     drawScene();
-  } else if (isRotating) { // Rotation logic
+  } 
+  else if (isRotating) {
     const deltaX = e.clientX - lastRotationX;
     const deltaY = e.clientY - lastRotationY;
     
     // Horizontal rotation (RA)
     rotationAngle += deltaX * 0.005;
-    
-    // Optional vertical tilt (Dec) - remove if unwanted
-    // const tiltSpeed = 0.002;
-    // offsetY += deltaY * tiltSpeed;
     
     lastRotationX = e.clientX;
     lastRotationY = e.clientY;
