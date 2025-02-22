@@ -1,11 +1,14 @@
 const canvas = document.getElementById("starMap");
 const starDetailsBox = document.getElementById("starDetailsBox");
 const ctx = canvas.getContext("2d");
-let constellations;
 
 // Canvas size
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
+
+let constellations = {};
+let hoveredStar = null;
+const STAR_HIT_MULTIPLIER = 3; // Adjust hit area sensitivity
 
 fetch('../data/constellation.json')
 .then(response => {
@@ -13,8 +16,23 @@ fetch('../data/constellation.json')
 })
 .then(data => {
   constellations = data
-  drawScene(data);
+  drawScene();
 })
+
+
+function getCanvasMousePosition(clientX, clientY) {
+  const rect = canvas.getBoundingClientRect();
+  
+  // Handle CSS scaling (canvas drawing buffer vs display size)
+  const cssToCanvasX = canvas.width / rect.width;
+  const cssToCanvasY = canvas.height / rect.height;
+  
+  // Account for scroll and navbar positioning
+  const mouseX = (clientX - rect.left) * cssToCanvasX;
+  const mouseY = (clientY - rect.top) * cssToCanvasY;
+  return { mouseX, mouseY };
+}
+
 
 // Handle resizing
 window.addEventListener("resize", () => {
@@ -32,13 +50,12 @@ let dragStartX, dragStartY;
 let rotationAngle = 0; // Rotation angle in radians
 
 
-// Convert RA/Dec to polar projection
+// Convert RA/Dec to cartesian projection
 function projectCelestial(ra, dec) {
   const radius = Math.min(canvas.width, canvas.height) / 2;
   const radRA = (ra / 360) * 2 * Math.PI; // Convert RA to radians
   const radDec = (dec / 360) * 2 * Math.PI; // Convert Dec to radians
-  // let x = radius * Math.cos(radDec) * Math.sin(radRA) + offsetX;
-  // let y = radius * Math.sin(radDec) + offsetY;
+  
   let x = radius * Math.cos(radDec) * Math.sin(radRA) + offsetX;
   let y = -radius * Math.cos(radDec) * Math.cos(radRA) + offsetY;
 
@@ -107,6 +124,8 @@ function drawStars() {
         ctx.arc(x, y, size * scale, 0, 2 * Math.PI);
         ctx.fillStyle = "white";
         ctx.fill();
+
+
       }
 
       constellation["lines"].forEach(([start, end]) => {
@@ -128,7 +147,6 @@ function drawScene() {
   drawCelestialGrid();
   drawStars();
 }
-
 
 
 // Mouse interactions for panning
@@ -179,33 +197,10 @@ canvas.addEventListener("mousemove", (e) => {
   }
 });
 
-// // Mouse interactions for clicking on stars
-// canvas.addEventListener("click", (e) => {
-//   const mouseX = e.clientX;
-//   const mouseY = e.clientY;
-
-//   // Loop through stars to check if the click is near any star
-//   stars.every((star) => {
-//     const { x, y } = projectCelestial(star.ra, star.dec);
-//     const size = Math.max(1, 5 - star.magnitude);
-
-//     const distance = Math.sqrt(Math.pow(mouseX - x, 2) + Math.pow(mouseY - y, 2));
-
-//     if (distance <= 10 * size) {
-//       // Star clicked, display the details
-//       displayStarDetails(star);
-//       return false;
-//     }
-
-//     else{
-//       starDetailsBox.style.display = "none";
-//     }
-//   });
-// });
 
 // Display star details in the box
-function displayStarDetails(star) {
-  document.getElementById("starName").textContent = star.name;
+function displayStarDetails(name, star) {
+  document.getElementById("starName").textContent = name;
   document.getElementById("starRA").textContent = `${star.ra}h`;
   document.getElementById("starDec").textContent = `${star.dec}°`;
   document.getElementById("starMagnitude").textContent = star.magnitude;
@@ -213,28 +208,60 @@ function displayStarDetails(star) {
   starDetailsBox.style.display = "block";  // Show the box
 }
 
-// Mouse interactions for hovering over stars
-// canvas.addEventListener("mousemove", (e) => {
-//   const mouseX = e.clientX;
-//   const mouseY = e.clientY;
-//   let cursorChanged = false;
+canvas.addEventListener("click", (e) => {
+  const { mouseX, mouseY } = getCanvasMousePosition(e.clientX, e.clientY)
+  console.log(mouseX, mouseY)
 
-//   // Loop through stars to check if the mouse is hovering over any star
-//   stars.forEach((star) => {
-//     const { x, y } = projectCelestial(star.ra, star.dec);
-//     const size = Math.max(1, 5 - star.magnitude);
+  for(const name in constellations){
+    const constellation = constellations[name]
+    const stars = constellation["stars"]
 
-//     const distance = Math.sqrt(Math.pow(mouseX - x, 2) + Math.pow(mouseY - y, 2));
+    for (const star in stars){
+        details = stars[star]
 
-//     if (distance <= 10 * size) {
-//       // Mouse is hovering over this star, change cursor to pointer
-//       canvas.style.cursor = "pointer";
-//       cursorChanged = true;
-//     }
-//   });
+        // Loop through stars to check if the click is near any star
+        const { x, y } = projectCelestial(details.ra, details.dec);
+        const distance = Math.sqrt(Math.pow(mouseX - x, 2) + Math.pow(mouseY - y, 2));
+        
+        // Star clicked, display the details
+        if (distance <= 10) {
+            starDetailsBox.style.display = "block";
+            displayStarDetails(star, details);
+            return
+        }
+        else{
+            starDetailsBox.style.display = "none";
+        }
+    }
+  }
+});
 
-//   if (!cursorChanged) {
-//     // Mouse is not hovering over any star, set default cursor
-//     canvas.style.cursor = "grab";
-//   }
-// });
+
+canvas.addEventListener("mousemove", (e) => {
+    const { mouseX, mouseY } = getCanvasMousePosition(e.clientX, e.clientY)
+    let currentHover = null;
+
+    // Check all stars
+    for (const constellationName in constellations) {
+        const constellation = constellations[constellationName];
+        const stars = constellation.stars;
+
+        for (const starName in stars) {
+            const star = stars[starName];
+            const { x, y } = projectCelestial(star.ra, star.dec);
+            const distance = Math.sqrt(Math.pow(mouseX - x, 2) + Math.pow(mouseY - y, 2));
+
+            if (distance <= 10) { // Match click hit radius
+                currentHover = starName;
+                break;
+            }
+        }
+        if (currentHover) break;
+    }
+
+    // Update cursor only when state changes
+    if (currentHover !== hoveredStar) {
+        canvas.style.cursor = currentHover ? "pointer" : "grab";
+        hoveredStar = currentHover;
+    }
+});
