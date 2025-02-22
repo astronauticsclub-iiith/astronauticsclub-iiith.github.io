@@ -201,5 +201,35 @@
       ["Delta Hydrae", "Pi Hydrae"]
     ],
     "team": "Astrophotography"
+  },
+
+  "Draco": {
+    "stars": {
+      "Rastaban": { "ra": 128.61, "dec": 24.30, "magnitude": 2.79 },
+      "Eltanin": { "ra": 131.96, "dec": 24.00, "magnitude": 2.24 },
+      "Grumium": { "ra": 130.44, "dec": 30.73, "magnitude": 3.73 },
+      "Nu": { "ra": 127.61, "dec": 28.44, "magnitude": 3.82 },
+      "Altais": { "ra": 130.14, "dec": 45.66, "magnitude": 3.07 },
+      "Chi": { "ra": 123.40, "dec": 41.87, "magnitude": 3.82 },
+      "Zeta": { "ra": 121.20, "dec": 35.71, "magnitude": 3.17 },
+      "Theta Draconis": { "ra": 115.25, "dec": 25.50, "magnitude": 4.02 },
+      "Edasich": { "ra": 110.25, "dec": 26.97, "magnitude": 3.29 },
+      "Thuban": { "ra": 102.85, "dec": 34.38, "magnitude": 3.67 },
+      "Lambda": { "ra": 98.05, "dec": 40.87, "magnitude": 3.84 }
+    },
+    "lines": [
+      ["Rastaban", "Eltanin"],
+      ["Rastaban", "Nu"],
+      ["Eltanin", "Grumium"],
+      ["Grumium", "Nu"],
+      ["Grumium", "Altais"],
+      ["Altais", "Chi"],
+      ["Chi", "Zeta"],
+      ["Zeta", "Theta Draconis"],
+      ["Theta Draconis", "Edasich"],
+      ["Edasich", "Thuban"],
+      ["Thuban", "Lambda"]
+    ],
+    "team": "Outreach Team"
   }
 }
