@@ -1,167 +1,205 @@
 {
-    "Andromeda": {
-      "stars": {
-        "Alpheratz": { "ra": 2.098, "dec": 29.09, "magnitude": 2.07 },
-        "Mirach": { "ra": 17.43, "dec": 35.62, "magnitude": 2.06 },
-        "Almach": { "ra": 30.97, "dec": 42.33, "magnitude": 2.1 }
-      },
-      "lines": [
-        ["Alpheratz", "Mirach"],
-        ["Mirach", "Almach"]
-      ],
-      "team": "Co-ordinators, Co-coordinators"
+  "Andromeda": {
+    "stars": {
+      "Alpheratz": { "ra": 342.098, "dec": 76.09, "magnitude": 2.07 },
+      "Mirach": { "ra": 17.43, "dec": 80.62, "magnitude": 2.06 },
+      "Almach": { "ra": 35.97, "dec": 82.33, "magnitude": 2.1 }
     },
+    "lines": [
+      ["Alpheratz", "Mirach"],
+      ["Mirach", "Almach"]
+    ],
+    "team": "Coordinating Team"
+  },
+
   
-    "Orion": {
-      "stars": {
-        "Betelgeuse": { "ra": 88.79, "dec": 67.41, "magnitude": 0.42 },
-        "Bellatrix": { "ra": 81.28, "dec": 66.35, "magnitude": 1.64 },
-        "Rigel": { "ra": 78.63, "dec": 51.8, "magnitude": 0.13 },
-        "Saiph": { "ra": 83.00, "dec": 51.33, "magnitude": 2.07 },
-        "Alnitak": { "ra": 85.19, "dec": 58.06, "magnitude": 1.72 },
-        "Alnilam": { "ra": 84.05, "dec": 58.80, "magnitude": 1.69 },
-        "Mintaka": { "ra": 83.00, "dec": 61.30, "magnitude": 2.23 }
-      },
-      "lines": [
-        ["Betelgeuse", "Alnitak"],
-        ["Alnitak", "Saiph"],
-        ["Alnitak", "Alnilam"],
-        ["Alnilam", "Mintaka"],
-        ["Mintaka", "Bellatrix"],
-        ["Bellatrix", "Betelgeuse"],
-        ["Rigel", "Mintaka"]
-      ],
-      "team": "Events"
+  "Orion": {
+    "stars": {
+      "Betelgeuse": { "ra": 88.79, "dec": 67.41, "magnitude": 0.42 },
+      "Bellatrix": { "ra": 81.28, "dec": 66.35, "magnitude": 1.64 },
+      "Rigel": { "ra": 78.63, "dec": 52.80, "magnitude": 0.13 },
+      "Saiph": { "ra": 83.00, "dec": 51.33, "magnitude": 2.07 },
+      "Alnitak": { "ra": 85.19, "dec": 58.06, "magnitude": 1.72 },
+      "Alnilam": { "ra": 84.05, "dec": 58.80, "magnitude": 1.69 },
+      "Mintaka": { "ra": 83.00, "dec": 60.30, "magnitude": 2.23 },
+      "Meissa": { "ra": 87.00, "dec": 69.93, "magnitude": 3.39 },
+      "Hatsya": { "ra": 97.06, "dec": 71.60, "magnitude": 2.77 },
+      "Tabit": { "ra": 94.63, "dec": 76.42, "magnitude": 3.59 },
+      "Pi0": { "ra": 74.91, "dec": 70.38, "magnitude": 4.16 },
+      "Pi3": { "ra": 72.61, "dec": 66.38, "magnitude": 3.16 },
+      "Pi5": { "ra": 74.91, "dec": 63.38, "magnitude": 3.89 }
     },
-  
-    "Gemini": {
-        "stars": {
-            "Castor": { "ra": 113.65, "dec": 31.89, "magnitude": 1.58 },
-            "Pollux": { "ra": 116.33, "dec": 28.02, "magnitude": 1.15 },
-            "Alhena": { "ra": 99.43, "dec": 16.40, "magnitude": 1.93 },
-            "Wasat": { "ra": 112.11, "dec": 21.98, "magnitude": 3.53 },
-            "Mebsuta": { "ra": 99.41, "dec": 25.13, "magnitude": 3.02 },
-            "Tejat": { "ra": 92.76, "dec": 22.51, "magnitude": 2.87 },
-            "Propus": { "ra": 93.71, "dec": 22.51, "magnitude": 3.28 }
-        },
-        "lines": [
-          ["Castor", "Pollux"],
-          ["Pollux", "Wasat"],
-          ["Wasat", "Alhena"],
-          ["Castor", "Mebsuta"],
-          ["Mebsuta", "Tejat"],
-          ["Tejat", "Propus"]
-        ],
-        "team": "Tech"
+    "lines": [
+      ["Betelgeuse", "Meissa"],
+      ["Meissa", "Bellatrix"],
+      ["Bellatrix", "Mintaka"],
+      ["Mintaka", "Rigel"],
+      ["Alnitak", "Saiph"],
+      ["Alnitak", "Betelgeuse"],
+
+      ["Alnitak", "Alnilam"],
+      ["Alnilam", "Mintaka"],
+
+      ["Betelgeuse", "Hatsya"],
+      ["Hatsya", "Tabit"],
+
+      ["Pi0", "Pi3"],
+      ["Bellatrix", "Pi3"],
+      ["Pi3", "Pi5"]
+    ],
+    "team": "Events"
+  },
+
+  "Pegasus": {
+    "stars": {
+      "Enif": { "ra": 276.046, "dec": 42.875, "magnitude": 2.4 },
+      "Scheat": { "ra": 295.943, "dec": 48.083, "magnitude": 2.42 },
+      "Markab": { "ra": 296.412, "dec": 35.205, "magnitude": 2.49 },
+      "Algenib": { "ra": 310.570, "dec": 35.183, "magnitude": 2.84 },
+      "Alpheratz": { "ra": 310.083, "dec": 49.091, "magnitude": 2.07 },
+      "Homam": { "ra": 290.365, "dec": 30.831, "magnitude": 3.41 },
+      "Matar": { "ra": 286.734, "dec": 50.221, "magnitude": 2.95 },
+      "Bahham": { "ra": 291.899, "dec": 49.308, "magnitude": 3.53 },
+      "Sadalbari": { "ra": 292.489, "dec": 44.602, "magnitude": 3.51 },
+      "Biham": { "ra": 287.840, "dec": 36.19, "magnitude": 3.74 }
     },
-  
-    "Taurus": {
-      "stars": {
-        "Aldebaran": { "ra": 68.98, "dec": 16.51, "magnitude": 0.85 },
-        "Elnath": { "ra": 81.57, "dec": 28.61, "magnitude": 1.65 }
-      },
-      "lines": [
-        ["Aldebaran", "Elnath"]
-      ]
+    "lines": [
+      ["Alpheratz", "Scheat"],
+      ["Markab", "Scheat"],
+      ["Algenib", "Markab"],
+      ["Algenib", "Alpheratz"],
+
+      ["Biham", "Homam"],
+      ["Markab", "Homam"],
+
+      ["Scheat", "Bahham"],
+      ["Scheat", "Matar"],
+      ["Scheat", "Sadalbari"],
+      ["Enif", "Matar"]
+    ],
+    "team": "Content Writing and Social Media"
+  },
+
+
+  "Gemini": {
+    "stars": {
+      "Castor": { "ra": 253.65, "dec": 71.89, "magnitude": 1.58 },
+      "Pollux": { "ra": 263.33, "dec": 70.02, "magnitude": 1.15 },
+      "Alhena": { "ra": 244.43, "dec": 58.40, "magnitude": 1.93 },
+      "Wasat": { "ra": 254.11, "dec": 63.98, "magnitude": 3.53 },
+      "Mekbuda": { "ra": 248.56, "dec": 61.76, "magnitude": 4.02 },
+      "Mebsuta": { "ra": 243.41, "dec": 65.13, "magnitude": 3.02 },
+      "Tejat": { "ra": 238.76, "dec": 62.51, "magnitude": 2.87 },
+      "Propus": { "ra": 233.71, "dec": 62.01, "magnitude": 3.28 },
+      "Alzirr": { "ra": 250.79, "dec": 57.05, "magnitude": 4.64 },
+      "Nu Geminorum": { "ra": 241.79, "dec": 61.24, "magnitude": 3.63 },
+      "Tau Geminorum": { "ra": 252.21, "dec": 70.33, "magnitude": 3.36 },
+      "Theta Geminorum": { "ra": 245.27, "dec": 72.12, "magnitude": 3.06 },
+      "L Geminorum": { "ra": 257.56, "dec": 68.86, "magnitude": 4.04 },
+      "U Geminorum": { "ra": 260.78, "dec": 68.42, "magnitude": 4.75 },
+      "Kappa Geminorum": { "ra": 265.78, "dec": 66.42, "magnitude": 4.14 },
+      "Lambda Geminorum": { "ra": 255.78, "dec": 60.72, "magnitude": 3.91 }
     },
-  
-    "Ursa Major": {
-      "stars": {
-        "Dubhe": { "ra": 165.46, "dec": 61.75, "magnitude": 1.79 },
-        "Merak": { "ra": 165.93, "dec": 56.38, "magnitude": 2.37 },
-        "Phecda": { "ra": 177.26, "dec": 53.69, "magnitude": 2.43 },
-        "Megrez": { "ra": 183.86, "dec": 57.03, "magnitude": 3.32 },
-        "Alioth": { "ra": 193.51, "dec": 55.96, "magnitude": 1.76 },
-        "Mizar": { "ra": 200.98, "dec": 54.92, "magnitude": 2.23 },
-        "Alkaid": { "ra": 206.89, "dec": 49.31, "magnitude": 1.86 }
-      },
-      "lines": [
-        ["Dubhe", "Merak"],
-        ["Merak", "Phecda"],
-        ["Phecda", "Megrez"],
-        ["Megrez", "Alioth"],
-        ["Alioth", "Mizar"],
-        ["Mizar", "Alkaid"]
-      ]
+    "lines": [
+      ["Pollux", "U Geminorum"],
+      ["U Geminorum", "L Geminorum"],
+      ["Kappa Geminorum", "U Geminorum"],
+      ["L Geminorum", "Tau Geminorum"],
+      ["Castor", "Tau Geminorum"],
+      ["Theta Geminorum", "Tau Geminorum"],
+      
+      ["Wasat", "U Geminorum"],
+      ["Wasat", "Mekbuda"],
+      ["Mekbuda", "Alhena"],
+      ["Wasat", "Lambda Geminorum"],
+      ["Lambda Geminorum", "Alzirr"],
+
+      ["Tau Geminorum", "Mebsuta"],
+      ["Mebsuta", "Nu Geminorum"],
+      ["Mebsuta", "Tejat"],
+      ["Tejat", "Propus"]
+    ],
+    "team": "Outreach Team"
+},
+
+
+  "Ursa Major": {
+    "stars": {
+      "Dubhe": { "ra": 165.46, "dec": 61.75, "magnitude": 1.79 },
+      "Merak": { "ra": 165.93, "dec": 56.38, "magnitude": 2.37 },
+      "Phecda": { "ra": 177.26, "dec": 53.69, "magnitude": 2.43 },
+      "Megrez": { "ra": 183.86, "dec": 57.03, "magnitude": 3.32 },
+      "Alioth": { "ra": 193.51, "dec": 55.96, "magnitude": 1.76 },
+      "Mizar": { "ra": 200.98, "dec": 54.92, "magnitude": 2.23 },
+      "Alkaid": { "ra": 206.89, "dec": 49.31, "magnitude": 1.86 }
     },
-    "Cygnus": {
+    "lines": [
+      ["Alkaid", "Mizar"],
+      ["Mizar", "Alioth"],
+      ["Alioth", "Megrez"],
+      ["Megrez", "Phecda"],
+      ["Phecda", "Merak"],
+      ["Merak", "Dubhe"],
+      ["Megrez", "Dubhe"]
+    ],
+    "team": "Design Team"
+  },
+
+
+  "Cassiopeia": {
       "stars": {
-        "Deneb": { "ra": 310.36, "dec": 45.28, "magnitude": 1.25 },
-        "Sadr": { "ra": 305.25, "dec": 40.73, "magnitude": 2.23 },
-        "Albireo": { "ra": 292.68, "dec": 27.96, "magnitude": 3.05 }
-      },
-      "lines": [
-        ["Deneb", "Sadr"],
-        ["Sadr", "Albireo"]
-      ]
-    },
-  
-    "Cassiopeia": {
-      "stars": {
-        "Schedar": { "ra": 10.12, "dec": 56.54, "magnitude": 2.24 },
-        "Caph": { "ra": 0.151, "dec": 59.15, "magnitude": 2.28 },
-        "Gamma Cassiopeiae": { "ra": 6.07, "dec": 60.72, "magnitude": 2.47 },
-        "Ruchbah": { "ra": 12.19, "dec": 64.33, "magnitude": 2.68 },
-        "Segin": { "ra": 358.84, "dec": 63.67, "magnitude": 3.35 }
+        "Schedar": { "ra": 11.123, "dec": 56.537, "magnitude": 2.24 },
+        "Caph": { "ra": 15.293, "dec": 60.149, "magnitude": 2.28 },
+        "Tsih": { "ra": 6.628, "dec": 62.716, "magnitude": 2.15 },
+        "Ruchbah": { "ra": 6.166, "dec": 66.327, "magnitude": 2.68 },
+        "Segin": { "ra": 354.836, "dec": 68.670, "magnitude": 3.35 }
       },
       "lines": [
         ["Schedar", "Caph"],
-        ["Caph", "Gamma Cassiopeiae"],
-        ["Gamma Cassiopeiae", "Ruchbah"],
-        ["Ruchbah", "Segin"],
-        ["Segin", "Schedar"]
+        ["Caph", "Tsih"],
+        ["Tsih", "Ruchbah"],
+        ["Ruchbah", "Segin"]
       ],
-      "team": "Astrophotography"
+      "team": "Tech Team"
     },
-  
-    "Auriga": {
-        "stars": {
-            "Capella": { "ra": 79.17, "dec": 45.99, "magnitude": 0.08 },
-            "Menkalinan": { "ra": 92.18, "dec": 44.95, "magnitude": 1.90 },
-            "Mahasim": { "ra": 81.57, "dec": 37.39, "magnitude": 2.65 },
-            "Hassaleh": { "ra": 76.63, "dec": 33.97, "magnitude": 2.69 },
-            "Elnath": { "ra": 81.57, "dec": 28.61, "magnitude": 1.65 },
-            "Almaaz": { "ra": 74.25, "dec": 43.82, "magnitude": 3.0 }
-        },
-        "lines": [
-            ["Capella", "Menkalinan"],
-            ["Menkalinan", "Mahasim"],
-            ["Mahasim", "Hassaleh"],
-            ["Hassaleh", "Elnath"],
-            ["Elnath", "Capella"],
-            ["Capella", "Almaaz"]
-        ],
-        "team": "Design"
+
+  "Hydra": {
+    "stars": {
+      "Alphard": { "ra": 37.16, "dec": 21.66, "magnitude": 1.98 },      
+      "Beta Hydrae": { "ra": 35.88, "dec": 26.50, "magnitude": 4.28 },   
+      "Nu Hydrae": { "ra": 33.06, "dec": 23.93, "magnitude": 4.12 },  
+      "Omicron Hydrae": { "ra": 31.43, "dec": 27.59, "magnitude": 4.89 },
+      "Delta Hydrae": { "ra": 28.09, "dec": 22.43, "magnitude": 3.54 }, 
+      "Pi Hydrae": { "ra": 24.80, "dec": 24.80, "magnitude": 3.89 },    
+      "Eta Hydrae": { "ra": 23.58, "dec": 26.63, "magnitude": 4.26 },
+      "Gamma Hydrae": { "ra": 18.94, "dec": 32.82, "magnitude": 2.88 },  
+      "Zeta Hydrae": { "ra": 12.52, "dec": 28.98, "magnitude": 3.54 },
+      "Epsilon Hydrae": { "ra": 8.25, "dec": 32.30, "magnitude": 3.95 }, 
+      "Iota Hydrae": { "ra": 4.63, "dec": 36.66, "magnitude": 4.44 },    
+      "Kappa Hydrae": { "ra": 359.68, "dec": 30.30, "magnitude": 4.47 },
+      "Lambda Hydrae": { "ra": 355.60, "dec": 29.73, "magnitude": 4.57 },
+      "Mu Hydrae": { "ra": 351.78, "dec": 36.43, "magnitude": 4.77 },
+      "Sigma Hydrae": { "ra": 344.55, "dec": 42.50, "magnitude": 4.51 },
+      "Theta Hydrae": { "ra": 354.40, "dec": 33.10, "magnitude": 4.10 } 
     },
-  
-    "Boötes": {
-        "stars": {
-        "Arcturus": { "ra": 213.91, "dec": 19.18, "magnitude": -0.05 },
-        "Izar": { "ra": 221.25, "dec": 27.07, "magnitude": 2.35 },
-        "Seginus": { "ra": 207.37, "dec": 33.96, "magnitude": 3.04 }
-        },
-        "lines": [
-        ["Arcturus", "Izar"],
-        ["Izar", "Seginus"]
-        ]
-    },
-  
-    "Hydra": {
-        "stars": {
-            "Alphard": { "ra": 141.89, "dec": -8.65, "magnitude": 1.98 },
-            "Gamma Hydrae": { "ra": 131.17, "dec": -23.3, "magnitude": 3.0 },
-            "Zeta Hydrae": { "ra": 140.52, "dec": -23.11, "magnitude": 3.1 },
-            "Epsilon Hydrae": { "ra": 132.55, "dec": 6.42, "magnitude": 3.38 },
-            "Delta Hydrae": { "ra": 126.15, "dec": 5.83, "magnitude": 4.14 },
-            "Eta Hydrae": { "ra": 151.91, "dec": -2.31, "magnitude": 3.9 }
-        },
-        "lines": [
-            ["Alphard", "Gamma Hydrae"],
-            ["Gamma Hydrae", "Zeta Hydrae"],
-            ["Zeta Hydrae", "Epsilon Hydrae"],
-            ["Epsilon Hydrae", "Delta Hydrae"],
-            ["Delta Hydrae", "Eta Hydrae"]
-        ],
-        "team": "Projects"
-    }
+    "lines": [
+      ["Alphard", "Nu Hydrae"],
+      ["Alphard", "Beta Hydrae"],
+      ["Omicron Hydrae", "Beta Hydrae"],
+      ["Nu Hydrae", "Omicron Hydrae"],
+      ["Omicron Hydrae", "Delta Hydrae"],
+      ["Pi Hydrae", "Eta Hydrae"],
+      ["Eta Hydrae", "Gamma Hydrae"],
+      ["Gamma Hydrae", "Zeta Hydrae"],
+      ["Zeta Hydrae", "Epsilon Hydrae"],
+      ["Epsilon Hydrae", "Iota Hydrae"],
+      ["Iota Hydrae", "Kappa Hydrae"],
+      ["Kappa Hydrae", "Lambda Hydrae"],
+      ["Lambda Hydrae", "Theta Hydrae"],
+      ["Theta Hydrae", "Mu Hydrae"],
+      ["Mu Hydrae", "Sigma Hydrae"],
+      ["Delta Hydrae", "Pi Hydrae"]
+    ],
+    "team": "Astrophotography"
   }
+}
