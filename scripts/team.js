@@ -2,21 +2,6 @@ const canvas = document.getElementById("starMap");
 const starDetailsBox = document.getElementById("starDetailsBox");
 const ctx = canvas.getContext("2d");
 let constellations = {
-  // "Aries": {
-  //   "stars": {
-  //     "Aries": { "ra": 330.9332, "dec": 80.229, "magnitude": 4.41 },
-  //     "Hamal": { "ra": 12.1417, "dec": 83.462, "magnitude": 2.01 },
-  //     "Sheratan": { "ra": 30.7642, "dec": 84.2305, "magnitude": 2.63 },
-  //     "Mesarthim": { "ra": 38.7289, "dec": 85.323, "magnitude": 4.56 },
-  //     },
-  //   "lines": [
-  //     ["Aries", "Hamal"],
-  //     ["Hamal", "Sheratan"],
-  //     ["Sheratan", "Mesarthim"],
-  //   ],
-  //   "team": "Coordinating Team"
-  // },
-
   "Andromeda": {
   "stars": {
     "Alpheratz": { "ra": 342.098, "dec": 76.09, "magnitude": 2.07 },
@@ -186,67 +171,96 @@ let constellations = {
       "team": "Astrophotography"
     },
 
-  "Auriga": {
-    "stars": {
-      "Capella": { "ra": 109.17, "dec": 45.99, "magnitude": 0.08 },
-      "Menkalinan": { "ra": 111.57, "dec": 44.95, "magnitude": 1.90 },
-      "Mahasim": { "ra": 105.50, "dec": 40.00, "magnitude": 3.18 },
-      "Haedus I": { "ra": 108.63, "dec": 41.23, "magnitude": 3.72 },
-      "Haedus II": { "ra": 109.02, "dec": 37.18, "magnitude": 3.95 },
-      "Almaaz": { "ra": 107.71, "dec": 43.82, "magnitude": 2.99 },
-      "Elnath": { "ra": 111.57, "dec": 28.61, "magnitude": 1.65 },
-      "Hassaleh": { "ra": 104.25, "dec": 33.17, "magnitude": 2.69 },
-      "Theta Aurigae": { "ra": 116.94, "dec": 37.14, "magnitude": 2.62 }
-    },
-    "lines": [
-      ["Capella", "Menkalinan"],
-      ["Capella", "Almaaz"],
-      ["Almaaz", "Haedus II"],
-      ["Haedus II", "Haedus I"],
-      ["Menkalinan", "Theta Aurigae"],
-      ["Elnath", "Theta Aurigae"],
-      ["Elnath", "Hassaleh"],
-      ["Haedus I", "Hassaleh"]
-    ],
-    "team": "Design"
-  },
+  // "Auriga": {
+  //   "stars": {
+  //     "Capella": { "ra": 109.17, "dec": 45.99, "magnitude": 0.08 },
+  //     "Menkalinan": { "ra": 111.57, "dec": 44.95, "magnitude": 1.90 },
+  //     "Mahasim": { "ra": 105.50, "dec": 40.00, "magnitude": 3.18 },
+  //     "Haedus I": { "ra": 108.63, "dec": 41.23, "magnitude": 3.72 },
+  //     "Haedus II": { "ra": 109.02, "dec": 37.18, "magnitude": 3.95 },
+  //     "Almaaz": { "ra": 107.71, "dec": 43.82, "magnitude": 2.99 },
+  //     "Elnath": { "ra": 111.57, "dec": 28.61, "magnitude": 1.65 },
+  //     "Hassaleh": { "ra": 104.25, "dec": 33.17, "magnitude": 2.69 },
+  //     "Theta Aurigae": { "ra": 116.94, "dec": 37.14, "magnitude": 2.62 }
+  //   },
+  //   "lines": [
+  //     ["Capella", "Menkalinan"],
+  //     ["Capella", "Almaaz"],
+  //     ["Almaaz", "Haedus II"],
+  //     ["Haedus II", "Haedus I"],
+  //     ["Menkalinan", "Theta Aurigae"],
+  //     ["Elnath", "Theta Aurigae"],
+  //     ["Elnath", "Hassaleh"],
+  //     ["Haedus I", "Hassaleh"]
+  //   ],
+  //   "team": "Design"
+  // },
 
   "Hydra": {
     "stars": {
-      "Alphard": { "ra": 352.32, "dec": -8.65, "magnitude": 1.98 },
-      "Gamma Hydrae": { "ra": 1.43, "dec": -10.55, "magnitude": 2.88 },
-      "Delta Hydrae": { "ra": 0.24, "dec": -13.94, "magnitude": 3.54 },
-      "Zeta Hydrae": { "ra": 359.85, "dec": -17.02, "magnitude": 4.24 },
-      "Eta Hydrae": { "ra": 354.80, "dec": -20.05, "magnitude": 4.26 },
-      "Iota Hydrae": { "ra": 355.46, "dec": -24.23, "magnitude": 4.44 },
-      "Kappa Hydrae": { "ra": 352.88, "dec": -29.35, "magnitude": 4.47 },
-      "Lambda Hydrae": { "ra": 354.92, "dec": -31.61, "magnitude": 4.57 },
-      "Mu Hydrae": { "ra": 359.23, "dec": -26.91, "magnitude": 4.77 },
-      "Nu Hydrae": { "ra": 0.92, "dec": -21.70, "magnitude": 4.12 },
-      "Sigma Hydrae": { "ra": 4.05, "dec": -22.72, "magnitude": 4.51 },
-      "Omicron Hydrae": { "ra": 355.39, "dec": -15.84, "magnitude": 4.89 }
+      "Alphard": { "ra": 37.16, "dec": 21.66, "magnitude": 1.98 },      // Reference star
+      "Beta Hydrae": { "ra": 35.88, "dec": 26.50, "magnitude": 4.28 },   // Near head
+      "Nu Hydrae": { "ra": 33.06, "dec": 23.93, "magnitude": 4.12 },     // Head
+      "Omicron Hydrae": { "ra": 31.43, "dec": 27.59, "magnitude": 4.89 },
+      "Delta Hydrae": { "ra": 28.09, "dec": 22.43, "magnitude": 3.54 },  // Mid-body
+      "Pi Hydrae": { "ra": 24.80, "dec": 24.80, "magnitude": 3.89 },     // Mid-body
+      "Eta Hydrae": { "ra": 23.58, "dec": 26.63, "magnitude": 4.26 },
+      "Gamma Hydrae": { "ra": 18.94, "dec": 32.82, "magnitude": 2.88 },  // Bright mid-section
+      "Zeta Hydrae": { "ra": 12.52, "dec": 28.98, "magnitude": 3.54 },
+      "Epsilon Hydrae": { "ra": 8.25, "dec": 32.30, "magnitude": 3.95 }, // Mid-tail
+      "Iota Hydrae": { "ra": 4.63, "dec": 36.66, "magnitude": 4.44 },    // Tail region
+      "Kappa Hydrae": { "ra": 359.68, "dec": 30.30, "magnitude": 4.47 },
+      "Lambda Hydrae": { "ra": 355.60, "dec": 29.73, "magnitude": 4.57 },
+      "Mu Hydrae": { "ra": 351.78, "dec": 36.43, "magnitude": 4.77 },
+      "Sigma Hydrae": { "ra": 344.55, "dec": 42.50, "magnitude": 4.51 }, // End of tail
+      "Theta Hydrae": { "ra": 354.40, "dec": 33.10, "magnitude": 4.10 }  // Tail
     },
     "lines": [
-      // Main line from Alphard and other key stars
-      ["Alphard", "Gamma Hydrae"],
-      ["Gamma Hydrae", "Delta Hydrae"],
-      ["Delta Hydrae", "Zeta Hydrae"],
-      ["Zeta Hydrae", "Eta Hydrae"],
-      ["Eta Hydrae", "Iota Hydrae"],
+      // Main body (head to tail)
+      ["Alphard", "Nu Hydrae"],
+      ["Alphard", "Beta Hydrae"],
+      ["Omicron Hydrae", "Beta Hydrae"],
+      ["Nu Hydrae", "Omicron Hydrae"],
+      ["Omicron Hydrae", "Delta Hydrae"],
+      ["Pi Hydrae", "Eta Hydrae"],
+      ["Eta Hydrae", "Gamma Hydrae"],
+      ["Gamma Hydrae", "Zeta Hydrae"],
+      ["Zeta Hydrae", "Epsilon Hydrae"],
+      ["Epsilon Hydrae", "Iota Hydrae"],
       ["Iota Hydrae", "Kappa Hydrae"],
       ["Kappa Hydrae", "Lambda Hydrae"],
-      ["Lambda Hydrae", "Mu Hydrae"],
-      ["Mu Hydrae", "Nu Hydrae"],
-      ["Nu Hydrae", "Sigma Hydrae"],
-      ["Sigma Hydrae", "Omicron Hydrae"],
-      ["Omicron Hydrae", "Alphard"],
-
-      // Additional connections for the constellation
-      ["Gamma Hydrae", "Mu Hydrae"],
-      ["Nu Hydrae", "Sigma Hydrae"]
+      ["Lambda Hydrae", "Theta Hydrae"],
+      ["Theta Hydrae", "Mu Hydrae"],
+      ["Mu Hydrae", "Sigma Hydrae"],
+      ["Delta Hydrae", "Pi Hydrae"],
     ],
     "team": "Astrophotography"
-  }
+  },
+
+  // "Draco": {
+  //   "stars": {
+  //     "Eltanin": { "ra": 21.85, "dec": 35.38, "magnitude": 2.24 },
+  //     "Rastaban": { "ra": 26.85, "dec": 37.38, "magnitude": 2.79 },
+  //     "Grumium": { "ra": 22.85, "dec": 30.38, "magnitude": 3.73 },
+  //     "Thuban": { "ra": 20.85, "dec": 34.38, "magnitude": 3.67 },
+  //     "Altais": { "ra": 26.85, "dec": 36.38, "magnitude": 3.07 },
+  //     "Aldhibah": { "ra": 28.85, "dec": 42.38, "magnitude": 3.17 },
+  //     "Edasich": { "ra": 29.85, "dec": 43.38, "magnitude": 3.29 },
+  //     "Kuma": { "ra": 33.85, "dec": 46.38, "magnitude": 3.82 },
+  //     "Shaula": { "ra": 36.85, "dec": 48.38, "magnitude": 3.82 },
+  //     "Giausar": { "ra": 39.85, "dec": 49.38, "magnitude": 3.84 }
+  //   },
+  //   "lines": [
+  //     // Main body of Draco
+
+  //     // Head of Draco
+  //     ["Eltanin", "Rastaban"],
+  //     ["Eltanin", "Grumium"],
+
+  //     // Tail of Draco
+  //   ],
+  //   "team": "Outreach Team"
+  // }
 }
 
 // fetch('../data/constellation.json')
