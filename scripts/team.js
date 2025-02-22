@@ -6,9 +6,16 @@ const ctx = canvas.getContext("2d");
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
+// Zoom, pan, and rotation variables
+let scale = 1;
+let offsetX = canvas.width / 2;
+let offsetY = canvas.height / 2;
+let rotationAngle = 0
+
+const STAR_HIT_MULTIPLIER = 3; // Adjust hit area sensitivity
 let constellations = {};
 let hoveredStar = null;
-const STAR_HIT_MULTIPLIER = 3; // Adjust hit area sensitivity
+
 
 fetch('../data/constellation.json')
 .then(response => {
@@ -18,6 +25,13 @@ fetch('../data/constellation.json')
   constellations = data
   drawScene();
 })
+
+// Handle resizing
+window.addEventListener("resize", () => {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+  drawScene();
+});
 
 
 function getCanvasMousePosition(clientX, clientY) {
@@ -33,46 +47,6 @@ function getCanvasMousePosition(clientX, clientY) {
   return { mouseX, mouseY };
 }
 
-
-// Handle resizing
-window.addEventListener("resize", () => {
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
-  drawScene();
-});
-
-// Zoom, pan, and rotation variables
-let scale = 1;
-let offsetX = canvas.width / 2;
-let offsetY = canvas.height / 2;
-let isDragging = false;
-let dragStartX, dragStartY;
-let rotationAngle = 0; // Rotation angle in radians
-
-
-// Convert RA/Dec to cartesian projection
-function projectCelestial(ra, dec) {
-  const radius = Math.min(canvas.width, canvas.height) / 2;
-  const radRA = (ra / 360) * 2 * Math.PI; // Convert RA to radians
-  const radDec = (dec / 360) * 2 * Math.PI; // Convert Dec to radians
-  
-  let x = radius * Math.cos(radDec) * Math.sin(radRA) + offsetX;
-  let y = -radius * Math.cos(radDec) * Math.cos(radRA) + offsetY;
-
-  // Apply rotation transformation around the celestial pole (center of canvas)
-  const cosTheta = Math.cos(rotationAngle);
-  const sinTheta = Math.sin(rotationAngle);
-  const dx = x - offsetX;
-  const dy = y - offsetY;
-  x = offsetX + dx * cosTheta - dy * sinTheta;
-  y = offsetY + dx * sinTheta + dy * cosTheta;
-
-  // Apply scaling transformation based on the zoom level
-  x = offsetX + (x - offsetX) * scale;
-  y = offsetY + (y - offsetY) * scale;
-  
-  return { x, y };
-}
 
 // Draw celestial grid
 function drawCelestialGrid() {
@@ -102,6 +76,30 @@ function drawCelestialGrid() {
   }
 
   ctx.restore();
+}
+
+// Convert RA/Dec to cartesian projection
+function projectCelestial(ra, dec) {
+    const radius = Math.min(canvas.width, canvas.height) / 2;
+    const radRA = (ra / 360) * 2 * Math.PI; // Convert RA to radians
+    const radDec = (dec / 360) * 2 * Math.PI; // Convert Dec to radians
+    
+    let x = radius * Math.cos(radDec) * Math.sin(radRA) + offsetX;
+    let y = -radius * Math.cos(radDec) * Math.cos(radRA) + offsetY;
+
+    // Apply rotation transformation around the celestial pole (center of canvas)
+    const cosTheta = Math.cos(rotationAngle);
+    const sinTheta = Math.sin(rotationAngle);
+    const dx = (x - offsetX) / scale; // Remove scaling before rotation
+    const dy = (y - offsetY) / scale;
+    x = offsetX + (dx * cosTheta - dy * sinTheta) * scale;
+    y = offsetY + (dx * sinTheta + dy * cosTheta) * scale;
+
+    // Apply scaling transformation based on the zoom level
+    x = offsetX + (x - offsetX) * scale;
+    y = offsetY + (y - offsetY) * scale;
+    
+    return { x, y };
 }
 
 // Draw stars
@@ -149,55 +147,6 @@ function drawScene() {
 }
 
 
-// Mouse interactions for panning
-canvas.addEventListener("mousedown", (e) => {
-  isDragging = true;
-  dragStartX = e.clientX;
-  dragStartY = e.clientY;
-});
-
-canvas.addEventListener("mousemove", (e) => {
-  if (isDragging) {
-    offsetX += e.clientX - dragStartX;
-    offsetY += e.clientY - dragStartY;
-    dragStartX = e.clientX;
-    dragStartY = e.clientY;
-    drawScene();
-  }
-});
-
-canvas.addEventListener("mouseup", () => {
-  isDragging = false;
-});
-
-canvas.addEventListener("mouseleave", () => {
-  isDragging = false;
-});
-
-// Mouse wheel for zooming
-canvas.addEventListener("wheel", (e) => {
-  e.preventDefault();
-  const zoomSpeed = 0.001;
-  scale *= 1 - e.deltaY * zoomSpeed; // Adjust zoom sensitivity
-  drawScene();
-});
-
-// Mouse drag for rotation (around celestial pole)
-let lastMouseX = 0;
-canvas.addEventListener("mousedown", (e) => {
-  lastMouseX = e.clientX;
-});
-
-canvas.addEventListener("mousemove", (e) => {
-  if (e.buttons === 1) { // Check if left mouse button is pressed
-    const deltaX = e.clientX - lastMouseX;
-    rotationAngle += deltaX * 0.01; // Adjust rotation sensitivity
-    lastMouseX = e.clientX;
-    drawScene();
-  }
-});
-
-
 // Display star details in the box
 function displayStarDetails(name, star) {
   document.getElementById("starName").textContent = name;
@@ -208,6 +157,8 @@ function displayStarDetails(name, star) {
   starDetailsBox.style.display = "block";  // Show the box
 }
 
+
+// Event listener for clicking on a star
 canvas.addEventListener("click", (e) => {
   const { mouseX, mouseY } = getCanvasMousePosition(e.clientX, e.clientY)
   console.log(mouseX, mouseY)
@@ -236,7 +187,7 @@ canvas.addEventListener("click", (e) => {
   }
 });
 
-
+// Event listener - Changing to pointer on a star hover
 canvas.addEventListener("mousemove", (e) => {
     const { mouseX, mouseY } = getCanvasMousePosition(e.clientX, e.clientY)
     let currentHover = null;
@@ -264,4 +215,65 @@ canvas.addEventListener("mousemove", (e) => {
         canvas.style.cursor = currentHover ? "pointer" : "grab";
         hoveredStar = currentHover;
     }
+});
+
+// Mouse wheel for zooming
+canvas.addEventListener("wheel", (e) => {
+  e.preventDefault();
+  const zoomSpeed = 0.001;
+  scale *= 1 - e.deltaY * zoomSpeed; // Adjust zoom sensitivity
+  drawScene();
+});
+
+
+// Panning and Rotation of Celestial grid
+let isDragging = false;
+let isRotating = false;
+let dragStartX, dragStartY;
+let lastRotationX, lastRotationY;
+
+canvas.addEventListener("mousedown", (e) => {
+  if (e.shiftKey) { // Panning mode
+    isDragging = true;
+    dragStartX = e.clientX;
+    dragStartY = e.clientY;
+  } else { // Rotation mode
+    isRotating = true;
+    lastRotationX = e.clientX;
+    lastRotationY = e.clientY;
+  }
+});
+
+canvas.addEventListener("mousemove", (e) => {
+  if (isDragging) { // Panning logic
+    offsetX += e.clientX - dragStartX;
+    offsetY += e.clientY - dragStartY;
+    dragStartX = e.clientX;
+    dragStartY = e.clientY;
+    drawScene();
+  } else if (isRotating) { // Rotation logic
+    const deltaX = e.clientX - lastRotationX;
+    const deltaY = e.clientY - lastRotationY;
+    
+    // Horizontal rotation (RA)
+    rotationAngle += deltaX * 0.005;
+    
+    // Optional vertical tilt (Dec) - remove if unwanted
+    // const tiltSpeed = 0.002;
+    // offsetY += deltaY * tiltSpeed;
+    
+    lastRotationX = e.clientX;
+    lastRotationY = e.clientY;
+    drawScene();
+  }
+});
+
+canvas.addEventListener("mouseup", () => {
+  isDragging = false;
+  isRotating = false;
+});
+
+canvas.addEventListener("mouseleave", () => {
+  isDragging = false;
+  isRotating = false;
 });
