@@ -92,15 +92,54 @@
 
   "Pegasus": {
     "stars": {
-      "Enif": { "ra": 276.046, "dec": 42.875, "magnitude": 2.4 },
-      "Scheat": { "ra": 295.943, "dec": 48.083, "magnitude": 2.42 },
-      "Markab": { "ra": 296.412, "dec": 35.205, "magnitude": 2.49 },
-      "Algenib": { "ra": 310.570, "dec": 35.183, "magnitude": 2.84 },
-      "Alpheratz": { "ra": 310.083, "dec": 49.091, "magnitude": 2.07 },
-      "Homam": { "ra": 290.365, "dec": 30.831, "magnitude": 3.41 },
-      "Matar": { "ra": 286.734, "dec": 50.221, "magnitude": 2.95 },
-      "Bahham": { "ra": 291.899, "dec": 49.308, "magnitude": 3.53 },
-      "Sadalbari": { "ra": 292.489, "dec": 44.602, "magnitude": 3.51 },
+      "Enif": { 
+        "ra": 276.046, "dec": 42.875, "magnitude": 2.4, "clickable": true,
+        "name": "Aayush Bahukhandi", "photo": "aayush.jpg", "designation": "Projects Team Member", 
+        "desc": "", 
+        "email": "aayush.bahukhandi@research.iiit.ac.in", "linkedin": ""
+      },
+      "Scheat": { 
+        "ra": 295.943, "dec": 48.083, "magnitude": 2.42, "clickable": true,
+        "name": "Pritika Sinharay", "photo": "pritika.jpg", "designation": "Projects Team Member", 
+        "desc": "", 
+        "email": "pritika.sinharay@research.iiit.ac.in", "linkedin": ""
+      },
+      "Markab": { 
+        "ra": 296.412, "dec": 35.205, "magnitude": 2.49, "clickable": true,
+        "name": "Pullepu Abhiroop", "photo": "abhiroop.jpg", "designation": "Projects Team Member", 
+        "desc": "", 
+        "email": "pullepu.abhiroop@research.iiit.ac.in", "linkedin": ""
+      },
+      "Algenib": { 
+        "ra": 310.570, "dec": 35.183, "magnitude": 2.84, "clickable": true,
+        "name": "Nav Singhal", "photo": "nav.jpg", "designation": "Projects Team Member", 
+        "desc": "Nav is a curious member with a strong passion for aerospace technology and robotics. Known for an inquisitive mindset, he enjoys delving into research and exploring innovative solutions, often falling down rabbit holes.  Outside of the club, he can be found reading books, playing open-world games, or diving into new areas of interest.", 
+        "email": "nav.singhal@students.iiit.ac.in", "linkedin": ""
+      },
+      "Alpheratz": { 
+        "ra": 310.083, "dec": 49.091, "magnitude": 2.07, "clickable": true,
+        "name": "Shrish Kiran Kadam", "photo": "shrish.jpg", "designation": "Projects Team Member", 
+        "desc": "Shrish has a passion for cosmology, astronomy, and nature. His hobbies include soccer, trekking, and running marathons, reflecting his love for both intellectual and physical challenges.", 
+        "email": "shrish.kadam@research.iiit.ac.in", "linkedin": ""
+      },
+      "Homam": { 
+        "ra": 290.365, "dec": 30.831, "magnitude": 3.41, "clickable": true,
+        "name": "Sricharan Kumar", "photo": "sricharan.jpg", "designation": "Projects Team Member", 
+        "desc": "Sricharan has a vivid interest in electronics and photography. He is currently a part of the ECD programme. His goal in life is to create something that is permanent and will be looked upon by people for generations to come", 
+        "email": "sricharan.v@research.iiit.ac.in", "linkedin": ""
+      },
+      "Matar": { 
+        "ra": 286.734, "dec": 50.221, "magnitude": 2.95, "clickable": true,
+        "name": "Srinivas Kolla", "photo": "srinivas.jpg", "designation": "Projects Team Member", 
+        "desc": "", 
+        "email": "srinivas.kolla@students.iiit.ac.in", "linkedin": ""
+      },
+      "Bahham": { "ra": 291.899, "dec": 49.308, "magnitude": 3.53, "clickable": false},
+      "Sadalbari": { "ra": 292.489, "dec": 44.602, "magnitude": 3.51, "clickable": true,
+        "name": "Kandagantla Akshith", "photo": "akshith.jpg", "designation": "Projects Team Member", 
+        "desc": "An space nerd  fell in love with space  beginner in CAD modelling.", 
+        "email": "kandagatla.akshith@research.iiit.ac.in", "linkedin": ""  
+      },
       "Biham": { "ra": 287.840, "dec": 36.19, "magnitude": 3.74 }
     },
     "lines": [
@@ -117,7 +156,7 @@
       ["Scheat", "Sadalbari"],
       ["Enif", "Matar"]
     ],
-    "team": "Content Writing and Social Media"
+    "team": "Projects Team"
   },
 
 
