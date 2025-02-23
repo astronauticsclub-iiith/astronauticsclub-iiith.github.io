@@ -149,7 +149,7 @@ details summary{
 }
 
 /* For large monitor screen */
-@media screen and (min-width: 1200px){
+@media screen and (min-width: 1300px){
     .about-us-heading{
         font-size: 4rem;
     }

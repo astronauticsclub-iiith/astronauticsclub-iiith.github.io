@@ -187,7 +187,7 @@ footer{
   }
 }
 
-@media screen and (min-width: 1200px) {
+@media screen and (min-width: 1300px) {
   footer{
     padding-bottom: 1.5rem;
     justify-content: space-evenly;

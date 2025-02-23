@@ -14,7 +14,7 @@ canvas:active{
   position: absolute;
   max-width: 300px;
   top: 50%;
-  left: 1rem;
+  left: 0.5rem;
   transform: translateY(-45%);
   color: white;
   background: rgba(71, 67, 67, 0.15);
