@@ -3,17 +3,22 @@
     "stars": {
       "Alpheratz": { 
         "ra": 342.098, "dec": 76.09, "magnitude": 2.07, "clickable": true,
-        "name": "Madhan Sai Krishna", "photo": "madhan.jpg", 
-        "desc": " ", 
-        "email": "chamarthymadhan.k@students.iiit.ac.in", "linkedin": "" 
+        "name": "Madhan Sai Krishna", "photo": "madhan.jpg", "designation": "Co-coordinator", 
+        "desc": "Cosmic Circuit Crafter, Madhan combines his interests in space exploration and electronics to innovate in space technology.", 
+        "email": "chamarthymadhan.k@students.iiit.ac.in", "linkedin": "https://www.linkedin.com/in/madhansaikrishna/" 
       },
       "Mirach": { 
         "ra": 17.43, "dec": 80.62, "magnitude": 2.06, "clickable": true,
-        "name": "Mayank Goel", "photo": "mayank.jpeg", 
-        "desc": "Mayank is a 4th year undergraduate research student working on simulating Lattice QCD on Quantum Computers. He is fascinated by symmetry and the geometrical aspects of the universe’s structure. When not lost in qubits, he’s either strumming tunes or building something cool", 
+        "name": "Mayank Goel", "photo": "mayank.jpeg", "designation": "Co-ordinator", 
+        "desc": "Mayank is a senior undergrad research student exploring the world of applied Quantum Computing. He is deep fascinated by symmetry and the geometrical structure of the universe. When not lost in qubits, he’s either strumming guitar or building something cool.", 
         "email": "mayank.goel447@gmail.com", "linkedin": "https://www.linkedin.com/in/mayankgoel447/"  
       },
-      "Almach": { "ra": 35.97, "dec": 82.33, "magnitude": 2.1, "clickable": false }
+      "Almach": { 
+        "ra": 35.97, "dec": 82.33, "magnitude": 2.1, "clickable": true,
+        "name": "Harsh Kapoor", "photo": "harsh.jpeg", "designation": "Co-coordinator", 
+        "desc": "I believe that the stars aren’t just above us—they’re calling to us. Passionate about electronics and aerospace. As Carl Sagan once said, ‘We are a way for the cosmos to know itself.", 
+        "email": "harsh.kapoor@research.iiit.ac.in", "linkedin": "https://www.linkedin.com/in/harsh-kapoor-917b2426a/" 
+      }
     },
     "lines": [
       ["Alpheratz", "Mirach"],
@@ -25,19 +30,44 @@
   
   "Orion": {
     "stars": {
-      "Betelgeuse": { "ra": 88.79, "dec": 67.41, "magnitude": 0.42 },
-      "Bellatrix": { "ra": 81.28, "dec": 66.35, "magnitude": 1.64 },
-      "Rigel": { "ra": 78.63, "dec": 52.80, "magnitude": 0.13 },
-      "Saiph": { "ra": 83.00, "dec": 51.33, "magnitude": 2.07 },
-      "Alnitak": { "ra": 85.19, "dec": 58.06, "magnitude": 1.72 },
-      "Alnilam": { "ra": 84.05, "dec": 58.80, "magnitude": 1.69 },
-      "Mintaka": { "ra": 83.00, "dec": 60.30, "magnitude": 2.23 },
-      "Meissa": { "ra": 87.00, "dec": 69.93, "magnitude": 3.39 },
-      "Hatsya": { "ra": 97.06, "dec": 71.60, "magnitude": 2.77 },
-      "Tabit": { "ra": 94.63, "dec": 76.42, "magnitude": 3.59 },
-      "Pi0": { "ra": 74.91, "dec": 70.38, "magnitude": 4.16 },
-      "Pi3": { "ra": 72.61, "dec": 66.38, "magnitude": 3.16 },
-      "Pi5": { "ra": 74.91, "dec": 63.38, "magnitude": 3.89 }
+      "Betelgeuse": { 
+        "ra": 88.79, "dec": 67.41, "magnitude": 0.42, "clickable": true,
+        "name": "Sanyam Gandhi", "photo": "sanyam.jpg", "designation": "Events Team Member", 
+        "desc": "Sanyam Gandhi is a passionate student with a keen interest in technology and science, particularly in the realms of quantum and space sciences. Beyond his academic pursuits, he is set to launch his own company, SEAC, next year, inline with his entrepreneurial spirit and drive for innovation.", 
+        "email": "sanyam.gandhi@research.iiit.ac.in", "linkedin": ""  
+      },
+      "Bellatrix": { 
+        "ra": 81.28, "dec": 66.35, "magnitude": 1.64, "clickable": true,
+        "name": "Veena Ramadas", "photo": "veena.jpg", "designation": "Events Team Member", 
+        "desc": "Veena is a literature lover and singer with a passion for reading and exploring new ideas. She enjoys stories, melodies, and pondering the mysteries of the universe.", 
+        "email": "veena.ramadas@research.iiit.ac.in", "linkedin": ""  
+      },
+      "Rigel": { 
+        "ra": 78.63, "dec": 52.80, "magnitude": 0.13, "clickable": true,
+        "name": "Kandagantla Akshith", "photo": "akshith.jpg", "designation": "Events Team Member", 
+        "desc": "An space nerd  fell in love with space  beginner in CAD modelling.", 
+        "email": "kandagatla.akshith@research.iiit.ac.in", "linkedin": ""  
+      },
+      "Saiph": { "ra": 83.00, "dec": 51.33, "magnitude": 2.07, "clickable": false },
+      "Alnitak": { 
+        "ra": 85.19, "dec": 58.06, "magnitude": 1.72, "clickable": true, 
+        "name": "Aryanil Panja", "photo": "aryanil.jpg", "designation": "Events Team Lead", 
+        "desc": "", 
+        "email": "aryanil.panja@research.iiit.ac.in", "linkedin": ""  
+      },
+      "Alnilam": { "ra": 84.05, "dec": 58.80, "magnitude": 1.69, "clickable": false },
+      "Mintaka": { "ra": 83.00, "dec": 60.30, "magnitude": 2.23, "clickable": false},
+      "Meissa": { "ra": 87.00, "dec": 69.93, "magnitude": 3.39, "clickable": false },
+      "Hatsya": { 
+        "ra": 97.06, "dec": 71.60, "magnitude": 2.77, "clickable": true,
+         "name": "Arushi Shukla", "photo": "arushi.png", "designation": "Events Team Member", 
+        "desc": "Arushi is a first year CSE student. She loves stargazing, reading books, painting and chatting endlessly with people 🙃", 
+        "email": "arushi.shukla@students.iiit.ac.in", "linkedin": ""  
+      },
+      "Tabit": { "ra": 94.63, "dec": 76.42, "magnitude": 3.59, "clickable": false },
+      "Pi0": { "ra": 74.91, "dec": 70.38, "magnitude": 4.16, "clickable": false },
+      "Pi3": { "ra": 72.61, "dec": 66.38, "magnitude": 3.16, "clickable": false },
+      "Pi5": { "ra": 74.91, "dec": 63.38, "magnitude": 3.89, "clickable": false }
     },
     "lines": [
       ["Betelgeuse", "Meissa"],

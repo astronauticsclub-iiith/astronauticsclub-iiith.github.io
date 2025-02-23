@@ -1,6 +1,7 @@
 const canvas = document.getElementById("starMap");
-const starDetailsBox = document.getElementById("starDetailsBox");
 const ctx = canvas.getContext("2d");
+const starDetailsBox = document.getElementById("starDetailsBox");
+starDetailsBox.style.display = "none";
 
 // Canvas size
 canvas.width = window.innerWidth;
@@ -148,8 +149,9 @@ function drawScene() {
 
 
 // Display star details in the box
-function displayStarDetails(name, star) {
-  document.getElementById("starName").textContent = name;
+function displayStarDetails(star) {
+  starDetailsBox.style.display = "block";  // Show the box
+  document.getElementById("starName").textContent = star.name;
   document.getElementById("starPhoto").src = `../images/team_member_photos/${star.photo}`;
   document.getElementById("starEmail").href = `mailto:${star.email}`;
   
@@ -161,11 +163,8 @@ function displayStarDetails(name, star) {
     document.getElementById("starLinkedIn").style.display = "block"
   }
 
-  document.getElementById("starRA").textContent = `${star.ra}h`;
-  document.getElementById("starDec").textContent = `${star.dec}°`;
-  document.getElementById("starMagnitude").textContent = star.magnitude;
-
-  starDetailsBox.style.display = "block";  // Show the box
+  document.getElementById("starDesignation").textContent = star.designation;
+  document.getElementById("starDesc").textContent = star.desc;
 }
 
 
@@ -186,7 +185,7 @@ canvas.addEventListener("click", (e) => {
         
         // Star clicked, display the details
         if (distance <= 10 && star.clickable) {
-            displayStarDetails(starName, star);
+            displayStarDetails(star);
             return
         }
         else{
