@@ -192,7 +192,7 @@
 }
 
 
-/******************* Media queries for responsiveness (Mobile) ********/ 
+/******************* Media queries for responsiveness (Laptop) ********/ 
 @media screen and (min-width: 696px) {
     
     /************** Section: Who are we section **********/
@@ -253,5 +253,27 @@
     .what-is-astronautics-image{
         width: 100%;
         object-fit: cover;
+    }
+}
+
+@media screen and (min-width: 1200px) {
+    .who-are-we-heading{
+        font-size: 4rem;
+    }
+
+    .who-are-we-subheading{
+        font-size: 2rem;
+    }
+
+    .who-are-we-content{
+        font-size: 1.25rem;
+    }
+
+    .who-are-we-content-container{
+        width: 50%;
+    }
+
+    .blog-section-container{
+        padding: 2.5rem 0;
     }
 }

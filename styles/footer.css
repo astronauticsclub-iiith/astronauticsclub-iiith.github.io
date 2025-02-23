@@ -144,7 +144,11 @@ footer{
   font-weight: 300;
 }
 
-
+@media screen and (min-width: 400px) {
+  .copyright-text{
+    flex-direction: row;
+  }
+}
 
 @media screen and (min-width: 900px) {
   footer {
@@ -183,8 +187,12 @@ footer{
   }
 }
 
-@media screen and (min-width: 400px) {
-  .copyright-text{
-    flex-direction: row;
+@media screen and (min-width: 1200px) {
+  footer{
+    padding-bottom: 1.5rem;
+  }
+
+  .footer-club-info-section{
+    max-width: 30%;
   }
 }
