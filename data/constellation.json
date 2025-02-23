@@ -3,9 +3,9 @@
     "stars": {
       "Alpheratz": { 
         "ra": 342.098, "dec": 76.09, "magnitude": 2.07, "clickable": true,
-        "name": "Madhan Sai Krishna", "photo": " ", 
+        "name": "Madhan Sai Krishna", "photo": "madhan.jpg", 
         "desc": " ", 
-        "email": "", "linkedin": "" 
+        "email": "chamarthymadhan.k@students.iiit.ac.in", "linkedin": "" 
       },
       "Mirach": { 
         "ra": 17.43, "dec": 80.62, "magnitude": 2.06, "clickable": true,

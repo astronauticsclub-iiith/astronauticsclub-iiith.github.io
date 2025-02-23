@@ -151,6 +151,16 @@ function drawScene() {
 function displayStarDetails(name, star) {
   document.getElementById("starName").textContent = name;
   document.getElementById("starPhoto").src = `../images/team_member_photos/${star.photo}`;
+  document.getElementById("starEmail").href = `mailto:${star.email}`;
+  
+  if (star.linkedin == ""){
+    document.getElementById("starLinkedIn").style.display = "none"
+  } 
+  else{
+    document.getElementById("starLinkedIn").href = star.linkedin;
+    document.getElementById("starLinkedIn").style.display = "block"
+  }
+
   document.getElementById("starRA").textContent = `${star.ra}h`;
   document.getElementById("starDec").textContent = `${star.dec}°`;
   document.getElementById("starMagnitude").textContent = star.magnitude;
