@@ -122,7 +122,7 @@ details summary{
 }
 
 
-/* Fore desktop display */
+/* Fore laptop display */
 @media screen and (min-width: 696px){
     .club-intro {
         text-align: left;
@@ -145,5 +145,21 @@ details summary{
 
     details summary{
         padding: 0.5em 1.5em;
+    }
+}
+
+/* For large monitor screen */
+@media screen and (min-width: 1200px){
+    .about-us-heading{
+        font-size: 4rem;
+    }
+
+    .about-us-content{
+        font-size: 1.3rem;
+        font-weight: 320;
+    }
+
+    .faq-heading{
+        font-size: 3.2rem;
     }
 }

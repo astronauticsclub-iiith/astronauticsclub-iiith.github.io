@@ -190,9 +190,10 @@ footer{
 @media screen and (min-width: 1200px) {
   footer{
     padding-bottom: 1.5rem;
+    justify-content: space-evenly;
   }
 
   .footer-club-info-section{
-    max-width: 30%;
+    max-width: 25%;
   }
 }

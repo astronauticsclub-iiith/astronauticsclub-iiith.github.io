@@ -138,7 +138,12 @@ let oldy = 0;
 let imageDataDst, imageDataSrc;
 
 let img = new Image();
-img.src = "../images/gravitational_lensing.png";
+if (window.innerWidth < 1200) {
+    img.src = "../images/gravitational_lensing.png";
+}
+else {
+    img.src = "../images/gravitational_lensing_extended.png";
+}
 
 // Radius for the gravitational lens effect
 const radius = 100;
