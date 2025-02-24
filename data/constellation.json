@@ -162,13 +162,30 @@
 
   "Gemini": {
     "stars": {
-      "Castor": { "ra": 253.65, "dec": 71.89, "magnitude": 1.58 },
-      "Pollux": { "ra": 263.33, "dec": 70.02, "magnitude": 1.15 },
-      "Alhena": { "ra": 244.43, "dec": 58.40, "magnitude": 1.93 },
+      "Castor": { 
+        "ra": 253.65, "dec": 71.89, "magnitude": 1.58, "clickable": true,
+        "name": "Aisha Harris", "photo": "aisha.jpg", "designation": "Astrophotography Team Member", 
+        "desc": "", 
+        "email": "aisha.harris@students.iiit.ac.in", "linkedin": ""
+      },
+      "Pollux": { "ra": 263.33, "dec": 70.02, "magnitude": 1.15, "clickable": true,
+        "name": "Mohit Singh", "photo": "mohit.jpg", "designation": "Astrophotography Team Member", 
+        "desc": "Another astronomy enthusiast - loves astrophotography, and a bit of webdev", 
+        "email": "mohit.singh@research.iiit.ac.in", "linkedin": ""
+      },
+      "Alhena": { "ra": 244.43, "dec": 58.40, "magnitude": 1.93, "clickable": true,
+        "name": "Ananya Kasavajhala", "photo": "ananya_k.jpg", "designation": "Astrophotography Team Member", 
+        "desc": "", 
+        "email": "ananya.kasavajhala@research.iiit.ac.in", "linkedin": ""
+      },
       "Wasat": { "ra": 254.11, "dec": 63.98, "magnitude": 3.53 },
       "Mekbuda": { "ra": 248.56, "dec": 61.76, "magnitude": 4.02 },
       "Mebsuta": { "ra": 243.41, "dec": 65.13, "magnitude": 3.02 },
-      "Tejat": { "ra": 238.76, "dec": 62.51, "magnitude": 2.87 },
+      "Tejat": { "ra": 238.76, "dec": 62.51, "magnitude": 2.87, "clickable": true,
+        "name": "Sricharan Kumar", "photo": "sricharan.jpg", "designation": "Astrophotography Team Member", 
+        "desc": "Sricharan has a vivid interest in electronics and photography. He is currently a part of the ECD programme. His goal in life is to create something that is permanent and will be looked upon by people for generations to come", 
+        "email": "sricharan.v@research.iiit.ac.in", "linkedin": ""
+      },
       "Propus": { "ra": 233.71, "dec": 62.01, "magnitude": 3.28 },
       "Alzirr": { "ra": 250.79, "dec": 57.05, "magnitude": 4.64 },
       "Nu Geminorum": { "ra": 241.79, "dec": 61.24, "magnitude": 3.63 },
@@ -198,7 +215,7 @@
       ["Mebsuta", "Tejat"],
       ["Tejat", "Propus"]
     ],
-    "team": "Outreach Team"
+    "team": "Astrophotography Team"
 },
 
 
