@@ -221,13 +221,33 @@
 
   "Ursa Major": {
     "stars": {
-      "Dubhe": { "ra": 165.46, "dec": 61.75, "magnitude": 1.79 },
-      "Merak": { "ra": 165.93, "dec": 56.38, "magnitude": 2.37 },
-      "Phecda": { "ra": 177.26, "dec": 53.69, "magnitude": 2.43 },
-      "Megrez": { "ra": 183.86, "dec": 57.03, "magnitude": 3.32 },
-      "Alioth": { "ra": 193.51, "dec": 55.96, "magnitude": 1.76 },
-      "Mizar": { "ra": 200.98, "dec": 54.92, "magnitude": 2.23 },
-      "Alkaid": { "ra": 206.89, "dec": 49.31, "magnitude": 1.86 }
+      "Dubhe": { "ra": 165.46, "dec": 61.75, "magnitude": 1.79, "clickable": true,
+        "name": "Vedant Tejas", "photo": "vedant.jpg", "designation": "Outreach Team Member", 
+        "desc": "", 
+        "email": "vedant.tejas@research.iiit.ac.in", "linkedin": ""
+      },
+      "Merak": { "ra": 165.93, "dec": 56.38, "magnitude": 2.37, "clickable": true,
+        "name": "Gauri Krishnan", "photo": "gauri.jpg", "designation": "Outreach Team Member", 
+        "desc": "Gauri is a mixed media artist and a passionate dancer. She is fascinated by the mysteries of the Universe and also love reading.", 
+        "email": "gauri.krishnan@students.iiit.ac.in", "linkedin": ""
+      },
+      "Phecda": { "ra": 177.26, "dec": 53.69, "magnitude": 2.43, "clickable": true, 
+        "name": "Shaurya Kochar", "photo": "shaurya.png", "designation": "Outreach Team Member", 
+        "desc": "Shaurya is passionate about astronautics and exploring ways to integrate finance with the space industry. He looks forward to connecting with others and contributing to the club's vision. Outside of astronautics, Shaurya enjoys learning, brainstorming innovative ideas, and making meaningful collaborations.", 
+        "email": "shaurya.kochar@research.iiit.ac.in", "linkedin": ""
+      },
+      "Megrez": { "ra": 183.86, "dec": 57.03, "magnitude": 3.32, "clickable": false },
+      "Alioth": { "ra": 193.51, "dec": 55.96, "magnitude": 1.76, "clickable": true,
+        "name": "Vijay Sudalairaguramaselvan", "photo": "vijay.jpeg", "designation": "Outreach Team Member", 
+        "desc": "", 
+        "email": "vijay.s@research.iiit.ac.in", "linkedin": ""
+      },
+      "Mizar": { "ra": 200.98, "dec": 54.92, "magnitude": 2.23, "clickable": false},
+      "Alkaid": { "ra": 206.89, "dec": 49.31, "magnitude": 1.86, "clickable": true,
+        "name": "Sanyam Gandhi", "photo": "sanyam.jpg", "designation": "Outreach Team Member", 
+        "desc": "Sanyam Gandhi is a passionate student with a keen interest in technology and science, particularly in the realms of quantum and space sciences. Beyond his academic pursuits, he is set to launch his own company, SEAC, next year, inline with his entrepreneurial spirit and drive for innovation.", 
+        "email": "sanyam.gandhi@research.iiit.ac.in", "linkedin": ""  
+      }
     },
     "lines": [
       ["Alkaid", "Mizar"],
@@ -238,7 +258,7 @@
       ["Merak", "Dubhe"],
       ["Megrez", "Dubhe"]
     ],
-    "team": "Design Team"
+    "team": "Outreach Team"
   },
 
 
