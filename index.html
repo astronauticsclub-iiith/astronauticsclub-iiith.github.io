@@ -1,11 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+  <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Official club website of Astronautics Club" />
-    <meta name="keywords" content="Astronomy, Space, Astronautics Club, IIIT Hyderabad, Astronautics" />
-    <link rel="icon" type="image/x-icon" sizes="16x16" href="icons/favicon.ico">
+    <meta
+      name="description"
+      content="Official club website of Astronautics Club"
+    />
+    <meta
+      name="keywords"
+      content="Astronomy, Space, Astronautics Club, IIIT Hyderabad, Astronautics"
+    />
+    <link
+      rel="icon"
+      type="image/x-icon"
+      sizes="16x16"
+      href="icons/favicon.ico"
+    />
     <title>Astronautics Club IIITH</title>
 
     <!-- CSS Files -->
@@ -17,168 +28,200 @@
     <link rel="stylesheet" href="styles/shooting-stars.css" />
 
     <!-- JS Script imports -->
-  <script src="scripts/main.js" defer></script>
-  <script src="scripts/mobile-navbar.js" defer></script>
-  <script src="scripts/scroll-down-arrow.js" defer></script>
-  <script src="scripts/s-hover-effect.js" defer></script>
+    <script src="scripts/main.js" defer></script>
+    <script src="scripts/mobile-navbar.js" defer></script>
+    <script src="scripts/scroll-down-arrow.js" defer></script>
+    <script src="scripts/s-hover-effect.js" defer></script>
 
-  <!-- Google tag (gtag.js) for Analytics -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-KNJ0N81KHR"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-  
-    gtag('config', 'G-KNJ0N81KHR');
-  </script>
+    <!-- Google tag (gtag.js) for Analytics -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-KNJ0N81KHR"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
 
-</head>
+      gtag("config", "G-KNJ0N81KHR");
+    </script>
+  </head>
 
+  <body>
+    <header>
+      <nav class="desktop-nav">
+        <div>
+          <img
+            src="images/astronautics_club_logo_brighten.png"
+            class="navbar-logo"
+            alt="logo"
+            id="logo"
+            style="opacity: 0; animation: fadeIn 1s 3.5s forwards"
+          />
+        </div>
 
-<body>
-<header>
-  <nav class="desktop-nav">
-    <div>
-      <img
-        src="images/astronautics_club_logo_brighten.png"
-        class="navbar-logo"
-        alt="logo"
-        id="logo"
-        style="opacity: 0; animation: fadeIn 1s 3.5s forwards"
-      />
-    </div>
+        <ul class="nav-links">
+          <li>
+            <a
+              href="index.html"
+              style="animation: fadeIn 1s 3.25s forwards"
+              class="active"
+            >
+              Home
+            </a>
+          </li>
 
-    <ul class="nav-links">
-      <li>
-        <a href="index.html" style="animation: fadeIn 1s 3.25s forwards"
-          class="active">
-          Home
-        </a>
-      </li>
+          <li>
+            <a href="pages/blogs.html" style="animation: fadeIn 1s 3s forwards">
+              Blogs
+            </a>
+          </li>
 
-      <li>
-        <a href="pages/blogs.html" style="animation: fadeIn 1s 3s forwards">
-          Blogs
-        </a>
+          <li>
+            <a
+              href="pages/gallery.html"
+              style="animation: fadeIn 1s 2.75s forwards"
+            >
+              Gallery
+            </a>
+          </li>
 
-      <li>
-        <a href="pages/gallery.html" style="animation: fadeIn 1s 2.75s forwards">
-          Gallery
-        </a>
+          <li>
+            <a
+              href="pages/team.html"
+              style="animation: fadeIn 1s 2.5s forwards"
+            >
+              Team
+            </a>
+          </li>
 
-      <li>
-        <a href="pages/team.html" style="animation: fadeIn 1s 2.5s forwards">
-          Team
-        </a>
+          <li>
+            <a
+              href="pages/future-events.html"
+              style="animation: fadeIn 1s 2.25s forwards"
+            >
+              Events
+            </a>
+          </li>
 
-      <li>
-        <a href="pages/about.html" style="animation: fadeIn 1s 2.25s forwards">
-          About
-        </a>
-    </ul>
+          <li>
+            <a href="pages/about.html" style="animation: fadeIn 1s 2s forwards">
+              About
+            </a>
+          </li>
+        </ul>
 
-    <img 
-      id="navbar-mobile-icon" 
-      src="images/navbar-mobile-icon.png" 
-      height="50px" 
-      onclick="showMobileNavbar()"
-    />
-  </nav>
-  
-  <aside>
-    <ul class="mobile-nav">
-      <li><a href="index.html" class="active">Home</a>
-      <li><a href="pages/blogs.html">Blogs</a>
-      <li><a href="pages/gallery.html">Gallery</a>
-      <li><a href="pages/team.html">Team</a>
-      <li><a href="pages/about.html">About</a>
-    </ul>
-  </aside>
-</header>
+        <img
+          id="navbar-mobile-icon"
+          src="images/navbar-mobile-icon.png"
+          height="50px"
+          onclick="showMobileNavbar()"
+        />
+      </nav>
 
-<main>
-  
-<!-- Shooting stars -->
-<section class="hero">
-  <section class="stars-container">
-    <span></span>
-    <span></span>
-    <span></span>
-    <span></span>
-    <span></span>
-    <span></span>
-    <span></span>
-    <span></span>
-    <span></span>
-    <span></span>
-  </section>
+      <aside>
+        <ul class="mobile-nav">
+          <li><a href="index.html" class="active">Home</a></li>
+          <li><a href="pages/blogs.html">Blogs</a></li>
+          <li><a href="pages/gallery.html">Gallery</a></li>
+          <li><a href="pages/team.html">Team</a></li>
+          <li><a href="pages/future-events.html">Events</a></li>
+          <li><a href="pages/about.html">About</a></li>
+        </ul>
+      </aside>
+    </header>
 
-  <div class="hero-container">
-    <div class="hero-content" style="height: 80%">
-      <h1>
-        <span class="nowrap">A<span id="s-hover-effect">s</span>tronautics</span>
-        <span>  Club</span>
-      </h1>
-      <p>International Institute of Information Technology, Hyderabad</p>
-    </div>
-    <div class="hero-content">
-      <img
-        id="scroll-down-arrow"
-        src="icons/down.png"
-        alt="scroll down"
-        height="50px"
-      />
-    </div>
-  </div>
-</section>
+    <main>
+      <!-- Shooting stars -->
+      <section class="hero">
+        <section class="stars-container">
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+        </section>
 
-<!-- Wave animation -->
-<svg class="separator" viewBox="0 24 150 28 " preserveAspectRatio="none">
-  <defs>
-    <path
-      id="gentle-wave"
-      d="M-160 44c30 0 
+        <div class="hero-container">
+          <div class="hero-content" style="height: 80%">
+            <h1>
+              <span class="nowrap"
+                >A<span id="s-hover-effect">s</span>tronautics</span
+              >
+              <span> Club</span>
+            </h1>
+            <p>International Institute of Information Technology, Hyderabad</p>
+          </div>
+          <div class="hero-content">
+            <img
+              id="scroll-down-arrow"
+              src="icons/down.png"
+              alt="scroll down"
+              height="50px"
+            />
+          </div>
+        </div>
+      </section>
+
+      <!-- Wave animation -->
+      <svg class="separator" viewBox="0 24 150 28 " preserveAspectRatio="none">
+        <defs>
+          <path
+            id="gentle-wave"
+            d="M-160 44c30 0 
 58-18 88-18s
 58 18 88 18 
 58-18 88-18 
 58 18 88 18
 v44h-352z"
-    />
-  </defs>
-  <g class="parallax1">
-    <use xlink:href="#gentle-wave" x="50" y="3" fill="#b62f84" />
-  </g>
-  <g class="parallax2">
-    <use xlink:href="#gentle-wave" x="50" y="0" fill="#161148" />
-  </g>
-  <g class="parallax3">
-    <use xlink:href="#gentle-wave" x="50" y="9" fill="#6a71af" />
-  </g>
-  <g class="parallax4">
-    <use xlink:href="#gentle-wave" x="50" y="6" fill="#1f1e1e" />
-  </g>
-</svg>
+          />
+        </defs>
+        <g class="parallax1">
+          <use xlink:href="#gentle-wave" x="50" y="3" fill="#b62f84" />
+        </g>
+        <g class="parallax2">
+          <use xlink:href="#gentle-wave" x="50" y="0" fill="#161148" />
+        </g>
+        <g class="parallax3">
+          <use xlink:href="#gentle-wave" x="50" y="9" fill="#6a71af" />
+        </g>
+        <g class="parallax4">
+          <use xlink:href="#gentle-wave" x="50" y="6" fill="#1f1e1e" />
+        </g>
+      </svg>
 
-<!-- Section: Who are we -->
-<section class="who-are-we-container">
-  <img src="images/club_collage.png" class="who-are-we-image" />
-  <div class="who-are-we-content-container">
-    <h1 class="who-are-we-subheading">Who Are We</h1>
-    <h2 class="who-are-we-heading">A Bunch Of Astromaniacs!</h2>
-    <p class="who-are-we-content">
-      We are the Astronomy and Space Technology Club at IIIT Hyderabad, a vibrant community united by a shared passion for exploring the universe. 
-      From stargazing sessions, star parties to hands-on workshops and exciting projects, we bring space science to life for enthusiasts of all levels.
-      <br><br>
-      We have undertaken exciting projects and participated in numerous National and International competitions, gaining experience and recognition along the way.
-      Join along in our journey into the fascinating world of Astronomy and SpaceTech!
-    </p>
-  </div>
-</section>
+      <!-- Section: Who are we -->
+      <section class="who-are-we-container">
+        <img src="images/club_collage.png" class="who-are-we-image" />
+        <div class="who-are-we-content-container">
+          <h1 class="who-are-we-subheading">Who Are We</h1>
+          <h2 class="who-are-we-heading">A Bunch Of Astromaniacs!</h2>
+          <p class="who-are-we-content">
+            We are the Astronomy and Space Technology Club at IIIT Hyderabad, a
+            vibrant community united by a shared passion for exploring the
+            universe. From stargazing sessions, star parties to hands-on
+            workshops and exciting projects, we bring space science to life for
+            enthusiasts of all levels.
+            <br /><br />
+            We have undertaken exciting projects and participated in numerous
+            National and International competitions, gaining experience and
+            recognition along the way. Join along in our journey into the
+            fascinating world of Astronomy and SpaceTech!
+          </p>
+        </div>
+      </section>
 
-<div class="blank-space"></div>
+      <div class="blank-space"></div>
 
-<!-- Section: What is Astronautics? -->
-<!-- <section class="what-is-astronautics-container">
+      <!-- Section: What is Astronautics? -->
+      <!-- <section class="what-is-astronautics-container">
   <img class="what-is-astronautics-image" src="images/astronautics_bg3.png" />
   
   <div class="what-is-astronautics-text-container">
@@ -195,70 +238,77 @@ v44h-352z"
   </div>
 </section> -->
 
+      <!-- Section: Latest updates section -->
+      <section class="blog-section-container">
+        <h1 class="blog-section-heading">Beyond Horizons</h1>
+        <h3 class="blog-section-subheading">
+          Exploring the Universe, One Story at a Time
+        </h3>
 
-<!-- Section: Latest updates section -->
-<section class="blog-section-container">
-  <h1 class="blog-section-heading">Beyond Horizons</h1>
-  <h3 class="blog-section-subheading">Exploring the Universe, One Story at a Time</h3>
+        <div class="blog-section-posts-wrapper">
+          <!-- Lastest blog/news -->
+          <article class="blogpost-subcontainer">
+            <div class="blogpost-imagedate-wrapper">
+              <img class="blogpost-image" src="images/blog_1.jpg" />
+              <div class="blogpost-date-wrapper">
+                <span class="blogpost-date">14</span>
+                <span class="blogpost-month">Feb</span>
+              </div>
+            </div>
 
-  <div class="blog-section-posts-wrapper">
-    <!-- Lastest blog/news -->
-    <article class="blogpost-subcontainer">
-      <div class="blogpost-imagedate-wrapper">
-        <img class="blogpost-image" src="images/blog_1.jpg" />
-        <div class="blogpost-date-wrapper">
-          <span class="blogpost-date">14</span>
-          <span class="blogpost-month">Feb</span>
+            <h3 class="blogpost-heading">Space is Full of Surprises</h3>
+            <p class="blogpost-content">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin
+              quis aliquet sapien. Donec velit lacus, mollis eu…
+            </p>
+            <a class="blogpost-readmore-link" href="pages/404.html"
+              >read more</a
+            >
+          </article>
+
+          <!-- Second latest blog/news -->
+          <article class="blogpost-subcontainer">
+            <div class="blogpost-imagedate-wrapper">
+              <img class="blogpost-image" src="images/telescope_blog.jpg" />
+              <div class="blogpost-date-wrapper roboto-light">
+                <span class="blogpost-date">14</span>
+                <span class="blogpost-month">Feb</span>
+              </div>
+            </div>
+
+            <h3 class="blogpost-heading">Space is Full of Surprises</h3>
+            <p class="blogpost-content">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin
+              quis aliquet sapien. Donec velit lacus, mollis eu…
+            </p>
+            <a class="blogpost-readmore-link" href="pages/404.html"
+              >read more</a
+            >
+          </article>
+
+          <!-- third latest blog/news -->
+          <article class="blogpost-subcontainer">
+            <div class="blogpost-imagedate-wrapper">
+              <img class="blogpost-image" src="images/blog_1.jpg" />
+              <div class="blogpost-date-wrapper roboto-light">
+                <span class="blogpost-date">14</span>
+                <span class="blogpost-month">Feb</span>
+              </div>
+            </div>
+
+            <h3 class="blogpost-heading">Space is Full of Surprises</h3>
+            <p class="blogpost-content">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin
+              quis aliquet sapien. Donec velit lacus, mollis eu…
+            </p>
+            <a class="blogpost-readmore-link" href="pages/404.html"
+              >read more</a
+            >
+          </article>
         </div>
-      </div>
-      
-      <h3 class="blogpost-heading">Space is Full of Surprises</h3>
-      <p class="blogpost-content">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin quis aliquet sapien. Donec velit lacus, mollis eu…
-      </p>
-      <a class="blogpost-readmore-link" href="pages/404.html">read more</a>
-    </article>
+      </section>
 
-
-    <!-- Second latest blog/news -->
-    <article class="blogpost-subcontainer">
-      <div class="blogpost-imagedate-wrapper">
-        <img class="blogpost-image" src="images/telescope_blog.jpg" />
-        <div class="blogpost-date-wrapper roboto-light">
-          <span class="blogpost-date">14</span>
-          <span class="blogpost-month">Feb</span>
-        </div>
-      </div>
-      
-      <h3 class="blogpost-heading">Space is Full of Surprises</h3>
-      <p class="blogpost-content">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin quis aliquet sapien. Donec velit lacus, mollis eu…
-      </p>
-      <a class="blogpost-readmore-link" href="pages/404.html">read more</a>
-    </article>
-
-
-    <!-- third latest blog/news -->
-    <article class="blogpost-subcontainer">
-      <div class="blogpost-imagedate-wrapper">
-        <img class="blogpost-image" src="images/blog_1.jpg" />
-        <div class="blogpost-date-wrapper roboto-light">
-          <span class="blogpost-date">14</span>
-          <span class="blogpost-month">Feb</span>
-        </div>
-      </div>
-      
-      <h3 class="blogpost-heading">Space is Full of Surprises</h3>
-      <p class="blogpost-content">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin quis aliquet sapien. Donec velit lacus, mollis eu…
-      </p>
-      <a class="blogpost-readmore-link" href="pages/404.html">read more</a>
-    </article>
-  </div>
-</section>
-
-
-<!-- <section class="main-content">
+      <!-- <section class="main-content">
     <div class="heading">– Latest –</div>
     <div
       class="elementor-column elementor-col-50 elementor-top-column elementor-element elementor-element-225f4281"
@@ -343,18 +393,19 @@ v44h-352z"
     </div>
 </section> -->
 
-<article class="future-events-content-container">
-    <h5 class="future-events-heading">Future Events</h5>
-    <p class="future-events-content">
-      Take a look at our lineup of upcoming events, and feel free to suggest ideas — you could help shape our next big adventure!
-    </p>
-    <a class="future-events-button" href="pages/404.html">
-      Join the Journey
-    </a>
-</article>
-</main>
+      <article class="future-events-content-container">
+        <h5 class="future-events-heading">Future Events</h5>
+        <p class="future-events-content">
+          Take a look at our lineup of upcoming events, and feel free to suggest
+          ideas — you could help shape our next big adventure!
+        </p>
+        <a class="future-events-button" href="pages/future-events.html">
+          Join the Journey
+        </a>
+      </article>
+    </main>
 
-<footer>
+    <footer>
       <!-- Club info footer section -->
       <div class="footer-club-info-section">
         <div class="footer-club-name-logo-wrapper">
@@ -363,13 +414,11 @@ v44h-352z"
             class="footer-club-info-section-logo"
             alt="Club logo"
           />
-          <h2 class="footer-club-name">
-            Astronautics Club
-          </h2>
+          <h2 class="footer-club-name">Astronautics Club</h2>
         </div>
         <p class="footer-club-moto">
-          Confining our attentions to terrestial matters
-          would be to limit the human spirit. Join us to look beyond the horizon.
+          Confining our attentions to terrestial matters would be to limit the
+          human spirit. Join us to look beyond the horizon.
         </p>
       </div>
 
@@ -380,6 +429,7 @@ v44h-352z"
         <a href="pages/blogs.html" class="footer-nav-text">Blogs</a>
         <a href="pages/gallery.html" class="footer-nav-text">Gallery</a>
         <a href="pages/team.html" class="footer-nav-text">Team</a>
+        <a href="pages/future-events.html" class="footer-nav-text">Events</a>
         <a href="pages/about.html" class="footer-nav-text">About</a>
       </div>
 
@@ -391,38 +441,41 @@ v44h-352z"
           Astronautics Club, IIIT Hyderabad<br />
 
           <!-- Mail ID -->
-          <a class="footer-mail-id" href="mailto:astronauticsclub@students.iiit.ac.in">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="16"
-                height="16"
-                fill="currentColor"
-                class="bi bi-envelope"
-                viewBox="0 0 16 16"
-              >
-                <path
-                  d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1zm13 2.383-4.708 2.825L15 11.105zm-.034 6.876-5.64-3.471L8 9.583l-1.326-.795-5.64 3.47A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.741M1 11.105l4.708-2.897L1 5.383z"
-                />
-              </svg>
+          <a
+            class="footer-mail-id"
+            href="mailto:astronauticsclub@students.iiit.ac.in"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              fill="currentColor"
+              class="bi bi-envelope"
+              viewBox="0 0 16 16"
+            >
+              <path
+                d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1zm13 2.383-4.708 2.825L15 11.105zm-.034 6.876-5.64-3.471L8 9.583l-1.326-.795-5.64 3.47A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.741M1 11.105l4.708-2.897L1 5.383z"
+              />
+            </svg>
             &nbsp astronauticsclub@students.iiit.ac.in
           </a>
-          <br>
+          <br />
 
           <!-- Phone number -->
           <a href="tel:+919899199660" class="footer-phone-number">
-              <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="16"
-                  height="16"
-                  fill="currentColor"
-                  class="bi bi-telephone"
-                  viewBox="0 0 16 16"
-              >
-                <path
-                  d="M3.654 1.328a.678.678 0 0 0-1.015-.063L1.605 2.3c-.483.484-.661 1.169-.45 1.77a17.6 17.6 0 0 0 4.168 6.608 17.6 17.6 0 0 0 6.608 4.168c.601.211 1.286.033 1.77-.45l1.034-1.034a.678.678 0 0 0-.063-1.015l-2.307-1.794a.68.68 0 0 0-.58-.122l-2.19.547a1.75 1.75 0 0 1-1.657-.459L5.482 8.062a1.75 1.75 0 0 1-.46-1.657l.548-2.19a.68.68 0 0 0-.122-.58zM1.884.511a1.745 1.745 0 0 1 2.612.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.68.68 0 0 0 .178.643l2.457 2.457a.68.68 0 0 0 .644.178l2.189-.547a1.75 1.75 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.6 18.6 0 0 1-7.01-4.42 18.6 18.6 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877z"
-                />
-              </svg>
-              &nbsp +91 9899199660
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              fill="currentColor"
+              class="bi bi-telephone"
+              viewBox="0 0 16 16"
+            >
+              <path
+                d="M3.654 1.328a.678.678 0 0 0-1.015-.063L1.605 2.3c-.483.484-.661 1.169-.45 1.77a17.6 17.6 0 0 0 4.168 6.608 17.6 17.6 0 0 0 6.608 4.168c.601.211 1.286.033 1.77-.45l1.034-1.034a.678.678 0 0 0-.063-1.015l-2.307-1.794a.68.68 0 0 0-.58-.122l-2.19.547a1.75 1.75 0 0 1-1.657-.459L5.482 8.062a1.75 1.75 0 0 1-.46-1.657l.548-2.19a.68.68 0 0 0-.122-.58zM1.884.511a1.745 1.745 0 0 1 2.612.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.68.68 0 0 0 .178.643l2.457 2.457a.68.68 0 0 0 .644.178l2.189-.547a1.75 1.75 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.6 18.6 0 0 1-7.01-4.42 18.6 18.6 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877z"
+              />
+            </svg>
+            &nbsp +91 9899199660
           </a>
         </div>
 
@@ -469,7 +522,10 @@ v44h-352z"
           </a>
 
           <!-- Instagram icon -->
-          <a href="https://instagram.com/astronautics_club_iiith" target="_blank">
+          <a
+            href="https://instagram.com/astronautics_club_iiith"
+            target="_blank"
+          >
             <svg
               class="footer-social-media-icon instagram"
               xmlns="http://www.w3.org/2000/svg"
@@ -502,14 +558,12 @@ v44h-352z"
             </svg>
           </a>
         </div>
-
       </address>
-</footer>
+    </footer>
 
-<h4 class="copyright-text">
-  Copyright © <time id="yearId"></time>
-  &nbspAstronautics Club, IIIT Hyderabad
-</h4>
-
-</body>
+    <h4 class="copyright-text">
+      Copyright © <time id="yearId"></time>
+      &nbspAstronautics Club, IIIT Hyderabad
+    </h4>
+  </body>
 </html>

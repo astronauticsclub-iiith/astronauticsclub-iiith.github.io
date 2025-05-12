@@ -3,10 +3,13 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Teams Team page for Astronautics Club" />
+    <meta
+      name="description"
+      content="Future Events of Astronautics Club IIIT Hyderabad"
+    />
     <meta
       name="keywords"
-      content="Astronomy, Space, Astronautics Club, IIIT Hyderabad, Astronautics"
+      content="Astronomy, Space, Astronautics Club, IIIT Hyderabad, Events, Future Events, Space Events"
     />
     <link
       rel="icon"
@@ -14,19 +17,19 @@
       sizes="16x16"
       href="../icons/favicon.ico"
     />
-    <title>Astronautics Club IIITH</title>
+    <title>Future Events | Astronautics Club IIITH</title>
 
     <!-- CSS Files -->
     <link rel="stylesheet" href="../styles/footer.css" />
     <link rel="stylesheet" href="../styles/font.css" />
     <link rel="stylesheet" href="../styles/commons.css" />
-    <link rel="stylesheet" href="../styles/team.css" />
+    <link rel="stylesheet" href="../styles/future-events.css" />
+    <link rel="icon" href="../images/astro_logo_small.png" type="image/png" />
 
     <!-- JS Script imports -->
     <script src="../scripts/main.js" defer></script>
     <script src="../scripts/mobile-navbar.js" defer></script>
     <script src="../scripts/scroll.js" defer></script>
-    <script src="../scripts/team.js" defer></script>
 
     <!-- Google tag (gtag.js) for Analytics -->
     <script
@@ -45,8 +48,8 @@
   </head>
 
   <body>
+    <!-- NAVBAR -->
     <header>
-      <!-- navbar container -->
       <nav class="desktop-nav">
         <div>
           <img
@@ -54,6 +57,7 @@
             class="navbar-logo"
             alt="logo"
             id="logo"
+            style="opacity: 0; animation: fadeIn 1s 3.5s forwards"
           />
         </div>
 
@@ -77,11 +81,7 @@
           </li>
 
           <li>
-            <a
-              href="team.html"
-              style="animation: fadeIn 1s 2.5s forwards"
-              class="active"
-            >
+            <a href="team.html" style="animation: fadeIn 1s 2.5s forwards">
               Team
             </a>
           </li>
@@ -90,13 +90,14 @@
             <a
               href="future-events.html"
               style="animation: fadeIn 1s 2.25s forwards"
+              class="active"
             >
               Events
             </a>
           </li>
 
           <li>
-            <a href="about.html" style="animation: fadeIn 1s 2.25s forwards">
+            <a href="about.html" style="animation: fadeIn 1s 2s forwards">
               About
             </a>
           </li>
@@ -115,65 +116,206 @@
           <li><a href="../index.html">Home</a></li>
           <li><a href="blogs.html">Blogs</a></li>
           <li><a href="gallery.html">Gallery</a></li>
-          <li><a href="team.html" class="active">Team</a></li>
-          <li><a href="future-events.html">Events</a></li>
+          <li><a href="team.html">Team</a></li>
+          <li><a href="future-events.html" class="active">Events</a></li>
           <li><a href="about.html">About</a></li>
         </ul>
       </aside>
     </header>
 
+    <!-- MAIN CONTENT -->
     <main>
-      <canvas id="starMap"></canvas>
-      <div id="starDetailsBox" class="member-details-box">
-        <!-- <h2>Star Details</h2> -->
+      <!-- Hero Section -->
+      <section class="events-hero">
+        <div class="events-hero-content">
+          <h1>Future Events</h1>
+          <p>Join us on our journey to explore the cosmos</p>
+        </div>
+      </section>
 
-        <div class="photo-contact-container">
-          <img id="starPhoto" class="member-photo" src="" />
+      <!-- Events Timeline Section -->
+      <section class="events-timeline-container">
+        <h2 class="events-section-heading">Upcoming Adventures</h2>
 
-          <div class="social-icons">
-            <a id="starEmail" class="member-social-icon" href="">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="16"
-                height="16"
-                fill="currentColor"
-                class="bi bi-envelope-fill"
-                viewBox="0 0 16 16"
-              >
-                <path
-                  d="M.05 3.555A2 2 0 0 1 2 2h12a2 2 0 0 1 1.95 1.555L8 8.414zM0 4.697v7.104l5.803-3.558zM6.761 8.83l-6.57 4.027A2 2 0 0 0 2 14h12a2 2 0 0 0 1.808-1.144l-6.57-4.027L8 9.586zm3.436-.586L16 11.801V4.697z"
-                />
-              </svg>
-            </a>
+        <!-- Timeline events -->
+        <div class="events-timeline">
+          <!-- Event 1 -->
+          <div class="timeline-event">
+            <div class="timeline-date">
+              <div class="date-circle">
+                <span class="event-month">JUN</span>
+                <span class="event-day">15</span>
+              </div>
+            </div>
+            <div class="timeline-content">
+              <h3>Stargazing Night: Summer Constellations</h3>
+              <p class="event-time"><i>8:00 PM - 11:00 PM</i></p>
+              <p>
+                Join us for an evening of stargazing where we'll observe and
+                learn about prominent summer constellations. Telescopes will be
+                provided, and experts will be on hand to guide your celestial
+                journey.
+              </p>
+              <div class="event-details">
+                <span class="event-location"
+                  >Location: IIIT Hyderabad Campus Observatory</span
+                >
+                <a href="#" class="event-register-button">Register Now</a>
+              </div>
+            </div>
+          </div>
 
-            <a
-              id="starLinkedIn"
-              class="member-social-icon"
-              href=""
-              target="_blank"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="16"
-                height="16"
-                fill="currentColor"
-                class="bi bi-linkedin"
-                viewBox="0 0 16 16"
-              >
-                <path
-                  d="M0 1.146C0 .513.526 0 1.175 0h13.65C15.474 0 16 .513 16 1.146v13.708c0 .633-.526 1.146-1.175 1.146H1.175C.526 16 0 15.487 0 14.854zm4.943 12.248V6.169H2.542v7.225zm-1.2-8.212c.837 0 1.358-.554 1.358-1.248-.015-.709-.52-1.248-1.342-1.248S2.4 3.226 2.4 3.934c0 .694.521 1.248 1.327 1.248zm4.908 8.212V9.359c0-.216.016-.432.08-.586.173-.431.568-.878 1.232-.878.869 0 1.216.662 1.216 1.634v3.865h2.401V9.25c0-2.22-1.184-3.252-2.764-3.252-1.274 0-1.845.7-2.165 1.193v.025h-.016l.016-.025V6.169h-2.4c.03.678 0 7.225 0 7.225z"
-                />
-              </svg>
-            </a>
+          <!-- Event 2 -->
+          <div class="timeline-event">
+            <div class="timeline-date">
+              <div class="date-circle">
+                <span class="event-month">JUL</span>
+                <span class="event-day">08</span>
+              </div>
+            </div>
+            <div class="timeline-content">
+              <h3>Workshop: Introduction to Astrophotography</h3>
+              <p class="event-time"><i>4:00 PM - 6:30 PM</i></p>
+              <p>
+                Learn the basics of capturing stunning images of celestial
+                objects. This workshop will cover equipment selection, camera
+                settings, and post-processing techniques to help you take your
+                first steps in astrophotography.
+              </p>
+              <div class="event-details">
+                <span class="event-location"
+                  >Location: Vindhya Building, Room 307</span
+                >
+                <a href="#" class="event-register-button">Register Now</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Event 3 -->
+          <div class="timeline-event">
+            <div class="timeline-date">
+              <div class="date-circle">
+                <span class="event-month">AUG</span>
+                <span class="event-day">12</span>
+              </div>
+            </div>
+            <div class="timeline-content">
+              <h3>Perseid Meteor Shower Observation</h3>
+              <p class="event-time"><i>11:00 PM - 3:00 AM</i></p>
+              <p>
+                Experience one of the year's most spectacular meteor showers!
+                Join us for an overnight observation of the Perseid meteor
+                shower, which is known for producing bright meteors and
+                occasional fireballs.
+              </p>
+              <div class="event-details">
+                <span class="event-location"
+                  >Location: Off-campus site (Transportation provided)</span
+                >
+                <a href="#" class="event-register-button">Register Now</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Event 4 -->
+          <div class="timeline-event">
+            <div class="timeline-date">
+              <div class="date-circle">
+                <span class="event-month">SEP</span>
+                <span class="event-day">20</span>
+              </div>
+            </div>
+            <div class="timeline-content">
+              <h3>Guest Lecture: Space Exploration in the 21st Century</h3>
+              <p class="event-time"><i>5:30 PM - 7:00 PM</i></p>
+              <p>
+                Renowned astrophysicist Dr. Sharma from ISRO will discuss
+                current and future space exploration missions, including India's
+                contributions to space science and the possibilities of
+                interplanetary travel.
+              </p>
+              <div class="event-details">
+                <span class="event-location">Location: IIIT-H Auditorium</span>
+                <a href="#" class="event-register-button">Register Now</a>
+              </div>
+            </div>
           </div>
         </div>
+      </section>
 
-        <div id="starName" class="member-name"></div>
-        <div id="starDesignation" class="member-designation"></div>
-        <div id="starDesc" class="member-desc"></div>
-      </div>
+      <!-- Suggest an Event Section -->
+      <section class="suggest-event-container">
+        <div class="suggest-event-content">
+          <h2>Have an Idea for an Event?</h2>
+          <p>
+            We're always looking for exciting new ways to explore space science
+            and astronomy. If you have an idea for an event, workshop, or
+            activity, we'd love to hear it!
+          </p>
+
+          <form class="event-suggestion-form">
+            <div class="form-group">
+              <input
+                type="text"
+                id="name"
+                name="name"
+                placeholder="Your Name"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <input
+                type="email"
+                id="email"
+                name="email"
+                placeholder="Your Email"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <input
+                type="text"
+                id="event-title"
+                name="event-title"
+                placeholder="Event Title"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <textarea
+                id="event-description"
+                name="event-description"
+                placeholder="Event Description"
+                required
+              ></textarea>
+            </div>
+            <button type="submit" class="submit-button">
+              Submit Your Idea
+            </button>
+          </form>
+        </div>
+      </section>
+
+      <!-- Join Newsletter Section -->
+      <section class="newsletter-container">
+        <div class="newsletter-content">
+          <div class="newsletter-text">
+            <h2>Stay Updated</h2>
+            <p>
+              Subscribe to our newsletter to receive updates about upcoming
+              events, astronomy news, and club activities directly in your
+              inbox.
+            </p>
+          </div>
+          <div class="newsletter-form">
+            <input type="email" placeholder="Your Email Address" required />
+            <button type="submit">Subscribe</button>
+          </div>
+        </div>
+      </section>
     </main>
 
+    <!-- FOOTER -->
     <footer>
       <!-- Club info footer section -->
       <div class="footer-club-info-section">
