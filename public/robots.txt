@@ -1,0 +1,12 @@
+# https://astronautics.iiit.ac.in/robots.txt
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /_next/
+Disallow: /uploads/
+
+# Host
+Host: https://astronautics.iiit.ac.in
+
+# Sitemaps
+Sitemap: https://astronautics.iiit.ac.in/sitemap.xml

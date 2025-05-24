@@ -19,6 +19,11 @@
 body {
   color: var(--foreground);
   background: var(--background);
+  overflow-x: hidden;
+  font-display: swap;
+  text-rendering: optimizeSpeed;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
   font-family: "Exo 2";
 }
 
