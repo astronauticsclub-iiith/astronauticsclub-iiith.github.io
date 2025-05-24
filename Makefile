@@ -3,7 +3,7 @@
 
 .PHONY: help build build-dev start start-dev stop stop-dev restart restart-dev logs logs-dev \
         status download-uploads upload-to-volume backup-uploads restore-uploads \
-        backup-logs restore-logs clean-backups clean-downloads init-project
+        backup-logs restore-logs clean-backups clean-downloads clean rebuild init-project
 
 # Default target
 help:
@@ -35,6 +35,8 @@ help:
 	@echo "Maintenance Commands:"
 	@echo "  make clean-backups    - Remove all backup files"
 	@echo "  make clean-downloads  - Remove all downloaded files"
+	@echo "  make clean            - Remove all containers, images, and volumes"
+	@echo "  make rebuild          - Rebuild the deployment from scratch"
 	@echo "  make init-project     - Initialize project directories"
 
 # Production commands
@@ -185,3 +187,17 @@ restore-logs: restore-logs-script
 	fi
 	@echo "Restoring logs from backup file..."
 	./scripts/restore-logs.sh "$(FILE)"
+
+# Clean deployment
+clean:
+	@echo "Cleaning all containers, images, and volumes related to the project..."
+	docker-compose down --rmi all --volumes --remove-orphans
+	docker-compose -f docker-compose.dev.yml down --rmi all --volumes --remove-orphans
+	@echo "Deployment cleaned successfully!"
+
+# Rebuild deployment
+rebuild: clean
+	@echo "Rebuilding deployment from scratch..."
+	docker-compose build --no-cache
+	docker-compose up -d
+	@echo "Deployment rebuilt successfully! Available at http://localhost"
