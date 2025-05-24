@@ -18,7 +18,7 @@ const Footer: React.FC = () => {
   ];
 
   return (
-    <footer className="relative bg-black overflow-hidden">
+    <footer className="relative bg-black overflow-hidden rounded-t-2xl">
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 pb-4">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {/* Club Info Section */}
@@ -44,10 +44,10 @@ const Footer: React.FC = () => {
           </div>
 
           {/* Quick Links Section */}
-          <div className="space-y-4 pt-6 text-center md:text-left">
+          <div className="space-y-4 pt-6 text-center">
             <h3 className="text-xl font-semibold mb-4 accent">Links</h3>
-            <div className="grid grid-cols-2 gap-x-4">
-              <nav className="flex flex-col space-y-2 items-center md:items-start">
+            <div className="grid grid-cols-2 gap-x-8">
+              <nav className="flex flex-col space-y-2 items-end">
                 {navigationLinks
                   .slice(0, Math.ceil(navigationLinks.length / 2))
                   .map((link) => (
@@ -60,7 +60,7 @@ const Footer: React.FC = () => {
                     </CustomLink>
                   ))}
               </nav>
-              <nav className="flex flex-col space-y-2 items-center md:items-start">
+              <nav className="flex flex-col space-y-2 items-start">
                 {navigationLinks
                   .slice(Math.ceil(navigationLinks.length / 2))
                   .map((link) => (
@@ -77,14 +77,14 @@ const Footer: React.FC = () => {
           </div>
 
           {/* Reach Us Section */}
-          <div className="space-y-4 pt-6 text-center md:text-left">
+          <div className="space-y-4 pt-6 text-center md:text-right">
             <h3 className="text-xl font-semibold mb-4 accent">Reach Us</h3>
             <address className="not-italic space-y-3">
               <p className="text-gray-300">Astronautics Club, IIIT Hyderabad</p>
 
               <a
                 href="mailto:astronauticsclub@students.iiit.ac.in"
-                className="flex items-center justify-center md:justify-start space-x-2 text-gray-300 duration-300 group"
+                className="flex items-center justify-center md:justify-end space-x-2 text-gray-300 duration-300 group"
               >
                 <Mail className="w-4 h-4 group-hover:scale-110 transition-transform duration-300" />
                 <span className="break-all">
@@ -94,14 +94,14 @@ const Footer: React.FC = () => {
 
               <a
                 href="tel:+919899199660"
-                className="flex items-center justify-center md:justify-start space-x-2 text-gray-300 duration-300 group"
+                className="flex items-center justify-center md:justify-end space-x-2 text-gray-300 duration-300 group"
               >
                 <Phone className="w-4 h-4 group-hover:scale-110 transition-transform duration-300" />
                 <span>+91 9899199660</span>
               </a>
 
               {/* Social Media Links */}
-              <div className="footer-social-media-handles-section pt-4 flex justify-center md:justify-start">
+              <div className="footer-social-media-handles-section pt-4 flex justify-center md:justify-end">
                 {/* WhatsApp icon */}
                 <a
                   href="https://chat.whatsapp.com/DlOZnHdUTRO3PGmfrahozG"

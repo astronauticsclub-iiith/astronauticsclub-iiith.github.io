@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Exo_2 } from "next/font/google";
 import "./globals.css";
+import Navbar from "@/components/layout/Navbar/page";
 import Footer from "@/components/layout/Footer/page";
 
 const exo2 = Exo_2({
@@ -169,6 +170,7 @@ export default function RootLayout({
       <body
         className={`bg-background text-foreground antialiased ${exo2.variable}`}
       >
+        <Navbar />
         {children}
         <Footer />
       </body>

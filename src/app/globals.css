@@ -27,6 +27,10 @@ body {
   font-family: "Exo 2";
 }
 
+img {
+  user-select: none;
+}
+
 .accent {
   color: var(--accent);
 }
