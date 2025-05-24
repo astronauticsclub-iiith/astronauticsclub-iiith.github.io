@@ -1,4 +1,4 @@
-# https://astronautics.iiit.ac.in/robots.txt
+# https://astronautics-club-iiith.vercel.app/robots.txt
 User-agent: *
 Allow: /
 Disallow: /api/
@@ -6,7 +6,7 @@ Disallow: /_next/
 Disallow: /uploads/
 
 # Host
-Host: https://astronautics.iiit.ac.in
+Host: https://astronautics-club-iiith.vercel.app
 
 # Sitemaps
-Sitemap: https://astronautics.iiit.ac.in/sitemap.xml
+Sitemap: https://astronautics-club-iiith.vercel.app/sitemap.xml

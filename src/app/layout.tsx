@@ -12,8 +12,28 @@ const exo2 = Exo_2({
 // TODO: update URL to the actual domain when deploying
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://astronautics.iiit.ac.in"),
+  metadataBase: new URL("https://astronautics-club-iiith.vercel.app"),
   title: "Astronautics Club | IIIT Hyderabad",
+  icons: {
+    icon: "/favicon.ico",
+    apple: [
+      { url: "/apple-icon-57x57.png", sizes: "57x57" },
+      { url: "/apple-icon-60x60.png", sizes: "60x60" },
+      { url: "/apple-icon-72x72.png", sizes: "72x72" },
+      { url: "/apple-icon-76x76.png", sizes: "76x76" },
+      { url: "/apple-icon-114x114.png", sizes: "114x114" },
+      { url: "/apple-icon-120x120.png", sizes: "120x120" },
+      { url: "/apple-icon-144x144.png", sizes: "144x144" },
+      { url: "/apple-icon-152x152.png", sizes: "152x152" },
+      { url: "/apple-icon-180x180.png", sizes: "180x180" },
+    ],
+    other: [
+      { rel: "icon", url: "/favicon-16x16.png", sizes: "16x16" },
+      { rel: "icon", url: "/favicon-32x32.png", sizes: "32x32" },
+      { rel: "icon", url: "/favicon-96x96.png", sizes: "96x96" },
+      { rel: "icon", url: "/android-icon-192x192.png", sizes: "192x192" },
+    ],
+  },
   description:
     "Where astronomy meets space technology. Experience stargazing sessions, participate in space projects, and explore the cosmos!",
   keywords: [
@@ -37,7 +57,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://astronautics.iiit.ac.in",
+    url: "https://astronautics-club-iiith.vercel.app",
     title: "Astronautics Club | IIIT Hyderabad",
     description:
       "Where astronomy meets space technology. Experience stargazing sessions, participate in space projects, and explore the cosmos!",
@@ -68,7 +88,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        <link rel="canonical" href="https://astronautics.iiit.ac.in" />
+        <link
+          rel="canonical"
+          href="https://astronautics-club-iiith.vercel.app"
+        />
         <link
           rel="apple-touch-icon"
           sizes="57x57"
