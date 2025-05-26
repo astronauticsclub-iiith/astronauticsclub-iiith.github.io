@@ -109,7 +109,7 @@ const Navbar = () => {
     return (
       (typeof window !== "undefined" && window.innerWidth < 768
         ? 0
-        : navLinks.length) + (pathname === "/" ? 10 : 0)
+        : navLinks.length) + (pathname === "/" ? 11 : 0)
     );
   }, [pathname, isHydrated, navLinks.length]);
 
@@ -166,7 +166,7 @@ const Navbar = () => {
               </span>
               {whimsyMode && (
                 <span
-                  className="text-white/50 text-sm opacity-0 animate-pulse"
+                  className="text-white/50 text-sm opacity-0 animate-slide-in"
                   style={{
                     animationDelay: isFirstVisit
                       ? `${(delayCounter + 4) * 150}ms`

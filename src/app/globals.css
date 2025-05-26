@@ -28,7 +28,7 @@ body {
   text-rendering: optimizeSpeed;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  font-family: "Exo 2";
+  font-family: "Exo 2", sans-serif;
 }
 
 img {

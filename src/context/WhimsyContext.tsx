@@ -1,6 +1,13 @@
 "use client";
 
 import React, { createContext, useContext, useState, useEffect } from "react";
+import dynamic from "next/dynamic";
+
+// Import WhimsyMouse with no SSR to avoid hydration errors
+const WhimsyMouse = dynamic(
+  () => import("@/components/features/WhimsyMouse"),
+  { ssr: false }
+);
 
 // Define the context type
 type WhimsyContextType = {
@@ -72,7 +79,11 @@ export const WhimsyProvider: React.FC<{ children: React.ReactNode }> = ({
   };
 
   return (
-    <WhimsyContext.Provider value={value}>{children}</WhimsyContext.Provider>
+    <WhimsyContext.Provider value={value}>
+      {children}
+      {/* Only render WhimsyMouse when loaded */}
+      {isLoaded && <WhimsyMouse />}
+    </WhimsyContext.Provider>
   );
 };
 
