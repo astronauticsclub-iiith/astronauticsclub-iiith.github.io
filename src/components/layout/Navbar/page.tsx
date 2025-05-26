@@ -1,20 +1,40 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useMemo } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useWhimsy } from "@/context/WhimsyContext";
+
+// Helper function to get initial first visit state
+const getInitialFirstVisit = (): boolean => {
+  if (typeof window === "undefined") return false;
+  try {
+    const lastVisit = localStorage.getItem("lastVisitTime");
+    const currentTime = new Date().getTime();
+
+    // If no last visit or last visit was more than an hour ago
+    return !lastVisit || currentTime - parseInt(lastVisit) > 60 * 60 * 1000;
+  } catch (error) {
+    console.error("Error checking first visit:", error);
+    return false;
+  }
+};
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(true);
-  const [isFirstVisit, setIsFirstVisit] = useState(false);
+  const [isFirstVisit, setIsFirstVisit] =
+    useState<boolean>(getInitialFirstVisit);
+  const [isHydrated, setIsHydrated] = useState(false);
   const pathname = usePathname();
   const menuRef = useRef<HTMLDivElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
+  const { whimsyMode, isLoaded } = useWhimsy();
 
   useEffect(() => {
     setIsScrolled(false);
+    setIsHydrated(true);
 
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20);
@@ -26,24 +46,29 @@ const Navbar = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Check if this is the first visit in an hour
+  // Update localStorage and first visit state when component hydrates
   useEffect(() => {
+    if (!isHydrated || !isLoaded) return;
+
     const checkFirstVisit = () => {
       const lastVisit = localStorage.getItem("lastVisitTime");
       const currentTime = new Date().getTime();
 
-      // If no last visit or last visit was more than an hour ago
-      if (!lastVisit || currentTime - parseInt(lastVisit) > 60 * 60 * 1000) {
+      // If no last visit or last visit was more than an hour ago, or whimsy mode is enabled
+      if (
+        !lastVisit ||
+        currentTime - parseInt(lastVisit) > 60 * 60 * 1000 ||
+        whimsyMode
+      ) {
         setIsFirstVisit(true);
         localStorage.setItem("lastVisitTime", currentTime.toString());
+      } else {
+        setIsFirstVisit(false);
       }
     };
 
-    // Only run in browser, not during SSR
-    if (typeof window !== "undefined") {
-      checkFirstVisit();
-    }
-  }, []);
+    checkFirstVisit();
+  }, [isHydrated, isLoaded, whimsyMode]);
 
   // Close menu when route changes
   useEffect(() => {
@@ -79,16 +104,29 @@ const Navbar = () => {
     { href: "/about", label: "About" },
   ];
 
-  const delayCounter =
-    (typeof window !== "undefined" && window.innerWidth < 768
-      ? 0
-      : navLinks.length) + (pathname === "/" ? 10 : 0);
+  const delayCounter = useMemo(() => {
+    if (!isHydrated) return 0;
+    return (
+      (typeof window !== "undefined" && window.innerWidth < 768
+        ? 0
+        : navLinks.length) + (pathname === "/" ? 10 : 0)
+    );
+  }, [pathname, isHydrated, navLinks.length]);
 
   // Add active class based on current path
   const activeClass = (href: string) =>
     pathname === href
       ? "text-white underline underline-offset-[5px]"
       : "text-white/50";
+
+  if (!isLoaded || !isHydrated) {
+    return (
+      <nav
+        className="fixed w-full z-50 transition-all duration-300 rounded-b-2xl select-none backdrop-blur-sm text-lg bg-black/95"
+        suppressHydrationWarning
+      ></nav>
+    );
+  }
 
   return (
     <nav
@@ -100,10 +138,10 @@ const Navbar = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
-          <div className="flex items-center space-x-4 text-white font-bold">
+          <div className="flex items-center space-x-4 text-white">
             <Link href="/">
               <Image
-                src="/logo.png"
+                src={whimsyMode ? "/icons/moon.gif" : "/logo.png"}
                 alt="Logo"
                 width={80}
                 height={90}
@@ -115,16 +153,30 @@ const Navbar = () => {
                 }}
               />
             </Link>
-            <span
-              className="opacity-0 animate-slide-in z-20"
-              style={{
-                animationDelay: isFirstVisit
-                  ? `${(delayCounter + 3) * 150}ms`
-                  : "10ms",
-              }}
-            >
-              Astronautics Club | IIITH
-            </span>
+            <div className="flex flex-col gap-0">
+              <span
+                className="opacity-0 animate-slide-in z-20 font-bold"
+                style={{
+                  animationDelay: isFirstVisit
+                    ? `${(delayCounter + 3) * 150}ms`
+                    : "10ms",
+                }}
+              >
+                Astronautics Club | IIITH
+              </span>
+              {whimsyMode && (
+                <span
+                  className="text-white/50 text-sm opacity-0 animate-pulse"
+                  style={{
+                    animationDelay: isFirstVisit
+                      ? `${(delayCounter + 4) * 150}ms`
+                      : "10ms",
+                  }}
+                >
+                  Whimsy Mode
+                </span>
+              )}
+            </div>
           </div>
 
           {/* Desktop Navigation */}

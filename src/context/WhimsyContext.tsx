@@ -7,47 +7,56 @@ type WhimsyContextType = {
   whimsyMode: boolean;
   toggleWhimsyMode: () => void;
   setWhimsyMode: (value: boolean) => void;
+  isLoaded: boolean;
 };
 
 // Create the context with a default value
 const WhimsyContext = createContext<WhimsyContextType | undefined>(undefined);
 
+// Helper function to get initial whimsy mode
+const getInitialWhimsyMode = (): boolean => {
+  if (typeof window === "undefined") return false;
+  try {
+    const savedMode = localStorage.getItem("whimsyMode");
+    return savedMode !== null ? JSON.parse(savedMode) : false;
+  } catch (error) {
+    console.error("Error loading whimsy mode from localStorage:", error);
+    return false;
+  }
+};
+
 // Create a provider component
 export const WhimsyProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
-  // Initialize state from localStorage if available, otherwise default to false
-  const [whimsyMode, setWhimsyMode] = useState<boolean>(false);
+  // Initialize state from localStorage synchronously
+  const [whimsyMode, setWhimsyMode] = useState<boolean>(getInitialWhimsyMode);
+  const [isLoaded, setIsLoaded] = useState<boolean>(false);
 
-  // Load the saved preference when the component mounts
+  // Mark as loaded after hydration
   useEffect(() => {
-    try {
-      const savedMode = localStorage.getItem("whimsyMode");
-      if (savedMode !== null) {
-        setWhimsyMode(JSON.parse(savedMode));
-      }
-    } catch (error) {
-      console.error("Error loading whimsy mode from localStorage:", error);
-    }
+    setIsLoaded(true);
   }, []);
 
-  // Save to localStorage whenever the state changes
+  // Save to localStorage whenever the state changes (but only when loaded)
   useEffect(() => {
+    if (!isLoaded) return;
     try {
       localStorage.setItem("whimsyMode", JSON.stringify(whimsyMode));
     } catch (error) {
       console.error("Error saving whimsy mode to localStorage:", error);
     }
-  }, [whimsyMode]);
+  }, [whimsyMode, isLoaded]);
 
   // Apply the whimsy class to the body element
   useEffect(() => {
+    if (!isLoaded) return;
     if (whimsyMode) {
       document.body.classList.add("whimsy-mode");
     } else {
       document.body.classList.remove("whimsy-mode");
     }
-  }, [whimsyMode]);
+  }, [whimsyMode, isLoaded]);
 
   // Toggle function
   const toggleWhimsyMode = () => {
@@ -59,6 +68,7 @@ export const WhimsyProvider: React.FC<{ children: React.ReactNode }> = ({
     whimsyMode,
     toggleWhimsyMode,
     setWhimsyMode: (value: boolean) => setWhimsyMode(value),
+    isLoaded,
   };
 
   return (
