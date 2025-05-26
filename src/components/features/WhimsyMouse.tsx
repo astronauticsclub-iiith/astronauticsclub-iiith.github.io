@@ -49,7 +49,8 @@ const WhimsyMouse = () => {
         !!target.closest("a") ||
         !!target.closest("button") ||
         target.getAttribute("role") === "button" ||
-        window.getComputedStyle(target).cursor === "pointer";
+        window.getComputedStyle(target).cursor === "pointer" ||
+        !!target.closest(".clickable-image-wrapper");
 
       setIsHovering(isClickable);
     };

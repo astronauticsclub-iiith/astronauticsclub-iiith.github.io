@@ -1,0 +1,196 @@
+/* filepath: /Users/unignoramus/Developer/astronautics/src/components/features/Landing/WhoWeAre.css */
+
+.who-we-are {
+  background-color: #e0e0e0;
+  padding: 5rem 2rem;
+  color: #333;
+  font-family: var(--font-geist-sans);
+}
+
+.who-we-are .container {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+/* Neumorphic Heading */
+.neumorphic-heading {
+  text-align: center;
+  font-size: 3rem;
+  font-weight: 700;
+  margin-bottom: 4rem;
+  color: #333;
+  padding: 1.5rem;
+  border-radius: 20px;
+  background: #e0e0e0;
+  box-shadow: 8px 8px 16px #bebebe, -8px -8px 16px #ffffff;
+  display: inline-block;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+  min-width: 300px;
+  padding: 1.5rem 3rem;
+}
+
+/* Content Layout */
+.content-wrapper {
+  display: flex;
+  flex-direction: row;
+  gap: 3rem;
+  margin-top: 2rem;
+}
+
+/* Image Collage - 70% width */
+.image-collage {
+  flex: 7;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr); /* 5 equal columns */
+  grid-template-rows: repeat(4, 1fr); /* 4 equal rows */
+  gap: 1.5rem;
+  grid-auto-flow: dense;
+  aspect-ratio: 4/3; /* Maintain an overall aspect ratio */
+}
+
+/* Image Frame Styles */
+.image-frame {
+  border-radius: 15px;
+  background: #e0e0e0;
+  box-shadow: inset 5px 5px 10px #bebebe, inset -5px -5px 10px #ffffff;
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+}
+
+.image-frame.large {
+  grid-column: span 2;
+  grid-row: span 2;
+}
+
+.image-frame.medium {
+  grid-column: span 2;
+  grid-row: span 1;
+}
+
+.image-frame.small {
+  grid-column: span 1;
+  grid-row: span 1;
+}
+
+.image-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  padding: 0px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.image-container img {
+  z-index: 0;
+}
+
+/* Text Content - 30% width */
+.text-content {
+  flex: 3;
+  padding: 1rem;
+}
+
+/* Neumorphic Subheading */
+.neumorphic-subheading {
+  font-size: 1.8rem;
+  font-weight: 600;
+  margin-bottom: 2rem;
+  color: #333;
+  padding: 1rem 1.5rem;
+  border-radius: 15px;
+  background: #e0e0e0;
+  box-shadow: 5px 5px 10px #bebebe, -5px -5px 10px #ffffff;
+  display: inline-block;
+}
+
+/* Text Wrapper */
+.text-wrapper {
+  padding: 1.5rem;
+  border-radius: 15px;
+  background: #e0e0e0;
+  box-shadow: inset 4px 4px 8px #bebebe, inset -4px -4px 8px #ffffff;
+}
+
+.text-wrapper p {
+  margin-bottom: 1.2rem;
+  line-height: 1.6;
+  color: #333;
+}
+
+.text-wrapper p:last-child {
+  margin-bottom: 0;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .neumorphic-heading {
+    font-size: 2.5rem;
+  }
+
+  .content-wrapper {
+    flex-direction: column;
+  }
+
+  .image-collage {
+    /* Maintain the same grid structure, just scaled down */
+    transform: scale(0.9);
+    transform-origin: center top;
+    margin: 0 auto;
+    max-width: 90%;
+  }
+
+  .text-content {
+    margin-bottom: 3rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .neumorphic-heading {
+    font-size: 2rem;
+    min-width: 250px;
+  }
+
+  .neumorphic-subheading {
+    font-size: 1.5rem;
+  }
+
+  .who-we-are {
+    padding: 3rem 1.5rem;
+  }
+
+  .content-wrapper {
+    flex-direction: column; /* Text above images */
+  }
+
+  .image-collage {
+    /* Scale down further for smaller screens */
+    transform: scale(0.8);
+    transform-origin: center top;
+    max-width: 95%;
+  }
+}
+
+@media (max-width: 480px) {
+  .neumorphic-heading {
+    font-size: 1.8rem;
+    min-width: 200px;
+    padding: 1rem 2rem;
+  }
+
+  .image-collage {
+    /* Even smaller scale for mobile */
+    transform: scale(0.7);
+    transform-origin: center top;
+    max-width: 100%;
+  }
+
+  .text-wrapper p {
+    font-size: 0.95rem;
+  }
+}
