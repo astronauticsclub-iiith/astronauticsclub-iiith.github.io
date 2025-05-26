@@ -11,6 +11,10 @@
   --accent-really-dark: #1e293bcc;
 }
 
+/* Whimsy mode variables */
+.whimsy-mode {
+}
+
 ::selection {
   background-color: var(--accent-dark);
   color: var(--foreground);
