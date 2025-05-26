@@ -155,7 +155,7 @@ const Navbar = () => {
             </Link>
             <div className="flex flex-col gap-0">
               <span
-                className="opacity-0 animate-slide-in z-20 font-bold"
+                className="opacity-0 animate-slide-in-from-left z-20 font-bold"
                 style={{
                   animationDelay: isFirstVisit
                     ? `${(delayCounter + 3) * 150}ms`
@@ -166,7 +166,7 @@ const Navbar = () => {
               </span>
               {whimsyMode && (
                 <span
-                  className="text-white/50 text-sm opacity-0 animate-slide-in"
+                  className="text-white/50 text-sm opacity-0 animate-slide-in-from-top"
                   style={{
                     animationDelay: isFirstVisit
                       ? `${(delayCounter + 4) * 150}ms`
