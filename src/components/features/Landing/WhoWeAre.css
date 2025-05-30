@@ -1,6 +1,7 @@
 .who-we-are {
   background-color: #e0e0e0;
   padding: 5rem 2rem;
+  padding-top: 1rem;
   color: #333;
   font-family: var(--font-geist-sans);
 }
@@ -12,21 +13,15 @@
 
 /* Neumorphic Heading */
 .neumorphic-heading {
+  font-size: 10rem;
+  color: #e0e0e0;
+  text-shadow: -8px -8px 12px rgba(255, 255, 255, 0.4),
+    8px 8px 12px rgba(0, 0, 0, 0.08);
+  outline: none;
+  font-weight: 500;
+  font-style: normal;
   text-align: center;
-  font-size: 3rem;
-  font-weight: 700;
-  margin-bottom: 4rem;
-  color: #333;
-  padding: 1.5rem;
-  border-radius: 20px;
-  background: #e0e0e0;
-  box-shadow: 8px 8px 16px #bebebe, -8px -8px 16px #ffffff;
-  display: inline-block;
-  position: relative;
-  left: 50%;
-  transform: translateX(-50%);
-  min-width: 300px;
-  padding: 1.5rem 3rem;
+  margin-bottom: 3rem;
 }
 
 /* Content Layout */
@@ -34,7 +29,6 @@
   display: flex;
   flex-direction: row;
   gap: 3rem;
-  margin-top: 2rem;
 }
 
 /* Image Collage - 70% width */
@@ -128,11 +122,23 @@
 /* Responsive Design */
 @media (max-width: 1024px) {
   .neumorphic-heading {
-    font-size: 2.5rem;
+    font-size: 3rem;
+    font-weight: 900;
+    color: #333;
+    padding: 1.5rem;
+  }
+
+  .text-content {
+    /* center alignment for flex content */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
   }
 
   .content-wrapper {
     flex-direction: column;
+    gap: 0;
   }
 
   .image-collage {
@@ -149,7 +155,6 @@
 
 @media (max-width: 768px) {
   .neumorphic-heading {
-    font-size: 2rem;
     min-width: 250px;
   }
 
@@ -166,7 +171,6 @@
   }
 
   .image-collage {
-    transform: scale(0.8);
     transform-origin: center top;
     max-width: 95%;
     gap: 0.5rem;
@@ -175,9 +179,7 @@
 
 @media (max-width: 480px) {
   .neumorphic-heading {
-    font-size: 1.8rem;
     min-width: 200px;
-    padding: 1rem 2rem;
   }
 
   .text-wrapper p {

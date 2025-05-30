@@ -20,6 +20,10 @@
   color: var(--foreground);
 }
 
+.text-body {
+  text-align: justify;
+}
+
 body {
   color: var(--foreground);
   background: var(--background);

@@ -4,7 +4,6 @@ import "./WhoWeAre.css";
 import ClickableImage from "@/components/common/ClickableImage";
 
 const WhoWeAre = () => {
-  // Sample images array - replace with your actual images
   const images = [
     {
       id: 1,
@@ -93,11 +92,8 @@ const WhoWeAre = () => {
           </div>
 
           <div className="text-content">
-            <h3 className="neumorphic-subheading">
-              A Bunch of <br />
-              Astromaniacs!
-            </h3>
-            <div className="text-wrapper">
+            <h3 className="neumorphic-subheading text-center">A Bunch of Astromaniacs!</h3>
+            <div className="text-wrapper text-body">
               <p>
                 We are the Astronomy and Space Technology Club at IIIT
                 Hyderabad, a vibrant community united by a shared passion for
