@@ -146,11 +146,11 @@ const ImagePreview = ({ src, alt, isOpen, onClose }: ImagePreviewProps) => {
             </button>
 
             {/* Loading indicator */}
-            {
+            {isLoading && (
               <div className="absolute inset-0 flex items-center justify-center">
                 <Loader className="h-full" size="large" />
               </div>
-            }
+            )}
             {/* Image container */}
             <div
               className="relative w-full p-2 sm:p-6"
