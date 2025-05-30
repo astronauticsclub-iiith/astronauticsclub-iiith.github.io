@@ -10,7 +10,7 @@ const WhimsyMouse = () => {
   const mouseCursorRef = useRef<HTMLDivElement>(null);
   const mouseSparkleIntervalRef = useRef<NodeJS.Timeout | null>(null);
   const mousePositionRef = useRef({ x: 0, y: 0 });
-  const [isHovering, setIsHovering] = useState(false);
+  const [hoverState, setHoverState] = useState("normal");
   const [isMobile, setIsMobile] = useState(false);
 
   // Track mouse position and handle hover states
@@ -52,7 +52,25 @@ const WhimsyMouse = () => {
         window.getComputedStyle(target).cursor === "pointer" ||
         !!target.closest(".clickable-image-wrapper");
 
-      setIsHovering(isClickable);
+      // Check for custom cursor states
+      const hasCursorOpen =
+        target.classList.contains("cursor-open") ||
+        !!target.closest(".cursor-open");
+
+      const hasCursorClose =
+        target.classList.contains("cursor-close") ||
+        !!target.closest(".cursor-close");
+
+      // Set cursor state - priority: cursor-open, cursor-close, clickable
+      if (hasCursorOpen) {
+        setHoverState("open");
+      } else if (hasCursorClose) {
+        setHoverState("close");
+      } else if (isClickable) {
+        setHoverState("hover");
+      } else {
+        setHoverState("normal");
+      }
     };
 
     window.addEventListener("mousemove", handleMouseMove);
@@ -249,7 +267,7 @@ const WhimsyMouse = () => {
       {!isMobile && (
         <div
           ref={mouseCursorRef}
-          className={`mouse-cursor-dot ${isHovering ? "hover" : ""}`}
+          className={`mouse-cursor-dot ${hoverState}`}
         ></div>
       )}
     </>
