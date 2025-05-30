@@ -146,11 +146,11 @@ const ImagePreview = ({ src, alt, isOpen, onClose }: ImagePreviewProps) => {
             </button>
 
             {/* Loading indicator */}
-            { (
+            {
               <div className="absolute inset-0 flex items-center justify-center">
                 <Loader className="h-full" size="large" />
               </div>
-            )}
+            }
             {/* Image container */}
             <div
               className="relative w-full p-2 sm:p-6"
@@ -161,7 +161,7 @@ const ImagePreview = ({ src, alt, isOpen, onClose }: ImagePreviewProps) => {
                 WebkitTransform: "translate3d(0,0,0)",
               }}
             >
-              {/* <Image
+              <Image
                 src={src}
                 alt={alt}
                 fill
@@ -171,7 +171,7 @@ const ImagePreview = ({ src, alt, isOpen, onClose }: ImagePreviewProps) => {
                 quality={95}
                 onLoad={handleImageLoad}
                 style={{ opacity: isLoading ? 0 : 1 }}
-              /> */}
+              />
             </div>
           </motion.div>
         </motion.div>
