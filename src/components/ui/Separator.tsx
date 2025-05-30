@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import "./Separator.css";
+import "./WaveSeparator.css";
 
 interface SeparatorProps {
   color1?: string;
@@ -12,7 +12,7 @@ interface SeparatorProps {
   className?: string;
 }
 
-const Separator: React.FC<SeparatorProps> = ({
+const WaveSeparator: React.FC<SeparatorProps> = ({
   color1 = "#b62f84",
   color2 = "#161148",
   color3 = "#6a71af",
@@ -54,4 +54,4 @@ const Separator: React.FC<SeparatorProps> = ({
   );
 };
 
-export default Separator;
+export default WaveSeparator;

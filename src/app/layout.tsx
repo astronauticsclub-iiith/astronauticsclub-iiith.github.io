@@ -4,6 +4,7 @@ import "./globals.css";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import { WhimsyProvider } from "@/context/WhimsyContext";
+import { ImagePreviewProvider } from "@/context/ImagePreviewContext";
 
 const exo2 = Exo_2({
   subsets: ["latin"],
@@ -90,6 +91,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
+        <meta
+          name="viewport"
+          content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover"
+        />
         <link
           rel="canonical"
           href="https://astronautics-club-iiith.vercel.app"
@@ -172,9 +177,11 @@ export default function RootLayout({
         className={`bg-background text-foreground antialiased ${exo2.variable}`}
       >
         <WhimsyProvider>
-          <Navbar />
-          {children}
-          <Footer />
+          <ImagePreviewProvider>
+            <Navbar />
+            {children}
+            <Footer />
+          </ImagePreviewProvider>
         </WhimsyProvider>
       </body>
     </html>

@@ -1,8 +1,7 @@
 "use client";
 
 import Image, { ImageProps } from "next/image";
-import { useState } from "react";
-import ImagePreview from "@/components/common/ImagePreview";
+import { useImagePreview } from "@/context/ImagePreviewContext";
 import "./ClickableImage.css";
 
 interface ClickableImageProps extends Omit<ImageProps, "onClick"> {
@@ -22,34 +21,21 @@ const ClickableImage = ({
   className = "",
   ...props
 }: ClickableImageProps) => {
-  const [isPreviewOpen, setIsPreviewOpen] = useState(false);
+  const { openPreview } = useImagePreview();
 
   const handleClick = () => {
     if (openOnClick) {
-      setIsPreviewOpen(true);
+      openPreview(typeof src === "string" ? src : src.toString(), alt || "");
     }
   };
 
-  const closePreview = () => {
-    setIsPreviewOpen(false);
-  };
-
   return (
-    <>
-      <div
-        className={`clickable-image-wrapper h-full w-full ${wrapperClassName}`}
-        onClick={handleClick}
-      >
-        <Image src={src} alt={alt || ""} className={className} {...props} />
-      </div>
-
-      <ImagePreview
-        src={typeof src === "string" ? src : src.toString()}
-        alt={alt || ""}
-        isOpen={isPreviewOpen}
-        onClose={closePreview}
-      />
-    </>
+    <div
+      className={`clickable-image-wrapper h-full w-full ${wrapperClassName}`}
+      onClick={handleClick}
+    >
+      <Image src={src} alt={alt || ""} className={className} {...props} />
+    </div>
   );
 };
 
