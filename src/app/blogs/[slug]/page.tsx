@@ -22,6 +22,7 @@ import { Blog } from "@/types/blog";
 import { useImagePreview } from "@/context/ImagePreviewContext";
 import blogsData from "@/data/blogs.json";
 import Loader from "@/components/ui/Loader";
+import "@/components/ui/bg-patterns.css";
 
 const BlogPostPage = () => {
   const { openPreview } = useImagePreview();
@@ -152,7 +153,7 @@ const BlogPostPage = () => {
   }
 
   return (
-    <div className="min-h-screen bg-background pt-24 pb-16">
+    <div className="min-h-screen bg-background bg-pattern-topography pt-24 pb-16">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Back button */}
         <motion.div
@@ -216,7 +217,7 @@ const BlogPostPage = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
-          className="mb-12 border-4 border-white p-6"
+          className="mb-12 border-4 border-white p-6 backdrop-blur-sm"
         >
           <div className="flex items-center gap-4">
             <div className="w-16 h-16 border-2 border-white overflow-hidden">
@@ -508,7 +509,7 @@ const BlogPostPage = () => {
                 onClick={handleLike}
                 className={`flex items-center gap-2 px-4 py-2 border-2 border-white font-bold transition-colors ${
                   liked
-                    ? "bg-white text-background"
+                    ? "bg-[#d2042d]"
                     : "text-white hover:bg-white hover:text-background"
                 }`}
               >

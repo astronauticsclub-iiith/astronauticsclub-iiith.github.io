@@ -1,0 +1,28 @@
+/* Additional fade-in animation for clouds */
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Cloud container fade-in animation when first rendered */
+.cloud-separator.loaded [class^="cloud-x"] {
+  animation-name: fadeIn, animateCloud;
+  animation-duration: 0.8s, var(--cloud-duration);
+  animation-timing-function: ease-out, linear;
+  animation-fill-mode: backwards, none;
+  animation-iteration-count: 1, infinite;
+  animation-delay: calc(var(--cloud-index) * 0.1s), var(--cloud-delay);
+}
+
+/* Delay variables - will be set inline on cloud elements */
+.cloud-separator [class^="cloud-x"] {
+  --cloud-index: 0;
+  --cloud-delay: 0s;
+  --cloud-duration: 50s;
+}

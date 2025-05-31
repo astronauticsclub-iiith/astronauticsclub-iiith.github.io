@@ -9,6 +9,7 @@ import { Blog } from "@/types/blog";
 import blogsData from "@/data/blogs.json";
 import Image from "next/image";
 import { useWhimsy } from "@/context/WhimsyContext";
+import "@/components/ui/bg-patterns.css"
 
 interface BlogsShowcaseProps {
   className?: string;
@@ -154,7 +155,7 @@ const BlogsShowcase = ({ className = "" }: BlogsShowcaseProps) => {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-100px" }}
       transition={{ duration: 0.3 }}
-      className={`py-20 bg-background ${className} relative`}
+      className={`pt-[calc(10vh+5rem)] pb-20 bg-background ${className} relative bg-pattern-topography`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Header */}
@@ -162,7 +163,7 @@ const BlogsShowcase = ({ className = "" }: BlogsShowcaseProps) => {
           <div>
             <div className="flex items-center gap-4 mb-4">
               <div
-                className={`w-16 h-16 flex items-center justify-center ${
+                className={`w-24 h-24 flex items-center justify-center ${
                   whimsyMode ? "telescope-whimsy" : ""
                 }`}
               >

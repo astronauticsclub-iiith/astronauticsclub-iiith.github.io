@@ -1,0 +1,32 @@
+/* Wave pattern variations for CloudSeparator */
+.wave-pattern-1 {
+  fill-rule: evenodd;
+  clip-rule: evenodd;
+}
+
+.wave-pattern-2 {
+  fill-rule: evenodd;
+  clip-rule: evenodd;
+}
+
+.wave-pattern-3 {
+  fill-rule: evenodd;
+  clip-rule: evenodd;
+}
+
+/* Wave animations if we want to animate them later */
+@keyframes wave-animation {
+  0% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(-25px);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+.cloud-separator .wave-animate {
+  animation: wave-animation 15s ease-in-out infinite;
+}

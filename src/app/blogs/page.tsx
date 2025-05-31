@@ -18,6 +18,7 @@ import { Blog, BlogFilters } from "@/types/blog";
 import blogsData from "@/data/blogs.json";
 import Image from "next/image";
 import { useWhimsy } from "@/context/WhimsyContext";
+import "@/components/ui/bg-patterns.css"
 
 const BlogsPage = () => {
   const [blogs, setBlogs] = useState<Blog[]>([]);
@@ -215,7 +216,7 @@ const BlogsPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background pt-24 pb-8 md:pb-16 px-4">
+    <div className="min-h-screen bg-background bg-pattern-topography pt-24 pb-8 md:pb-16 px-4">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <motion.div

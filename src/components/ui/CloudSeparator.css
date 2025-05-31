@@ -1,0 +1,496 @@
+/* CloudSeparator component styles */
+.cloud-separator {
+  width: 100%;
+  overflow-y: visible;
+  overflow-x: clip;
+  z-index: 1;
+  margin-top: -10vh;
+}
+
+.cloud-background-wrap {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+/* Cloud container */
+[class^="cloud-x"] {
+  transition: transform 0.5s ease-out;
+  will-change: transform;
+}
+
+/* KEYFRAMES */
+@keyframes animateCloud {
+  0% {
+    margin-left: -300px;
+    opacity: 0;
+  }
+  5% {
+    opacity: 1;
+  }
+  95% {
+    opacity: 1;
+  }
+  100% {
+    margin-left: 100%;
+    opacity: 0;
+  }
+}
+
+/* Responsive keyframes */
+@media (min-width: 640px) {
+  @keyframes animateCloud {
+    0% {
+      margin-left: -450px;
+      opacity: 0;
+    }
+    5% {
+      opacity: 1;
+    }
+    95% {
+      opacity: 1;
+    }
+    100% {
+      margin-left: 100%;
+      opacity: 0;
+    }
+  }
+}
+
+@media (min-width: 1024px) {
+  @keyframes animateCloud {
+    0% {
+      margin-left: -600px;
+      opacity: 0;
+    }
+    5% {
+      opacity: 1;
+    }
+    95% {
+      opacity: 1;
+    }
+    100% {
+      margin-left: 100%;
+      opacity: 0;
+    }
+  }
+}
+
+/* ANIMATIONS */
+.cloud-x1 {
+  animation: animateCloud 54s linear infinite;
+  transform: scale(0.75);
+}
+
+.cloud-x2 {
+  animation: animateCloud 42s linear infinite;
+  transform: scale(0.4);
+}
+
+.cloud-x3 {
+  animation: animateCloud 48s linear infinite;
+  transform: scale(0.6);
+}
+
+.cloud-x4 {
+  animation: animateCloud 38s linear infinite;
+  transform: scale(0.5);
+}
+
+.cloud-x5 {
+  animation: animateCloud 52s linear infinite;
+  transform: scale(0.65);
+}
+
+.cloud-x6 {
+  animation: animateCloud 56s linear infinite;
+  transform: scale(0.6);
+}
+
+.cloud-x7 {
+  animation: animateCloud 44s linear infinite;
+  transform: scale(0.4);
+}
+
+.cloud-x8 {
+  animation: animateCloud 47s linear infinite;
+  transform: scale(0.45);
+}
+
+.cloud-x9 {
+  animation: animateCloud 60s linear infinite;
+  transform: scale(0.7);
+}
+
+.cloud-x10 {
+  animation: animateCloud 50s linear infinite;
+  transform: scale(0.5);
+}
+
+.cloud-x11 {
+  animation: animateCloud 57s linear infinite;
+  transform: scale(0.45);
+}
+
+.cloud-x12 {
+  animation: animateCloud 46s linear infinite;
+  transform: scale(0.58);
+}
+
+.cloud-x13 {
+  animation: animateCloud 53s linear infinite;
+  transform: scale(0.48);
+}
+
+.cloud-x14 {
+  animation: animateCloud 43s linear infinite;
+  transform: scale(0.38);
+}
+
+.cloud-x15 {
+  animation: animateCloud 58s linear infinite;
+  transform: scale(0.62);
+}
+
+.cloud-x16 {
+  animation: animateCloud 49s linear infinite;
+  transform: scale(0.53);
+}
+
+.cloud-x17 {
+  animation: animateCloud 41s linear infinite;
+  transform: scale(0.38);
+}
+
+.cloud-x18 {
+  animation: animateCloud 51s linear infinite;
+  transform: scale(0.56);
+}
+
+.cloud-x19 {
+  animation: animateCloud 45s linear infinite;
+  transform: scale(0.47);
+}
+
+.cloud-x20 {
+  animation: animateCloud 55s linear infinite;
+  transform: scale(0.64);
+}
+
+.cloud-x21 {
+  animation: animateCloud 39s linear infinite;
+  transform: scale(0.4);
+}
+
+.cloud-x22 {
+  animation: animateCloud 46s linear infinite;
+  transform: scale(0.52);
+}
+
+.cloud-x23 {
+  animation: animateCloud 59s linear infinite;
+  transform: scale(0.65);
+}
+
+.cloud-x24 {
+  animation: animateCloud 50s linear infinite;
+  transform: scale(0.5);
+}
+
+.cloud-x25 {
+  animation: animateCloud 54s linear infinite;
+  transform: scale(0.6);
+}
+
+/* Responsive cloud animations */
+@media (min-width: 640px) {
+  .cloud-x1 {
+    transform: scale(0.8);
+  }
+  .cloud-x2 {
+    transform: scale(0.45);
+  }
+  .cloud-x3 {
+    transform: scale(0.65);
+  }
+  .cloud-x4 {
+    transform: scale(0.55);
+  }
+  .cloud-x5 {
+    transform: scale(0.7);
+  }
+  .cloud-x6 {
+    transform: scale(0.75);
+  }
+  .cloud-x7 {
+    transform: scale(0.52);
+  }
+  .cloud-x8 {
+    transform: scale(0.6);
+  }
+  .cloud-x9 {
+    transform: scale(0.75);
+  }
+  .cloud-x10 {
+    transform: scale(0.55);
+  }
+  .cloud-x11 {
+    transform: scale(0.48);
+  }
+  .cloud-x12 {
+    transform: scale(0.63);
+  }
+  .cloud-x13 {
+    transform: scale(0.53);
+  }
+  .cloud-x14 {
+    transform: scale(0.43);
+  }
+  .cloud-x15 {
+    transform: scale(0.67);
+  }
+  .cloud-x16 {
+    transform: scale(0.58);
+  }
+  .cloud-x17 {
+    transform: scale(0.4);
+  }
+  .cloud-x18 {
+    transform: scale(0.61);
+  }
+  .cloud-x19 {
+    transform: scale(0.52);
+  }
+  .cloud-x20 {
+    transform: scale(0.69);
+  }
+  .cloud-x21 {
+    transform: scale(0.42);
+  }
+  .cloud-x22 {
+    transform: scale(0.56);
+  }
+  .cloud-x23 {
+    transform: scale(0.7);
+  }
+  .cloud-x24 {
+    transform: scale(0.55);
+  }
+  .cloud-x25 {
+    transform: scale(0.65);
+  }
+}
+
+@media (min-width: 1024px) {
+  .cloud-x1 {
+    transform: scale(0.85);
+  }
+  .cloud-x2 {
+    transform: scale(0.5);
+  }
+  .cloud-x3 {
+    transform: scale(0.7);
+  }
+  .cloud-x4 {
+    transform: scale(0.6);
+  }
+  .cloud-x5 {
+    transform: scale(0.75);
+  }
+  .cloud-x6 {
+    transform: scale(0.8);
+  }
+  .cloud-x7 {
+    transform: scale(0.55);
+  }
+  .cloud-x8 {
+    transform: scale(0.65);
+  }
+  .cloud-x9 {
+    transform: scale(0.9);
+  }
+  .cloud-x10 {
+    transform: scale(0.7);
+  }
+  .cloud-x11 {
+    transform: scale(0.62);
+  }
+  .cloud-x12 {
+    transform: scale(0.78);
+  }
+  .cloud-x13 {
+    transform: scale(0.68);
+  }
+  .cloud-x14 {
+    transform: scale(0.58);
+  }
+  .cloud-x15 {
+    transform: scale(0.82);
+  }
+  .cloud-x16 {
+    transform: scale(0.73);
+  }
+  .cloud-x17 {
+    transform: scale(0.53);
+  }
+  .cloud-x18 {
+    transform: scale(0.76);
+  }
+  .cloud-x19 {
+    transform: scale(0.67);
+  }
+  .cloud-x20 {
+    transform: scale(0.84);
+  }
+  .cloud-x21 {
+    transform: scale(0.55);
+  }
+  .cloud-x22 {
+    transform: scale(0.7);
+  }
+  .cloud-x23 {
+    transform: scale(0.85);
+  }
+  .cloud-x24 {
+    transform: scale(0.7);
+  }
+  .cloud-x25 {
+    transform: scale(0.8);
+  }
+}
+
+/* Animation delay variants */
+.delay-1 {
+  animation-delay: 0s;
+}
+
+.delay-2 {
+  animation-delay: -8s;
+}
+
+.delay-3 {
+  animation-delay: -16s;
+}
+
+.delay-4 {
+  animation-delay: -24s;
+}
+
+.delay-5 {
+  animation-delay: -4s;
+}
+
+.delay-6 {
+  animation-delay: -12s;
+}
+
+.delay-7 {
+  animation-delay: -20s;
+}
+
+.delay-8 {
+  animation-delay: -28s;
+}
+
+/* OBJECTS */
+.cloud {
+  background: #fff;
+  background: linear-gradient(to bottom, #fff 5%, #f1f1f1 100%);
+  border-radius: 100px;
+  box-shadow: 0 8px 5px rgba(0, 0, 0, 0.1);
+  height: 80px;
+  position: relative;
+  width: 220px;
+  display: inline-block;
+  margin-bottom: 20px;
+  transition: opacity 0.6s ease-in-out, transform 0.3s ease-out;
+  will-change: transform, opacity;
+}
+
+.cloud:after,
+.cloud:before {
+  background: #fff;
+  content: "";
+  position: absolute;
+  z-index: -1;
+  transition: inherit;
+}
+
+.cloud:after {
+  border-radius: 100px;
+  height: 65px;
+  left: 30px;
+  top: -30px;
+  width: 65px;
+}
+
+.cloud:before {
+  border-radius: 200px;
+  width: 110px;
+  height: 110px;
+  right: 30px;
+  top: -55px;
+}
+
+/* Responsive cloud sizes */
+@media (min-width: 640px) {
+  .cloud {
+    height: 100px;
+    width: 280px;
+  }
+
+  .cloud:after {
+    height: 80px;
+    left: 40px;
+    top: -40px;
+    width: 80px;
+  }
+
+  .cloud:before {
+    width: 150px;
+    height: 150px;
+    right: 40px;
+    top: -75px;
+  }
+}
+
+/* Responsive wave positioning */
+@media (max-width: 640px) {
+  .cloud-separator .absolute svg {
+    transform: translateY(-90%) !important;
+  }
+}
+
+@media (min-width: 641px) and (max-width: 1024px) {
+  .cloud-separator .absolute svg {
+    transform: translateY(-95%) !important;
+  }
+}
+
+@media (min-width: 1025px) {
+  .cloud-separator .absolute svg {
+    transform: translateY(-98%) !important;
+  }
+}
+
+@media (min-width: 1024px) {
+  .cloud {
+    height: 180px;
+    width: 480px;
+  }
+
+  .cloud:after {
+    height: 140px;
+    left: 70px;
+    top: -70px;
+    width: 140px;
+  }
+
+  .cloud:before {
+    width: 250px;
+    height: 250px;
+    right: 70px;
+    top: -125px;
+  }
+}
