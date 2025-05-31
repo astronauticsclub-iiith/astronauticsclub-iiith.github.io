@@ -471,12 +471,12 @@ const BlogsPage = () => {
           className="mb-10"
         >
           <div className="flex items-center justify-between">
-            <p className="text-[#e0e0e0] font-medium border-l-4 border-white pl-4 py-2">
+            <p className="text-[#e0e0e0] font-medium pl-4 py-2">
               Showing{" "}
               <span className="font-bold accent bg-background px-1">
                 {filteredAndSortedBlogs.length}
               </span>{" "}
-              articles
+              {filteredAndSortedBlogs.length === 1 ? "article" : "articles"}
               {hasActiveFilters ? " with applied filters" : ""}
             </p>
 
@@ -492,7 +492,6 @@ const BlogsPage = () => {
               </motion.button>
             )}
           </div>
-          <div className="h-1 bg-white w-full mt-2 shadow-[4px_4px_0px_0px_rgba(128,128,128,0.2)]"></div>
         </motion.div>
 
         {/* Blogs Grid Layout */}
