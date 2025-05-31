@@ -215,13 +215,13 @@ const BlogsPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background pt-24 pb-16">
+    <div className="min-h-screen bg-background pt-24 pb-8 md:pb-16 px-4">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="mb-16"
+          className="mb-8 lg:mb-16"
         >
           <div className="flex items-center gap-6 mb-6">
             <div
@@ -245,13 +245,13 @@ const BlogsPage = () => {
               />
             </div>
             <div>
-              <h1 className="text-6xl font-black uppercase tracking-tighter text-white text-shadow-brutal">
+              <h1 className="text-2xl md:text-3xl lg:text-6xl font-black uppercase tracking-tighter text-white text-shadow-brutal">
                 Beyond Horizons
               </h1>
               <div className="h-2 bg-white w-40 mt-2 shadow-[4px_4px_0px_0px_rgba(128,128,128,0.5)]"></div>
             </div>
           </div>
-          <p className="text-xl text-[#e0e0e0] max-w-2xl font-medium ml-2 border-l-4 border-white pl-4 mt-6">
+          <p className="text-l md:text-xl text-[#e0e0e0] max-w-2xl font-medium ml-2 border-l-4 border-white pl-4 mt-6">
             Exploring the universe, one story at a time.
           </p>
         </motion.div>
@@ -470,8 +470,8 @@ const BlogsPage = () => {
           transition={{ delay: 0.4 }}
           className="mb-10"
         >
-          <div className="flex items-center justify-between">
-            <p className="text-[#e0e0e0] font-medium pl-4 py-2">
+          <div className="flex items-center flex-wrap gap-4 justify-center md:justify-between">
+            <p className="text-[#e0e0e0] font-medium md:pl-4 py-2">
               Showing{" "}
               <span className="font-bold accent bg-background px-1">
                 {filteredAndSortedBlogs.length}
@@ -500,7 +500,7 @@ const BlogsPage = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.6 }}
-            className="grid grid-cols-1 lg:grid-cols-2 gap-8"
+            className="grid grid-cols-1 lg:grid-cols-2 gap-12 md:gap-8"
           >
             {filteredAndSortedBlogs.map((blog, index) => (
               <motion.div
