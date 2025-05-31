@@ -524,7 +524,7 @@ const BlogsPage = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.6 }}
-            className="text-center py-20 border-4 border-white shadow-[8px_8px_0px_0px_rgba(128,128,128,0.5)]"
+            className="text-center py-20 border-4 border-white shadow-[8px_8px_0px_0px_rgba(128,128,128,0.5)] backdrop-blur-sm"
           >
             <div className="mb-8">
               <div className="w-20 h-20 border-4 border-white flex items-center justify-center mx-auto transform rotate-12 shadow-[4px_4px_0px_0px_rgba(128,128,128,0.5)]">
