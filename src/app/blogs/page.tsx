@@ -1,12 +1,11 @@
 "use client";
 
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect, useMemo, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Search,
   Filter,
   X,
-  Telescope,
   ChevronDown,
   Zap,
   ArrowUpAZ,
@@ -17,6 +16,8 @@ import BlogCard from "@/components/features/Blog/BlogCard";
 import Loader from "@/components/ui/Loader";
 import { Blog, BlogFilters } from "@/types/blog";
 import blogsData from "@/data/blogs.json";
+import Image from "next/image";
+import { useWhimsy } from "@/context/WhimsyContext";
 
 const BlogsPage = () => {
   const [blogs, setBlogs] = useState<Blog[]>([]);
@@ -28,6 +29,61 @@ const BlogsPage = () => {
   });
   const [showFilters, setShowFilters] = useState(false);
   const [allTags, setAllTags] = useState<string[]>([]);
+  const { whimsyMode } = useWhimsy();
+  const telescopeRef = useRef<HTMLImageElement>(null);
+  const [telescopeRotation, setTelescopeRotation] = useState(0);
+  const [telescopeLoaded, setTelescopeLoaded] = useState(false);
+
+  // Add effect for telescope rotation when whimsy mode is enabled
+  useEffect(() => {
+    if (!whimsyMode || !telescopeLoaded || !telescopeRef.current) return;
+
+    const handleMouseMove = (e: MouseEvent) => {
+      if (!telescopeRef.current) return;
+
+      // Get telescope element position
+      const telescopeRect = telescopeRef.current.getBoundingClientRect();
+      const telescopeCenterX = telescopeRect.left + telescopeRect.width / 2;
+      const telescopeCenterY = telescopeRect.top + telescopeRect.height / 2;
+
+      // Calculate angle between mouse and telescope center
+      const deltaX = e.clientX - telescopeCenterX;
+      const deltaY = e.clientY - telescopeCenterY;
+      const angleRad = Math.atan2(deltaY, deltaX);
+      const angleDeg = (angleRad * 180) / Math.PI + 35;
+
+      // Set rotation angle with a slight delay for smoother effect
+      // Adding a slight delay with requestAnimationFrame for smoother animation
+      requestAnimationFrame(() => {
+        setTelescopeRotation(angleDeg);
+      });
+    };
+
+    // Add event listener
+    window.addEventListener("mousemove", handleMouseMove);
+
+    // Clean up
+    return () => {
+      window.removeEventListener("mousemove", handleMouseMove);
+    };
+  }, [whimsyMode, telescopeLoaded]);
+
+  // Add an initial telescope rotation on component mount if whimsy is enabled
+  useEffect(() => {
+    if (!whimsyMode || !telescopeLoaded) return;
+
+    const animateInitialRotation = () => {
+      // Start with a slight rotation to indicate interactivity
+      setTelescopeRotation(15);
+
+      // After a short delay, reset to default position
+      setTimeout(() => {
+        setTelescopeRotation(0);
+      }, 600);
+    };
+
+    animateInitialRotation();
+  }, [whimsyMode, telescopeLoaded]);
 
   useEffect(() => {
     // Simulate API call
@@ -168,8 +224,25 @@ const BlogsPage = () => {
           className="mb-16"
         >
           <div className="flex items-center gap-6 mb-6">
-            <div className="w-20 h-20 bg-white flex items-center justify-center rotate-3 shadow-[6px_6px_0px_0px_rgba(128,128,128,0.5)]">
-              <Telescope size={36} className="text-background -rotate-3" />
+            <div
+              className={`w-16 h-16 flex items-center justify-center ${
+                whimsyMode ? "telescope-whimsy" : ""
+              }`}
+            >
+              <Image
+                src="/icons/telescope.svg"
+                alt="Telescope"
+                width={64}
+                height={64}
+                ref={telescopeRef}
+                onLoad={() => setTelescopeLoaded(true)}
+                style={{
+                  transform: whimsyMode
+                    ? `rotate(${telescopeRotation}deg)`
+                    : "none",
+                  transition: whimsyMode ? "transform 0.2s ease-out" : "none",
+                }}
+              />
             </div>
             <div>
               <h1 className="text-6xl font-black uppercase tracking-tighter text-white text-shadow-brutal">
@@ -474,6 +547,42 @@ const BlogsPage = () => {
             >
               Clear All Filters
             </motion.button>
+
+            <style jsx global>{`
+              .telescope-whimsy {
+                position: relative;
+              }
+              .telescope-whimsy:hover::after {
+                content: "";
+                position: absolute;
+                top: -5px;
+                left: -5px;
+                right: -5px;
+                bottom: -5px;
+                border-radius: 50%;
+                background: radial-gradient(
+                  circle,
+                  rgba(255, 255, 255, 0.2) 0%,
+                  rgba(255, 255, 255, 0) 70%
+                );
+                pointer-events: none;
+                animation: pulse 2s infinite;
+              }
+              @keyframes pulse {
+                0% {
+                  transform: scale(1);
+                  opacity: 0.7;
+                }
+                50% {
+                  transform: scale(1.1);
+                  opacity: 0.3;
+                }
+                100% {
+                  transform: scale(1);
+                  opacity: 0.7;
+                }
+              }
+            `}</style>
           </motion.div>
         )}
       </div>

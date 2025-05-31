@@ -1,12 +1,14 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import { ChevronLeft, ChevronRight, ArrowUpRight } from "lucide-react";
 import Link from "next/link";
 import BlogCard from "./BlogCard";
 import { Blog } from "@/types/blog";
 import blogsData from "@/data/blogs.json";
+import Image from "next/image";
+import { useWhimsy } from "@/context/WhimsyContext";
 
 interface BlogsShowcaseProps {
   className?: string;
@@ -17,6 +19,11 @@ const BlogsShowcase = ({ className = "" }: BlogsShowcaseProps) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
+  const { whimsyMode } = useWhimsy();
+  const telescopeRef = useRef<HTMLImageElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [telescopeRotation, setTelescopeRotation] = useState(0);
+  const [telescopeLoaded, setTelescopeLoaded] = useState(false);
 
   useEffect(() => {
     // Sort blogs by date (latest first) and take only 5
@@ -31,7 +38,7 @@ const BlogsShowcase = ({ className = "" }: BlogsShowcaseProps) => {
 
   // Add scroll event listener to track scroll position
   useEffect(() => {
-    const container = document.getElementById("blogs-showcase-container");
+    const container = containerRef.current;
     if (!container || blogs.length === 0) return;
 
     const handleScroll = () => {
@@ -63,7 +70,7 @@ const BlogsShowcase = ({ className = "" }: BlogsShowcaseProps) => {
   }, [blogs, currentIndex]);
 
   const scroll = (direction: "left" | "right") => {
-    const container = document.getElementById("blogs-showcase-container");
+    const container = containerRef.current;
     if (!container) return;
 
     const cardWidth = 320; // w-80 = 320px
@@ -86,6 +93,57 @@ const BlogsShowcase = ({ className = "" }: BlogsShowcaseProps) => {
     }, 300);
   };
 
+  // Add effect for telescope rotation when whimsy mode is enabled
+  useEffect(() => {
+    if (!whimsyMode || !telescopeLoaded || !telescopeRef.current) return;
+
+    const handleMouseMove = (e: MouseEvent) => {
+      if (!telescopeRef.current) return;
+
+      // Get telescope element position
+      const telescopeRect = telescopeRef.current.getBoundingClientRect();
+      const telescopeCenterX = telescopeRect.left + telescopeRect.width / 2;
+      const telescopeCenterY = telescopeRect.top + telescopeRect.height / 2;
+
+      // Calculate angle between mouse and telescope center
+      const deltaX = e.clientX - telescopeCenterX;
+      const deltaY = e.clientY - telescopeCenterY;
+      const angleRad = Math.atan2(deltaY, deltaX);
+      const angleDeg = (angleRad * 180) / Math.PI + 35;
+
+      // Set rotation angle with a slight delay for smoother effect
+      // Adding a slight delay with requestAnimationFrame for smoother animation
+      requestAnimationFrame(() => {
+        setTelescopeRotation(angleDeg);
+      });
+    };
+
+    // Add event listener
+    window.addEventListener("mousemove", handleMouseMove);
+
+    // Clean up
+    return () => {
+      window.removeEventListener("mousemove", handleMouseMove);
+    };
+  }, [whimsyMode, telescopeLoaded]);
+
+  // Add an initial telescope rotation on component mount if whimsy is enabled
+  useEffect(() => {
+    if (!whimsyMode || !telescopeLoaded) return;
+
+    const animateInitialRotation = () => {
+      // Start with a slight rotation to indicate interactivity
+      setTelescopeRotation(15);
+
+      // After a short delay, reset to default position
+      setTimeout(() => {
+        setTelescopeRotation(0);
+      }, 600);
+    };
+
+    animateInitialRotation();
+  }, [whimsyMode, telescopeLoaded]);
+
   if (blogs.length === 0) {
     return null;
   }
@@ -96,18 +154,40 @@ const BlogsShowcase = ({ className = "" }: BlogsShowcaseProps) => {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-100px" }}
       transition={{ duration: 0.3 }}
-      className={`py-20 bg-background ${className}`}
+      className={`py-20 bg-background ${className} relative`}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Header */}
         <div className="flex items-end justify-between mb-6">
           <div>
             <div className="flex items-center gap-4 mb-4">
-              <h2 className="text-4xl font-bold uppercase tracking-tight text-white">
-                Beyond Horizons
-              </h2>
+              <div
+                className={`w-16 h-16 flex items-center justify-center ${
+                  whimsyMode ? "telescope-whimsy" : ""
+                }`}
+              >
+                <Image
+                  src="/icons/telescope.svg"
+                  alt="Telescope"
+                  width={64}
+                  height={64}
+                  ref={telescopeRef}
+                  onLoad={() => setTelescopeLoaded(true)}
+                  style={{
+                    transform: whimsyMode
+                      ? `rotate(${telescopeRotation}deg)`
+                      : "none",
+                    transition: whimsyMode ? "transform 0.2s ease-out" : "none",
+                  }}
+                />
+              </div>
+              <div>
+                <h2 className="text-4xl font-bold uppercase tracking-tight text-white">
+                  Beyond Horizons
+                </h2>
+                <div className="h-1 bg-white w-24 mt-1"></div>
+              </div>
             </div>
-            <div className="h-1 bg-white w-32"></div>
           </div>
 
           {/* Navigation buttons */}
@@ -142,6 +222,7 @@ const BlogsShowcase = ({ className = "" }: BlogsShowcaseProps) => {
         {/* Blogs container */}
         <div className="relative">
           <div
+            ref={containerRef}
             id="blogs-showcase-container"
             className="flex gap-6 overflow-x-auto scrollbar-hide scroll-smooth py-6"
             style={{
@@ -231,6 +312,39 @@ const BlogsShowcase = ({ className = "" }: BlogsShowcaseProps) => {
         }
         .scrollbar-hide::-webkit-scrollbar {
           display: none;
+        }
+        .telescope-whimsy {
+          position: relative;
+        }
+        .telescope-whimsy:hover::after {
+          content: "";
+          position: absolute;
+          top: -5px;
+          left: -5px;
+          right: -5px;
+          bottom: -5px;
+          border-radius: 50%;
+          background: radial-gradient(
+            circle,
+            rgba(255, 255, 255, 0.2) 0%,
+            rgba(255, 255, 255, 0) 70%
+          );
+          pointer-events: none;
+          animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+          0% {
+            transform: scale(1);
+            opacity: 0.7;
+          }
+          50% {
+            transform: scale(1.1);
+            opacity: 0.3;
+          }
+          100% {
+            transform: scale(1);
+            opacity: 0.7;
+          }
         }
       `}</style>
     </motion.section>
