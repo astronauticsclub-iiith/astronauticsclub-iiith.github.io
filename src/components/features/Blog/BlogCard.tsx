@@ -124,11 +124,11 @@ const BlogCard = ({
       className={`
           bg-background border-4 border-white
           hover:shadow-[12px_12px_0px_0px_rgba(220,220,220,1)]
-          transition-all duration-200
+          transition-all duration-200 h-full
           ${className}
         `}
     >
-      <Link href={`/blogs/${blog.slug}`} className="block cursor-open">
+      <Link href={`/blogs/${blog.slug}`} className="block cursor-open h-full">
         <div className="grid sm:grid-cols-5 h-full">
           {/* Image section */}
           {blog.images.length > 0 && (
@@ -150,7 +150,7 @@ const BlogCard = ({
           )}
 
           {/* Content section */}
-          <div className="p-6 sm:col-span-3">
+          <div className="p-6 sm:col-span-3 h-full flex flex-col justify-between">
             {/* Tags */}
             <div className="flex flex-wrap gap-2 mb-4">
               {blog.tags.map((tag) => (

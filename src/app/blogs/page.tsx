@@ -2,7 +2,17 @@
 
 import { useState, useEffect, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Search, Filter, X, BookOpen, ChevronDown, Zap, ArrowDownAZ, ArrowUpAZ, ThumbsUp, Eye } from "lucide-react";
+import {
+  Search,
+  Filter,
+  X,
+  Telescope,
+  ChevronDown,
+  Zap,
+  ArrowUpAZ,
+  ThumbsUp,
+  Eye,
+} from "lucide-react";
 import BlogCard from "@/components/features/Blog/BlogCard";
 import Loader from "@/components/ui/Loader";
 import { Blog, BlogFilters } from "@/types/blog";
@@ -118,6 +128,12 @@ const BlogsPage = () => {
   const hasActiveFilters =
     filters.search || filters.tags.length > 0 || filters.sortBy !== "latest";
 
+  const [showSortDropdown, setShowSortDropdown] = useState(false);
+
+  const handleSortButtonClick = () => {
+    setShowSortDropdown(!showSortDropdown);
+  };
+
   if (loading) {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center">
@@ -153,18 +169,17 @@ const BlogsPage = () => {
         >
           <div className="flex items-center gap-6 mb-6">
             <div className="w-20 h-20 bg-white flex items-center justify-center rotate-3 shadow-[6px_6px_0px_0px_rgba(128,128,128,0.5)]">
-              <BookOpen size={36} className="text-background -rotate-3" />
+              <Telescope size={36} className="text-background -rotate-3" />
             </div>
             <div>
               <h1 className="text-6xl font-black uppercase tracking-tighter text-white text-shadow-brutal">
-                Articles
+                Beyond Horizons
               </h1>
               <div className="h-2 bg-white w-40 mt-2 shadow-[4px_4px_0px_0px_rgba(128,128,128,0.5)]"></div>
             </div>
           </div>
           <p className="text-xl text-[#e0e0e0] max-w-2xl font-medium ml-2 border-l-4 border-white pl-4 mt-6">
-            Explore the mysteries of the universe through our collection of
-            astronomical insights and discoveries
+            Exploring the universe, one story at a time.
           </p>
         </motion.div>
 
@@ -206,41 +221,88 @@ const BlogsPage = () => {
               />
             </button>
 
-            {/* Sort - Redesigned as a dropdown with icons */}
-            <div className="relative group">
-              <button className="w-full sm:w-auto flex items-center justify-between gap-2 px-6 py-3 border-2 border-white font-bold text-white hover:bg-white hover:text-background transition-colors hover:shadow-[4px_4px_0px_0px_rgba(128,128,128,0.5)]">
+            {/* Sort */}
+            <div className="relative">
+              <button
+                onClick={handleSortButtonClick}
+                className="w-full sm:w-auto flex items-center justify-between gap-2 px-6 py-3 border-2 border-white font-bold text-white hover:bg-white hover:text-background transition-colors hover:shadow-[4px_4px_0px_0px_rgba(128,128,128,0.5)]"
+              >
                 {getSortIcon(filters.sortBy)}
                 <span className="flex-grow text-left">
-                  {filters.sortBy.charAt(0).toUpperCase() + filters.sortBy.slice(1).replace('-', ' ')}
+                  {filters.sortBy.charAt(0).toUpperCase() +
+                    filters.sortBy.slice(1).replace("-", " ")}
                 </span>
-                <ChevronDown size={16} />
+                <ChevronDown
+                  size={16}
+                  className={`transition-transform ${
+                    showSortDropdown ? "rotate-180" : ""
+                  }`}
+                />
               </button>
-              <div className="absolute z-10 right-0 mt-1 w-full sm:w-48 hidden group-hover:block border-2 border-white bg-background shadow-[4px_4px_0px_0px_rgba(128,128,128,0.5)]">
-                <button 
-                  onClick={() => handleSortChange('latest')}
-                  className={`w-full flex items-center gap-2 px-4 py-3 text-left font-medium text-white hover:bg-white hover:text-background transition-colors ${filters.sortBy === 'latest' ? 'bg-white text-background' : ''}`}
-                >
-                  <Zap size={18} /> Latest
-                </button>
-                <button 
-                  onClick={() => handleSortChange('oldest')}
-                  className={`w-full flex items-center gap-2 px-4 py-3 text-left font-medium text-white hover:bg-white hover:text-background transition-colors ${filters.sortBy === 'oldest' ? 'bg-white text-background' : ''}`}
-                >
-                  <ArrowUpAZ size={18} /> Oldest
-                </button>
-                <button 
-                  onClick={() => handleSortChange('popular')}
-                  className={`w-full flex items-center gap-2 px-4 py-3 text-left font-medium text-white hover:bg-white hover:text-background transition-colors ${filters.sortBy === 'popular' ? 'bg-white text-background' : ''}`}
-                >
-                  <Eye size={18} /> Most Popular
-                </button>
-                <button 
-                  onClick={() => handleSortChange('most-liked')}
-                  className={`w-full flex items-center gap-2 px-4 py-3 text-left font-medium text-white hover:bg-white hover:text-background transition-colors ${filters.sortBy === 'most-liked' ? 'bg-white text-background' : ''}`}
-                >
-                  <ThumbsUp size={18} /> Most Liked
-                </button>
-              </div>
+              <AnimatePresence>
+                {showSortDropdown && (
+                  <motion.div
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -10 }}
+                    transition={{ duration: 0.2 }}
+                    className="absolute z-10 right-0 mt-1 w-full sm:w-48 border-2 border-white bg-background shadow-[4px_4px_0px_0px_rgba(128,128,128,0.5)]"
+                  >
+                    <button
+                      onClick={() => {
+                        handleSortChange("latest");
+                        setShowSortDropdown(false);
+                      }}
+                      className={`w-full flex items-center gap-2 px-4 py-3 text-left font-medium hover:bg-white hover:text-background transition-colors ${
+                        filters.sortBy === "latest"
+                          ? "bg-white text-background"
+                          : "text-white"
+                      }`}
+                    >
+                      <Zap size={18} /> Latest
+                    </button>
+                    <button
+                      onClick={() => {
+                        handleSortChange("oldest");
+                        setShowSortDropdown(false);
+                      }}
+                      className={`w-full flex items-center gap-2 px-4 py-3 text-left font-medium hover:bg-white hover:text-background transition-colors ${
+                        filters.sortBy === "oldest"
+                          ? "bg-white text-background"
+                          : "text-white"
+                      }`}
+                    >
+                      <ArrowUpAZ size={18} /> Oldest
+                    </button>
+                    <button
+                      onClick={() => {
+                        handleSortChange("popular");
+                        setShowSortDropdown(false);
+                      }}
+                      className={`w-full flex items-center gap-2 px-4 py-3 text-left font-medium hover:bg-white hover:text-background transition-colors ${
+                        filters.sortBy === "popular"
+                          ? "bg-white text-background"
+                          : "text-white"
+                      }`}
+                    >
+                      <Eye size={18} /> Most Popular
+                    </button>
+                    <button
+                      onClick={() => {
+                        handleSortChange("most-liked");
+                        setShowSortDropdown(false);
+                      }}
+                      className={`w-full flex items-center gap-2 px-4 py-3 text-left font-medium hover:bg-white hover:text-background transition-colors ${
+                        filters.sortBy === "most-liked"
+                          ? "bg-white text-background"
+                          : "text-white"
+                      }`}
+                    >
+                      <ThumbsUp size={18} /> Most Liked
+                    </button>
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </div>
           </div>
 
@@ -255,7 +317,7 @@ const BlogsPage = () => {
                 className="overflow-hidden"
               >
                 <div className="pt-6 border-t-2 border-white">
-                  <h3 className="font-bold text-lg uppercase mb-4 text-white inline-block px-2 py-1 bg-white text-background rotate-[-1deg]">
+                  <h3 className="font-bold text-lg uppercase mb-4 inline-block px-2 py-1 bg-white text-background rotate-[-1deg]">
                     Filter by Tags
                   </h3>
                   <div className="flex flex-wrap gap-3 mt-4">
@@ -266,7 +328,7 @@ const BlogsPage = () => {
                         className={`px-4 py-2 border-2 border-white transition-colors font-medium text-sm ${
                           filters.tags.includes(tag)
                             ? "bg-white text-background shadow-[3px_3px_0px_0px_rgba(128,128,128,0.5)] -translate-y-1"
-                            : "text-white hover:bg-white hover:text-background hover:shadow-[3px_3px_0px_0px_rgba(128,128,128,0.5)] hover:-translate-y-1"
+                            : "text-white hover:bg-white hover:text-background hover:shadow-[3px_3px_0px_0px_rgba(128,128,128,0.5)] hover:-translate-y-0.5"
                         } transform transition-transform`}
                       >
                         {tag}
@@ -312,7 +374,10 @@ const BlogsPage = () => {
               {filters.sortBy !== "latest" && (
                 <div className="flex items-center gap-2 px-3 py-1 bg-white text-background font-medium text-sm border-2 border-background shadow-[2px_2px_0px_0px_rgba(128,128,128,0.5)]">
                   <span>{getSortIcon(filters.sortBy)}</span>
-                  <span>{filters.sortBy.charAt(0).toUpperCase() + filters.sortBy.slice(1).replace('-', ' ')}</span>
+                  <span>
+                    {filters.sortBy.charAt(0).toUpperCase() +
+                      filters.sortBy.slice(1).replace("-", " ")}
+                  </span>
                 </div>
               )}
               <button
@@ -325,7 +390,7 @@ const BlogsPage = () => {
           )}
         </motion.div>
 
-        {/* Results count with enhanced styling */}
+        {/* Results count */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -335,13 +400,13 @@ const BlogsPage = () => {
           <div className="flex items-center justify-between">
             <p className="text-[#e0e0e0] font-medium border-l-4 border-white pl-4 py-2">
               Showing{" "}
-              <span className="font-bold text-white bg-background border-b-2 border-white px-1">
+              <span className="font-bold accent bg-background px-1">
                 {filteredAndSortedBlogs.length}
               </span>{" "}
               articles
               {hasActiveFilters ? " with applied filters" : ""}
             </p>
-            
+
             {hasActiveFilters && (
               <motion.button
                 initial={{ scale: 0.9 }}
@@ -357,52 +422,29 @@ const BlogsPage = () => {
           <div className="h-1 bg-white w-full mt-2 shadow-[4px_4px_0px_0px_rgba(128,128,128,0.2)]"></div>
         </motion.div>
 
-        {/* Blogs Flex Layout */}
+        {/* Blogs Grid Layout */}
         {filteredAndSortedBlogs.length > 0 ? (
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.6 }}
-            className="flex flex-col lg:flex-row flex-wrap gap-8"
+            className="grid grid-cols-1 lg:grid-cols-2 gap-8"
           >
-            <div className="flex flex-col w-full lg:w-1/2 lg:pr-4 gap-8">
-              {filteredAndSortedBlogs
-                .filter((_, i) => i % 2 === 0)
-                .map((blog, index) => (
-                  <motion.div
-                    key={blog.id}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{
-                      opacity: 1,
-                      y: 0,
-                      transition: { delay: 0.1 * index, duration: 0.5 },
-                    }}
-                    whileHover={{ y: -8, transition: { duration: 0.2 } }}
-                    className="transform transition-transform"
-                  >
-                    <BlogCard blog={blog} />
-                  </motion.div>
-                ))}
-            </div>
-            <div className="flex flex-col w-full lg:w-1/2 lg:pl-4 gap-8">
-              {filteredAndSortedBlogs
-                .filter((_, i) => i % 2 !== 0)
-                .map((blog, index) => (
-                  <motion.div
-                    key={blog.id}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{
-                      opacity: 1,
-                      y: 0,
-                      transition: { delay: 0.15 * index + 0.1, duration: 0.5 },
-                    }}
-                    whileHover={{ y: -8, transition: { duration: 0.2 } }}
-                    className="transform transition-transform"
-                  >
-                    <BlogCard blog={blog} />
-                  </motion.div>
-                ))}
-            </div>
+            {filteredAndSortedBlogs.map((blog, index) => (
+              <motion.div
+                key={blog.id}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{
+                  opacity: 1,
+                  y: 0,
+                  transition: { delay: 0.1 * index, duration: 0.5 },
+                }}
+                whileHover={{ y: -8, transition: { duration: 0.2 } }}
+                className="transform transition-transform"
+              >
+                <BlogCard blog={blog} />
+              </motion.div>
+            ))}
           </motion.div>
         ) : (
           <motion.div
@@ -425,6 +467,8 @@ const BlogsPage = () => {
             </p>
             <motion.button
               whileHover={{ scale: 1.05, y: -5 }}
+              whileTap={{ scale: 0.95 }}
+              transition={{ duration: 0.1 }}
               onClick={clearFilters}
               className="px-8 py-3 bg-white text-background font-bold hover:shadow-[6px_6px_0px_0px_rgba(128,128,128,0.5)] transition-all uppercase tracking-wider"
             >
