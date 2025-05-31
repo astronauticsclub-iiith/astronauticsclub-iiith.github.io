@@ -148,7 +148,7 @@ const ImagePreview = ({ src, alt, isOpen, onClose }: ImagePreviewProps) => {
             {/* Loading indicator */}
             {isLoading && (
               <div className="absolute inset-0 flex items-center justify-center">
-                <Loader className="h-full" size="large" />
+                <Loader />
               </div>
             )}
             {/* Image container */}

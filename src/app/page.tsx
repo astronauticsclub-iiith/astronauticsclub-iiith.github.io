@@ -1,5 +1,6 @@
 import Hero from "@/components/features/Landing/Hero";
 import WhoWeAre from "@/components/features/Landing/WhoWeAre";
+import BlogsShowcase from "@/components/features/Blog/BlogsShowcase";
 import WaveSeparator from "@/components/ui/Separator";
 
 export default function Home() {
@@ -8,6 +9,7 @@ export default function Home() {
       <Hero />
       <WaveSeparator />
       <WhoWeAre />
+      <BlogsShowcase />
     </div>
   );
 }

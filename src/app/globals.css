@@ -11,10 +11,6 @@
   --accent-really-dark: #1e293bcc;
 }
 
-/* Whimsy mode variables */
-.whimsy-mode {
-}
-
 ::selection {
   background-color: var(--accent-dark);
   color: var(--foreground);
@@ -44,6 +40,10 @@ img {
 }
 .accent-medium {
   color: var(--accent-medium);
+}
+
+.bg-accent-really-dark {
+  background-color: var(--accent-really-dark);
 }
 
 .border-accent {
@@ -112,6 +112,41 @@ img {
 
 .footer-social-media-handles-section a:hover .footer-social-media-icon.discord {
   color: #5865f2;
+}
+
+/* Code highlighting styles */
+.hljs {
+  background: var(--accent-really-dark) !important;
+  color: var(--foreground) !important;
+  border-radius: 0.5rem;
+  padding: 1rem !important;
+}
+
+.hljs-keyword,
+.hljs-selector-tag,
+.hljs-title,
+.hljs-section,
+.hljs-doctag,
+.hljs-name,
+.hljs-strong {
+  color: var(--accent) !important;
+}
+
+.hljs-string,
+.hljs-title,
+.hljs-section,
+.hljs-attribute,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+  color: var(--accent-medium) !important;
+}
+
+.hljs-comment,
+.hljs-quote,
+.hljs-meta {
+  color: var(--foreground);
+  opacity: 0.6;
 }
 
 /* Custom Link Component Styles */

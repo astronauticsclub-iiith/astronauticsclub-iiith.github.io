@@ -115,7 +115,7 @@ const Navbar = () => {
 
   // Add active class based on current path
   const activeClass = (href: string) =>
-    pathname === href
+    pathname.startsWith(href) && (pathname === "/" || href !== "/")
       ? "text-white underline underline-offset-[5px]"
       : "text-white/50";
 
@@ -151,6 +151,7 @@ const Navbar = () => {
                     ? `${(delayCounter + 1) * 150}ms`
                     : "10ms",
                 }}
+                unoptimized={whimsyMode}
               />
             </Link>
             <div className="flex flex-col gap-0">
