@@ -1,0 +1,341 @@
+/* Gallery Container */
+.gallery-container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+@media (min-width: 640px) {
+  .gallery-container {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .gallery-container {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+}
+
+/* Gallery Header */
+.gallery-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.gallery-title {
+  font-size: 2rem;
+  font-weight: 900;
+  color: white;
+  margin-bottom: 2rem;
+  text-transform: uppercase;
+  letter-spacing: -0.025em;
+  text-shadow: 4px 4px 0px rgba(128, 128, 128, 0.5);
+}
+
+@media (min-width: 768px) {
+  .gallery-title {
+    font-size: 3rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .gallery-title {
+    font-size: 4rem;
+  }
+}
+
+/* Filter Buttons */
+.gallery-filters {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.gallery-filter-btn {
+  padding: 0.75rem 1.5rem;
+  border: 2px solid white;
+  background: transparent;
+  color: white;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  font-size: 0.85rem;
+  letter-spacing: 0.5px;
+}
+
+.gallery-filter-btn:hover {
+  background: white;
+  color: var(--background);
+  box-shadow: 4px 4px 0px 0px rgba(128, 128, 128, 0.5);
+}
+
+.gallery-filter-btn.active {
+  background: white;
+  color: var(--background);
+  box-shadow: 4px 4px 0px 0px rgba(128, 128, 128, 0.5);
+}
+
+/* Grid Layout */
+.gallery-masonry {
+  display: grid;
+  gap: 1.5rem;
+  animation: fadeIn 1s ease-out 0.3s both;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  /* Auto-fit rows to content */
+  grid-auto-flow: dense;
+}
+
+/* Photo Cards */
+.gallery-card {
+  width: 100%;
+  background: var(--background);
+  border: 4px solid white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  break-inside: avoid;
+  box-shadow: 8px 8px 0px 0px rgba(128, 128, 128, 0.5);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.gallery-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 12px 12px 0px 0px rgba(128, 128, 128, 0.5);
+}
+
+.gallery-card::after {
+  content: "";
+  display: block;
+  padding-bottom: 0; /* Remove any bottom padding */
+}
+
+.gallery-card-image {
+  width: 100%;
+  height: 220px;
+  position: relative;
+  transition: all 0.3s ease;
+  border-bottom: 2px solid white;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+
+/* Next.js Image component styles */
+.gallery-card-image img {
+  transition: transform 0.3s ease !important;
+}
+
+.gallery-card:hover .gallery-card-image img {
+  transform: scale(1.05);
+}
+
+.gallery-category {
+  text-transform: uppercase;
+  font-size: 0.75em;
+  font-weight: 700;
+  color: var(--accent);
+  padding: 12px 16px 0;
+  letter-spacing: 0.5px;
+}
+
+.gallery-heading {
+  font-weight: 700;
+  color: white;
+  padding: 4px 16px 16px;
+  font-size: 1rem;
+  line-height: 1.4;
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+}
+
+/* Loading State */
+.gallery-loading {
+  text-align: center;
+  padding: 4rem 2rem;
+  font-size: 1.2rem;
+  color: var(--accent);
+  animation: pulse 2s infinite;
+}
+
+/* Empty State */
+.gallery-empty {
+  text-align: center;
+  padding: 5rem 2rem;
+  border: 4px solid white;
+  box-shadow: 8px 8px 0px 0px rgba(128, 128, 128, 0.5);
+  background: var(--background);
+}
+
+.gallery-empty p {
+  margin-bottom: 1rem;
+  font-size: 1.1rem;
+  color: white;
+  font-weight: 600;
+}
+
+.gallery-empty-hint {
+  font-size: 0.9rem;
+  color: var(--accent);
+  font-family: monospace;
+  background: var(--accent-really-dark);
+  padding: 1rem;
+  border: 2px solid white;
+  display: inline-block;
+  max-width: 100%;
+  word-break: break-all;
+}
+
+.gallery-empty-hint code {
+  color: var(--accent-medium);
+  font-weight: 600;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 1280px) {
+  .gallery-masonry {
+    gap: 1.25rem;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  }
+}
+
+@media (max-width: 1024px) {
+  .gallery-container {
+    padding: 1.5rem 1rem;
+  }
+
+  .gallery-title {
+    font-size: 2rem;
+  }
+
+  .gallery-masonry {
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .gallery-container {
+    padding: 1rem 0.5rem;
+  }
+
+  .gallery-title {
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .gallery-header {
+    margin-bottom: 2rem;
+  }
+
+  .gallery-filters {
+    gap: 0.5rem;
+  }
+
+  .gallery-filter-btn {
+    padding: 0.6rem 1.2rem;
+    font-size: 0.8rem;
+  }
+
+  .gallery-masonry {
+    gap: 1.5rem;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  }
+}
+@media (max-width: 640px) {
+  .gallery-filters {
+    flex-direction: column;
+  }
+
+  .gallery-filter-btn {
+    min-width: 150px;
+  }
+
+  .gallery-masonry {
+    grid-template-columns: repeat(auto-fill, minmax(100%, 1fr));
+    gap: 2rem;
+  }
+
+  .gallery-card-image {
+    height: 250px; /* Taller images on mobile */
+  }
+}
+
+/* Staggered animation for cards */
+.gallery-card:nth-child(1) {
+  animation-delay: 0.1s;
+}
+.gallery-card:nth-child(2) {
+  animation-delay: 0.2s;
+}
+.gallery-card:nth-child(3) {
+  animation-delay: 0.3s;
+}
+.gallery-card:nth-child(4) {
+  animation-delay: 0.4s;
+}
+.gallery-card:nth-child(5) {
+  animation-delay: 0.5s;
+}
+.gallery-card:nth-child(6) {
+  animation-delay: 0.6s;
+}
+
+/* Focus states for accessibility */
+.gallery-filter-btn:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.gallery-card:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
