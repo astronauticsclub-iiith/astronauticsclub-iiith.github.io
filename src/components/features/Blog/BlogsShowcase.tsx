@@ -196,10 +196,10 @@ const BlogsShowcase = ({ className = "" }: BlogsShowcaseProps) => {
             <button
               onClick={() => scroll("left")}
               disabled={!canScrollLeft}
-              className={`p-3 border-2 border-white transition-colors ${
+              className={`p-3 border-2 transition-colors ${
                 canScrollLeft
-                  ? "text-white hover:bg-white hover:text-background"
-                  : "text-white/30 cursor-not-allowed"
+                  ? "text-white hover:bg-white hover:text-background border-white"
+                  : "text-white/30 cursor-not-allowed border-white/30"
               }`}
               aria-label="Previous blog"
             >
@@ -208,10 +208,10 @@ const BlogsShowcase = ({ className = "" }: BlogsShowcaseProps) => {
             <button
               onClick={() => scroll("right")}
               disabled={!canScrollRight}
-              className={`p-3 border-2 border-white transition-colors ${
+              className={`p-3 border-2 transition-colors ${
                 canScrollRight
-                  ? "text-white hover:bg-white hover:text-background"
-                  : "text-white/30 cursor-not-allowed"
+                  ? "text-white hover:bg-white hover:text-background border-white"
+                  : "text-white/30 cursor-not-allowed border-white/30"
               }`}
               aria-label="Next blog"
             >

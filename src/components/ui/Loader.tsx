@@ -36,7 +36,7 @@ const Loader = ({
   // If this is a fullscreen loader
   if (fullscreen) {
     return (
-      <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm">
+      <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
         <div className={`h-full w-full ${className}`}>
           <AstroLoader />
         </div>
