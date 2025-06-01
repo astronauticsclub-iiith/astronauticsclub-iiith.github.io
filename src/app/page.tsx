@@ -9,7 +9,6 @@ export default function Home() {
       <Hero />
       <WaveSeparator />
       <WhoWeAre />
-      <WaveSeparator alternate />
       <CloudSeparator cloudColor="#e0e0e0" />
       <BlogsShowcase />
     </div>
