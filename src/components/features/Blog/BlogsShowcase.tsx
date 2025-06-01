@@ -155,7 +155,7 @@ const BlogsShowcase = ({ className = "" }: BlogsShowcaseProps) => {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-100px" }}
       transition={{ duration: 0.3 }}
-      className={`pt-[calc(10vh+5rem)] pb-20 bg-background ${className} relative bg-pattern-topography`}
+      className={`pt-20 md:pt-32 pb-20 bg-background ${className} relative bg-pattern-topography`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Header */}

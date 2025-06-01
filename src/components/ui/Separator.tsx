@@ -14,7 +14,6 @@ interface WaveSeparatorProps {
   color4?: string;
   height?: number;
   className?: string;
-  alternate?: boolean;
 }
 
 const WaveSeparator: React.FC<WaveSeparatorProps> = ({
@@ -25,13 +24,10 @@ const WaveSeparator: React.FC<WaveSeparatorProps> = ({
   color4 = "#e0e0e0",
   height = 80,
   className = "",
-  alternate = false,
 }) => {
   return (
     <svg
-      className={`separator bg-[${color0}] ${className} ${
-        alternate ? "rotate-180 bg-pattern-topography" : ""
-      }`}
+      className={`separator bg-[${color0}] ${className}`}
       viewBox="0 24 150 28"
       preserveAspectRatio="none"
       style={{ height: `${height}px`, maxHeight: `${height}px` }}

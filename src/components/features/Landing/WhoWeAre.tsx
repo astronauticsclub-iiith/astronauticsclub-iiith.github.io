@@ -2,6 +2,7 @@
 
 import "./WhoWeAre.css";
 import ClickableImage from "@/components/common/ClickableImage";
+import "@/components/ui/bg-patterns.css";
 
 const WhoWeAre = () => {
   const images = [
@@ -92,21 +93,26 @@ const WhoWeAre = () => {
           </div>
 
           <div className="text-content">
-            <h3 className="neumorphic-subheading text-center">A Bunch of Astromaniacs!</h3>
-            <div className="text-wrapper text-body">
-              <p>
-                We are the Astronomy and Space Technology Club at IIIT
-                Hyderabad, a vibrant community united by a shared passion for
-                exploring the universe. From stargazing sessions, star parties
-                to hands-on workshops and exciting projects, we bring space
-                science to life for enthusiasts of all levels.
-              </p>
-              <p>
-                We have undertaken exciting projects and participated in
-                numerous National and International competitions, gaining
-                experience and recognition along the way. Join along in our
-                journey into the fascinating world of Astronomy and SpaceTech!
-              </p>
+            <div className="text-content-wrapper bg-pattern-tic-tac-toe-light">
+              <div className="text-content-inner">
+                <h3 className="modern-heading">A Bunch of Astromaniacs!</h3>
+                <div className="text-body">
+                  <p>
+                    We are the Astronomy and Space Technology Club at IIIT
+                    Hyderabad, a vibrant community united by a shared passion
+                    for exploring the universe. From stargazing sessions, star
+                    parties to hands-on workshops and exciting projects, we
+                    bring space science to life for enthusiasts of all levels.
+                  </p>
+                  <p>
+                    We have undertaken exciting projects and participated in
+                    numerous National and International competitions, gaining
+                    experience and recognition along the way. Join along in our
+                    journey into the fascinating world of Astronomy and
+                    SpaceTech!
+                  </p>
+                </div>
+              </div>
             </div>
           </div>
         </div>
