@@ -6,6 +6,7 @@ import { RefreshCw } from "lucide-react";
 import { useImagePreview } from "@/context/ImagePreviewContext";
 import Loader from "@/components/ui/Loader";
 import Image from "next/image";
+import GalleryIcon from "@/components/features/GalleryIcon";
 import "@/components/ui/bg-patterns.css";
 import "./gallery.css";
 
@@ -133,12 +134,7 @@ const Gallery: React.FC = () => {
         >
           <div className="flex items-center gap-6 mb-6">
             <div className="w-16 h-16 flex items-center justify-center">
-              <Image
-                src="/icons/gallery.svg"
-                alt="Gallery"
-                width={64}
-                height={64}
-              />
+              <GalleryIcon width={64} height={64} />
             </div>
             <div>
               <h1 className="text-2xl md:text-3xl lg:text-6xl font-black uppercase tracking-tighter text-white text-shadow-brutal">
