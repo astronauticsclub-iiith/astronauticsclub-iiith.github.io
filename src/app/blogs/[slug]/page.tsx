@@ -402,7 +402,7 @@ const BlogPostPage = () => {
                 ),
                 blockquote: ({ ...props }) => (
                   <blockquote
-                    className="border-l-4 border-accent pl-5 pr-2 py-3 pt-9 my-6 bg-accent-really-dark rounded-r-md text-foreground italic"
+                    className="border-l-4 border-accent px-5 py-3 pt-9 my-6 bg-accent-really-dark rounded-r-md text-foreground italic"
                     {...props}
                   />
                 ),
