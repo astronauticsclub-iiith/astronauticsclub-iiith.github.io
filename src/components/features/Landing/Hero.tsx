@@ -12,6 +12,14 @@ const Hero = () => {
   const [isHydrated, setIsHydrated] = useState(false);
   const sparkleIntervalRef = useRef<NodeJS.Timeout | null>(null);
 
+  // Handle scroll down arrow click
+  const handleScrollDown = () => {
+    window.scrollTo({
+      top: window.innerHeight,
+      behavior: "smooth",
+    });
+  };
+
   // Hydration effect
   useEffect(() => {
     setIsHydrated(true);
@@ -216,6 +224,10 @@ const Hero = () => {
             alt="scroll down"
             width={50}
             height={50}
+            onClick={handleScrollDown}
+            className="cursor-pointer"
+            role="button"
+            aria-label="Scroll down"
           />
         </div>
       </div>
