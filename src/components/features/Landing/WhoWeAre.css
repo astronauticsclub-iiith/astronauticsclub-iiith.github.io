@@ -93,6 +93,7 @@
 
 .text-content-wrapper {
   background-position: 10px 10px;
+  border-radius: 16px;
 }
 
 .text-content-inner {
