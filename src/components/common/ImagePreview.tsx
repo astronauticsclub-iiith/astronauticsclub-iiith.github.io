@@ -17,6 +17,13 @@ const ImagePreview = ({ src, alt, isOpen, onClose }: ImagePreviewProps) => {
   const [isLoading, setIsLoading] = useState(true);
   const modalRef = useRef<HTMLDivElement>(null);
 
+  // Reset loading state when src changes
+  useEffect(() => {
+    if (isOpen) {
+      setIsLoading(true);
+    }
+  }, [src, isOpen]);
+
   // Handle close action
   const handleClose = useCallback(() => {
     onClose();
