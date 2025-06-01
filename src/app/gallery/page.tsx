@@ -38,6 +38,10 @@ const PhotoCard: React.FC<{
         y: -3,
         transition: { duration: 0.1, delay: 0.05 },
       }}
+      whileTap={{
+        scale: 0.95,
+        transition: { duration: 0.1 },
+      }}
       className="gallery-card cursor-open"
       onClick={onClick}
     >
