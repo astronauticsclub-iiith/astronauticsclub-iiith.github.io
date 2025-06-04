@@ -5,18 +5,25 @@
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "next build",
-    "start": "next start",
+    "start": "node .next/standalone/server.js",
     "lint": "next lint"
   },
   "dependencies": {
+    "@types/mongoose": "^5.11.96",
+    "@types/xml2js": "^0.4.14",
+    "dotenv": "^16.5.0",
     "framer-motion": "^12.14.0",
     "lucide-react": "^0.511.0",
+    "mongodb": "^6.17.0",
+    "mongoose": "^8.15.1",
     "next": "^15.3.2",
+    "next-auth": "^4.24.11",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-markdown": "^10.1.0",
     "rehype-highlight": "^7.0.2",
-    "remark-gfm": "^4.0.1"
+    "remark-gfm": "^4.0.1",
+    "xml2js": "^0.6.2"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",

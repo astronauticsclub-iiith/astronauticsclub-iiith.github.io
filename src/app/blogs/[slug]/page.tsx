@@ -20,7 +20,12 @@ import Image from "next/image";
 import Link from "next/link";
 import { Blog } from "@/types/blog";
 import { useImagePreview } from "@/context/ImagePreviewContext";
-import blogsData from "@/data/blogs.json";
+import {
+  fetchBlogBySlug,
+  incrementBlogViews,
+  toggleBlogLike,
+  generateUserId,
+} from "@/lib/api";
 import Loader from "@/components/ui/Loader";
 import "@/components/ui/bg-patterns.css";
 
@@ -32,6 +37,7 @@ const BlogPostPage = () => {
   const [likes, setLikes] = useState(0);
   const [views, setViews] = useState(0);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [userId, setUserId] = useState<string>("");
 
   const params = useParams() as { slug: string };
 
@@ -41,32 +47,23 @@ const BlogPostPage = () => {
 
       const slug = params.slug;
 
-      // Simulate API call
-      await new Promise((resolve) => setTimeout(resolve, 500));
+      try {
+        const foundBlog = await fetchBlogBySlug(slug);
+        setBlog(foundBlog);
+        setLikes(foundBlog.likes);
+        setViews(foundBlog.views);
 
-      const foundBlog = (blogsData as Blog[]).find((b) => b.slug === slug);
-
-      if (!foundBlog) {
+        // Increment view count (only once per session)
+        const viewKey = `blog_viewed_${slug}`;
+        if (typeof window !== "undefined" && !sessionStorage.getItem(viewKey)) {
+          await incrementBlogViews(slug);
+          setViews(foundBlog.views + 1);
+          sessionStorage.setItem(viewKey, "true");
+        }
+      } catch (error) {
+        console.error("Failed to load blog:", error);
         notFound();
       }
-
-      setBlog(foundBlog);
-      setLikes(foundBlog.likes);
-      setViews(foundBlog.views);
-
-      // Check if user has already liked this blog from cookie
-      const likedBlogs = document.cookie
-        .split("; ")
-        .find((row) => row.startsWith("liked_blogs="))
-        ?.split("=")[1];
-
-      if (likedBlogs) {
-        const likedArray = JSON.parse(decodeURIComponent(likedBlogs));
-        setLiked(likedArray.includes(slug));
-      }
-
-      // TODO: Increment view count
-      setViews((prev) => prev + 1);
 
       setLoading(false);
     };
@@ -74,33 +71,30 @@ const BlogPostPage = () => {
     loadBlog();
   }, [params]);
 
-  const handleLike = () => {
-    const likedBlogs = document.cookie
-      .split("; ")
-      .find((row) => row.startsWith("liked_blogs="))
-      ?.split("=")[1];
+  // Generate user ID on client side only
+  useEffect(() => {
+    const currentUserId = generateUserId();
+    setUserId(currentUserId);
+  }, []);
 
-    let likedArray: string[] = [];
-    if (likedBlogs) {
-      likedArray = JSON.parse(decodeURIComponent(likedBlogs));
+  // Update liked status when both blog and userId are available
+  useEffect(() => {
+    if (blog && userId) {
+      const hasLiked = blog.likedBy?.includes(userId) || false;
+      setLiked(hasLiked);
     }
+  }, [blog, userId]);
 
-    if (liked) {
-      // Unlike
-      setLikes(likes - 1);
-      setLiked(false);
-      likedArray = likedArray.filter((slug) => slug !== params.slug);
-    } else {
-      // Like
-      setLikes(likes + 1);
-      setLiked(true);
-      likedArray.push(params.slug);
+  const handleLike = async () => {
+    if (!userId || !blog) return;
+
+    try {
+      const result = await toggleBlogLike(blog.slug, userId);
+      setLikes(result.likes);
+      setLiked(result.hasLiked);
+    } catch (error) {
+      console.error("Failed to toggle like:", error);
     }
-
-    // Save to cookie
-    document.cookie = `liked_blogs=${encodeURIComponent(
-      JSON.stringify(likedArray)
-    )}; path=/; max-age=${60 * 60 * 24 * 365}`;
   };
 
   const handleImageClick = (imageSrc: string) => {
@@ -207,7 +201,7 @@ const BlogPostPage = () => {
             </div>
             <div className="flex items-center gap-2">
               <Eye size={16} />
-              {formatCount(views)} views
+              {formatCount(views)} {views === 1 ? "view" : "views"}
             </div>
           </div>
         </motion.div>
@@ -222,18 +216,22 @@ const BlogPostPage = () => {
           <div className="flex items-center gap-4">
             <div className="w-16 h-16 border-2 border-white overflow-hidden">
               <Image
-                src={blog.author.avatar}
-                alt={blog.author.name}
+                src={blog.author.avatar || "/team/default-avatar.png"}
+                alt={blog.author.name || "Anonymous"}
                 width={64}
                 height={64}
                 className="w-full h-full object-cover cursor-pointer cursor-open"
-                onClick={() => handleImageClick(blog.author.avatar)}
+                onClick={() =>
+                  handleImageClick(
+                    blog.author.avatar || "/team/default-avatar.png"
+                  )
+                }
               />
             </div>
 
             <div>
               <h3 className="font-bold text-xl text-white">
-                {blog.author.name}
+                {blog.author.name || "Anonymous"}
               </h3>
               <p className="text-[#e0e0e0] font-medium">{blog.author.bio}</p>
             </div>

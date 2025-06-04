@@ -6,10 +6,9 @@ import { ChevronLeft, ChevronRight, ArrowUpRight } from "lucide-react";
 import Link from "next/link";
 import BlogCard from "./BlogCard";
 import { Blog } from "@/types/blog";
-import blogsData from "@/data/blogs.json";
 import Image from "next/image";
 import { useWhimsy } from "@/context/WhimsyContext";
-import "@/components/ui/bg-patterns.css"
+import "@/components/ui/bg-patterns.css";
 
 interface BlogsShowcaseProps {
   className?: string;
@@ -27,14 +26,21 @@ const BlogsShowcase = ({ className = "" }: BlogsShowcaseProps) => {
   const [telescopeLoaded, setTelescopeLoaded] = useState(false);
 
   useEffect(() => {
-    // Sort blogs by date (latest first) and take only 5
-    const sortedBlogs = [...(blogsData as Blog[])]
-      .sort(
-        (a, b) =>
-          new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime()
-      )
-      .slice(0, 5);
-    setBlogs(sortedBlogs);
+    const fetchBlogs = async () => {
+      try {
+        const response = await fetch("/api/blogs?limit=5&sortBy=latest");
+        if (response.ok) {
+          const data = await response.json();
+          setBlogs(data.blogs || []);
+        } else {
+          console.error("Failed to fetch blogs");
+        }
+      } catch (error) {
+        console.error("Error fetching blogs:", error);
+      }
+    };
+
+    fetchBlogs();
   }, []);
 
   // Add scroll event listener to track scroll position

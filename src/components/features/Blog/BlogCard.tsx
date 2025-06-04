@@ -175,18 +175,28 @@ const BlogCard = ({
 
             {/* Author & Date */}
             <div className="flex items-center gap-3 mb-4 border-t-2 border-white pt-4">
-              <div className="w-12 h-12 border-2 border-white overflow-hidden">
-                <Image
-                  src={blog.author.avatar}
-                  alt={blog.author.name}
-                  width={48}
-                  height={48}
-                  className="w-full h-full object-cover"
-                />
+              <div className="w-12 h-12 border-2 border-white overflow-hidden bg-white">
+                {blog.author.avatar ? (
+                  <Image
+                    src={blog.author.avatar}
+                    alt={blog.author.name || "Author"}
+                    width={48}
+                    height={48}
+                    className="w-full h-full object-cover"
+                  />
+                ) : (
+                  <div className="w-full h-full bg-background flex items-center justify-center">
+                    <span className="text-white text-lg font-bold">
+                      {blog.author.name?.charAt(0)?.toUpperCase() || "A"}
+                    </span>
+                  </div>
+                )}
               </div>
 
               <div>
-                <p className="font-bold text-white">{blog.author.name}</p>
+                <p className="font-bold text-white">
+                  {blog.author.name || "Anonymous"}
+                </p>
                 <div className="flex items-center gap-1 text-sm text-[#e0e0e0] font-medium">
                   <Calendar size={12} />
                   {formatDate(blog.publishedAt)}

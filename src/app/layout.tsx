@@ -5,6 +5,7 @@ import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import { WhimsyProvider } from "@/context/WhimsyContext";
 import { ImagePreviewProvider } from "@/context/ImagePreviewContext";
+import AuthProvider from "@/components/AuthProvider";
 
 const exo2 = Exo_2({
   subsets: ["latin"],
@@ -176,13 +177,15 @@ export default function RootLayout({
       <body
         className={`bg-background text-foreground antialiased ${exo2.variable}`}
       >
-        <WhimsyProvider>
-          <ImagePreviewProvider>
-            <Navbar />
-            {children}
-            <Footer />
-          </ImagePreviewProvider>
-        </WhimsyProvider>
+        <AuthProvider>
+          <WhimsyProvider>
+            <ImagePreviewProvider>
+              <Navbar />
+              {children}
+              <Footer />
+            </ImagePreviewProvider>
+          </WhimsyProvider>
+        </AuthProvider>
       </body>
     </html>
   );

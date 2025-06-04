@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import fs from "fs";
 import path from "path";
 import { writeFile, mkdir } from "fs/promises";
+import { requireWriter } from '@/lib/auth';
 
 // Load environment variables
 const MAX_FILE_SIZE = parseInt(process.env.MAX_FILE_SIZE || "10485760", 10); // Default 10MB
@@ -37,6 +38,7 @@ const generateUniqueFilename = (originalFilename: string): string => {
 // Handle POST request for file upload
 export async function POST(request: NextRequest) {
   try {
+    await requireWriter();
     // Ensure the upload directory exists
     await ensureUploadDirectory();
 
@@ -108,6 +110,7 @@ export async function POST(request: NextRequest) {
 // Handle GET request to list files or get a specific file
 export async function GET(request: NextRequest) {
   try {
+    await requireWriter();
     // Get query parameters
     const { searchParams } = new URL(request.url);
     const filename = searchParams.get("filename");

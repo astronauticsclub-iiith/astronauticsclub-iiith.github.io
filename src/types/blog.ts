@@ -1,10 +1,13 @@
 export interface BlogAuthor {
-  name: string;
-  avatar: string;
-  bio: string;
+  email: string;
+  // These fields will be populated dynamically from User model
+  name?: string;
+  avatar?: string;
+  bio?: string;
 }
 
 export interface Blog {
+  _id?: string;
   id: string;
   title: string;
   slug: string;
@@ -17,6 +20,9 @@ export interface Blog {
   images: string[];
   views: number;
   likes: number;
+  likedBy?: string[];
+  createdAt?: Date;
+  updatedAt?: Date;
 }
 
 export interface BlogFilters {

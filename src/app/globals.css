@@ -177,3 +177,114 @@ img {
   text-decoration-color: rgba(120, 120, 120, 0.5);
   text-underline-offset: 5px;
 }
+
+/* Brutalist Form Inputs */
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="url"],
+input[type="number"],
+textarea,
+select {
+  background: var(--background) !important;
+  border: 4px solid white !important;
+  color: white !important;
+  font-weight: bold !important;
+  font-family: inherit !important;
+  outline: none !important;
+  box-shadow: none !important;
+  transition: all 0.2s ease !important;
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus,
+input[type="url"]:focus,
+input[type="number"]:focus,
+textarea:focus,
+select:focus {
+  border-color: white !important;
+  background: var(--background) !important;
+  box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.2) !important;
+  outline: none !important;
+}
+
+input[type="text"]::placeholder,
+input[type="email"]::placeholder,
+input[type="password"]::placeholder,
+input[type="url"]::placeholder,
+input[type="number"]::placeholder,
+textarea::placeholder {
+  color: #666 !important;
+  font-weight: bold !important;
+  opacity: 1 !important;
+}
+
+/* Brutalist Checkboxes */
+input[type="checkbox"] {
+  appearance: none !important;
+  -webkit-appearance: none !important;
+  width: 20px !important;
+  height: 20px !important;
+  border: 3px solid white !important;
+  background: var(--background) !important;
+  cursor: pointer;
+  position: relative !important;
+  margin: 0 !important;
+}
+
+input[type="checkbox"]:checked {
+  background: white !important;
+}
+
+input[type="checkbox"]:checked::after {
+  content: "/" !important;
+  position: absolute !important;
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%) !important;
+  color: var(--background) !important;
+  font-weight: bold !important;
+  font-size: 14px !important;
+  line-height: 1 !important;
+}
+
+input[type="checkbox"]:focus {
+  outline: none !important;
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.3) !important;
+}
+
+/* Radio buttons */
+input[type="radio"] {
+  appearance: none !important;
+  -webkit-appearance: none !important;
+  width: 20px !important;
+  height: 20px !important;
+  border: 3px solid white !important;
+  border-radius: 50% !important;
+  background: var(--background) !important;
+  cursor: pointer !important;
+  position: relative !important;
+  margin: 0 !important;
+}
+
+input[type="radio"]:checked {
+  background: white !important;
+}
+
+input[type="radio"]:checked::after {
+  content: "" !important;
+  position: absolute !important;
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%) !important;
+  width: 8px !important;
+  height: 8px !important;
+  border-radius: 50% !important;
+  background: var(--background) !important;
+}
+
+input[type="radio"]:focus {
+  outline: none !important;
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.3) !important;
+}

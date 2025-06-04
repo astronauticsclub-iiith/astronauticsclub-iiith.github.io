@@ -15,10 +15,10 @@ import {
 import BlogCard from "@/components/features/Blog/BlogCard";
 import Loader from "@/components/ui/Loader";
 import { Blog, BlogFilters } from "@/types/blog";
-import blogsData from "@/data/blogs.json";
+import { fetchBlogs } from "@/lib/api";
 import Image from "next/image";
 import { useWhimsy } from "@/context/WhimsyContext";
-import "@/components/ui/bg-patterns.css"
+import "@/components/ui/bg-patterns.css";
 
 const BlogsPage = () => {
   const [blogs, setBlogs] = useState<Blog[]>([]);
@@ -87,21 +87,20 @@ const BlogsPage = () => {
   }, [whimsyMode, telescopeLoaded]);
 
   useEffect(() => {
-    // Simulate API call
     const loadBlogs = async () => {
       setLoading(true);
-      // Simulate network delay
-      await new Promise((resolve) => setTimeout(resolve, 800));
+      try {
+        const response = await fetchBlogs({}, 1, 100); // Get all blogs initially
+        setBlogs(response.blogs);
 
-      const loadedBlogs = blogsData as Blog[];
-      setBlogs(loadedBlogs);
-
-      // Extract all unique tags
-      const tags = Array.from(
-        new Set(loadedBlogs.flatMap((blog) => blog.tags))
-      ).sort();
-      setAllTags(tags);
-
+        // Extract all unique tags
+        const tags = Array.from(
+          new Set(response.blogs.flatMap((blog: Blog) => blog.tags))
+        ).sort() as string[];
+        setAllTags(tags);
+      } catch (error) {
+        console.error("Failed to load blogs:", error);
+      }
       setLoading(false);
     };
 
@@ -118,7 +117,7 @@ const BlogsPage = () => {
         (blog) =>
           blog.title.toLowerCase().includes(searchLower) ||
           blog.excerpt.toLowerCase().includes(searchLower) ||
-          blog.author.name.toLowerCase().includes(searchLower) ||
+          (blog.author.name || "").toLowerCase().includes(searchLower) ||
           blog.tags.some((tag) => tag.toLowerCase().includes(searchLower))
       );
     }
