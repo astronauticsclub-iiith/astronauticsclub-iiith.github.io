@@ -12,7 +12,7 @@ export async function fetchBlogs(filters?: Partial<BlogFilters>, page = 1, limit
     params.append('page', page.toString());
     params.append('limit', limit.toString());
 
-    const response = await fetch(`${API_BASE_URL}/api/blogs?${params}`);
+    const response = await fetch(`${API_BASE_URL}/blogs?${params}`);
     
     if (!response.ok) {
       throw new Error('Failed to fetch blogs');
@@ -27,7 +27,7 @@ export async function fetchBlogs(filters?: Partial<BlogFilters>, page = 1, limit
 
 export async function fetchBlogBySlug(slug: string): Promise<Blog> {
   try {
-    const response = await fetch(`${API_BASE_URL}/api/blogs/${slug}`);
+    const response = await fetch(`${API_BASE_URL}/blogs/${slug}`);
     
     if (!response.ok) {
       throw new Error('Failed to fetch blog');
@@ -42,7 +42,7 @@ export async function fetchBlogBySlug(slug: string): Promise<Blog> {
 
 export async function incrementBlogViews(slug: string): Promise<{ views: number }> {
   try {
-    const response = await fetch(`${API_BASE_URL}/api/blogs/${slug}`, {
+    const response = await fetch(`${API_BASE_URL}/blogs/${slug}`, {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
@@ -68,7 +68,7 @@ export async function toggleBlogLike(
   userId: string
 ): Promise<{ likes: number; hasLiked: boolean }> {
   try {
-    const response = await fetch(`${API_BASE_URL}/api/blogs/${slug}`, {
+    const response = await fetch(`${API_BASE_URL}/blogs/${slug}`, {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
@@ -92,7 +92,7 @@ export async function toggleBlogLike(
 
 export async function createBlog(blogData: Omit<Blog, '_id' | 'createdAt' | 'updatedAt'>): Promise<Blog> {
   try {
-    const response = await fetch(`${API_BASE_URL}/api/blogs`, {
+    const response = await fetch(`${API_BASE_URL}/blogs`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -113,7 +113,7 @@ export async function createBlog(blogData: Omit<Blog, '_id' | 'createdAt' | 'upd
 
 export async function updateBlog(slug: string, blogData: Partial<Blog>): Promise<Blog> {
   try {
-    const response = await fetch(`${API_BASE_URL}/api/blogs/${slug}`, {
+    const response = await fetch(`${API_BASE_URL}/blogs/${slug}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -134,7 +134,7 @@ export async function updateBlog(slug: string, blogData: Partial<Blog>): Promise
 
 export async function deleteBlog(slug: string): Promise<{ message: string }> {
   try {
-    const response = await fetch(`${API_BASE_URL}/api/blogs/${slug}`, {
+    const response = await fetch(`${API_BASE_URL}/blogs/${slug}`, {
       method: 'DELETE',
     });
 
