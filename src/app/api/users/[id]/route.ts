@@ -15,13 +15,6 @@ export async function PUT(
     const userData = await request.json();
     const { name, roles } = userData;
 
-    if (roles && (!Array.isArray(roles) || roles.length === 0)) {
-      return NextResponse.json(
-        { error: "Roles must be a non-empty array" },
-        { status: 400 }
-      );
-    }
-
     if (roles) {
       const validRoles = roles.filter((role: string) =>
         ["admin", "writer"].includes(role)

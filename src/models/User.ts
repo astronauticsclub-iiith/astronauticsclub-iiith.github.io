@@ -28,12 +28,6 @@ const UserSchema: Schema = new Schema(
       enum: ['admin', 'writer'],
       required: true,
       default: ['writer'],
-      validate: {
-        validator: function(roles: string[]) {
-          return roles.length > 0;
-        },
-        message: 'User must have at least one role'
-      }
     },
     avatar: {
       type: String,

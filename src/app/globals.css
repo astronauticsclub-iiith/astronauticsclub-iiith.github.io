@@ -188,7 +188,6 @@ textarea,
 select {
   background: var(--background) !important;
   border: 4px solid white !important;
-  color: white !important;
   font-weight: bold !important;
   font-family: inherit !important;
   outline: none !important;

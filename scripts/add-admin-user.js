@@ -23,12 +23,6 @@ const UserSchema = new mongoose.Schema(
       enum: ['admin', 'writer'],
       required: true,
       default: ['writer'],
-      validate: {
-        validator: function(roles) {
-          return roles.length > 0;
-        },
-        message: 'User must have at least one role'
-      }
     },
     avatar: {
       type: String,

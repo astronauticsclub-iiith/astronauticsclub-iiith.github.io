@@ -177,11 +177,6 @@ export default function AdminDashboard() {
       ? currentRoles.filter((r) => r !== role)
       : [...currentRoles, role];
 
-    if (newRoles.length === 0) {
-      showError("User must have at least one role");
-      return;
-    }
-
     updateUserRoles(userId, newRoles);
 
     // Update cookies for the current user if they are modifying their own roles
@@ -197,34 +192,50 @@ export default function AdminDashboard() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-background flex items-center justify-center">
-        <div className="text-white text-2xl font-bold uppercase">
+      <div className="min-h-screen bg-background flex items-center justify-center p-4">
+        <motion.div
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.5 }}
+          className="text-white text-lg sm:text-xl lg:text-2xl font-bold uppercase text-center"
+        >
+          <motion.div
+            animate={{ rotate: 360 }}
+            transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
+            className="w-8 h-8 sm:w-12 sm:h-12 border-2 border-white border-t-transparent rounded-full mx-auto mb-4"
+          />
           LOADING ADMIN DATA...
-        </div>
+        </motion.div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-background bg-pattern-signal pt-24 pb-16">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-background bg-pattern-signal pt-24 pb-16 px-4">
+      <div className="max-w-7xl mx-auto px-3 sm:px-4 lg:px-6 xl:px-8">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="mb-12"
+          transition={{ duration: 0.6, ease: "easeOut" }}
+          className="mb-8 sm:mb-10 lg:mb-12"
         >
-          <h1 className="text-4xl md:text-5xl font-bold uppercase tracking-tight mb-4 text-white leading-tight">
+          <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold uppercase tracking-tight mb-3 sm:mb-4 text-white leading-tight">
             ADMIN DASHBOARD
           </h1>
-          <div className="h-1 bg-white w-32 mb-6"></div>
+          <div className="h-0.5 sm:h-1 bg-white w-24 sm:w-32 mb-4 sm:mb-6"></div>
 
           {/* Admin Profile Info */}
           {userProfile && (
-            <div className="border-4 border-white p-6 backdrop-blur-sm mb-8">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-4">
-                  <div className="w-16 h-16 border-2 border-white overflow-hidden bg-white">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+              className="border-2 sm:border-4 border-white p-3 sm:p-4 lg:p-6 backdrop-blur-sm mb-6 sm:mb-8 hover:shadow-lg hover:shadow-white/10 transition-all duration-300"
+            >
+              <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 sm:gap-6">
+                <div className="flex items-center gap-3 sm:gap-4 w-full sm:w-auto">
+                  <div className="w-12 h-12 sm:w-16 sm:h-16 border-2 border-white overflow-hidden bg-white transition-transform duration-200 hover:scale-105">
                     {userProfile.avatar ? (
                       <Image
                         src={userProfile.avatar}
@@ -235,31 +246,32 @@ export default function AdminDashboard() {
                       />
                     ) : (
                       <div className="w-full h-full bg-background flex items-center justify-center">
-                        <Shield className="text-white" size={24} />
+                        <Shield className="text-white" size={16} />
                       </div>
                     )}
                   </div>
-                  <div>
-                    <h3 className="font-bold text-xl text-white uppercase">
+                  <div className="flex-1">
+                    <h3 className="font-bold text-lg sm:text-xl text-white uppercase leading-tight">
                       {userProfile.name || "SYSTEM ADMINISTRATOR"}
                     </h3>
-                    <p className="text-[#e0e0e0] font-medium">
+                    <p className="text-[#e0e0e0] font-medium text-sm sm:text-base">
                       {userProfile.email}
                     </p>
-                    <p className="text-[#e0e0e0] font-bold uppercase">
+                    <p className="text-[#e0e0e0] font-bold uppercase text-xs sm:text-sm">
                       ROLES: {userProfile.roles.join(", ").toUpperCase()}
                     </p>
                   </div>
                 </div>
                 <button
                   onClick={() => setShowProfileEditor(true)}
-                  className="px-4 py-2 border-2 border-white text-white font-bold hover:bg-white hover:text-background transition-colors cursor-close flex items-center gap-2 uppercase"
+                  className="w-full sm:w-auto px-3 sm:px-4 py-2 border-2 border-white text-white font-bold hover:bg-white hover:text-background transition-all duration-200 cursor-pointer flex items-center justify-center gap-2 uppercase text-sm sm:text-base hover:scale-105 active:scale-95"
                 >
-                  <Settings size={16} />
-                  EDIT PROFILE
+                  <Settings size={14} className="sm:w-4 sm:h-4" />
+                  <span className="hidden sm:inline">EDIT PROFILE</span>
+                  <span className="sm:hidden">EDIT</span>
                 </button>
               </div>
-            </div>
+            </motion.div>
           )}
         </motion.div>
 
@@ -267,31 +279,31 @@ export default function AdminDashboard() {
         <motion.div
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
-          transition={{ delay: 0.1 }}
-          className="mb-8"
+          transition={{ delay: 0.3, duration: 0.5 }}
+          className="mb-6 sm:mb-8"
         >
           <div className="flex flex-col sm:flex-row gap-2 sm:gap-4">
             <button
               onClick={() => setActiveTab("users")}
-              className={`w-full sm:w-auto px-4 sm:px-6 py-3 border-2 border-white font-bold transition-colors uppercase ${
+              className={`w-full sm:w-auto px-3 sm:px-4 lg:px-6 py-2 sm:py-3 border-2 border-white font-bold transition-all duration-200 uppercase text-sm sm:text-base hover:scale-105 active:scale-95 ${
                 activeTab === "users"
                   ? "bg-white text-background"
                   : "text-white hover:bg-white hover:text-background"
               }`}
             >
-              <Users className="inline mr-2" size={16} />
+              <Users className="inline mr-2" size={14} />
               <span className="hidden sm:inline">USER MANAGEMENT</span>
               <span className="sm:hidden">USERS</span>
             </button>
             <button
               onClick={() => setActiveTab("logs")}
-              className={`w-full sm:w-auto px-4 sm:px-6 py-3 border-2 border-white font-bold transition-colors uppercase ${
+              className={`w-full sm:w-auto px-3 sm:px-4 lg:px-6 py-2 sm:py-3 border-2 border-white font-bold transition-all duration-200 uppercase text-sm sm:text-base hover:scale-105 active:scale-95 ${
                 activeTab === "logs"
                   ? "bg-white text-background"
                   : "text-white hover:bg-white hover:text-background"
               }`}
             >
-              <FileText className="inline mr-2" size={16} />
+              <FileText className="inline mr-2" size={14} />
               <span className="hidden sm:inline">SYSTEM LOGS</span>
               <span className="sm:hidden">LOGS</span>
             </button>
@@ -303,18 +315,23 @@ export default function AdminDashboard() {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
-            className="space-y-8"
+            transition={{ delay: 0.4, duration: 0.5 }}
+            className="space-y-6 sm:space-y-8"
           >
             {/* Add User Form */}
-            <div className="border-4 border-white p-6 backdrop-blur-sm">
-              <h2 className="text-2xl font-bold mb-6 text-white uppercase flex items-center gap-2">
-                <Plus size={24} />
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 0.5, duration: 0.4 }}
+              className="border-2 sm:border-4 border-white p-3 sm:p-4 lg:p-6 backdrop-blur-sm hover:shadow-lg hover:shadow-white/10 transition-all duration-300"
+            >
+              <h2 className="text-lg sm:text-xl lg:text-2xl font-bold mb-4 sm:mb-6 text-white uppercase flex items-center gap-2">
+                <Plus size={18} className="sm:w-6 sm:h-6" />
                 ADD NEW USER
               </h2>
               <form
                 onSubmit={addUser}
-                className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4"
+                className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4"
               >
                 <input
                   type="email"
@@ -323,7 +340,7 @@ export default function AdminDashboard() {
                   onChange={(e) =>
                     setNewUser({ ...newUser, email: e.target.value })
                   }
-                  className="bg-background border-2 border-white p-4 text-white font-medium placeholder-[#666] uppercase"
+                  className="bg-background border-2 border-white p-3 sm:p-4 text-white font-medium placeholder-[#666] uppercase text-sm sm:text-base transition-all duration-200 focus:scale-[1.02] hover:border-opacity-80 focus:ring-2 focus:ring-white focus:border-white"
                   required
                 />
                 <input
@@ -333,13 +350,13 @@ export default function AdminDashboard() {
                   onChange={(e) =>
                     setNewUser({ ...newUser, name: e.target.value })
                   }
-                  className="bg-background border-2 border-white p-4 text-white font-medium placeholder-[#666] uppercase"
+                  className="bg-background border-2 border-white p-3 sm:p-4 text-white font-medium placeholder-[#666] uppercase text-sm sm:text-base transition-all duration-200 focus:scale-[1.02] hover:border-opacity-80 focus:ring-2 focus:ring-white focus:border-white"
                 />
-                <div className="bg-background border-2 border-white p-4 space-y-2">
-                  <label className="text-white font-bold uppercase text-sm">
+                <div className="bg-background border-2 border-white p-3 sm:p-4 space-y-2 transition-all duration-200 hover:border-opacity-80">
+                  <label className="text-white font-bold uppercase text-xs sm:text-sm">
                     ROLES:
                   </label>
-                  <div className="flex gap-4">
+                  <div className="flex flex-col sm:flex-row gap-2 sm:gap-4">
                     <label className="flex items-center gap-2">
                       <input
                         type="checkbox"
@@ -353,9 +370,9 @@ export default function AdminDashboard() {
                             roles: roles,
                           });
                         }}
-                        className="w-4 h-4"
+                        className="w-3 h-3 sm:w-4 sm:h-4 transition-transform duration-200 hover:scale-110"
                       />
-                      <span className="text-white font-bold uppercase">
+                      <span className="text-white font-bold uppercase text-xs sm:text-sm">
                         WRITER
                       </span>
                     </label>
@@ -372,9 +389,9 @@ export default function AdminDashboard() {
                             roles: roles,
                           });
                         }}
-                        className="w-4 h-4"
+                        className="w-3 h-3 sm:w-4 sm:h-4 transition-transform duration-200 hover:scale-110"
                       />
-                      <span className="text-white font-bold uppercase">
+                      <span className="text-white font-bold uppercase text-xs sm:text-sm">
                         ADMIN
                       </span>
                     </label>
@@ -382,28 +399,34 @@ export default function AdminDashboard() {
                 </div>
                 <button
                   type="submit"
-                  className="px-4 py-4 border-2 border-white bg-white text-background font-bold hover:bg-[#e0e0e0] transition-colors uppercase"
+                  className="px-3 sm:px-4 py-3 sm:py-4 border-2 border-white bg-white text-background font-bold hover:bg-[#e0e0e0] transition-all duration-200 uppercase text-sm sm:text-base hover:scale-105 active:scale-95"
                 >
                   ADD USER
                 </button>
               </form>
-            </div>
+            </motion.div>
 
             {/* Users List */}
-            <div className="border-4 border-white p-6 backdrop-blur-sm">
-              <h2 className="text-2xl font-bold mb-6 text-white uppercase">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 0.6, duration: 0.4 }}
+              className="border-2 sm:border-4 border-white p-3 sm:p-4 lg:p-6 backdrop-blur-sm hover:shadow-lg hover:shadow-white/10 transition-all duration-300"
+            >
+              <h2 className="text-lg sm:text-xl lg:text-2xl font-bold mb-4 sm:mb-6 text-white uppercase">
                 ALL USERS ({users.length})
               </h2>
-              <div className="space-y-4">
-                {users.map((user) => (
+              <div className="space-y-3 sm:space-y-4">
+                {users.map((user, index) => (
                   <motion.div
                     key={user._id}
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
-                    className="border-2 border-white p-4 backdrop-blur-sm flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4"
+                    transition={{ delay: 0.1 * index, duration: 0.4 }}
+                    className="border-2 border-white p-3 sm:p-4 backdrop-blur-sm flex flex-col lg:flex-row justify-between items-start lg:items-center gap-3 sm:gap-4 hover:shadow-lg hover:shadow-white/5 transition-all duration-200 hover:scale-[1.01]"
                   >
-                    <div className="flex items-center gap-4 flex-1">
-                      <div className="w-12 h-12 border-2 border-white overflow-hidden bg-white">
+                    <div className="flex items-center gap-3 sm:gap-4 flex-1 w-full lg:w-auto">
+                      <div className="w-10 h-10 sm:w-12 sm:h-12 border-2 border-white overflow-hidden bg-white transition-transform duration-200 hover:scale-105">
                         {user.avatar ? (
                           <Image
                             src={user.avatar}
@@ -414,15 +437,15 @@ export default function AdminDashboard() {
                           />
                         ) : (
                           <div className="w-full h-full bg-background flex items-center justify-center">
-                            <Users className="text-white" size={20} />
+                            <Users className="text-white" size={16} />
                           </div>
                         )}
                       </div>
-                      <div className="flex-1">
-                        <h3 className="font-bold text-white uppercase">
+                      <div className="flex-1 min-w-0">
+                        <h3 className="font-bold text-white uppercase text-sm sm:text-base truncate">
                           {user.name || "UNNAMED USER"}
                         </h3>
-                        <p className="text-[#e0e0e0] font-medium">
+                        <p className="text-[#e0e0e0] font-medium text-xs sm:text-sm truncate">
                           {user.email}
                         </p>
                         <p className="text-xs text-[#999] font-medium">
@@ -432,13 +455,13 @@ export default function AdminDashboard() {
                       </div>
                     </div>
 
-                    <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 w-full sm:w-auto">
-                      <div className="flex flex-col sm:flex-row gap-2 w-full sm:w-auto">
+                    <div className="flex flex-col sm:flex-row items-stretch lg:items-center gap-2 sm:gap-3 w-full lg:w-auto">
+                      <div className="flex flex-col sm:flex-row gap-2 w-full lg:w-auto">
                         <button
                           onClick={() =>
                             toggleUserRole(user._id, user.roles, "writer")
                           }
-                          className={`w-full sm:w-auto px-3 py-2 border-2 border-white font-bold text-sm uppercase transition-colors ${
+                          className={`w-full sm:w-auto px-2 sm:px-3 py-1.5 sm:py-2 border-2 border-white font-bold text-xs sm:text-sm uppercase transition-all duration-200 hover:scale-105 active:scale-95 ${
                             user.roles.includes("writer")
                               ? "bg-white text-background hover:bg-[#ffffffbb]"
                               : "bg-background text-white hover:bg-white hover:text-background"
@@ -450,11 +473,11 @@ export default function AdminDashboard() {
                           onClick={() =>
                             toggleUserRole(user._id, user.roles, "admin")
                           }
-                          className={`w-full sm:w-auto px-3 py-2 border-2 border-white font-bold text-sm uppercase transition-colors ${
+                          className={`w-full sm:w-auto px-2 sm:px-3 py-1.5 sm:py-2 border-2 border-white font-bold text-xs sm:text-sm uppercase transition-all duration-200 hover:scale-105 active:scale-95 ${
                             user.roles.includes("admin")
                               ? "bg-[#d2042d] text-white " +
                                 (user._id !== userProfile?.id
-                                  ? "opacity-50 cursor-not-allowed"
+                                  ? "opacity-50 cursor-not-allowed hover:scale-100"
                                   : "hover:bg-[#d2042d99] hover:text-white")
                               : "bg-background text-white hover:bg-[#d2042d] hover:text-white"
                           }`}
@@ -466,12 +489,17 @@ export default function AdminDashboard() {
                   </motion.div>
                 ))}
                 {users.length === 0 && (
-                  <div className="text-[#e0e0e0] text-center py-8 font-bold uppercase">
+                  <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: 0.5 }}
+                    className="text-[#e0e0e0] text-center py-6 sm:py-8 font-bold uppercase text-sm sm:text-base"
+                  >
                     NO USERS FOUND IN SYSTEM
-                  </div>
+                  </motion.div>
                 )}
               </div>
-            </div>
+            </motion.div>
           </motion.div>
         )}
 
@@ -480,38 +508,54 @@ export default function AdminDashboard() {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
-            className="border-4 border-white p-6 backdrop-blur-sm"
+            transition={{ delay: 0.4, duration: 0.5 }}
+            className="border-2 sm:border-4 border-white p-3 sm:p-4 lg:p-6 backdrop-blur-sm hover:shadow-lg hover:shadow-white/10 transition-all duration-300"
           >
-            <h2 className="text-2xl font-bold mb-6 text-white uppercase flex items-center gap-2">
-              <AlertTriangle size={24} />
+            <h2 className="text-lg sm:text-xl lg:text-2xl font-bold mb-4 sm:mb-6 text-white uppercase flex items-center gap-2">
+              <AlertTriangle size={18} className="sm:w-6 sm:h-6" />
               SYSTEM LOGS
             </h2>
-            <div className="bg-black border-2 border-white p-4 h-96 overflow-y-auto font-mono text-sm">
-              <div className="text-green-400 mb-2">
+            <div className="bg-black border-2 border-white p-3 sm:p-4 h-64 sm:h-80 lg:h-96 overflow-y-auto font-mono text-xs sm:text-sm transition-all duration-200 hover:border-opacity-80">
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.6 }}
+                className="text-green-400 mb-2"
+              >
                 <span className="text-[#666]">astronautics@admin:~$</span> tail
                 -f /var/log/system.log
-              </div>
-              <div className="text-yellow-400 mb-2">
+              </motion.div>
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.8 }}
+                className="text-yellow-400 mb-2"
+              >
                 Connecting to log stream...
-              </div>
-              <div className="text-white mb-2">
-                ┌─────────────────────────────────────────────────┐
-              </div>
-              <div className="text-white mb-2">│ │</div>
-              <div className="text-white mb-2">│ 🚧 COMING SOON 🚧 │</div>
-              <div className="text-white mb-2">│ │</div>
-              <div className="text-white mb-2">
-                │ System logs monitoring will be available │
-              </div>
-              <div className="text-white mb-2">│ in a future update. │</div>
-              <div className="text-white mb-2">│ │</div>
-              <div className="text-white mb-2">
-                └─────────────────────────────────────────────────┘
-              </div>
-              <div className="text-[#666] mt-4">
-                <span className="animate-pulse">█</span>
-              </div>
+              </motion.div>
+              <motion.div
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: 1.0, duration: 0.5 }}
+              >
+                <div className="text-white mb-2">
+                  ┌─────────────────────────────────────────────────┐
+                </div>
+                <div className="text-white mb-2">│ │</div>
+                <div className="text-white mb-2">│ 🚧 COMING SOON 🚧 │</div>
+                <div className="text-white mb-2">│ │</div>
+                <div className="text-white mb-2">
+                  │ System logs monitoring will be available │
+                </div>
+                <div className="text-white mb-2">│ in a future update. │</div>
+                <div className="text-white mb-2">│ │</div>
+                <div className="text-white mb-2">
+                  └─────────────────────────────────────────────────┘
+                </div>
+                <div className="text-[#666] mt-4">
+                  <span className="animate-pulse">█</span>
+                </div>
+              </motion.div>
             </div>
           </motion.div>
         )}
@@ -525,6 +569,7 @@ export default function AdminDashboard() {
               fetchUserProfile();
             }}
             onClose={() => setShowProfileEditor(false)}
+            showSuccess={showSuccess}
           />
         )}
 
