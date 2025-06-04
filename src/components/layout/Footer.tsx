@@ -180,8 +180,25 @@ const Footer: React.FC = () => {
 
         {/* Copyright Section */}
         <div className="mt-12 pt-4">
+          {/* College Logo */}
+          <div className="flex justify-center items-center mb-4">
+            <a
+              href="https://www.iiit.ac.in/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-block"
+            >
+              <Image
+                src="/iiit-logo.png"
+                alt="IIIT Hyderabad Logo"
+                width={100}
+                height={100}
+                className="h-16 w-auto"
+              />
+            </a>
+          </div>
           {/* GitHub Repository Link */}
-          <div className="mb-4 flex justify-center items-center">
+          <div className="my-4 flex justify-center items-center">
             <a
               href="https://github.com/astronauticsclub-iiith/astronauticsclub-iiith.github.io"
               target="_blank"
