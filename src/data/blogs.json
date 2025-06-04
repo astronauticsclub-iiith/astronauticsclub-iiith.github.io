@@ -12,18 +12,10 @@
     },
     "publishedAt": "2024-01-15T10:30:00Z",
     "readTime": 8,
-    "tags": [
-      "nebula",
-      "star-formation",
-      "deep-sky",
-      "orion"
-    ],
-    "images": [
-      "/uploads/test.png",
-      "/uploads/test2.png"
-    ],
-    "views": 7,
-    "likes": 158
+    "tags": ["nebula", "star-formation", "deep-sky", "orion"],
+    "images": ["/uploads/test.png", "/uploads/test2.png"],
+    "views": 2847,
+    "likes": 156
   },
   {
     "id": "2",
@@ -38,16 +30,8 @@
     },
     "publishedAt": "2024-01-10T16:45:00Z",
     "readTime": 6,
-    "tags": [
-      "mars",
-      "planets",
-      "astrobiology",
-      "space-exploration"
-    ],
-    "images": [
-      "/uploads/test2.png",
-      "/uploads/test.png"
-    ],
+    "tags": ["mars", "planets", "astrobiology", "space-exploration"],
+    "images": ["/uploads/test2.png", "/uploads/test.png"],
     "views": 1923,
     "likes": 89
   },
@@ -64,17 +48,8 @@
     },
     "publishedAt": "2024-01-05T12:20:00Z",
     "readTime": 10,
-    "tags": [
-      "black-holes",
-      "relativity",
-      "physics",
-      "space-time"
-    ],
-    "images": [
-      "/uploads/test.png",
-      "/uploads/test2.png",
-      "/uploads/test.png"
-    ],
+    "tags": ["black-holes", "relativity", "physics", "space-time"],
+    "images": ["/uploads/test.png", "/uploads/test2.png", "/uploads/test.png"],
     "views": 3456,
     "likes": 234
   },
@@ -97,10 +72,7 @@
       "habitable-zones",
       "space-telescopes"
     ],
-    "images": [
-      "/uploads/test2.png",
-      "/uploads/test.png"
-    ],
+    "images": ["/uploads/test2.png", "/uploads/test.png"],
     "views": 1756,
     "likes": 98
   },
@@ -117,16 +89,8 @@
     },
     "publishedAt": "2023-12-28T11:00:00Z",
     "readTime": 9,
-    "tags": [
-      "cosmology",
-      "big-bang",
-      "cmb",
-      "early-universe"
-    ],
-    "images": [
-      "/uploads/test.png",
-      "/uploads/test2.png"
-    ],
+    "tags": ["cosmology", "big-bang", "cmb", "early-universe"],
+    "images": ["/uploads/test.png", "/uploads/test2.png"],
     "views": 2134,
     "likes": 167
   },
@@ -143,17 +107,8 @@
     },
     "publishedAt": "2023-12-20T14:30:00Z",
     "readTime": 6,
-    "tags": [
-      "saturn",
-      "rings",
-      "cassini",
-      "planetary-science"
-    ],
-    "images": [
-      "/uploads/test2.png",
-      "/uploads/test.png",
-      "/uploads/test2.png"
-    ],
+    "tags": ["saturn", "rings", "cassini", "planetary-science"],
+    "images": ["/uploads/test2.png", "/uploads/test.png", "/uploads/test2.png"],
     "views": 1567,
     "likes": 134
   }

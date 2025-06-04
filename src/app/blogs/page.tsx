@@ -15,6 +15,7 @@ import {
 import BlogCard from "@/components/features/Blog/BlogCard";
 import Loader from "@/components/ui/Loader";
 import { Blog, BlogFilters } from "@/types/blog";
+import blogsData from "@/data/blogs.json";
 import Image from "next/image";
 import { useWhimsy } from "@/context/WhimsyContext";
 import "@/components/ui/bg-patterns.css"
@@ -86,31 +87,22 @@ const BlogsPage = () => {
   }, [whimsyMode, telescopeLoaded]);
 
   useEffect(() => {
+    // Simulate API call
     const loadBlogs = async () => {
       setLoading(true);
-      
-      try {
-        const response = await fetch('/api/blogs');
-        if (!response.ok) {
-          throw new Error('Failed to fetch blogs');
-        }
-        const loadedBlogs = await response.json();
-        setBlogs(loadedBlogs);
+      // Simulate network delay
+      await new Promise((resolve) => setTimeout(resolve, 800));
 
-        // Fetch tags separately
-        const tagsResponse = await fetch('/api/blogs/tags');
-        if (tagsResponse.ok) {
-          const tags = await tagsResponse.json();
-          setAllTags(tags);
-        }
-      } catch (error) {
-        console.error('Error loading blogs:', error);
-        // Fallback to empty state
-        setBlogs([]);
-        setAllTags([]);
-      } finally {
-        setLoading(false);
-      }
+      const loadedBlogs = blogsData as Blog[];
+      setBlogs(loadedBlogs);
+
+      // Extract all unique tags
+      const tags = Array.from(
+        new Set(loadedBlogs.flatMap((blog) => blog.tags))
+      ).sort();
+      setAllTags(tags);
+
+      setLoading(false);
     };
 
     loadBlogs();

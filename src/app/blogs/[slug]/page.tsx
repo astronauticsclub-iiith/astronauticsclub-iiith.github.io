@@ -20,6 +20,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Blog } from "@/types/blog";
 import { useImagePreview } from "@/context/ImagePreviewContext";
+import blogsData from "@/data/blogs.json";
 import Loader from "@/components/ui/Loader";
 import "@/components/ui/bg-patterns.css";
 
@@ -40,61 +41,40 @@ const BlogPostPage = () => {
 
       const slug = params.slug;
 
-      try {
-        // Fetch blog data
-        const response = await fetch(`/api/blogs/${slug}`);
-        if (!response.ok) {
-          if (response.status === 404) {
-            notFound();
-          }
-          throw new Error('Failed to fetch blog');
-        }
-        
-        const foundBlog = await response.json();
-        setBlog(foundBlog);
-        setLikes(foundBlog.likes);
-        setViews(foundBlog.views);
+      // Simulate API call
+      await new Promise((resolve) => setTimeout(resolve, 500));
 
-        // Check if user has already liked this blog from cookie
-        const likedBlogs = document.cookie
-          .split("; ")
-          .find((row) => row.startsWith("liked_blogs="))
-          ?.split("=")[1];
+      const foundBlog = (blogsData as Blog[]).find((b) => b.slug === slug);
 
-        if (likedBlogs) {
-          const likedArray = JSON.parse(decodeURIComponent(likedBlogs));
-          setLiked(likedArray.includes(slug));
-        }
-
-        // Increment view count
-        try {
-          const viewResponse = await fetch(`/api/blogs/${slug}`, {
-            method: 'PATCH',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ action: 'increment-views' }),
-          });
-          
-          if (viewResponse.ok) {
-            const { views: newViews } = await viewResponse.json();
-            setViews(newViews);
-          }
-        } catch (error) {
-          console.error('Error incrementing view count:', error);
-        }
-      } catch (error) {
-        console.error('Error loading blog:', error);
+      if (!foundBlog) {
         notFound();
-      } finally {
-        setLoading(false);
       }
+
+      setBlog(foundBlog);
+      setLikes(foundBlog.likes);
+      setViews(foundBlog.views);
+
+      // Check if user has already liked this blog from cookie
+      const likedBlogs = document.cookie
+        .split("; ")
+        .find((row) => row.startsWith("liked_blogs="))
+        ?.split("=")[1];
+
+      if (likedBlogs) {
+        const likedArray = JSON.parse(decodeURIComponent(likedBlogs));
+        setLiked(likedArray.includes(slug));
+      }
+
+      // TODO: Increment view count
+      setViews((prev) => prev + 1);
+
+      setLoading(false);
     };
 
     loadBlog();
   }, [params]);
 
-  const handleLike = async () => {
+  const handleLike = () => {
     const likedBlogs = document.cookie
       .split("; ")
       .find((row) => row.startsWith("liked_blogs="))
@@ -105,15 +85,13 @@ const BlogPostPage = () => {
       likedArray = JSON.parse(decodeURIComponent(likedBlogs));
     }
 
-    const wasLiked = liked;
-    const increment = !wasLiked;
-
-    // Optimistic update
-    if (wasLiked) {
+    if (liked) {
+      // Unlike
       setLikes(likes - 1);
       setLiked(false);
       likedArray = likedArray.filter((slug) => slug !== params.slug);
     } else {
+      // Like
       setLikes(likes + 1);
       setLiked(true);
       likedArray.push(params.slug);
@@ -123,44 +101,6 @@ const BlogPostPage = () => {
     document.cookie = `liked_blogs=${encodeURIComponent(
       JSON.stringify(likedArray)
     )}; path=/; max-age=${60 * 60 * 24 * 365}`;
-
-    // Update server
-    try {
-      const response = await fetch(`/api/blogs/${params.slug}`, {
-        method: 'PATCH',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ 
-          action: 'toggle-like',
-          increment 
-        }),
-      });
-      
-      if (response.ok) {
-        const { likes: newLikes } = await response.json();
-        setLikes(newLikes);
-      } else {
-        // Revert optimistic update on error
-        if (wasLiked) {
-          setLikes(likes + 1);
-          setLiked(true);
-        } else {
-          setLikes(likes - 1);
-          setLiked(false);
-        }
-      }
-    } catch (error) {
-      console.error('Error updating like:', error);
-      // Revert optimistic update on error
-      if (wasLiked) {
-        setLikes(likes + 1);
-        setLiked(true);
-      } else {
-        setLikes(likes - 1);
-        setLiked(false);
-      }
-    }
   };
 
   const handleImageClick = (imageSrc: string) => {
