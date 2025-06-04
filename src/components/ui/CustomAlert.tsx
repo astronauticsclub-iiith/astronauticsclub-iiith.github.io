@@ -97,7 +97,7 @@ export default function CustomAlert({
               initial={{ opacity: 0, x: -10 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.2, duration: 0.4 }}
-              className="flex items-center gap-3 sm:gap-4"
+              className="flex items-center gap-3 sm:gap-4 w-full"
             >
               <motion.div
                 initial={{ scale: 0, rotate: -180 }}

@@ -291,5 +291,170 @@
         ]
       }
     }
+  },
+  {
+    "timestamp": "2025-06-04T18:30:56.766Z",
+    "level": "info",
+    "message": "Gallery image uploaded",
+    "source": "admin/gallery",
+    "userEmail": "mohit.singh@research.iiit.ac.in",
+    "action": "upload_image",
+    "details": {
+      "filename": "temp huh.png",
+      "category": "astrophotography",
+      "fileSize": 233272
+    }
+  },
+  {
+    "timestamp": "2025-06-04T18:31:24.814Z",
+    "level": "info",
+    "message": "Gallery image updated",
+    "source": "admin/gallery",
+    "userEmail": "mohit.singh@research.iiit.ac.in",
+    "action": "update_image",
+    "details": {
+      "oldFilename": "temp huh.png",
+      "newFilename": "temp hu.png",
+      "oldCategory": "astrophotography",
+      "newCategory": "astrophotography"
+    }
+  },
+  {
+    "timestamp": "2025-06-04T18:31:46.522Z",
+    "level": "info",
+    "message": "Gallery image deleted",
+    "source": "admin/gallery",
+    "userEmail": "mohit.singh@research.iiit.ac.in",
+    "action": "delete_image",
+    "details": {
+      "filename": "temp hu.png",
+      "category": "astrophotography"
+    }
+  },
+  {
+    "timestamp": "2025-06-04T18:34:01.578Z",
+    "level": "info",
+    "message": "Gallery image updated",
+    "source": "admin/gallery",
+    "userEmail": "mohit.singh@research.iiit.ac.in",
+    "action": "update_image",
+    "details": {
+      "oldFilename": "star_party2024.jpg",
+      "newFilename": "star_party_2024.jpg",
+      "oldCategory": "astrophotography",
+      "newCategory": "astrophotography"
+    }
+  },
+  {
+    "timestamp": "2025-06-04T18:37:30.975Z",
+    "level": "info",
+    "message": "Gallery image updated",
+    "source": "admin/gallery",
+    "userEmail": "mohit.singh@research.iiit.ac.in",
+    "action": "update_image",
+    "details": {
+      "oldFilename": "star_party_2019(4).jpeg",
+      "newFilename": "star_party_2019(4).jpeg",
+      "oldCategory": "astrophotography",
+      "newCategory": "events"
+    }
+  },
+  {
+    "timestamp": "2025-06-04T18:37:46.042Z",
+    "level": "info",
+    "message": "Gallery image updated",
+    "source": "admin/gallery",
+    "userEmail": "mohit.singh@research.iiit.ac.in",
+    "action": "update_image",
+    "details": {
+      "oldFilename": "star_party_2019(4).jpeg",
+      "newFilename": "star_party_2019(4).jpeg",
+      "oldCategory": "events",
+      "newCategory": "astrophotography"
+    }
+  },
+  {
+    "timestamp": "2025-06-04T18:37:54.783Z",
+    "level": "info",
+    "message": "Gallery image updated",
+    "source": "admin/gallery",
+    "userEmail": "mohit.singh@research.iiit.ac.in",
+    "action": "update_image",
+    "details": {
+      "oldFilename": "star_party_2019(4).jpeg",
+      "newFilename": "star_party_2019(4).jpeg",
+      "oldCategory": "astrophotography",
+      "newCategory": "events"
+    }
+  },
+  {
+    "timestamp": "2025-06-04T18:38:08.237Z",
+    "level": "info",
+    "message": "Gallery image updated",
+    "source": "admin/gallery",
+    "userEmail": "mohit.singh@research.iiit.ac.in",
+    "action": "update_image",
+    "details": {
+      "oldFilename": "star_party_2019(4).jpeg",
+      "newFilename": "star_party_2019(4).jpeg",
+      "oldCategory": "events",
+      "newCategory": "astrophotography"
+    }
+  },
+  {
+    "timestamp": "2025-06-04T18:39:46.829Z",
+    "level": "info",
+    "message": "Gallery image updated",
+    "source": "admin/gallery",
+    "userEmail": "mohit.singh@research.iiit.ac.in",
+    "action": "update_image",
+    "details": {
+      "oldFilename": "eggcellent_challenge(4).jpeg",
+      "newFilename": "eggcellent_challenge(4).jpeg",
+      "oldCategory": "events",
+      "newCategory": "astrophotography"
+    }
+  },
+  {
+    "timestamp": "2025-06-04T18:40:03.658Z",
+    "level": "info",
+    "message": "Gallery image updated",
+    "source": "admin/gallery",
+    "userEmail": "mohit.singh@research.iiit.ac.in",
+    "action": "update_image",
+    "details": {
+      "oldFilename": "eggcellent_challenge(4).jpeg",
+      "newFilename": "eggcellent_challenge(4).jpeg",
+      "oldCategory": "astrophotography",
+      "newCategory": "events"
+    }
+  },
+  {
+    "timestamp": "2025-06-04T18:40:45.602Z",
+    "level": "info",
+    "message": "Gallery image updated",
+    "source": "admin/gallery",
+    "userEmail": "mohit.singh@research.iiit.ac.in",
+    "action": "update_image",
+    "details": {
+      "oldFilename": "eggcellent_challenge(4).jpeg",
+      "newFilename": "eggcellent_challenge(4).jpeg",
+      "oldCategory": "events",
+      "newCategory": "astrophotography"
+    }
+  },
+  {
+    "timestamp": "2025-06-04T18:40:52.941Z",
+    "level": "info",
+    "message": "Gallery image updated",
+    "source": "admin/gallery",
+    "userEmail": "mohit.singh@research.iiit.ac.in",
+    "action": "update_image",
+    "details": {
+      "oldFilename": "eggcellent_challenge(4).jpeg",
+      "newFilename": "eggcellent_challenge(4).jpeg",
+      "oldCategory": "astrophotography",
+      "newCategory": "events"
+    }
   }
 ]
