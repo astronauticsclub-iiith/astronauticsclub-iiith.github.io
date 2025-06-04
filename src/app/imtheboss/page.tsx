@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { useSession, signOut } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
@@ -38,10 +38,22 @@ interface UserProfile {
   roles: string[];
 }
 
+interface LogEntry {
+  timestamp: string;
+  level: string;
+  message: string;
+  source: string;
+  userEmail: string;
+  action: string;
+  details: Record<string, unknown>;
+}
+
 export default function AdminDashboard() {
   const { data: session, status } = useSession();
   const router = useRouter();
   const [users, setUsers] = useState<User[]>([]);
+  const [logs, setLogs] = useState<LogEntry[]>([]);
+  const [logsLoading, setLogsLoading] = useState(false);
   const [activeTab, setActiveTab] = useState<"users" | "logs">("users");
   const [newUser, setNewUser] = useState({
     email: "",
@@ -60,19 +72,6 @@ export default function AdminDashboard() {
     alertState,
     confirmState,
   } = useAlert();
-
-  useEffect(() => {
-    if (status === "loading") return;
-
-    const user = session?.user as ExtendedUser;
-    if (!user?.roles || !user.roles.includes("admin")) {
-      router.push("/stay-away-snooper");
-      return;
-    }
-
-    fetchUsers();
-    fetchUserProfile();
-  }, [session, status, router]);
 
   const fetchUsers = async () => {
     try {
@@ -99,6 +98,43 @@ export default function AdminDashboard() {
       console.error("Error fetching user profile:", error);
     }
   };
+
+  const fetchLogs = useCallback(async () => {
+    setLogsLoading(true);
+    try {
+      const response = await fetch("/api/logs?limit=50");
+      if (response.ok) {
+        const data = await response.json();
+        setLogs(data.logs || []);
+      } else {
+        showError("Failed to fetch logs");
+      }
+    } catch (error) {
+      console.error("Error fetching logs:", error);
+      showError("Failed to fetch logs");
+    } finally {
+      setLogsLoading(false);
+    }
+  }, [showError]);
+
+  useEffect(() => {
+    if (status === "loading") return;
+
+    const user = session?.user as ExtendedUser;
+    if (!user?.roles || !user.roles.includes("admin")) {
+      router.push("/stay-away-snooper");
+      return;
+    }
+
+    fetchUsers();
+    fetchUserProfile();
+  }, [session, status, router]);
+
+  useEffect(() => {
+    if (activeTab === "logs") {
+      fetchLogs();
+    }
+  }, [activeTab, fetchLogs]);
 
   const handleLogout = async () => {
     try {
@@ -480,50 +516,103 @@ export default function AdminDashboard() {
           >
             <h2 className="text-lg sm:text-xl lg:text-2xl font-bold mb-4 sm:mb-6 text-white uppercase flex items-center gap-2">
               <AlertTriangle size={18} className="sm:w-6 sm:h-6" />
-              SYSTEM LOGS
+              SYSTEM LOGS ({logs.length})
             </h2>
-            <div className="bg-black border-2 border-white p-3 sm:p-4 h-64 sm:h-80 lg:h-96 overflow-y-auto font-mono text-xs sm:text-sm transition-all duration-200 hover:border-opacity-80">
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.6 }}
-                className="text-green-400 mb-2"
-              >
-                <span className="text-[#666]">astronautics@admin:~$</span> tail
-                -f /var/log/system.log
-              </motion.div>
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.8 }}
-                className="text-yellow-400 mb-2"
-              >
-                Connecting to log stream...
-              </motion.div>
-              <motion.div
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: 1.0, duration: 0.5 }}
-              >
-                <div className="text-white mb-2">
-                  ┌─────────────────────────────────────────────────┐
-                </div>
-                <div className="text-white mb-2">│ │</div>
-                <div className="text-white mb-2">│ 🚧 COMING SOON 🚧 │</div>
-                <div className="text-white mb-2">│ │</div>
-                <div className="text-white mb-2">
-                  │ System logs monitoring will be available │
-                </div>
-                <div className="text-white mb-2">│ in a future update. │</div>
-                <div className="text-white mb-2">│ │</div>
-                <div className="text-white mb-2">
-                  └─────────────────────────────────────────────────┘
-                </div>
-                <div className="text-[#666] mt-4">
-                  <span className="animate-pulse">█</span>
-                </div>
-              </motion.div>
-            </div>
+
+            {logsLoading ? (
+              <div className="flex items-center justify-center py-8">
+                <motion.div
+                  animate={{ rotate: 360 }}
+                  transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
+                  className="w-6 h-6 border-2 border-white border-t-transparent rounded-full"
+                />
+                <span className="ml-3 text-white font-bold uppercase">
+                  Loading logs...
+                </span>
+              </div>
+            ) : logs.length === 0 ? (
+              <div className="text-center py-8">
+                <p className="text-white font-bold uppercase">No logs found</p>
+              </div>
+            ) : (
+              <div className="space-y-4">
+                {logs.map((log, index) => (
+                  <motion.div
+                    key={`${log.timestamp}-${index}`}
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.1 * index, duration: 0.3 }}
+                    className="border-2 border-white p-3 sm:p-4 backdrop-blur-sm hover:shadow-lg hover:shadow-white/5 transition-all duration-200"
+                  >
+                    {/* Log Header */}
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-3">
+                      <div className="flex items-center gap-2 sm:gap-3">
+                        <span
+                          className={`px-2 py-1 text-xs font-bold uppercase border ${
+                            log.level === "error"
+                              ? "bg-red-600 text-white border-red-600"
+                              : log.level === "warn"
+                              ? "bg-yellow-600 text-white border-yellow-600"
+                              : "bg-green-600 text-white border-green-600"
+                          }`}
+                        >
+                          {log.level}
+                        </span>
+                        <span className="text-white font-bold text-sm sm:text-base uppercase">
+                          {log.action}
+                        </span>
+                      </div>
+                      <span className="text-xs sm:text-sm text-[#e0e0e0] font-mono">
+                        {new Date(log.timestamp).toLocaleString()}
+                      </span>
+                    </div>
+
+                    {/* Log Content */}
+                    <div className="space-y-2">
+                      <p className="text-white text-sm sm:text-base">
+                        <span className="font-bold">Message:</span>{" "}
+                        {log.message}
+                      </p>
+
+                      {log.userEmail && (
+                        <p className="text-[#e0e0e0] text-sm">
+                          <span className="font-bold">User:</span>{" "}
+                          {log.userEmail}
+                        </p>
+                      )}
+
+                      {log.source && (
+                        <p className="text-[#e0e0e0] text-sm">
+                          <span className="font-bold">Source:</span>{" "}
+                          {log.source}
+                        </p>
+                      )}
+
+                      {/* Log Details */}
+                      {log.details && Object.keys(log.details).length > 0 && (
+                        <div className="mt-3 p-2 sm:p-3 bg-black border border-white overflow-scroll">
+                          <p className="text-xs sm:text-sm font-bold text-white mb-2 uppercase">
+                            Details:
+                          </p>
+                          <div className="text-xs text-green-400 font-mono space-y-1">
+                            {Object.entries(log.details).map(([key, value]) => (
+                              <div key={key} className="break-all">
+                                <span className="text-yellow-400">{key}:</span>{" "}
+                                <span className="text-green-400">
+                                  {typeof value === "object"
+                                    ? JSON.stringify(value, null, 2)
+                                    : String(value)}
+                                </span>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+            )}
           </motion.div>
         )}
 
