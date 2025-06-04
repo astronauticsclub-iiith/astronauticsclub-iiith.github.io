@@ -138,22 +138,20 @@ const Navbar = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
-          <div className="flex items-center space-x-4 text-white">
-            <Link href="/">
-              <Image
-                src={whimsyMode ? "/icons/moon.gif" : "/logo.png"}
-                alt="Logo"
-                width={80}
-                height={90}
-                className="w-auto h-12 opacity-0 animate-fade-in z-50"
-                style={{
-                  animationDelay: isFirstVisit
-                    ? `${(delayCounter + 1) * 150}ms`
-                    : "10ms",
-                }}
-                unoptimized={whimsyMode}
-              />
-            </Link>
+          <Link href="/" className="flex items-center space-x-4 text-white">
+            <Image
+              src={whimsyMode ? "/icons/moon.gif" : "/logo.png"}
+              alt="Logo"
+              width={80}
+              height={90}
+              className="w-auto h-12 opacity-0 animate-fade-in z-50"
+              style={{
+                animationDelay: isFirstVisit
+                  ? `${(delayCounter + 1) * 150}ms`
+                  : "10ms",
+              }}
+              unoptimized={whimsyMode}
+            />
             <div className="flex flex-col gap-0">
               <span
                 className="opacity-0 animate-slide-in-from-left z-20 font-bold"
@@ -178,7 +176,7 @@ const Navbar = () => {
                 </span>
               )}
             </div>
-          </div>
+          </Link>
 
           {/* Desktop Navigation */}
           <div className="hidden md:block">
