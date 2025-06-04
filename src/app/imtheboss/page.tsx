@@ -1,19 +1,13 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useSession } from "next-auth/react";
+import { useSession, signOut } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
-import {
-  Users,
-  FileText,
-  Shield,
-  AlertTriangle,
-  Plus,
-  Settings,
-} from "lucide-react";
+import { Users, FileText, AlertTriangle, Plus } from "lucide-react";
 import Image from "next/image";
 import ProfileEditor from "@/components/features/ProfileEditor";
+import ProfileInfo from "@/components/features/mod/ProfileInfo";
 import CustomAlert from "@/components/ui/CustomAlert";
 import CustomConfirm from "@/components/ui/CustomConfirm";
 import { useAlert } from "@/hooks/useAlert";
@@ -103,6 +97,18 @@ export default function AdminDashboard() {
       }
     } catch (error) {
       console.error("Error fetching user profile:", error);
+    }
+  };
+
+  const handleLogout = async () => {
+    try {
+      await signOut({
+        callbackUrl: "/",
+        redirect: true,
+      });
+    } catch (error) {
+      console.error("Error during logout:", error);
+      showError("Failed to logout");
     }
   };
 
@@ -227,51 +233,12 @@ export default function AdminDashboard() {
 
           {/* Admin Profile Info */}
           {userProfile && (
-            <motion.div
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-              className="border-2 sm:border-4 border-white p-3 sm:p-4 lg:p-6 backdrop-blur-sm mb-6 sm:mb-8 hover:shadow-lg hover:shadow-white/10 transition-all duration-300"
-            >
-              <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 sm:gap-6">
-                <div className="flex items-center gap-3 sm:gap-4 w-full sm:w-auto">
-                  <div className="w-12 h-12 sm:w-16 sm:h-16 border-2 border-white overflow-hidden bg-white transition-transform duration-200 hover:scale-105">
-                    {userProfile.avatar ? (
-                      <Image
-                        src={userProfile.avatar}
-                        alt={userProfile.name || "Profile"}
-                        width={64}
-                        height={64}
-                        className="w-full h-full object-cover"
-                      />
-                    ) : (
-                      <div className="w-full h-full bg-background flex items-center justify-center">
-                        <Shield className="text-white" size={16} />
-                      </div>
-                    )}
-                  </div>
-                  <div className="flex-1">
-                    <h3 className="font-bold text-lg sm:text-xl text-white uppercase leading-tight">
-                      {userProfile.name || "SYSTEM ADMINISTRATOR"}
-                    </h3>
-                    <p className="text-[#e0e0e0] font-medium text-sm sm:text-base">
-                      {userProfile.email}
-                    </p>
-                    <p className="text-[#e0e0e0] font-bold uppercase text-xs sm:text-sm">
-                      ROLES: {userProfile.roles.join(", ").toUpperCase()}
-                    </p>
-                  </div>
-                </div>
-                <button
-                  onClick={() => setShowProfileEditor(true)}
-                  className="w-full sm:w-auto px-3 sm:px-4 py-2 border-2 border-white text-white font-bold hover:bg-white hover:text-background transition-all duration-200 cursor-pointer flex items-center justify-center gap-2 uppercase text-sm sm:text-base hover:scale-105 active:scale-95"
-                >
-                  <Settings size={14} className="sm:w-4 sm:h-4" />
-                  <span className="hidden sm:inline">EDIT PROFILE</span>
-                  <span className="sm:hidden">EDIT</span>
-                </button>
-              </div>
-            </motion.div>
+            <ProfileInfo
+              userProfile={userProfile}
+              type="admin"
+              onEditProfile={() => setShowProfileEditor(true)}
+              onLogout={handleLogout}
+            />
           )}
         </motion.div>
 
