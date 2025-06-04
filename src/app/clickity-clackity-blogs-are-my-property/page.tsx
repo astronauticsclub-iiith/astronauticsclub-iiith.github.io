@@ -1,17 +1,27 @@
-'use client';
+"use client";
 
-import { useEffect, useState } from 'react';
-import { useSession } from 'next-auth/react';
-import { useRouter } from 'next/navigation';
-import { motion } from 'framer-motion';
-import { User, Edit, Trash2, Eye, Heart, Upload, Settings, Plus, FileText } from 'lucide-react';
-import Image from 'next/image';
-import ProfileEditor from '@/components/features/ProfileEditor';
-import ImageUploader from '@/components/features/ImageUploader';
-import BlogPreview from '@/components/features/BlogPreview';
-import CustomAlert from '@/components/ui/CustomAlert';
-import CustomConfirm from '@/components/ui/CustomConfirm';
-import { useAlert } from '@/hooks/useAlert';
+import { useEffect, useState } from "react";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
+import { motion } from "framer-motion";
+import {
+  User,
+  Edit,
+  Trash2,
+  Eye,
+  Heart,
+  Upload,
+  Settings,
+  Plus,
+  FileText,
+} from "lucide-react";
+import Image from "next/image";
+import ProfileEditor from "@/components/features/ProfileEditor";
+import ImageUploader from "@/components/features/ImageUploader";
+import BlogPreview from "@/components/features/BlogPreview";
+import CustomAlert from "@/components/ui/CustomAlert";
+import CustomConfirm from "@/components/ui/CustomConfirm";
+import { useAlert } from "@/hooks/useAlert";
 import "@/components/ui/bg-patterns.css";
 
 interface ExtendedUser {
@@ -73,8 +83,14 @@ export default function BlogAuthorDashboard() {
   const { data: session, status } = useSession();
   const router = useRouter();
   const [blogs, setBlogs] = useState<Blog[]>([]);
-  const [stats, setStats] = useState<BlogStats>({ totalBlogs: 0, totalViews: 0, totalLikes: 0 });
-  const [activeTab, setActiveTab] = useState<'dashboard' | 'write' | 'edit'>('dashboard');
+  const [stats, setStats] = useState<BlogStats>({
+    totalBlogs: 0,
+    totalViews: 0,
+    totalLikes: 0,
+  });
+  const [activeTab, setActiveTab] = useState<"dashboard" | "write" | "edit">(
+    "dashboard"
+  );
   const [loading, setLoading] = useState(true);
   const [editingBlog, setEditingBlog] = useState<Blog | null>(null);
   const [isPreview, setIsPreview] = useState(false);
@@ -82,25 +98,31 @@ export default function BlogAuthorDashboard() {
   const [showImageUploader, setShowImageUploader] = useState(false);
   const [userProfile, setUserProfile] = useState<UserProfile | null>(null);
   const [newBlog, setNewBlog] = useState<NewBlog>({
-    title: '',
-    excerpt: '',
-    content: '',
-    tags: '',
+    title: "",
+    excerpt: "",
+    content: "",
+    tags: "",
     readTime: 5,
-    images: []
+    images: [],
   });
-  const { 
-    showSuccess, showError, showConfirm, 
-    closeAlert, closeConfirm, handleConfirm, alertState, confirmState 
+  const {
+    showSuccess,
+    showError,
+    showConfirm,
+    closeAlert,
+    closeConfirm,
+    handleConfirm,
+    alertState,
+    confirmState,
   } = useAlert();
 
   useEffect(() => {
-    if (status === 'loading') return;
-    
+    if (status === "loading") return;
+
     const user = session?.user as ExtendedUser;
     const userRoles = user?.roles || [];
-    if (!userRoles.some(role => ['admin', 'writer'].includes(role))) {
-      router.push('/stay-away-snooper');
+    if (!userRoles.some((role) => ["admin", "writer"].includes(role))) {
+      router.push("/stay-away-snooper");
       return;
     }
 
@@ -110,14 +132,14 @@ export default function BlogAuthorDashboard() {
 
   const fetchMyBlogs = async () => {
     try {
-      const response = await fetch('/api/my-blogs');
+      const response = await fetch("/api/my-blogs");
       if (response.ok) {
         const data = await response.json();
         setBlogs(data.blogs);
         setStats(data.stats);
       }
     } catch (error) {
-      console.error('Error fetching blogs:', error);
+      console.error("Error fetching blogs:", error);
     } finally {
       setLoading(false);
     }
@@ -125,32 +147,32 @@ export default function BlogAuthorDashboard() {
 
   const fetchUserProfile = async () => {
     try {
-      const response = await fetch('/api/users/me');
+      const response = await fetch("/api/users/me");
       if (response.ok) {
         const data = await response.json();
         setUserProfile(data);
       }
     } catch (error) {
-      console.error('Error fetching user profile:', error);
+      console.error("Error fetching user profile:", error);
     }
   };
 
   const createSlug = (title: string) => {
     return title
       .toLowerCase()
-      .replace(/[^a-z0-9\s-]/g, '')
-      .replace(/\s+/g, '-')
+      .replace(/[^a-z0-9\s-]/g, "")
+      .replace(/\s+/g, "-")
       .trim();
   };
 
   const publishBlog = async () => {
     if (!newBlog.title || !newBlog.content || !newBlog.excerpt) {
-      showError('Please fill in all required fields');
+      showError("Please fill in all required fields");
       return;
     }
 
     if (!newBlog.images || newBlog.images.length === 0) {
-      showError('Please upload at least one image for your blog');
+      showError("Please upload at least one image for your blog");
       return;
     }
 
@@ -162,198 +184,216 @@ export default function BlogAuthorDashboard() {
       excerpt: newBlog.excerpt,
       content: newBlog.content,
       author: {
-        email: session?.user?.email || '',
+        email: session?.user?.email || "",
       },
       publishedAt: new Date().toISOString(),
       readTime: newBlog.readTime,
-      tags: newBlog.tags.split(',').map(tag => tag.trim()).filter(tag => tag),
-      images: newBlog.images || []
+      tags: newBlog.tags
+        .split(",")
+        .map((tag) => tag.trim())
+        .filter((tag) => tag),
+      images: newBlog.images || [],
     };
 
     try {
-      const response = await fetch('/api/blogs', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(blogData)
+      const response = await fetch("/api/blogs", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(blogData),
       });
-
 
       if (response.ok) {
         setNewBlog({
-          title: '',
-          excerpt: '',
-          content: '',
-          tags: '',
+          title: "",
+          excerpt: "",
+          content: "",
+          tags: "",
           readTime: 5,
-          images: []
+          images: [],
         });
-        setActiveTab('dashboard');
+        setActiveTab("dashboard");
         fetchMyBlogs();
-        showSuccess('Blog published successfully!');
+        showSuccess("Blog published successfully!");
       } else {
         const errorData = await response.json();
-        showError(errorData.error || 'Failed to publish blog');
+        showError(errorData.error || "Failed to publish blog");
       }
     } catch (error) {
-      console.error('Error publishing blog:', error);
-      showError('Failed to publish blog');
+      console.error("Error publishing blog:", error);
+      showError("Failed to publish blog");
     }
   };
 
   const deleteBlog = async (slug: string) => {
     showConfirm(
-      'DELETE BLOG',
-      'Are you sure you want to delete this blog? This action cannot be undone.',
+      "DELETE BLOG",
+      "Are you sure you want to delete this blog? This action cannot be undone.",
       () => performDeleteBlog(slug),
-      { type: 'danger', confirmText: 'DELETE BLOG' }
+      { type: "danger", confirmText: "DELETE BLOG" }
     );
   };
 
   const performDeleteBlog = async (slug: string) => {
     try {
       const response = await fetch(`/api/blogs/${slug}`, {
-        method: 'DELETE'
+        method: "DELETE",
       });
 
       if (response.ok) {
         fetchMyBlogs();
-        showSuccess('Blog deleted successfully');
+        showSuccess("Blog deleted successfully");
       } else {
-        showError('Failed to delete blog');
+        showError("Failed to delete blog");
       }
     } catch (error) {
-      console.error('Error deleting blog:', error);
-      showError('Failed to delete blog');
+      console.error("Error deleting blog:", error);
+      showError("Failed to delete blog");
     }
   };
 
   const updateBlog = async () => {
-    if (!editingBlog || !editingBlog.title || !editingBlog.content || !editingBlog.excerpt) {
-      showError('Please fill in all required fields');
+    if (
+      !editingBlog ||
+      !editingBlog.title ||
+      !editingBlog.content ||
+      !editingBlog.excerpt
+    ) {
+      showError("Please fill in all required fields");
       return;
     }
 
     if (!editingBlog.images || editingBlog.images.length === 0) {
-      showError('Please upload at least one image for your blog');
+      showError("Please upload at least one image for your blog");
       return;
     }
 
     try {
       const response = await fetch(`/api/blogs/${editingBlog.slug}`, {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           title: editingBlog.title,
           excerpt: editingBlog.excerpt,
           content: editingBlog.content,
           tags: editingBlog.tags,
           readTime: editingBlog.readTime,
-          images: editingBlog.images
-        })
+          images: editingBlog.images,
+        }),
       });
-
 
       if (response.ok) {
         setEditingBlog(null);
-        setActiveTab('dashboard');
+        setActiveTab("dashboard");
         fetchMyBlogs();
-        showSuccess('Blog updated successfully!');
+        showSuccess("Blog updated successfully!");
       } else {
         const errorData = await response.json();
-        showError(errorData.error || 'Failed to update blog');
+        showError(errorData.error || "Failed to update blog");
       }
     } catch (error) {
-      console.error('Error updating blog:', error);
-      showError('Failed to update blog');
+      console.error("Error updating blog:", error);
+      showError("Failed to update blog");
     }
   };
 
   const addImageToBlog = (imagePath: string) => {
-    if (activeTab === 'write') {
+    if (activeTab === "write") {
       const currentImages = newBlog.images || [];
-      const updatedImages = currentImages.includes(imagePath) 
-        ? currentImages 
+      const updatedImages = currentImages.includes(imagePath)
+        ? currentImages
         : [...currentImages, imagePath];
-      
-      setNewBlog({ 
-        ...newBlog, 
-        images: updatedImages
+
+      setNewBlog({
+        ...newBlog,
+        images: updatedImages,
       });
     } else if (editingBlog) {
       const currentImages = editingBlog.images || [];
-      const updatedImages = currentImages.includes(imagePath) 
-        ? currentImages 
+      const updatedImages = currentImages.includes(imagePath)
+        ? currentImages
         : [...currentImages, imagePath];
-      
-      setEditingBlog({ 
-        ...editingBlog, 
-        images: updatedImages
+
+      setEditingBlog({
+        ...editingBlog,
+        images: updatedImages,
       });
     }
     setShowImageUploader(false);
   };
 
   const removeImageFromBlog = (imagePath: string) => {
-    if (activeTab === 'write') {
-      const updatedImages = newBlog.images?.filter(img => img !== imagePath) || [];
-      setNewBlog({ 
-        ...newBlog, 
-        images: updatedImages
+    if (activeTab === "write") {
+      const updatedImages =
+        newBlog.images?.filter((img) => img !== imagePath) || [];
+      setNewBlog({
+        ...newBlog,
+        images: updatedImages,
       });
     } else if (editingBlog) {
-      const updatedImages = editingBlog.images?.filter(img => img !== imagePath) || [];
-      setEditingBlog({ 
-        ...editingBlog, 
-        images: updatedImages
+      const updatedImages =
+        editingBlog.images?.filter((img) => img !== imagePath) || [];
+      setEditingBlog({
+        ...editingBlog,
+        images: updatedImages,
       });
     }
   };
 
   const insertImageReference = (imagePath: string) => {
     const imageMarkdown = `\n![Image](${imagePath})\n`;
-    if (activeTab === 'write') {
-      setNewBlog({ 
-        ...newBlog, 
-        content: newBlog.content + imageMarkdown
+    if (activeTab === "write") {
+      setNewBlog({
+        ...newBlog,
+        content: newBlog.content + imageMarkdown,
       });
     } else if (editingBlog) {
-      setEditingBlog({ 
-        ...editingBlog, 
-        content: editingBlog.content + imageMarkdown
+      setEditingBlog({
+        ...editingBlog,
+        content: editingBlog.content + imageMarkdown,
       });
     }
   };
 
   const copyImageUrl = (imagePath: string) => {
     navigator.clipboard.writeText(imagePath);
-    showSuccess('Image URL copied to clipboard!');
+    showSuccess("Image URL copied to clipboard!");
   };
 
   const UploadedImagesPanel = () => {
-    const currentImages = activeTab === 'write' ? (newBlog.images || []) : (editingBlog?.images || []);
-    
+    const currentImages =
+      activeTab === "write" ? newBlog.images || [] : editingBlog?.images || [];
+
     return (
       <div className="border-2 border-white bg-background p-4 mb-4">
         <div className="flex justify-between items-center mb-4">
-          <h3 className="text-white font-bold uppercase">BLOG IMAGES ({currentImages.length})</h3>
-          <button 
-            onClick={() => setShowImageUploader(true)} 
+          <h3 className="text-white font-bold uppercase">
+            BLOG IMAGES ({currentImages.length})
+          </h3>
+          <button
+            onClick={() => setShowImageUploader(true)}
             className="px-3 py-2 border-2 border-white bg-white text-background font-bold hover:bg-[#e0e0e0] transition-colors uppercase text-sm flex items-center gap-2"
           >
             <Upload size={16} />
             ADD IMAGE
           </button>
         </div>
-        
+
         {currentImages.length === 0 ? (
           <div className="text-center py-8">
-            <p className="text-[#e0e0e0] font-bold uppercase">NO IMAGES UPLOADED YET</p>
-            <p className="text-[#e0e0e0] text-sm mt-2">AT LEAST ONE IMAGE IS REQUIRED FOR PUBLISHING</p>
+            <p className="text-[#e0e0e0] font-bold uppercase">
+              NO IMAGES UPLOADED YET
+            </p>
+            <p className="text-[#e0e0e0] text-sm mt-2">
+              AT LEAST ONE IMAGE IS REQUIRED FOR PUBLISHING
+            </p>
           </div>
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {currentImages.map((imagePath, index) => (
-              <div key={index} className="border-2 border-white bg-background p-3">
+              <div
+                key={index}
+                className="border-2 border-white bg-background p-3"
+              >
                 <div className="aspect-video relative border-2 border-white overflow-hidden mb-3">
                   <Image
                     src={imagePath}
@@ -362,12 +402,12 @@ export default function BlogAuthorDashboard() {
                     className="object-cover"
                   />
                 </div>
-                
+
                 <div className="space-y-2">
                   <p className="text-white text-xs font-bold truncate">
-                    {imagePath.split('/').pop()}
+                    {imagePath.split("/").pop()}
                   </p>
-                  
+
                   <div className="grid grid-cols-3 gap-1">
                     <button
                       onClick={() => insertImageReference(imagePath)}
@@ -388,7 +428,7 @@ export default function BlogAuthorDashboard() {
                       className="px-2 py-1 border-2 border-white bg-[#d2042d] text-white font-bold hover:bg-white hover:text-[#d2042d] transition-colors text-xs uppercase"
                       title="Remove from blog"
                     >
-                      <Trash2 size={12} />
+                      DELETE
                     </button>
                   </div>
                 </div>
@@ -401,15 +441,17 @@ export default function BlogAuthorDashboard() {
   };
 
   const formatCount = (num: number) => {
-    if (num >= 1000000) return (num / 1000000).toFixed(1) + 'M';
-    if (num >= 1000) return (num / 1000).toFixed(1) + 'K';
+    if (num >= 1000000) return (num / 1000000).toFixed(1) + "M";
+    if (num >= 1000) return (num / 1000).toFixed(1) + "K";
     return num.toString();
   };
 
   if (loading) {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center">
-        <div className="text-white text-2xl font-bold uppercase">LOADING...</div>
+        <div className="text-white text-2xl font-bold uppercase">
+          LOADING...
+        </div>
       </div>
     );
   }
@@ -427,7 +469,7 @@ export default function BlogAuthorDashboard() {
             WRITER DASHBOARD
           </h1>
           <div className="h-1 bg-white w-32 mb-6"></div>
-          
+
           {/* Profile Info */}
           {userProfile && (
             <div className="border-4 border-white p-6 backdrop-blur-sm mb-8">
@@ -437,7 +479,7 @@ export default function BlogAuthorDashboard() {
                     {userProfile.avatar ? (
                       <Image
                         src={userProfile.avatar}
-                        alt={userProfile.name || 'Profile'}
+                        alt={userProfile.name || "Profile"}
                         width={64}
                         height={64}
                         className="w-full h-full object-cover"
@@ -450,9 +492,11 @@ export default function BlogAuthorDashboard() {
                   </div>
                   <div>
                     <h3 className="font-bold text-xl text-white uppercase">
-                      {userProfile.name || 'ANONYMOUS WRITER'}
+                      {userProfile.name || "ANONYMOUS WRITER"}
                     </h3>
-                    <p className="text-[#e0e0e0] font-medium">{userProfile.email}</p>
+                    <p className="text-[#e0e0e0] font-medium">
+                      {userProfile.email}
+                    </p>
                   </div>
                 </div>
                 <button
@@ -476,22 +520,22 @@ export default function BlogAuthorDashboard() {
         >
           <div className="flex flex-col sm:flex-row gap-2 sm:gap-4">
             <button
-              onClick={() => setActiveTab('dashboard')}
+              onClick={() => setActiveTab("dashboard")}
               className={`w-full sm:w-auto px-4 sm:px-6 py-3 border-2 border-white font-bold transition-colors uppercase ${
-                activeTab === 'dashboard'
-                  ? 'bg-white text-background'
-                  : 'text-white hover:bg-white hover:text-background'
+                activeTab === "dashboard"
+                  ? "bg-white text-background"
+                  : "text-white hover:bg-white hover:text-background"
               }`}
             >
               <FileText className="inline mr-2" size={16} />
               DASHBOARD
             </button>
             <button
-              onClick={() => setActiveTab('write')}
+              onClick={() => setActiveTab("write")}
               className={`w-full sm:w-auto px-4 sm:px-6 py-3 border-2 border-white font-bold transition-colors uppercase ${
-                activeTab === 'write'
-                  ? 'bg-white text-background'
-                  : 'text-white hover:bg-white hover:text-background'
+                activeTab === "write"
+                  ? "bg-white text-background"
+                  : "text-white hover:bg-white hover:text-background"
               }`}
             >
               <Plus className="inline mr-2" size={16} />
@@ -501,7 +545,7 @@ export default function BlogAuthorDashboard() {
         </motion.div>
 
         {/* Dashboard Tab */}
-        {activeTab === 'dashboard' && (
+        {activeTab === "dashboard" && (
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -511,22 +555,36 @@ export default function BlogAuthorDashboard() {
             {/* Stats */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               <div className="border-4 border-white p-6 backdrop-blur-sm text-center">
-                <h3 className="text-3xl font-bold text-white mb-2">{stats.totalBlogs}</h3>
-                <p className="text-[#e0e0e0] font-bold uppercase">TOTAL BLOGS</p>
+                <h3 className="text-3xl font-bold text-white mb-2">
+                  {stats.totalBlogs}
+                </h3>
+                <p className="text-[#e0e0e0] font-bold uppercase">
+                  TOTAL BLOGS
+                </p>
               </div>
               <div className="border-4 border-white p-6 backdrop-blur-sm text-center">
-                <h3 className="text-3xl font-bold text-white mb-2">{formatCount(stats.totalViews)}</h3>
-                <p className="text-[#e0e0e0] font-bold uppercase">TOTAL VIEWS</p>
+                <h3 className="text-3xl font-bold text-white mb-2">
+                  {formatCount(stats.totalViews)}
+                </h3>
+                <p className="text-[#e0e0e0] font-bold uppercase">
+                  TOTAL VIEWS
+                </p>
               </div>
               <div className="border-4 border-white p-6 backdrop-blur-sm text-center">
-                <h3 className="text-3xl font-bold text-white mb-2">{formatCount(stats.totalLikes)}</h3>
-                <p className="text-[#e0e0e0] font-bold uppercase">TOTAL LIKES</p>
+                <h3 className="text-3xl font-bold text-white mb-2">
+                  {formatCount(stats.totalLikes)}
+                </h3>
+                <p className="text-[#e0e0e0] font-bold uppercase">
+                  TOTAL LIKES
+                </p>
               </div>
             </div>
 
             {/* Blogs List */}
             <div className="border-4 border-white p-6 backdrop-blur-sm">
-              <h2 className="text-2xl font-bold mb-6 text-white uppercase">YOUR BLOGS</h2>
+              <h2 className="text-2xl font-bold mb-6 text-white uppercase">
+                YOUR BLOGS
+              </h2>
               <div className="space-y-4">
                 {blogs.map((blog) => (
                   <motion.div
@@ -536,9 +594,13 @@ export default function BlogAuthorDashboard() {
                     className="border-2 border-white p-4 backdrop-blur-sm flex flex-col sm:flex-row justify-between items-start"
                   >
                     <div className="flex-1">
-                      <h3 className="text-xl font-bold text-white uppercase mb-2">{blog.title}</h3>
-                      <p className="text-[#e0e0e0] font-medium mb-3">{blog.excerpt}</p>
-                      
+                      <h3 className="text-xl font-bold text-white uppercase mb-2">
+                        {blog.title}
+                      </h3>
+                      <p className="text-[#e0e0e0] font-medium mb-3">
+                        {blog.excerpt}
+                      </p>
+
                       {/* Tags */}
                       <div className="flex flex-wrap gap-2 mb-3">
                         {blog.tags.map((tag) => (
@@ -550,7 +612,7 @@ export default function BlogAuthorDashboard() {
                           </span>
                         ))}
                       </div>
-                      
+
                       <div className="flex space-x-6 text-sm text-[#e0e0e0] font-medium">
                         <span className="flex items-center gap-1">
                           <Eye size={14} />
@@ -560,14 +622,16 @@ export default function BlogAuthorDashboard() {
                           <Heart size={14} />
                           {formatCount(blog.likes)}
                         </span>
-                        <span>{new Date(blog.publishedAt).toLocaleDateString()}</span>
+                        <span>
+                          {new Date(blog.publishedAt).toLocaleDateString()}
+                        </span>
                       </div>
                     </div>
                     <div className="flex flex-col sm:flex-row gap-2 sm:space-x-2 mt-4 sm:mt-0 sm:ml-4">
                       <button
                         onClick={() => {
                           setEditingBlog(blog);
-                          setActiveTab('edit');
+                          setActiveTab("edit");
                         }}
                         className="px-3 py-2 border-2 border-white text-white font-bold hover:bg-white hover:text-background transition-colors uppercase text-sm flex items-center justify-center gap-1"
                       >
@@ -595,7 +659,7 @@ export default function BlogAuthorDashboard() {
         )}
 
         {/* Write/Edit Tab */}
-        {(activeTab === 'write' || activeTab === 'edit') && (
+        {(activeTab === "write" || activeTab === "edit") && (
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -604,20 +668,20 @@ export default function BlogAuthorDashboard() {
           >
             <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
               <h2 className="text-xl sm:text-2xl font-bold text-white uppercase">
-                {activeTab === 'write' ? 'WRITE NEW BLOG' : 'EDIT BLOG'}
+                {activeTab === "write" ? "WRITE NEW BLOG" : "EDIT BLOG"}
               </h2>
               <div className="flex flex-col sm:flex-row w-full sm:w-auto gap-2 sm:gap-4">
                 <button
                   onClick={() => setIsPreview(!isPreview)}
                   className="w-full sm:w-auto px-4 py-2 border-2 border-white text-white font-bold hover:bg-white hover:text-background transition-colors uppercase"
                 >
-                  {isPreview ? 'EDIT' : 'PREVIEW'}
+                  {isPreview ? "EDIT" : "PREVIEW"}
                 </button>
                 <button
-                  onClick={activeTab === 'write' ? publishBlog : updateBlog}
+                  onClick={activeTab === "write" ? publishBlog : updateBlog}
                   className="w-full sm:w-auto px-4 py-2 border-2 border-white bg-white text-background font-bold hover:bg-[#e0e0e0] transition-colors uppercase"
                 >
-                  {activeTab === 'write' ? 'PUBLISH' : 'UPDATE'}
+                  {activeTab === "write" ? "PUBLISH" : "UPDATE"}
                 </button>
               </div>
             </div>
@@ -627,22 +691,38 @@ export default function BlogAuthorDashboard() {
                 <input
                   type="text"
                   placeholder="BLOG TITLE"
-                  value={activeTab === 'write' ? newBlog.title : editingBlog?.title || ''}
-                  onChange={(e) => 
-                    activeTab === 'write' 
+                  value={
+                    activeTab === "write"
+                      ? newBlog.title
+                      : editingBlog?.title || ""
+                  }
+                  onChange={(e) =>
+                    activeTab === "write"
                       ? setNewBlog({ ...newBlog, title: e.target.value })
-                      : setEditingBlog(editingBlog ? { ...editingBlog, title: e.target.value } : null)
+                      : setEditingBlog(
+                          editingBlog
+                            ? { ...editingBlog, title: e.target.value }
+                            : null
+                        )
                   }
                   className="w-full bg-background border-2 border-white p-4 text-white text-xl font-bold placeholder-[#666] uppercase"
                 />
 
                 <textarea
                   placeholder="BLOG EXCERPT"
-                  value={activeTab === 'write' ? newBlog.excerpt : editingBlog?.excerpt || ''}
-                  onChange={(e) => 
-                    activeTab === 'write' 
+                  value={
+                    activeTab === "write"
+                      ? newBlog.excerpt
+                      : editingBlog?.excerpt || ""
+                  }
+                  onChange={(e) =>
+                    activeTab === "write"
                       ? setNewBlog({ ...newBlog, excerpt: e.target.value })
-                      : setEditingBlog(editingBlog ? { ...editingBlog, excerpt: e.target.value } : null)
+                      : setEditingBlog(
+                          editingBlog
+                            ? { ...editingBlog, excerpt: e.target.value }
+                            : null
+                        )
                   }
                   className="w-full bg-background border-2 border-white p-4 text-white h-24 font-medium placeholder-[#666]"
                 />
@@ -651,22 +731,49 @@ export default function BlogAuthorDashboard() {
                   <input
                     type="text"
                     placeholder="TAGS (COMMA SEPARATED)"
-                    value={activeTab === 'write' ? newBlog.tags : editingBlog?.tags.join(', ') || ''}
-                    onChange={(e) => 
-                      activeTab === 'write' 
+                    value={
+                      activeTab === "write"
+                        ? newBlog.tags
+                        : editingBlog?.tags.join(", ") || ""
+                    }
+                    onChange={(e) =>
+                      activeTab === "write"
                         ? setNewBlog({ ...newBlog, tags: e.target.value })
-                        : setEditingBlog(editingBlog ? { ...editingBlog, tags: e.target.value.split(',').map(t => t.trim()) } : null)
+                        : setEditingBlog(
+                            editingBlog
+                              ? {
+                                  ...editingBlog,
+                                  tags: e.target.value
+                                    .split(",")
+                                    .map((t) => t.trim()),
+                                }
+                              : null
+                          )
                     }
                     className="bg-background border-2 border-white p-4 text-white font-medium placeholder-[#666]"
                   />
                   <input
                     type="number"
                     placeholder="READ TIME (MINUTES)"
-                    value={activeTab === 'write' ? newBlog.readTime : editingBlog?.readTime || ''}
-                    onChange={(e) => 
-                      activeTab === 'write' 
-                        ? setNewBlog({ ...newBlog, readTime: parseInt(e.target.value) || 5 })
-                        : setEditingBlog(editingBlog ? { ...editingBlog, readTime: parseInt(e.target.value) || 5 } : null)
+                    value={
+                      activeTab === "write"
+                        ? newBlog.readTime
+                        : editingBlog?.readTime || ""
+                    }
+                    onChange={(e) =>
+                      activeTab === "write"
+                        ? setNewBlog({
+                            ...newBlog,
+                            readTime: parseInt(e.target.value) || 5,
+                          })
+                        : setEditingBlog(
+                            editingBlog
+                              ? {
+                                  ...editingBlog,
+                                  readTime: parseInt(e.target.value) || 5,
+                                }
+                              : null
+                          )
                     }
                     className="bg-background border-2 border-white p-4 text-white font-medium placeholder-[#666]"
                   />
@@ -676,32 +783,64 @@ export default function BlogAuthorDashboard() {
 
                 <textarea
                   placeholder="WRITE YOUR BLOG CONTENT IN MARKDOWN..."
-                  value={activeTab === 'write' ? newBlog.content : editingBlog?.content || ''}
-                  onChange={(e) => 
-                    activeTab === 'write' 
+                  value={
+                    activeTab === "write"
+                      ? newBlog.content
+                      : editingBlog?.content || ""
+                  }
+                  onChange={(e) =>
+                    activeTab === "write"
                       ? setNewBlog({ ...newBlog, content: e.target.value })
-                      : setEditingBlog(editingBlog ? { ...editingBlog, content: e.target.value } : null)
+                      : setEditingBlog(
+                          editingBlog
+                            ? { ...editingBlog, content: e.target.value }
+                            : null
+                        )
                   }
                   className="w-full bg-background border-2 border-white p-4 text-white h-96 font-mono placeholder-[#666]"
                 />
               </div>
             ) : (
               <BlogPreview
-                title={activeTab === 'write' ? newBlog.title : editingBlog?.title || ''}
-                excerpt={activeTab === 'write' ? newBlog.excerpt : editingBlog?.excerpt || ''}
-                content={activeTab === 'write' ? newBlog.content : editingBlog?.content || ''}
-                tags={activeTab === 'write' 
-                  ? newBlog.tags.split(',').map(tag => tag.trim()).filter(tag => tag)
-                  : editingBlog?.tags || []
+                title={
+                  activeTab === "write"
+                    ? newBlog.title
+                    : editingBlog?.title || ""
                 }
-                readTime={activeTab === 'write' ? newBlog.readTime : editingBlog?.readTime || 5}
+                excerpt={
+                  activeTab === "write"
+                    ? newBlog.excerpt
+                    : editingBlog?.excerpt || ""
+                }
+                content={
+                  activeTab === "write"
+                    ? newBlog.content
+                    : editingBlog?.content || ""
+                }
+                tags={
+                  activeTab === "write"
+                    ? newBlog.tags
+                        .split(",")
+                        .map((tag) => tag.trim())
+                        .filter((tag) => tag)
+                    : editingBlog?.tags || []
+                }
+                readTime={
+                  activeTab === "write"
+                    ? newBlog.readTime
+                    : editingBlog?.readTime || 5
+                }
                 author={{
-                  name: userProfile?.name || session?.user?.name || 'Anonymous',
-                  email: session?.user?.email || '',
+                  name: userProfile?.name || session?.user?.name || "Anonymous",
+                  email: session?.user?.email || "",
                   avatar: userProfile?.avatar,
-                  bio: userProfile?.bio || 'Blog Author'
+                  bio: userProfile?.bio || "Blog Author",
                 }}
-                images={editingBlog?.images || []}
+                images={
+                  activeTab === "write"
+                    ? newBlog.images
+                    : editingBlog?.images || []
+                }
               />
             )}
           </motion.div>
