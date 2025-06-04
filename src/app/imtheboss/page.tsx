@@ -7,7 +7,6 @@ import { motion } from "framer-motion";
 import {
   Users,
   FileText,
-  Trash2,
   Shield,
   AlertTriangle,
   Plus,
@@ -61,7 +60,6 @@ export default function AdminDashboard() {
   const {
     showSuccess,
     showError,
-    showConfirm,
     closeAlert,
     closeConfirm,
     handleConfirm,
@@ -131,50 +129,6 @@ export default function AdminDashboard() {
     }
   };
 
-  const deleteUser = async (userId: string) => {
-    const currentUserEmail = session?.user?.email;
-    const targetUser = users.find((u) => u._id === userId);
-
-    // Prevent admins from deleting any user accounts
-    if (targetUser?.email !== currentUserEmail) {
-      showError("You can only delete your own account");
-      return;
-    }
-
-    showConfirm(
-      "DELETE ACCOUNT",
-      "Are you sure you want to delete your account? This action cannot be undone.",
-      () => performDeleteUser(userId),
-      { type: "danger", confirmText: "DELETE ACCOUNT" }
-    );
-  };
-
-  const performDeleteUser = async (userId: string) => {
-    const currentUserEmail = session?.user?.email;
-    const targetUser = users.find((u) => u._id === userId);
-
-    try {
-      const response = await fetch(`/api/users/${userId}`, {
-        method: "DELETE",
-      });
-
-      if (response.ok) {
-        // If user deleted their own account, sign them out
-        if (targetUser?.email === currentUserEmail) {
-          router.push("/");
-        } else {
-          fetchUsers();
-        }
-        showSuccess("Account deleted successfully");
-      } else {
-        showError("Failed to delete user");
-      }
-    } catch (error) {
-      console.error("Error deleting user:", error);
-      showError("Failed to delete user");
-    }
-  };
-
   const updateUserRoles = async (
     userId: string,
     roles: ("admin" | "writer")[]
@@ -209,15 +163,13 @@ export default function AdminDashboard() {
     // Check if current user is trying to modify themselves
     const isModifyingSelf = targetUser?.email === currentUserEmail;
 
-    // Restrict admin role modifications - admins cannot modify admin roles at all
-    if (role === "admin") {
+    // Restrict admin role modifications - admins cannot modify admin roles, except self
+    if (
+      role === "admin" &&
+      !isModifyingSelf &&
+      currentRoles.includes("admin")
+    ) {
       showError("Admin roles cannot be modified for security reasons");
-      return;
-    }
-
-    // For writer role, only allow self-modification
-    if (role === "writer" && !isModifyingSelf) {
-      showError("You can only modify writer roles for your own account");
       return;
     }
 
@@ -231,6 +183,16 @@ export default function AdminDashboard() {
     }
 
     updateUserRoles(userId, newRoles);
+
+    // Update cookies for the current user if they are modifying their own roles
+    if (isModifyingSelf) {
+      fetchUserProfile();
+
+      // If not an admin, redirect to stay away page
+      if (!newRoles.includes("admin")) {
+        router.push("/stay-away-snooper");
+      }
+    }
   };
 
   if (loading) {
@@ -388,7 +350,7 @@ export default function AdminDashboard() {
                             : newUser.roles.filter((r) => r !== "writer");
                           setNewUser({
                             ...newUser,
-                            roles: roles.length > 0 ? roles : ["writer"],
+                            roles: roles,
                           });
                         }}
                         className="w-4 h-4"
@@ -407,7 +369,7 @@ export default function AdminDashboard() {
                             : newUser.roles.filter((r) => r !== "admin");
                           setNewUser({
                             ...newUser,
-                            roles: roles.length > 0 ? roles : ["writer"],
+                            roles: roles,
                           });
                         }}
                         className="w-4 h-4"
@@ -471,66 +433,35 @@ export default function AdminDashboard() {
                     </div>
 
                     <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 w-full sm:w-auto">
-                      {/* Show roles as badges for other users, controls only for current user */}
-                      {user.email === session?.user?.email ? (
-                        <div className="flex flex-col sm:flex-row gap-2 w-full sm:w-auto">
-                          <button
-                            onClick={() =>
-                              toggleUserRole(user._id, user.roles, "writer")
-                            }
-                            className={`w-full sm:w-auto px-3 py-2 border-2 border-white font-bold text-sm uppercase transition-colors ${
-                              user.roles.includes("writer")
-                                ? "bg-white text-background"
-                                : "bg-background text-white hover:bg-white hover:text-background"
-                            }`}
-                          >
-                            WRITER
-                          </button>
-                          <button
-                            onClick={() =>
-                              toggleUserRole(user._id, user.roles, "admin")
-                            }
-                            className={`w-full sm:w-auto px-3 py-2 border-2 border-white font-bold text-sm uppercase transition-colors ${
-                              user.roles.includes("admin")
-                                ? "bg-[#d2042d] text-white opacity-50 cursor-not-allowed"
-                                : "bg-background text-white hover:bg-[#d2042d] hover:text-white"
-                            }`}
-                            disabled={true}
-                            title="Admin roles cannot be modified for security reasons"
-                          >
-                            ADMIN
-                          </button>
-                        </div>
-                      ) : (
-                        <div className="flex flex-wrap gap-2">
-                          {user.roles.map((role) => (
-                            <span
-                              key={role}
-                              className={`px-3 py-2 border-2 border-white font-bold text-sm uppercase ${
-                                role === "admin"
-                                  ? "bg-[#d2042d] text-white"
-                                  : "bg-white text-background"
-                              }`}
-                            >
-                              {role}
-                            </span>
-                          ))}
-                        </div>
-                      )}
-
-                      {/* Only show delete button for current user's own account */}
-                      {user.email === session?.user?.email && (
+                      <div className="flex flex-col sm:flex-row gap-2 w-full sm:w-auto">
                         <button
-                          onClick={() => deleteUser(user._id)}
-                          className="w-full sm:w-auto px-3 py-2 border-2 border-white bg-[#d2042d] text-white font-bold hover:bg-white hover:text-[#d2042d] transition-colors uppercase text-sm flex items-center justify-center gap-1"
+                          onClick={() =>
+                            toggleUserRole(user._id, user.roles, "writer")
+                          }
+                          className={`w-full sm:w-auto px-3 py-2 border-2 border-white font-bold text-sm uppercase transition-colors ${
+                            user.roles.includes("writer")
+                              ? "bg-white text-background hover:bg-[#ffffffbb]"
+                              : "bg-background text-white hover:bg-white hover:text-background"
+                          }`}
                         >
-                          <Trash2 size={14} />
-                          <span className="hidden sm:inline">
-                            DELETE ACCOUNT
-                          </span>
-                          <span className="sm:hidden">DELETE</span>
+                          WRITER
                         </button>
-                      )}
+                        <button
+                          onClick={() =>
+                            toggleUserRole(user._id, user.roles, "admin")
+                          }
+                          className={`w-full sm:w-auto px-3 py-2 border-2 border-white font-bold text-sm uppercase transition-colors ${
+                            user.roles.includes("admin")
+                              ? "bg-[#d2042d] text-white " +
+                                (user._id !== userProfile?.id
+                                  ? "opacity-50 cursor-not-allowed"
+                                  : "hover:bg-[#d2042d99] hover:text-white")
+                              : "bg-background text-white hover:bg-[#d2042d] hover:text-white"
+                          }`}
+                        >
+                          ADMIN
+                        </button>
+                      </div>
                     </div>
                   </motion.div>
                 ))}
