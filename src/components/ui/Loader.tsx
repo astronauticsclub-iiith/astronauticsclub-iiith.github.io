@@ -25,11 +25,9 @@ const Loader = ({
   // If this is an overlay loader
   if (overlay) {
     return (
-      <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm">
-        <div className={`h-full w-full max-w-md ${className}`}>
+        <div className={`h-96 w-full max-w-md ${className}`}>
           <AstroLoader />
         </div>
-      </div>
     );
   }
 

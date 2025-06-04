@@ -8,6 +8,7 @@ import BlogCard from "./BlogCard";
 import { Blog } from "@/types/blog";
 import Image from "next/image";
 import { useWhimsy } from "@/context/WhimsyContext";
+import Loader from "@/components/ui/Loader";
 import "@/components/ui/bg-patterns.css";
 
 interface BlogsShowcaseProps {
@@ -16,6 +17,7 @@ interface BlogsShowcaseProps {
 
 const BlogsShowcase = ({ className = "" }: BlogsShowcaseProps) => {
   const [blogs, setBlogs] = useState<Blog[]>([]);
+  const [loading, setLoading] = useState(true);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
@@ -28,6 +30,7 @@ const BlogsShowcase = ({ className = "" }: BlogsShowcaseProps) => {
   useEffect(() => {
     const fetchBlogs = async () => {
       try {
+        setLoading(true);
         const response = await fetch("/api/blogs?limit=5&sortBy=latest");
         if (response.ok) {
           const data = await response.json();
@@ -37,6 +40,8 @@ const BlogsShowcase = ({ className = "" }: BlogsShowcaseProps) => {
         }
       } catch (error) {
         console.error("Error fetching blogs:", error);
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -151,8 +156,46 @@ const BlogsShowcase = ({ className = "" }: BlogsShowcaseProps) => {
     animateInitialRotation();
   }, [whimsyMode, telescopeLoaded]);
 
-  if (blogs.length === 0) {
-    return null;
+  // Show loading state
+  if (loading) {
+    return (
+      <motion.section
+        initial={{ opacity: 0, y: 50 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-100px" }}
+        transition={{ duration: 0.3 }}
+        className={`pt-20 md:pt-32 pb-20 bg-background ${className} relative bg-pattern-topography`}
+      >
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          {/* Header */}
+          <div className="flex items-end justify-between mb-6">
+            <div>
+              <div className="flex items-center gap-4 mb-4">
+                <div className="w-24 h-24 flex items-center justify-center">
+                  <Image
+                    src="/icons/telescope.svg"
+                    alt="Telescope"
+                    width={64}
+                    height={64}
+                  />
+                </div>
+                <div>
+                  <h2 className="text-4xl font-bold uppercase tracking-tight text-white">
+                    Beyond Horizons
+                  </h2>
+                  <div className="h-1 bg-white w-24 mt-1"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Loading state */}
+          <div className="flex justify-center items-center py-16">
+            <Loader overlay />
+          </div>
+        </div>
+      </motion.section>
+    );
   }
 
   return (

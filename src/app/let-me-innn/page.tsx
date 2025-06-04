@@ -1,10 +1,10 @@
-'use client';
+"use client";
 
-import { useEffect, useState, useCallback, Suspense } from 'react';
-import { useSearchParams, useRouter } from 'next/navigation';
-import { signIn, getSession } from 'next-auth/react';
-import Link from 'next/link';
-import { Lock } from 'lucide-react';
+import { useEffect, useState, useCallback, Suspense } from "react";
+import { useSearchParams, useRouter } from "next/navigation";
+import { signIn, getSession } from "next-auth/react";
+import Link from "next/link";
+import { Lock } from "lucide-react";
 
 function LoginContent() {
   const searchParams = useSearchParams();
@@ -12,55 +12,58 @@ function LoginContent() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const handleCASCallback = useCallback(async (ticket: string) => {
-    setLoading(true);
-    setError(null);
+  const handleCASCallback = useCallback(
+    async (ticket: string) => {
+      setLoading(true);
+      setError(null);
 
-    try {
-      const serviceUrl = `${window.location.origin}/let-me-innn`;
-      
-      const result = await signIn('credentials', {
-        ticket,
-        service: serviceUrl,
-        redirect: false,
-      });
+      try {
+        const serviceUrl = `${window.location.origin}/let-me-innn`;
 
-      if (result?.error) {
-        setError('Authentication failed. Please try again.');
-      } else {
-        // Check if user has proper role
-        const session = await getSession();
-        interface ExtendedUser {
-          id?: string;
-          name?: string | null;
-          email?: string | null;
-          image?: string | null;
-                  roles?: string[];
-        }
-        
-        const user = session?.user as ExtendedUser;
-        const userRoles = user?.roles || [];
-        
-        console.log('Login redirect - User roles:', userRoles);
-        
-        if (userRoles.includes('admin')) {
-          router.push('/imtheboss');
-        } else if (userRoles.includes('writer')) {
-          router.push('/clicktiy-clackity-blogs-are-my-property');
+        const result = await signIn("credentials", {
+          ticket,
+          service: serviceUrl,
+          redirect: false,
+        });
+
+        if (result?.error) {
+          setError("Authentication failed. Please try again.");
         } else {
-          router.push('/stay-away-snooper');
+          // Check if user has proper role
+          const session = await getSession();
+          interface ExtendedUser {
+            id?: string;
+            name?: string | null;
+            email?: string | null;
+            image?: string | null;
+            roles?: string[];
+          }
+
+          const user = session?.user as ExtendedUser;
+          const userRoles = user?.roles || [];
+
+          console.log("Login redirect - User roles:", userRoles);
+
+          if (userRoles.includes("admin")) {
+            router.push("/imtheboss");
+          } else if (userRoles.includes("writer")) {
+            router.push("/clickity-clackity-blogs-are-my-property");
+          } else {
+            router.push("/stay-away-snooper");
+          }
         }
+      } catch {
+        setError("An error occurred during authentication.");
+      } finally {
+        setLoading(false);
       }
-    } catch {
-      setError('An error occurred during authentication.');
-    } finally {
-      setLoading(false);
-    }
-  }, [router]);
+    },
+    [router]
+  );
 
   useEffect(() => {
-    const ticket = searchParams.get('ticket');
-    
+    const ticket = searchParams.get("ticket");
+
     if (ticket) {
       // Handle CAS callback
       handleCASCallback(ticket);
@@ -69,7 +72,9 @@ function LoginContent() {
 
   const initiateLogin = () => {
     const serviceUrl = `${window.location.origin}/let-me-innn`;
-    const casLoginUrl = `https://login.iiit.ac.in/cas/login?service=${encodeURIComponent(serviceUrl)}`;
+    const casLoginUrl = `https://login.iiit.ac.in/cas/login?service=${encodeURIComponent(
+      serviceUrl
+    )}`;
     window.location.href = casLoginUrl;
   };
 
@@ -90,21 +95,21 @@ function LoginContent() {
         <div className="mb-4">
           <Lock size={96} className="mx-auto text-blue-500" />
         </div>
-        
+
         <h1 className="text-2xl sm:text-4xl font-bold text-white mb-4">
           Authentication Required
         </h1>
-        
+
         <p className="text-lg sm:text-xl text-gray-300 mb-6">
           Please sign in with your IIIT credentials to access the admin panel.
         </p>
-        
+
         {error && (
           <div className="bg-red-900 border border-red-600 text-red-200 px-4 py-3 rounded-lg mb-6">
             {error}
           </div>
         )}
-        
+
         <div className="space-y-4">
           <button
             onClick={initiateLogin}
@@ -112,7 +117,7 @@ function LoginContent() {
           >
             Sign In with IIIT CAS
           </button>
-          
+
           <Link
             href="/"
             className="inline-block text-gray-400 hover:text-white transition-colors"
@@ -127,7 +132,13 @@ function LoginContent() {
 
 export default function LoginPage() {
   return (
-    <Suspense fallback={<div className="min-h-screen bg-black flex items-center justify-center"><div className="text-white">Loading...</div></div>}>
+    <Suspense
+      fallback={
+        <div className="min-h-screen bg-black flex items-center justify-center">
+          <div className="text-white">Loading...</div>
+        </div>
+      }
+    >
       <LoginContent />
     </Suspense>
   );
