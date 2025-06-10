@@ -103,6 +103,31 @@ const EventTimelineItem: React.FC<{ event: Event; index: number }> = ({
         <div className="w-1 h-1 sm:w-1.5 sm:h-1.5 md:w-2 md:h-2 bg-white rounded-full"></div>
       </div>
 
+      {/* Desktop: Date badge on OPPOSITE side of timeline from event card */}
+      <div
+        className={`hidden md:block absolute top-1/2 transform -translate-y-1/2 z-20 ${
+          index % 2 === 0
+            ? "right-1/2 mr-16"
+            : "left-1/2 ml-16"
+        }`}
+      >
+        <div
+          className={`${
+            typeColor.split(" ")[0]
+          } bg-background border-3 md:border-4 p-5 md:p-7 text-center shadow-[8px_8px_0px_0px_rgba(128,128,128,0.7)] min-w-[120px] md:min-w-[140px] transform hover:scale-105 transition-transform duration-200`}
+        >
+          <div className="text-3xl md:text-4xl font-black text-white mb-1">
+            {formattedDate.day}
+          </div>
+          <div className="text-base md:text-lg font-bold text-white uppercase tracking-wider">
+            {formattedDate.month}
+          </div>
+          <div className="text-sm md:text-base font-bold text-white uppercase tracking-wider opacity-90">
+            {formattedDate.year}
+          </div>
+        </div>
+      </div>
+
       {/* Event card - Mobile: always right of spine, Desktop: alternating */}
       <div
         className={`w-full ml-12 sm:ml-14 md:ml-0 md:w-5/12 mb-12 sm:mb-14 md:mb-16 backdrop-blur-sm ${
@@ -114,9 +139,9 @@ const EventTimelineItem: React.FC<{ event: Event; index: number }> = ({
           whileTap={{ scale: 0.98, transition: { duration: 0.1 } }}
           className={`bg-background border-2 sm:border-3 md:border-4 shadow-[4px_4px_0px_0px_rgba(128,128,128,0.5)] sm:shadow-[6px_6px_0px_0px_rgba(128,128,128,0.5)] md:shadow-[8px_8px_0px_0px_rgba(128,128,128,0.5)] hover:shadow-[6px_6px_0px_0px_rgba(128,128,128,0.5)] sm:hover:shadow-[8px_8px_0px_0px_rgba(128,128,128,0.5)] md:hover:shadow-[12px_12px_0px_0px_rgba(128,128,128,0.5)] transition-all duration-300 ${typeColor}`}
         >
-          {/* Date badge */}
+          {/* Date badge - Mobile and tablet only, hidden on desktop */}
           <div
-            className={`${
+            className={`md:hidden ${
               typeColor.split(" ")[0]
             } bg-background border-b-2 sm:border-b-3 md:border-b-4 p-3 sm:p-4 text-center`}
           >
