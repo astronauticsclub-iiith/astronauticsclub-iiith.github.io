@@ -106,9 +106,7 @@ const EventTimelineItem: React.FC<{ event: Event; index: number }> = ({
       {/* Desktop: Date badge on OPPOSITE side of timeline from event card */}
       <div
         className={`hidden md:block absolute top-1/2 transform -translate-y-1/2 z-20 ${
-          index % 2 === 0
-            ? "right-1/2 mr-16"
-            : "left-1/2 ml-16"
+          index % 2 === 0 ? "right-1/2 mr-16" : "left-1/2 ml-16"
         }`}
       >
         <div
@@ -242,6 +240,7 @@ const EventTimelineItem: React.FC<{ event: Event; index: number }> = ({
                   </span>
                 </div>
               )}
+
               {event.organizer && (
                 <div className="text-xs text-[#e0e0e0] mt-3 border-t-2 border-white pt-2">
                   <span className="font-bold">Organized by:</span>{" "}
@@ -250,6 +249,26 @@ const EventTimelineItem: React.FC<{ event: Event; index: number }> = ({
               )}
             </div>
           </div>
+
+          {/* Registration Button - Separate bordered section */}
+          {event.registrationLink && (
+            <div
+              className={`${
+                typeColor.split(" ")[0]
+              } bg-background border-t-2 sm:border-t-3 md:border-t-4`}
+            >
+              <motion.a
+                href={event.registrationLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                className="inline-block w-full text-center px-4 py-3 border-2 border-white bg-background text-white font-bold text-sm uppercase tracking-wider transition-all duration-200 hover:bg-white hover:text-background shadow-[2px_2px_0px_0px_rgba(128,128,128,0.5)] hover:shadow-[4px_4px_0px_0px_rgba(128,128,128,0.5)]"
+              >
+                Register
+              </motion.a>
+            </div>
+          )}
         </motion.div>
       </div>
     </motion.div>

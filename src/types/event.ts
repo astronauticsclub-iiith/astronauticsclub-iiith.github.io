@@ -18,6 +18,7 @@ export interface Event {
   image?: string;
   participants?: number;
   organizer?: string;
+  registrationLink?: string; // Optional registration URL
   status: "upcoming" | "ongoing" | "completed" | "cancelled";
   createdAt?: Date;
   updatedAt?: Date;

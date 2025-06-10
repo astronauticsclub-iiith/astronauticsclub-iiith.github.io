@@ -127,6 +127,7 @@ const AdminEventCard: React.FC<AdminEventCardProps> = ({
       type: event.type,
       participants: event.participants,
       organizer: event.organizer || "",
+      registrationLink: event.registrationLink || "",
       status: event.status,
       image: event.image || "",
     });
@@ -140,13 +141,22 @@ const AdminEventCard: React.FC<AdminEventCardProps> = ({
     try {
       const updatedData = { ...editedEvent };
 
-      // Remove empty fields
+      // Always include registrationLink in updates (can be empty string)
+      if (!updatedData.hasOwnProperty("registrationLink")) {
+        updatedData.registrationLink = "";
+      }
+
+      console.log("Updating event with data:", updatedData);
+      console.log("Registration link in update:", updatedData.registrationLink);
+
+      // Remove empty fields except for optional fields that should be preserved
       Object.keys(updatedData).forEach((key) => {
         if (
           updatedData[key as keyof Event] === "" &&
           key !== "time" &&
           key !== "location" &&
-          key !== "organizer"
+          key !== "organizer" &&
+          key !== "registrationLink"
         ) {
           delete updatedData[key as keyof Event];
         }
@@ -414,6 +424,23 @@ const AdminEventCard: React.FC<AdminEventCardProps> = ({
               </div>
             </div>
 
+            {/* Registration Link */}
+            <div>
+              <label className="block text-white text-xs font-bold mb-1 uppercase">
+                Registration Link (Optional)
+              </label>
+              <input
+                type="url"
+                value={editedEvent.registrationLink || ""}
+                onChange={(e) =>
+                  updateEditedEvent("registrationLink", e.target.value)
+                }
+                className="w-full bg-background border-2 border-white p-2 text-white font-medium text-sm transition-all duration-200 focus:scale-[1.02] focus:ring-2 focus:ring-white"
+                placeholder="https://example.com/register"
+                disabled={isSubmitting}
+              />
+            </div>
+
             {/* Image Selection */}
             <ImageSelector
               selectedImage={editedEvent.image || ""}
@@ -511,6 +538,20 @@ const AdminEventCard: React.FC<AdminEventCardProps> = ({
                 <div className="text-[#e0e0e0] text-xs sm:text-sm">
                   <span className="font-bold">Organizer:</span>{" "}
                   {event.organizer}
+                </div>
+              )}
+
+              {event.registrationLink && (
+                <div className="text-[#e0e0e0] text-xs sm:text-sm">
+                  <span className="font-bold">Registration:</span>{" "}
+                  <a
+                    href={event.registrationLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-400 hover:text-blue-300 underline break-all"
+                  >
+                    {event.registrationLink}
+                  </a>
                 </div>
               )}
 

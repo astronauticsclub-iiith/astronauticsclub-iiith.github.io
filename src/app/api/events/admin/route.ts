@@ -10,21 +10,19 @@ export async function GET() {
     await requireAdmin();
     await connectToDatabase();
 
-    const events = await Event.find({})
-      .sort({ date: -1 })
-      .lean();
+    const events = await Event.find({}).sort({ date: -1 }).lean();
 
     return NextResponse.json({ events });
   } catch (error) {
     console.error("Error fetching admin events:", error);
-    
+
     if (error instanceof Error && error.message.includes("access required")) {
       return NextResponse.json(
         { error: "Admin access required" },
         { status: 403 }
       );
     }
-    
+
     return NextResponse.json(
       { error: "Failed to fetch events" },
       { status: 500 }
@@ -40,6 +38,9 @@ export async function POST(request: NextRequest) {
 
     const eventData = await request.json();
 
+    console.log("API: Received event data:", eventData);
+    console.log("API: Registration link:", eventData.registrationLink);
+
     // Validate required fields
     const requiredFields = ["id", "title", "description", "date", "type"];
     for (const field of requiredFields) {
@@ -54,13 +55,13 @@ export async function POST(request: NextRequest) {
     // Validate event type
     const validTypes = [
       "stargazing",
-      "starparty", 
+      "starparty",
       "astrophotography",
       "theory",
       "competition",
       "workshop",
       "project",
-      "other"
+      "other",
     ];
     if (!validTypes.includes(eventData.type)) {
       return NextResponse.json(
@@ -92,10 +93,14 @@ export async function POST(request: NextRequest) {
     // Create new event
     const newEvent = new Event({
       ...eventData,
-      status: eventData.status || "upcoming"
+      status: eventData.status || "upcoming",
     });
 
+    console.log("API: About to save event with data:", newEvent.toObject());
+
     await newEvent.save();
+
+    console.log("API: Event saved successfully:", newEvent.toObject());
 
     // Log the action
     Logger.info("Event created", {
@@ -106,24 +111,24 @@ export async function POST(request: NextRequest) {
         eventId: newEvent.id,
         title: newEvent.title,
         type: newEvent.type,
-        date: newEvent.date
+        date: newEvent.date,
       },
     });
 
     return NextResponse.json({
       message: "Event created successfully",
-      event: newEvent
+      event: newEvent,
     });
   } catch (error) {
     console.error("Error creating event:", error);
-    
+
     if (error instanceof Error && error.message.includes("access required")) {
       return NextResponse.json(
         { error: "Admin access required" },
         { status: 403 }
       );
     }
-    
+
     return NextResponse.json(
       { error: "Failed to create event" },
       { status: 500 }
@@ -152,12 +157,12 @@ export async function PUT(request: NextRequest) {
       const validTypes = [
         "stargazing",
         "starparty",
-        "astrophotography", 
+        "astrophotography",
         "theory",
         "competition",
         "workshop",
         "project",
-        "other"
+        "other",
       ];
       if (!validTypes.includes(eventData.type)) {
         return NextResponse.json(
@@ -181,16 +186,20 @@ export async function PUT(request: NextRequest) {
     // Find and update the event
     const existingEvent = await Event.findOne({ id });
     if (!existingEvent) {
-      return NextResponse.json(
-        { error: "Event not found" },
-        { status: 404 }
-      );
+      return NextResponse.json({ error: "Event not found" }, { status: 404 });
     }
 
     const updatedEvent = await Event.findOneAndUpdate(
       { id },
       { $set: eventData },
       { new: true, runValidators: true }
+    );
+
+    console.log("API PUT: Received event data:", eventData);
+
+    console.log(
+      "API PUT: Event updated successfully:",
+      updatedEvent?.toObject()
     );
 
     // Log the action
@@ -201,24 +210,24 @@ export async function PUT(request: NextRequest) {
       details: {
         eventId: id,
         title: updatedEvent?.title,
-        changes: eventData
+        changes: eventData,
       },
     });
 
     return NextResponse.json({
       message: "Event updated successfully",
-      event: updatedEvent
+      event: updatedEvent,
     });
   } catch (error) {
     console.error("Error updating event:", error);
-    
+
     if (error instanceof Error && error.message.includes("access required")) {
       return NextResponse.json(
         { error: "Admin access required" },
         { status: 403 }
       );
     }
-    
+
     return NextResponse.json(
       { error: "Failed to update event" },
       { status: 500 }
@@ -245,10 +254,7 @@ export async function DELETE(request: NextRequest) {
     // Find the event first to get details for logging
     const event = await Event.findOne({ id });
     if (!event) {
-      return NextResponse.json(
-        { error: "Event not found" },
-        { status: 404 }
-      );
+      return NextResponse.json({ error: "Event not found" }, { status: 404 });
     }
 
     // Delete the event
@@ -263,23 +269,23 @@ export async function DELETE(request: NextRequest) {
         eventId: id,
         title: event.title,
         type: event.type,
-        date: event.date
+        date: event.date,
       },
     });
 
     return NextResponse.json({
-      message: "Event deleted successfully"
+      message: "Event deleted successfully",
     });
   } catch (error) {
     console.error("Error deleting event:", error);
-    
+
     if (error instanceof Error && error.message.includes("access required")) {
       return NextResponse.json(
         { error: "Admin access required" },
         { status: 403 }
       );
     }
-    
+
     return NextResponse.json(
       { error: "Failed to delete event" },
       { status: 500 }

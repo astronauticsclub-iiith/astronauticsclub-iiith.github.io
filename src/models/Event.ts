@@ -33,6 +33,7 @@ const EventSchema = new Schema<EventDocument>(
     image: { type: String },
     participants: { type: Number },
     organizer: { type: String },
+    registrationLink: { type: String }, // Optional registration URL
     status: {
       type: String,
       required: true,

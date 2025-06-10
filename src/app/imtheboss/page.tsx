@@ -109,6 +109,7 @@ export default function AdminDashboard() {
     type: "stargazing" as const,
     participants: undefined as number | undefined,
     organizer: "",
+    registrationLink: "",
     status: "upcoming" as const,
     image: "",
   });
@@ -465,6 +466,7 @@ export default function AdminDashboard() {
         date: newEvent.date,
         type: newEvent.type,
         status: newEvent.status,
+        registrationLink: newEvent.registrationLink || "",
         ...(newEvent.time && { time: newEvent.time }),
         ...(newEvent.location && { location: newEvent.location }),
         ...(newEvent.organizer && { organizer: newEvent.organizer }),
@@ -473,6 +475,9 @@ export default function AdminDashboard() {
         }),
         ...(newEvent.image && { image: newEvent.image }),
       };
+
+      console.log("Creating event with data:", eventData);
+      console.log("Registration link value:", newEvent.registrationLink);
 
       const response = await fetch("/api/events/admin", {
         method: "POST",
@@ -491,6 +496,7 @@ export default function AdminDashboard() {
           type: "stargazing",
           participants: undefined,
           organizer: "",
+          registrationLink: "",
           status: "upcoming",
           image: "",
         });
@@ -1296,6 +1302,20 @@ export default function AdminDashboard() {
                     className="bg-background border-2 border-white p-3 sm:p-4 text-white font-medium placeholder-[#666] uppercase text-sm sm:text-base transition-all duration-200 focus:scale-[1.02] hover:border-opacity-80 focus:ring-2 focus:ring-white focus:border-white"
                   />
                 </div>
+
+                {/* Registration Link */}
+                <input
+                  type="url"
+                  placeholder="REGISTRATION LINK (OPTIONAL)"
+                  value={newEvent.registrationLink}
+                  onChange={(e) =>
+                    setNewEvent({
+                      ...newEvent,
+                      registrationLink: e.target.value,
+                    })
+                  }
+                  className="w-full bg-background border-2 border-white p-3 sm:p-4 text-white font-medium placeholder-[#666] uppercase text-sm sm:text-base transition-all duration-200 focus:scale-[1.02] hover:border-opacity-80 focus:ring-2 focus:ring-white focus:border-white"
+                />
 
                 {/* Image Selection */}
                 <ImageSelector
