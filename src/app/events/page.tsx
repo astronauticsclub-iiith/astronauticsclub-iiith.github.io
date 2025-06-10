@@ -7,7 +7,6 @@ import {
   Filter,
   X,
   ChevronDown,
-  Calendar,
   Clock,
   Star,
   Rocket,
@@ -19,10 +18,10 @@ import {
 } from "lucide-react";
 import EventTimeline from "@/components/features/EventTimeline";
 import Loader from "@/components/ui/Loader";
+import WhimsicalEventsIcon from "@/components/features/WhimsicalEventsIcon";
 import { Event, EventFilters } from "@/types/event";
 import { fetchEvents } from "@/lib/api";
 import "@/components/ui/bg-patterns.css";
-import Image from "next/image";
 
 const EventsPage = () => {
   const [events, setEvents] = useState<Event[]>([]);
@@ -222,12 +221,7 @@ const EventsPage = () => {
         >
           <div className="flex items-center gap-6 mb-6">
             <div className="w-16 h-16 flex items-center justify-center">
-              <Image
-                src="/icons/events.svg"
-                alt="Events"
-                width={64}
-                height={64}
-              />
+              <WhimsicalEventsIcon width={64} height={64} />
             </div>
             <div>
               <h1 className="text-2xl md:text-3xl lg:text-6xl font-black uppercase tracking-tighter text-white text-shadow-brutal">

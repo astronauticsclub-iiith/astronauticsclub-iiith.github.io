@@ -1,0 +1,188 @@
+/* Whimsical Events Icon Styles */
+.whimsical-events-icon {
+  display: inline-block;
+  cursor: pointer;
+  transition: transform 0.3s ease-out, filter 0.3s ease-out;
+  animation: icon-wiggle 1s infinite ease-in-out;
+}
+
+@keyframes icon-wiggle {
+  0%,
+  100% {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(2deg);
+  }
+}
+
+.whimsical-events-svg {
+  width: 100%;
+  height: 100%;
+}
+
+/* Antenna vibration animations */
+.antenna-left {
+  transform-origin: 7px 6px; /* Bottom center of the left antenna in SVG coords */
+  animation: antenna-vibrate-left 3s infinite;
+}
+
+.antenna-right {
+  transform-origin: 17px 6px; /* Bottom center of the right antenna in SVG coords */
+  animation: antenna-vibrate-right 3s infinite;
+}
+
+/* Left antenna vibration - slightly different timing */
+@keyframes antenna-vibrate-left {
+  0%,
+  85%,
+  100% {
+    transform: rotate(0deg);
+  }
+  86% {
+    transform: rotate(8deg);
+  }
+  87% {
+    transform: rotate(-6deg);
+  }
+  88% {
+    transform: rotate(6deg);
+  }
+  89% {
+    transform: rotate(-4deg);
+  }
+  90% {
+    transform: rotate(4deg);
+  }
+  91% {
+    transform: rotate(-3deg);
+  }
+  92% {
+    transform: rotate(3deg);
+  }
+  93% {
+    transform: rotate(-1deg);
+  }
+  94% {
+    transform: rotate(1deg);
+  }
+  95%,
+  96%,
+  97%,
+  98%,
+  99% {
+    transform: rotate(0deg);
+  }
+}
+
+/* Right antenna vibration - slightly offset timing */
+@keyframes antenna-vibrate-right {
+  0%,
+  84%,
+  100% {
+    transform: rotate(0deg);
+  }
+  85% {
+    transform: rotate(-8deg);
+  }
+  86% {
+    transform: rotate(6deg);
+  }
+  87% {
+    transform: rotate(-6deg);
+  }
+  88% {
+    transform: rotate(4deg);
+  }
+  89% {
+    transform: rotate(-4deg);
+  }
+  90% {
+    transform: rotate(3deg);
+  }
+  91% {
+    transform: rotate(-3deg);
+  }
+  92% {
+    transform: rotate(1deg);
+  }
+  93% {
+    transform: rotate(-1deg);
+  }
+  94%,
+  95%,
+  96%,
+  97%,
+  98%,
+  99% {
+    transform: rotate(0deg);
+  }
+}
+
+/* Hover effects when whimsy mode is on */
+.whimsical-events-icon:hover .antenna-left {
+  animation: antenna-vibrate-left 0.2s infinite,
+    antenna-hover-left 0.3s ease-in-out infinite alternate;
+}
+
+.whimsical-events-icon:hover .antenna-right {
+  animation: antenna-vibrate-right 0.2s infinite,
+    antenna-hover-right 0.3s ease-in-out infinite alternate;
+}
+
+/* More intense vibration on hover */
+@keyframes antenna-hover-left {
+  0% {
+    transform: rotate(-3deg);
+  }
+  100% {
+    transform: rotate(3deg);
+  }
+}
+
+@keyframes antenna-hover-right {
+  0% {
+    transform: rotate(3deg);
+  }
+  100% {
+    transform: rotate(-3deg);
+  }
+}
+
+/* Glow effect variables are handled via inline styles */
+.whimsical-events-icon {
+  will-change: transform, filter;
+}
+
+/* Add a subtle base glow in whimsy mode */
+.whimsical-events-svg {
+  filter: drop-shadow(0 0 2px rgba(118, 166, 201, 0.3));
+  transition: filter 0.3s ease-out;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .antenna-left,
+  .antenna-right {
+    animation-duration: 4s; /* Slower on mobile to be less distracting */
+  }
+
+  .whimsical-events-icon:hover .antenna-left,
+  .whimsical-events-icon:hover .antenna-right {
+    animation-duration: 0.4s, 0.6s; /* Slightly slower hover animations on mobile */
+  }
+}
+
+/* Reduce motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .antenna-left,
+  .antenna-right,
+  .whimsical-events-icon:hover .antenna-left,
+  .whimsical-events-icon:hover .antenna-right {
+    animation: none !important;
+  }
+
+  .whimsical-events-icon {
+    transition: filter 0.3s ease-out !important;
+  }
+}
