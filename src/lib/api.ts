@@ -1,6 +1,5 @@
 import { Blog, BlogFilters } from '@/types/blog';
-
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || '';
+import { Event, EventFilters, EventResponse } from '@/types/event';
 
 export async function fetchBlogs(filters?: Partial<BlogFilters>, page = 1, limit = 10) {
   try {
@@ -12,7 +11,7 @@ export async function fetchBlogs(filters?: Partial<BlogFilters>, page = 1, limit
     params.append('page', page.toString());
     params.append('limit', limit.toString());
 
-    const response = await fetch(`${API_BASE_URL}/blogs?${params}`);
+    const response = await fetch(`api/blogs?${params}`);
     
     if (!response.ok) {
       throw new Error('Failed to fetch blogs');
@@ -27,7 +26,7 @@ export async function fetchBlogs(filters?: Partial<BlogFilters>, page = 1, limit
 
 export async function fetchBlogBySlug(slug: string): Promise<Blog> {
   try {
-    const response = await fetch(`${API_BASE_URL}/blogs/${slug}`);
+    const response = await fetch(`/api/blogs/${slug}`);
     
     if (!response.ok) {
       throw new Error('Failed to fetch blog');
@@ -42,7 +41,7 @@ export async function fetchBlogBySlug(slug: string): Promise<Blog> {
 
 export async function incrementBlogViews(slug: string): Promise<{ views: number }> {
   try {
-    const response = await fetch(`${API_BASE_URL}/blogs/${slug}`, {
+    const response = await fetch(`/api/blogs/${slug}`, {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
@@ -68,7 +67,7 @@ export async function toggleBlogLike(
   userId: string
 ): Promise<{ likes: number; hasLiked: boolean }> {
   try {
-    const response = await fetch(`${API_BASE_URL}/blogs/${slug}`, {
+    const response = await fetch(`/api/blogs/${slug}`, {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
@@ -92,7 +91,7 @@ export async function toggleBlogLike(
 
 export async function createBlog(blogData: Omit<Blog, '_id' | 'createdAt' | 'updatedAt'>): Promise<Blog> {
   try {
-    const response = await fetch(`${API_BASE_URL}/blogs`, {
+    const response = await fetch(`/api/blogs`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -113,7 +112,7 @@ export async function createBlog(blogData: Omit<Blog, '_id' | 'createdAt' | 'upd
 
 export async function updateBlog(slug: string, blogData: Partial<Blog>): Promise<Blog> {
   try {
-    const response = await fetch(`${API_BASE_URL}/blogs/${slug}`, {
+    const response = await fetch(`/api/blogs/${slug}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -134,7 +133,7 @@ export async function updateBlog(slug: string, blogData: Partial<Blog>): Promise
 
 export async function deleteBlog(slug: string): Promise<{ message: string }> {
   try {
-    const response = await fetch(`${API_BASE_URL}/blogs/${slug}`, {
+    const response = await fetch(`/api/blogs/${slug}`, {
       method: 'DELETE',
     });
 
@@ -160,4 +159,50 @@ export function generateUserId(): string {
   const newId = `anon_${Date.now()}_${Math.random().toString(36).substring(2, 11)}`;
   localStorage.setItem('anonymous_user_id', newId);
   return newId;
+}
+
+// Events API functions
+export async function fetchEvents(filters?: Partial<EventFilters>, page = 1, limit = 50): Promise<EventResponse> {
+  try {
+    const params = new URLSearchParams();
+    
+    if (filters?.search) params.append('search', filters.search);
+    if (filters?.type && filters.type.length > 0) params.append('type', filters.type.join(','));
+    if (filters?.status && filters.status.length > 0) params.append('status', filters.status.join(','));
+    if (filters?.sortBy) params.append('sortBy', filters.sortBy);
+    params.append('page', page.toString());
+    params.append('limit', limit.toString());
+
+    const response = await fetch(`/api/events?${params}`);
+    
+    if (!response.ok) {
+      throw new Error('Failed to fetch events');
+    }
+
+    return await response.json();
+  } catch (error) {
+    console.error('Error fetching events:', error);
+    throw error;
+  }
+}
+
+export async function createEvent(eventData: Omit<Event, '_id' | 'createdAt' | 'updatedAt'>): Promise<Event> {
+  try {
+    const response = await fetch(`/api/events`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(eventData),
+    });
+
+    if (!response.ok) {
+      throw new Error('Failed to create event');
+    }
+
+    return await response.json();
+  } catch (error) {
+    console.error('Error creating event:', error);
+    throw error;
+  }
 }
