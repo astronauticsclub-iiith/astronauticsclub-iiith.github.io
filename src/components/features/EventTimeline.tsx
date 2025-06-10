@@ -156,7 +156,7 @@ const EventTimelineItem: React.FC<{ event: Event; index: number }> = ({
             <div
               className={`${
                 typeColor.split(" ")[0]
-              } relative h-36 sm:h-40 md:h-48 border-b-2 sm:border-b-3 md:border-b-4 overflow-hidden`}
+              } relative h-36 sm:h-40 md:h-48 border-b-2 sm:border-b-3 md:border-b-4 overflow-hidden cursor-open`}
             >
               <Image
                 src={event.image}
