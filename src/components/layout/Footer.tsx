@@ -85,6 +85,8 @@ const Footer: React.FC = () => {
               <a
                 href="mailto:astronauticsclub@students.iiit.ac.in"
                 className="flex items-center justify-center md:justify-end space-x-2 text-gray-300 duration-300 group"
+                target="_blank"
+                rel="noopener noreferrer"
               >
                 <Mail className="w-4 h-4 group-hover:scale-110 transition-transform duration-300" />
                 <span className="break-all">
@@ -95,6 +97,8 @@ const Footer: React.FC = () => {
               <a
                 href="tel:+919899199660"
                 className="flex items-center justify-center md:justify-end space-x-2 text-gray-300 duration-300 group"
+                target="_blank"
+                rel="noopener noreferrer"
               >
                 <Phone className="w-4 h-4 group-hover:scale-110 transition-transform duration-300" />
                 <span>+91 9899199660</span>

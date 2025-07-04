@@ -2,6 +2,7 @@
 
 import { JSX, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { ChevronDown } from "lucide-react";
 
 interface FAQItem {
   id: number;
@@ -18,61 +19,74 @@ const faqData: FAQItem[] = [
         The idea of starting an Astronomy club struck one of the founders on
         Himalaya block terrace where{" "}
         <a
-          className="link"
+          className="custom-link"
           href="https://sites.google.com/view/praveen-paruchuri/"
+          target="_blank"
+          rel="noopener noreferrer"
         >
           Prof. Praveen Paruchuri
         </a>{" "}
         had invited everyone to witness the &quot;Super Blue Blood Moon&quot; -
         the lunar eclipse on 31st January 2018. Six freshmen:{" "}
-        <a className="link" href="https://www.linkedin.com/in/yash~chaurasia/">
+        <a
+          className="custom-link"
+          href="https://www.linkedin.com/in/yash~chaurasia/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
           Yash Chaurasia
         </a>
         ,{" "}
         <a
-          className="link"
+          className="custom-link"
           href="https://www.linkedin.com/in/jayadev-naram-468764167/"
           target="_blank"
+          rel="noopener noreferrer"
         >
           Jayadev Naram
         </a>
         ,{" "}
         <a
-          className="link"
+          className="custom-link"
           href="https://www.instagram.com/its_pk.s1210/"
           target="_blank"
+          rel="noopener noreferrer"
         >
           Prajwal Krishna Maitin
         </a>
         ,{" "}
         <a
-          className="link"
+          className="custom-link"
           href="https://www.linkedin.com/in/tanmay-sinha-b747171b3/"
           target="_blank"
+          rel="noopener noreferrer"
         >
           Tanmay Kumar Sinha
         </a>
         ,{" "}
         <a
-          className="link"
+          className="custom-link"
           href="https://www.linkedin.com/in/siddharth--jain/"
           target="_blank"
+          rel="noopener noreferrer"
         >
           Siddharth Jain
         </a>{" "}
         and{" "}
         <a
-          className="link"
+          className="custom-link"
           href="https://www.linkedin.com/in/jainam-khakhra-94ab2b146/"
           target="_blank"
+          rel="noopener noreferrer"
         >
           Jainam Khakhra
         </a>{" "}
         decided to take this idea seriously and mailed{" "}
         <a
-          className="link"
+          className="custom-link"
           href="https://sites.google.com/site/subhadipmitra/"
           target="_blank"
+          rel="noopener noreferrer"
         >
           Prof. Subhadip Mitra
         </a>{" "}
@@ -81,9 +95,10 @@ const faqData: FAQItem[] = [
         <br />
         With support from{" "}
         <a
-          className="link"
+          className="custom-link"
           href="https://sites.google.com/site/radhika41"
           target="_blank"
+          rel="noopener noreferrer"
         >
           Prof. Radhika Mamidi
         </a>{" "}
@@ -94,17 +109,19 @@ const faqData: FAQItem[] = [
         different eyepieces, tripods etc. were procured in the following year
         enhancing observational capabilities. A special mention goes to{" "}
         <a
-          className="link"
+          className="custom-link"
           href="https://www.linkedin.com/in/ansh-puvvada-9071a2191/"
           target="_blank"
+          rel="noopener noreferrer"
         >
           Ansh Puvvada
         </a>{" "}
         and{" "}
         <a
-          className="link"
+          className="custom-link"
           href="https://www.instagram.com/shreyasbadami/"
           target="_blank"
+          rel="noopener noreferrer"
         >
           Shreyas Badami
         </a>
@@ -136,7 +153,7 @@ const faqData: FAQItem[] = [
       <div>
         We organize a mix of Astronomy and Aeronautics themed events. Some of
         our regular activities include:
-        <ul className="brutalist-list">
+        <ul className="list-disc list-inside pl-4 mt-2 text-white/80">
           <li>Stargazing sessions</li>
           <li>Starparty trips at the city outskirts</li>
           <li>Astrophotography nights</li>
@@ -156,8 +173,10 @@ const faqData: FAQItem[] = [
         We maintain an active presence on social media, making it easy to stay
         connected with us. For instant updates, join our{" "}
         <a
-          className="link"
+          className="custom-link"
           href="https://chat.whatsapp.com/DlOZnHdUTRO3PGmfrahozG"
+          target="_blank"
+          rel="noopener noreferrer"
         >
           WhatsApp Notifier Group
         </a>{" "}
@@ -165,8 +184,10 @@ const faqData: FAQItem[] = [
         <br />
         🚀 On{" "}
         <a
-          className="link"
+          className="custom-link"
           href="https://www.linkedin.com/company/astronauticsclub/"
+          target="_blank"
+          rel="noopener noreferrer"
         >
           LinkedIn
         </a>
@@ -175,8 +196,10 @@ const faqData: FAQItem[] = [
         <br />
         🌌 On{" "}
         <a
-          className="link"
+          className="custom-link"
           href="https://www.instagram.com/astronautics_club_iiith/"
+          target="_blank"
+          rel="noopener noreferrer"
         >
           Instagram
         </a>
@@ -214,127 +237,96 @@ export default function FAQSection() {
 
   return (
     <motion.section
-      className="brutalist-faq-container"
+      className="py-16 md:py-24"
       initial={{ opacity: 0, y: 40 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.8, delay: 0.2 }}
     >
-      <motion.div
-        className="brutalist-faq-header"
-        initial={{ opacity: 0, y: -30 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.4, duration: 0.8 }}
-      >
-        <motion.h1
-          className="brutalist-faq-heading"
-          initial={{ opacity: 0, x: -50 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ delay: 0.6, duration: 0.6 }}
-        >
-          FREQUENTLY ASKED QUESTIONS
-        </motion.h1>
+      <div className="max-w-4xl mx-auto">
         <motion.div
-          className="brutalist-faq-underline"
-          initial={{ width: 0 }}
-          animate={{ width: "100%" }}
-          transition={{ delay: 0.8, duration: 0.8, ease: "easeOut" }}
-        />
-        <motion.p
-          className="brutalist-faq-subheading"
-          initial={{ opacity: 0, y: 20 }}
+          className="text-center mb-12"
+          initial={{ opacity: 0, y: -30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1.0, duration: 0.6 }}
+          transition={{ delay: 0.4, duration: 0.8 }}
         >
-          Curious about our past, what kind of events do we organize and how you
-          can join Astronautics Club? Find all your answers here!
-        </motion.p>
-      </motion.div>
-
-      <div className="brutalist-accordion">
-        {faqData.map((item, index) => (
+          <h1 className="text-4xl font-bold uppercase tracking-tight text-white">
+            Frequently Asked Questions
+          </h1>
           <motion.div
-            key={item.id}
-            className={`brutalist-accordion-item ${
-              openItem === item.id ? "active" : ""
-            }`}
-            initial={{ opacity: 0, y: 30, scale: 0.95 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            transition={{
-              delay: 1.2 + index * 0.1,
-              duration: 0.5,
-              ease: "easeOut",
-            }}
-            whileHover={{
-              y: -4,
-              transition: { duration: 0.2 },
-            }}
-          >
-            <motion.button
-              className="brutalist-accordion-trigger"
-              onClick={() => toggleItem(item.id)}
-              whileTap={{ scale: 0.98 }}
-              transition={{ duration: 0.1 }}
-            >
-              <span className="brutalist-accordion-question">
-                {item.question}
-              </span>
-              <motion.span
-                className="brutalist-accordion-icon"
-                animate={{
-                  rotate: openItem === item.id ? 180 : 0,
-                }}
-                transition={{ duration: 0.3, ease: "easeInOut" }}
-              >
-                ▼
-              </motion.span>
-            </motion.button>
+            className="h-1 bg-white w-24 mt-4 mx-auto"
+            initial={{ width: 0 }}
+            animate={{ width: "6rem" }}
+            transition={{ delay: 0.6, duration: 0.6 }}
+          ></motion.div>
+          <p className="mt-6 text-lg text-white/80 max-w-3xl mx-auto">
+            Curious about our past, what kind of events do we organize and how
+            you can join Astronautics Club? Find all your answers here!
+          </p>
+        </motion.div>
 
-            <AnimatePresence>
-              {openItem === item.id && (
+        <div className="space-y-4">
+          {faqData.map((item, index) => (
+            <motion.div
+              key={item.id}
+              className="border-2 border-white/20 bg-background/20 backdrop-blur-sm shadow-lg overflow-hidden"
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{
+                delay: 0.8 + index * 0.1,
+                duration: 0.5,
+                ease: "easeOut",
+              }}
+            >
+              <motion.button
+                className="w-full flex justify-between items-center p-6 text-left"
+                onClick={() => toggleItem(item.id)}
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+              >
+                <span className="text-xl font-semibold text-white">
+                  {item.question}
+                </span>
                 <motion.div
-                  className="brutalist-accordion-content"
-                  initial={{
-                    height: 0,
-                    opacity: 0,
-                    paddingTop: 0,
-                    paddingBottom: 0,
-                  }}
                   animate={{
-                    height: "auto",
-                    opacity: 1,
-                    paddingTop: "2rem",
-                    paddingBottom: "2rem",
+                    rotate: openItem === item.id ? 180 : 0,
                   }}
-                  exit={{
-                    height: 0,
-                    opacity: 0,
-                    paddingTop: 0,
-                    paddingBottom: 0,
-                  }}
-                  transition={{
-                    duration: 0.4,
-                    ease: "easeInOut",
-                  }}
-                  style={{ overflow: "hidden" }}
+                  transition={{ duration: 0.3, ease: "easeInOut" }}
                 >
-                  <motion.div
-                    className="brutalist-accordion-answer"
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -10 }}
-                    transition={{ delay: 0.1, duration: 0.3 }}
-                  >
-                    {typeof item.answer === "string" ? (
-                      <p>{item.answer}</p>
-                    ) : (
-                      item.answer
-                    )}
-                  </motion.div>
+                  <ChevronDown className="w-6 h-6 text-white" />
                 </motion.div>
-              )}
-            </AnimatePresence>
-          </motion.div>
-        ))}
+              </motion.button>
+
+              <AnimatePresence>
+                {openItem === item.id && (
+                  <motion.div
+                    className="overflow-hidden"
+                    initial={{ height: 0, opacity: 0 }}
+                    animate={{
+                      height: "auto",
+                      opacity: 1,
+                    }}
+                    exit={{
+                      height: 0,
+                      opacity: 0,
+                    }}
+                    transition={{
+                      duration: 0.4,
+                      ease: "easeInOut",
+                    }}
+                  >
+                    <div className="p-6 pt-0 text-white/80">
+                      {typeof item.answer === "string" ? (
+                        <p>{item.answer}</p>
+                      ) : (
+                        item.answer
+                      )}
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </motion.div>
+          ))}
+        </div>
       </div>
     </motion.section>
   );
