@@ -12,6 +12,7 @@ export async function GET() {
       email: user.email,
       name: user.name,
       role: user.role,
+      designations: user.designations,
       avatar: user.avatar,
       bio: user.bio,
       createdAt: user.createdAt,

@@ -4,6 +4,7 @@ export interface IUser extends Document {
   email: string;
   name?: string;
   role: 'admin' | 'writer' | 'none';
+  designations?: string[];
   avatar?: string;
   bio?: string;
   createdAt: Date;
@@ -28,6 +29,10 @@ const UserSchema: Schema = new Schema(
       enum: ['admin', 'writer', 'none'],
       required: true,
       default: 'none',
+    },
+    designations: {
+      type: [String],
+      default: [],
     },
     avatar: {
       type: String,

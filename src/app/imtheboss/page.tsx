@@ -25,6 +25,7 @@ import CustomConfirm from "@/components/ui/CustomConfirm";
 import AdminPhotoCard from "@/components/admin/AdminPhotoCard";
 import AdminEventCard from "@/components/admin/AdminEventCard";
 import ImageSelector from "@/components/admin/ImageSelector";
+import DesignationCombobox from "@/components/admin/DesignationCombobox";
 import { useAlert } from "@/hooks/useAlert";
 import { Event } from "@/types/event";
 import "@/components/ui/bg-patterns.css";
@@ -42,6 +43,7 @@ interface User {
   email: string;
   name?: string;
   role: 'admin' | 'writer' | 'none';
+  designations?: string[];
   avatar?: string;
   createdAt: string;
 }
@@ -52,6 +54,7 @@ interface UserProfile {
   name?: string;
   avatar?: string;
   role: 'admin' | 'writer' | 'none';
+  designations?: string[];
 }
 
 interface LogEntry {
@@ -80,6 +83,7 @@ export default function AdminDashboard() {
   const { data: session, status } = useSession();
   const router = useRouter();
   const [users, setUsers] = useState<User[]>([]);
+  const [allDesignations, setAllDesignations] = useState<string[]>([]);
   const [logs, setLogs] = useState<LogEntry[]>([]);
   const [logsLoading, setLogsLoading] = useState(false);
   const [activeTab, setActiveTab] = useState<
@@ -137,6 +141,8 @@ export default function AdminDashboard() {
       if (response.ok) {
         const data = await response.json();
         setUsers(data);
+        const designations = Array.from(new Set(data.flatMap((u: User) => u.designations || []))) as string[];
+        setAllDesignations(designations);
       }
     } catch (error) {
       console.error("Error fetching users:", error);
@@ -298,6 +304,26 @@ export default function AdminDashboard() {
     } catch (error) {
       console.error("Error adding user:", error);
       showError("Failed to add user");
+    }
+  };
+
+  const updateUserDesignations = async (userId: string, designations: string[]) => {
+    try {
+      const response = await fetch(`/api/users/${userId}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ designations }),
+      });
+
+      if (response.ok) {
+        fetchUsers();
+        showSuccess("User designations updated successfully");
+      } else {
+        showError("Failed to update user designations");
+      }
+    } catch (error) {
+      console.error("Error updating user designations:", error);
+      showError("Failed to update user designations");
     }
   };
 
@@ -781,11 +807,18 @@ export default function AdminDashboard() {
                             setUserRole(user._id, user.role, e.target.value as "admin" | "writer" | "none")
                           }
                           className={`w-full sm:w-auto px-2 sm:px-3 py-1.5 sm:py-2 border-2 border-white font-bold text-xs sm:text-sm uppercase transition-all duration-200 hover:scale-105 active:scale-95 bg-background text-white`}
+                          disabled={user.email === session?.user?.email}
                         >
                           <option value="writer">Writer</option>
                           <option value="admin">Admin</option>
                           <option value="none">None</option>
                         </select>
+                        <DesignationCombobox
+                          selectedDesignations={user.designations || []}
+                          onChange={(designations) => updateUserDesignations(user._id, designations)}
+                          allDesignations={allDesignations}
+                          disabled={user.email === session?.user?.email}
+                        />
                       </div>
                     </div>
                   </motion.div>

@@ -10,6 +10,7 @@ interface UserProfile {
   avatar?: string;
   bio?: string;
   role: 'admin' | 'writer' | 'none';
+  designations?: string[];
 }
 
 interface ProfileEditorProps {
@@ -17,6 +18,7 @@ interface ProfileEditorProps {
   onProfileUpdate: (user: UserProfile) => void;
   onClose: () => void;
   showSuccess?: (message: string) => void;
+  isSelfEdit?: boolean;
 }
 
 export default function ProfileEditor({
@@ -24,6 +26,7 @@ export default function ProfileEditor({
   onProfileUpdate,
   onClose,
   showSuccess,
+  isSelfEdit = false,
 }: ProfileEditorProps) {
   const [formData, setFormData] = useState({
     name: user.name || "",
@@ -225,17 +228,34 @@ export default function ProfileEditor({
               />
             </div>
 
-            <div
-              className="animate-slide-in-from-left"
-              style={{ animationDelay: "0.4s" }}
-            >
-              <label className="block text-xs sm:text-sm font-bold text-white mb-1 sm:mb-2 uppercase tracking-wide">
-                ROLE
-              </label>
-              <div className="w-full bg-background border-2 border-white px-2 sm:px-3 md:px-4 py-1 sm:py-2 md:py-3 text-[#666] font-bold uppercase text-xs sm:text-sm md:text-base transition-colors duration-200 min-h-[2rem] sm:min-h-[2.5rem] flex items-center">
-                {user.role.toUpperCase()}
-              </div>
-            </div>
+            {!isSelfEdit && (
+              <>
+                <div
+                  className="animate-slide-in-from-left"
+                  style={{ animationDelay: "0.4s" }}
+                >
+                  <label className="block text-xs sm:text-sm font-bold text-white mb-1 sm:mb-2 uppercase tracking-wide">
+                    ROLE
+                  </label>
+                  <div className="w-full bg-background border-2 border-white px-2 sm:px-3 md:px-4 py-1 sm:py-2 md:py-3 text-[#666] font-bold uppercase text-xs sm:text-sm md:text-base transition-colors duration-200 min-h-[2rem] sm:min-h-[2.5rem] flex items-center">
+                    {user.role.toUpperCase()}
+                  </div>
+                </div>
+                <div
+                  className="animate-slide-in-from-left"
+                  style={{ animationDelay: "0.5s" }}
+                >
+                  <label className="block text-xs sm:text-sm font-bold text-white mb-1 sm:mb-2 uppercase tracking-wide">
+                    DESIGNATIONS
+                  </label>
+                  <div className="w-full bg-background border-2 border-white px-2 sm:px-3 md:px-4 py-1 sm:py-2 md:py-3 text-[#666] font-bold uppercase text-xs sm:text-sm md:text-base transition-colors duration-200 min-h-[2rem] sm:min-h-[2.5rem] flex items-center flex-wrap gap-2">
+                    {user.designations?.map((d) => (
+                      <span key={d} className="bg-white text-background px-2 py-1 text-xs font-bold uppercase">{d}</span>
+                    ))}
+                  </div>
+                </div>
+              </>
+            )}
           </div>
 
           {/* Action Buttons */}

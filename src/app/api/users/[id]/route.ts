@@ -13,7 +13,7 @@ export async function PUT(
     await connectToDatabase();
 
     const userData = await request.json();
-    const { name, role } = userData;
+    const { name, role, designations } = userData;
 
     if (role && !["admin", "writer", "none"].includes(role)) {
       return NextResponse.json(
@@ -23,9 +23,20 @@ export async function PUT(
     }
 
     const { id } = await params;
+
+    if (id === adminUser.id) {
+        if (role !== undefined || designations !== undefined) {
+            return NextResponse.json(
+                { error: "Admins cannot change their own role or designations." },
+                { status: 403 }
+            );
+        }
+    }
+
     const updateData: Record<string, unknown> = {};
     if (name !== undefined) updateData.name = name;
     if (role !== undefined) updateData.role = role;
+    if (designations !== undefined) updateData.designations = designations;
 
     const user = await User.findByIdAndUpdate(
       id,
