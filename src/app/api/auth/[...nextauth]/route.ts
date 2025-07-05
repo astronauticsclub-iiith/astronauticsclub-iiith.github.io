@@ -2,7 +2,7 @@ import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { parseStringPromise } from "xml2js";
 import { connectToDatabase } from "@/lib/mongodb";
-import User from "@/models/User";
+import User, { IUser } from "@/models/User";
 
 interface ExtendedUser {
   id?: string;
@@ -121,7 +121,7 @@ const handler = NextAuth({
 
           // Check if user exists in database and has appropriate role
           await connectToDatabase();
-          const dbUser = await User.findOne({ email }).lean();
+          const dbUser = await User.findOne({ email }).lean() as IUser | null;
 
           console.log("CAS Authentication - User lookup:", {
             email,

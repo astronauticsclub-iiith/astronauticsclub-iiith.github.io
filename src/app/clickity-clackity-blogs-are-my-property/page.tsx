@@ -88,6 +88,7 @@ export default function BlogAuthorDashboard() {
   const [showProfileEditor, setShowProfileEditor] = useState(false);
   const [showImageUploader, setShowImageUploader] = useState(false);
   const [userProfile, setUserProfile] = useState<UserProfile | null>(null);
+  const [currentUserRole, setCurrentUserRole] = useState<'admin' | 'writer' | 'none' | undefined>(undefined);
   const [newBlog, setNewBlog] = useState<NewBlog>({
     title: "",
     excerpt: "",
@@ -112,6 +113,7 @@ export default function BlogAuthorDashboard() {
 
     const user = session?.user as ExtendedUser;
     const userRole = user?.role;
+    setCurrentUserRole(userRole);
     if (userRole !== "admin" && userRole !== "writer") {
       router.push("/stay-away-snooper");
       return;
@@ -216,7 +218,9 @@ export default function BlogAuthorDashboard() {
           images: [],
         });
         setActiveTab("dashboard");
-        fetchMyBlogs();
+        if (currentUserRole) {
+          fetchMyBlogs(currentUserRole);
+        }
         showSuccess("Blog published successfully!");
       } else {
         const errorData = await response.json();
@@ -244,7 +248,9 @@ export default function BlogAuthorDashboard() {
       });
 
       if (response.ok) {
-        fetchMyBlogs();
+        if (currentUserRole) {
+          fetchMyBlogs(currentUserRole);
+        }
         showSuccess("Blog deleted successfully");
       } else {
         showError("Failed to delete blog");
@@ -288,7 +294,9 @@ export default function BlogAuthorDashboard() {
       if (response.ok) {
         setEditingBlog(null);
         setActiveTab("dashboard");
-        fetchMyBlogs();
+        if (currentUserRole) {
+          fetchMyBlogs(currentUserRole);
+        }
         showSuccess("Blog updated successfully!");
       } else {
         const errorData = await response.json();
