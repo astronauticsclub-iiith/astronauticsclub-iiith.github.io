@@ -1,0 +1,22 @@
+{
+  "name": "Astronautics Club IIIT Hyderabad",
+  "short_name": "Astronautics IIITH",
+  "description": "Where astronomy meets space technology. Experience stargazing sessions, participate in space projects, and explore the cosmos!",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#020001",
+  "theme_color": "#76a6c9",
+  "orientation": "any",
+  "icons": [
+    {
+      "src": "/android-chrome-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/android-chrome-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

@@ -6,18 +6,13 @@ export interface BlogDocument extends Omit<BlogInterface, '_id' | 'id'>, Documen
   id: string;
 }
 
-// Simplified author schema - only store email, fetch other details from User model
-const BlogAuthorSchema = new Schema({
-  email: { type: String, required: true },
-});
-
 const BlogSchema = new Schema<BlogDocument>({
   id: { type: String, required: true, unique: true },
   title: { type: String, required: true },
   slug: { type: String, required: true, unique: true, index: true },
   excerpt: { type: String, required: true },
   content: { type: String, required: true },
-  author: { type: BlogAuthorSchema, required: true },
+  author: { email: { type: String, required: true } },
   publishedAt: { type: String, required: true },
   readTime: { type: Number, required: true },
   tags: [{ type: String, required: true }],

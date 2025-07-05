@@ -34,14 +34,14 @@ interface ExtendedUser {
   name?: string | null;
   email?: string | null;
   image?: string | null;
-  roles?: string[];
+  role?: 'admin' | 'writer' | 'none';
 }
 
 interface User {
   _id: string;
   email: string;
   name?: string;
-  roles: ("admin" | "writer")[];
+  role: 'admin' | 'writer' | 'none';
   avatar?: string;
   createdAt: string;
 }
@@ -51,7 +51,7 @@ interface UserProfile {
   email: string;
   name?: string;
   avatar?: string;
-  roles: string[];
+  role: 'admin' | 'writer' | 'none';
 }
 
 interface LogEntry {
@@ -116,7 +116,7 @@ export default function AdminDashboard() {
   const [newUser, setNewUser] = useState({
     email: "",
     name: "",
-    roles: ["writer"] as ("admin" | "writer")[],
+    role: "writer" as "admin" | "writer" | "none",
   });
   const [loading, setLoading] = useState(true);
   const [showProfileEditor, setShowProfileEditor] = useState(false);
@@ -215,7 +215,7 @@ export default function AdminDashboard() {
     if (status === "loading") return;
 
     const user = session?.user as ExtendedUser;
-    if (!user?.roles || !user.roles.includes("admin")) {
+    if (user?.role !== "admin") {
       router.push("/stay-away-snooper");
       return;
     }
@@ -288,7 +288,7 @@ export default function AdminDashboard() {
       });
 
       if (response.ok) {
-        setNewUser({ email: "", name: "", roles: ["writer"] });
+        setNewUser({ email: "", name: "", role: "writer" });
         fetchUsers();
         showSuccess("User added successfully");
       } else {
@@ -301,33 +301,34 @@ export default function AdminDashboard() {
     }
   };
 
-  const updateUserRoles = async (
+  const updateUserRole = async (
     userId: string,
-    roles: ("admin" | "writer")[]
+    role: "admin" | "writer" | "none"
   ) => {
     try {
-      const response = await fetch(`/api/users/${userId}`, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ roles }),
-      });
+      const response = await fetch(`/api/users/${userId}`,
+        {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ role }),
+        });
 
       if (response.ok) {
         fetchUsers();
-        showSuccess("User roles updated successfully");
+        showSuccess("User role updated successfully");
       } else {
-        showError("Failed to update user roles");
+        showError("Failed to update user role");
       }
     } catch (error) {
-      console.error("Error updating user roles:", error);
-      showError("Failed to update user roles");
+      console.error("Error updating user role:", error);
+      showError("Failed to update user role");
     }
   };
 
-  const toggleUserRole = (
+  const setUserRole = (
     userId: string,
-    currentRoles: ("admin" | "writer")[],
-    role: "admin" | "writer"
+    currentRole: "admin" | "writer" | "none",
+    newRole: "admin" | "writer" | "none"
   ) => {
     const currentUserEmail = session?.user?.email;
     const targetUser = users.find((u) => u._id === userId);
@@ -335,28 +336,24 @@ export default function AdminDashboard() {
     // Check if current user is trying to modify themselves
     const isModifyingSelf = targetUser?.email === currentUserEmail;
 
-    // Restrict admin role modifications - admins cannot modify admin roles, except self
+    // Restrict admin role modifications - admins cannot modify admin role, except self
     if (
-      role === "admin" &&
+      newRole === "admin" &&
       !isModifyingSelf &&
-      currentRoles.includes("admin")
+      currentRole === "admin"
     ) {
-      showError("Admin roles cannot be modified for security reasons");
+      showError("Admin role cannot be modified for security reasons");
       return;
     }
 
-    const newRoles = currentRoles.includes(role)
-      ? currentRoles.filter((r) => r !== role)
-      : [...currentRoles, role];
+    updateUserRole(userId, newRole);
 
-    updateUserRoles(userId, newRoles);
-
-    // Update cookies for the current user if they are modifying their own roles
+    // Update cookies for the current user if they are modifying their own role
     if (isModifyingSelf) {
       fetchUserProfile();
 
       // If not an admin, redirect to stay away page
-      if (!newRoles.includes("admin")) {
+      if (newRole !== "admin") {
         router.push("/stay-away-snooper");
       }
     }
@@ -704,48 +701,19 @@ export default function AdminDashboard() {
                 />
                 <div className="bg-background border-2 border-white p-3 sm:p-4 space-y-2 transition-all duration-200 hover:border-opacity-80">
                   <label className="text-white font-bold uppercase text-xs sm:text-sm">
-                    ROLES:
+                    ROLE:
                   </label>
-                  <div className="flex flex-col sm:flex-row gap-2 sm:gap-4">
-                    <label className="flex items-center gap-2">
-                      <input
-                        type="checkbox"
-                        checked={newUser.roles.includes("writer")}
-                        onChange={(e) => {
-                          const roles = e.target.checked
-                            ? [...newUser.roles, "writer" as const]
-                            : newUser.roles.filter((r) => r !== "writer");
-                          setNewUser({
-                            ...newUser,
-                            roles: roles,
-                          });
-                        }}
-                        className="w-3 h-3 sm:w-4 sm:h-4 transition-transform duration-200 hover:scale-110"
-                      />
-                      <span className="text-white font-bold uppercase text-xs sm:text-sm">
-                        WRITER
-                      </span>
-                    </label>
-                    <label className="flex items-center gap-2">
-                      <input
-                        type="checkbox"
-                        checked={newUser.roles.includes("admin")}
-                        onChange={(e) => {
-                          const roles = e.target.checked
-                            ? [...newUser.roles, "admin" as const]
-                            : newUser.roles.filter((r) => r !== "admin");
-                          setNewUser({
-                            ...newUser,
-                            roles: roles,
-                          });
-                        }}
-                        className="w-3 h-3 sm:w-4 sm:h-4 transition-transform duration-200 hover:scale-110"
-                      />
-                      <span className="text-white font-bold uppercase text-xs sm:text-sm">
-                        ADMIN
-                      </span>
-                    </label>
-                  </div>
+                  <select
+                    value={newUser.role}
+                    onChange={(e) =>
+                      setNewUser({ ...newUser, role: e.target.value as "admin" | "writer" | "none" })
+                    }
+                    className="w-full bg-background border-2 border-white p-2 text-white font-bold uppercase text-xs sm:text-sm"
+                  >
+                    <option value="writer">Writer</option>
+                    <option value="admin">Admin</option>
+                    <option value="none">None</option>
+                  </select>
                 </div>
                 <button
                   type="submit"
@@ -807,33 +775,17 @@ export default function AdminDashboard() {
 
                     <div className="flex flex-col sm:flex-row items-stretch lg:items-center gap-2 sm:gap-3 w-full lg:w-auto">
                       <div className="flex flex-col sm:flex-row gap-2 w-full lg:w-auto">
-                        <button
-                          onClick={() =>
-                            toggleUserRole(user._id, user.roles, "writer")
+                        <select
+                          value={user.role}
+                          onChange={(e) =>
+                            setUserRole(user._id, user.role, e.target.value as "admin" | "writer" | "none")
                           }
-                          className={`w-full sm:w-auto px-2 sm:px-3 py-1.5 sm:py-2 border-2 border-white font-bold text-xs sm:text-sm uppercase transition-all duration-200 hover:scale-105 active:scale-95 ${
-                            user.roles.includes("writer")
-                              ? "bg-white text-background hover:bg-[#ffffffbb]"
-                              : "bg-background text-white hover:bg-white hover:text-background"
-                          }`}
+                          className={`w-full sm:w-auto px-2 sm:px-3 py-1.5 sm:py-2 border-2 border-white font-bold text-xs sm:text-sm uppercase transition-all duration-200 hover:scale-105 active:scale-95 bg-background text-white`}
                         >
-                          WRITER
-                        </button>
-                        <button
-                          onClick={() =>
-                            toggleUserRole(user._id, user.roles, "admin")
-                          }
-                          className={`w-full sm:w-auto px-2 sm:px-3 py-1.5 sm:py-2 border-2 border-white font-bold text-xs sm:text-sm uppercase transition-all duration-200 hover:scale-105 active:scale-95 ${
-                            user.roles.includes("admin")
-                              ? "bg-[#d2042d] text-white " +
-                                (user._id !== userProfile?.id
-                                  ? "opacity-50 cursor-not-allowed hover:scale-100"
-                                  : "hover:bg-[#d2042d99] hover:text-white")
-                              : "bg-background text-white hover:bg-[#d2042d] hover:text-white"
-                          }`}
-                        >
-                          ADMIN
-                        </button>
+                          <option value="writer">Writer</option>
+                          <option value="admin">Admin</option>
+                          <option value="none">None</option>
+                        </select>
                       </div>
                     </div>
                   </motion.div>

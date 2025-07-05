@@ -145,7 +145,7 @@ export async function PUT(
 
     // Check if user owns this blog or is admin
     if (
-      !user.roles.includes("admin") &&
+      user.role !== "admin" &&
       (existingBlog.author as { email: string }).email !== user.email
     ) {
       return NextResponse.json(
@@ -214,7 +214,7 @@ export async function DELETE(
 
     // Check if user owns this blog or is admin
     if (
-      !user.roles.includes("admin") &&
+      user.role !== "admin" &&
       (existingBlog.author as { email: string }).email !== user.email
     ) {
       return NextResponse.json(

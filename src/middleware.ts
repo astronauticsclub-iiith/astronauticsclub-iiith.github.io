@@ -17,17 +17,17 @@ export default withAuth(
 
     // If user is authenticated but doesn't have the right role
     if (token) {
-      const userRoles = (token as { roles?: string[] }).roles || [];
+      const userRole = (token as { role?: string }).role;
 
       console.log("Middleware - Auth check:", {
         path: req.nextUrl.pathname,
         isAdminRoute,
         userEmail: token.email,
-        userRoles,
-        hasAdminRole: userRoles.includes("admin"),
+        userRole,
+        hasAdminRole: userRole === "admin",
       });
 
-      if (isAdminRoute && !userRoles.includes("admin")) {
+      if (isAdminRoute && userRole !== "admin") {
         console.log(
           "Middleware - Redirecting to stay-away-snooper (no admin role)"
         );
@@ -36,16 +36,16 @@ export default withAuth(
 
       if (
         isBlogAuthorRoute &&
-        !userRoles.some((role) => ["admin", "writer"].includes(role))
+        userRole !== "admin" && userRole !== "writer"
       ) {
         return NextResponse.redirect(new URL("/stay-away-snooper", req.url));
       }
 
       // If authenticated user tries to access login page, redirect them appropriately
       if (isLoginRoute) {
-        if (userRoles.includes("admin")) {
+        if (userRole === "admin") {
           return NextResponse.redirect(new URL("/imtheboss", req.url));
-        } else if (userRoles.includes("writer")) {
+        } else if (userRole === "writer") {
           return NextResponse.redirect(
             new URL("/clickity-clackity-blogs-are-my-property", req.url)
           );

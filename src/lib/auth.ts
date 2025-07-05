@@ -9,7 +9,7 @@ interface ExtendedSession {
     name?: string | null;
     email?: string | null;
     image?: string | null;
-    roles?: string[];
+    role?: 'admin' | 'writer' | 'none';
   };
 }
 
@@ -40,20 +40,20 @@ export async function requireAuth(): Promise<{ session: ExtendedSession; user: I
   return { session, user };
 }
 
-export async function requireRole(role: 'admin' | 'writer'): Promise<{ session: ExtendedSession; user: IUser }> {
+export async function requireRole(role: 'admin' | 'writer' | 'none'): Promise<{ session: ExtendedSession; user: IUser }> {
   const { session, user } = await requireAuth();
   
-  if (!user.roles.includes(role)) {
+  if (user.role !== role) {
     throw new Error(`${role.charAt(0).toUpperCase() + role.slice(1)} access required`);
   }
   
   return { session, user };
 }
 
-export async function requireAnyRole(roles: ('admin' | 'writer')[]): Promise<{ session: ExtendedSession; user: IUser }> {
+export async function requireAnyRole(roles: ('admin' | 'writer' | 'none')[]): Promise<{ session: ExtendedSession; user: IUser }> {
   const { session, user } = await requireAuth();
   
-  const hasRequiredRole = roles.some(role => user.roles.includes(role));
+  const hasRequiredRole = roles.some(r => user.role === r);
   if (!hasRequiredRole) {
     throw new Error(`One of the following roles required: ${roles.join(', ')}`);
   }
@@ -66,5 +66,9 @@ export async function requireAdmin(): Promise<{ session: ExtendedSession; user: 
 }
 
 export async function requireWriter(): Promise<{ session: ExtendedSession; user: IUser }> {
-  return requireAnyRole(['admin', 'writer']);
+  const { session, user } = await requireAuth();
+  if (user.role !== 'writer' && user.role !== 'admin') {
+    throw new Error("Writer or Admin access required");
+  }
+  return { session, user };
 }

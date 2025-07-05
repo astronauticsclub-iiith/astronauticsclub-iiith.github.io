@@ -1,11 +1,3 @@
-export interface BlogAuthor {
-  email: string;
-  // These fields will be populated dynamically from User model
-  name?: string;
-  avatar?: string;
-  bio?: string;
-}
-
 export interface Blog {
   _id?: string;
   id: string;
@@ -13,7 +5,12 @@ export interface Blog {
   slug: string;
   excerpt: string;
   content: string;
-  author: BlogAuthor;
+  author: {
+    email: string;
+    name?: string;
+    avatar?: string;
+    bio?: string;
+  };
   publishedAt: string;
   readTime: number;
   tags: string[];

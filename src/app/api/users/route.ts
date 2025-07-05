@@ -28,19 +28,18 @@ export async function POST(request: NextRequest) {
     await connectToDatabase();
 
     const userData = await request.json();
-    const { email, name, roles } = userData;
+    const { email, name, role } = userData;
 
-    if (!email || !roles || !Array.isArray(roles) || roles.length === 0) {
+    if (!email || !role) {
       return NextResponse.json(
-        { error: 'Email and at least one role are required' },
+        { error: 'Email and role are required' },
         { status: 400 }
       );
     }
 
-    const validRoles = roles.filter(role => ['admin', 'writer'].includes(role));
-    if (validRoles.length !== roles.length) {
+    if (!['admin', 'writer', 'none'].includes(role)) {
       return NextResponse.json(
-        { error: 'All roles must be admin or writer' },
+        { error: 'Invalid role specified' },
         { status: 400 }
       );
     }
@@ -57,7 +56,7 @@ export async function POST(request: NextRequest) {
     const user = new User({
       email,
       name,
-      roles: validRoles,
+      role,
     });
 
     await user.save();
@@ -68,7 +67,7 @@ export async function POST(request: NextRequest) {
       adminUser.email!,
       'user',
       user._id.toString(),
-      { email, roles: validRoles }
+      { email, role }
     );
 
     return NextResponse.json(user, { status: 201 });

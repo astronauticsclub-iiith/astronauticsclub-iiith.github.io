@@ -37,17 +37,17 @@ function LoginContent() {
             name?: string | null;
             email?: string | null;
             image?: string | null;
-            roles?: string[];
+            role?: 'admin' | 'writer' | 'none';
           }
 
           const user = session?.user as ExtendedUser;
-          const userRoles = user?.roles || [];
+          const userRole = user?.role;
 
-          console.log("Login redirect - User roles:", userRoles);
+          console.log("Login redirect - User role:", userRole);
 
-          if (userRoles.includes("admin")) {
+          if (userRole === "admin") {
             router.push("/imtheboss");
-          } else if (userRoles.includes("writer")) {
+          } else if (userRole === "writer") {
             router.push("/clickity-clackity-blogs-are-my-property");
           } else {
             router.push("/stay-away-snooper");

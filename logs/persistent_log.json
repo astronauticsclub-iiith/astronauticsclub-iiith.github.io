@@ -456,5 +456,37 @@
       "oldCategory": "astrophotography",
       "newCategory": "events"
     }
+  },
+  {
+    "timestamp": "2025-07-05T12:00:55.777Z",
+    "level": "info",
+    "message": "Write operation: UPDATE_USER user",
+    "source": "write_operation",
+    "userEmail": "mohit.singh@research.iiit.ac.in",
+    "action": "UPDATE_USER",
+    "details": {
+      "resourceType": "user",
+      "resourceId": "6860223c802a7736c43c83cc",
+      "email": "chamarthymadhan.k@students.iiit.ac.in",
+      "updatedFields": {
+        "role": "writer"
+      }
+    }
+  },
+  {
+    "timestamp": "2025-07-05T12:01:00.222Z",
+    "level": "info",
+    "message": "Write operation: UPDATE_USER user",
+    "source": "write_operation",
+    "userEmail": "mohit.singh@research.iiit.ac.in",
+    "action": "UPDATE_USER",
+    "details": {
+      "resourceType": "user",
+      "resourceId": "6860223c802a7736c43c83cc",
+      "email": "chamarthymadhan.k@students.iiit.ac.in",
+      "updatedFields": {
+        "role": "admin"
+      }
+    }
   }
 ]

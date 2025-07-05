@@ -9,7 +9,7 @@ interface UserProfile {
   name?: string;
   avatar?: string;
   bio?: string;
-  roles: string[];
+  role: 'admin' | 'writer' | 'none';
 }
 
 interface ProfileEditorProps {
@@ -230,10 +230,10 @@ export default function ProfileEditor({
               style={{ animationDelay: "0.4s" }}
             >
               <label className="block text-xs sm:text-sm font-bold text-white mb-1 sm:mb-2 uppercase tracking-wide">
-                ROLES
+                ROLE
               </label>
               <div className="w-full bg-background border-2 border-white px-2 sm:px-3 md:px-4 py-1 sm:py-2 md:py-3 text-[#666] font-bold uppercase text-xs sm:text-sm md:text-base transition-colors duration-200 min-h-[2rem] sm:min-h-[2.5rem] flex items-center">
-                {user.roles.join(", ").toUpperCase()}
+                {user.role.toUpperCase()}
               </div>
             </div>
           </div>

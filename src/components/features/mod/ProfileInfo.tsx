@@ -9,7 +9,7 @@ interface UserProfile {
   email: string;
   name?: string;
   avatar?: string;
-  roles: string[];
+  role: 'admin' | 'writer' | 'none';
 }
 
 interface ProfileInfoProps {
@@ -61,7 +61,7 @@ export default function ProfileInfo({
               {userProfile.email}
             </p>
             <p className="text-[#e0e0e0] font-bold uppercase text-xs sm:text-sm">
-              ROLES: {userProfile.roles.join(", ").toUpperCase()}
+              ROLE: {userProfile.role.toUpperCase()}
             </p>
           </div>
         </div>

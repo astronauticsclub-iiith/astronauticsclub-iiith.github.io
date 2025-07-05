@@ -13,24 +13,19 @@ export async function PUT(
     await connectToDatabase();
 
     const userData = await request.json();
-    const { name, roles } = userData;
+    const { name, role } = userData;
 
-    if (roles) {
-      const validRoles = roles.filter((role: string) =>
-        ["admin", "writer"].includes(role)
+    if (role && !["admin", "writer", "none"].includes(role)) {
+      return NextResponse.json(
+        { error: "Invalid role specified" },
+        { status: 400 }
       );
-      if (validRoles.length !== roles.length) {
-        return NextResponse.json(
-          { error: "All roles must be admin or writer" },
-          { status: 400 }
-        );
-      }
     }
 
     const { id } = await params;
     const updateData: Record<string, unknown> = {};
     if (name !== undefined) updateData.name = name;
-    if (roles !== undefined) updateData.roles = roles;
+    if (role !== undefined) updateData.role = role;
 
     const user = await User.findByIdAndUpdate(
       id,

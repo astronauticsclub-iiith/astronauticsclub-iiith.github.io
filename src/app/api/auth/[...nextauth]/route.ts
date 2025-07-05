@@ -9,7 +9,7 @@ interface ExtendedUser {
   name?: string | null;
   email?: string | null;
   image?: string | null;
-  roles?: string[];
+  role?: 'admin' | 'writer' | 'none';
 }
 
 // Define the CAS attributes interface
@@ -121,11 +121,11 @@ const handler = NextAuth({
 
           // Check if user exists in database and has appropriate role
           await connectToDatabase();
-          const dbUser = await User.findOne({ email });
+          const dbUser = await User.findOne({ email }).lean();
 
           console.log("CAS Authentication - User lookup:", {
             email,
-            dbUser: dbUser ? { email: dbUser.email, roles: dbUser.roles } : null
+            dbUser: dbUser ? { email: dbUser.email, role: dbUser.role } : null
           });
 
           if (!dbUser) {
@@ -138,12 +138,12 @@ const handler = NextAuth({
             id: username,
             email,
             name: firstName && lastName ? `${firstName} ${lastName}` : username,
-            roles: dbUser.roles,
+            role: dbUser.role,
           };
 
           console.log("CAS Authentication - Returning user object:", userObject);
 
-          // Return the user object with roles information
+          // Return the user object with role information
           return userObject;
         } catch (error) {
           console.error("CAS Authentication Error:", error);
@@ -160,10 +160,10 @@ const handler = NextAuth({
     async jwt({ token, user }) {
       // Add user info to the token
       if (user) {
-        token.roles = user.roles;
-        console.log("JWT Callback - Adding roles to token:", {
-          userRoles: user.roles,
-          tokenRoles: token.roles
+        token.role = (user as ExtendedUser).role;
+        console.log("JWT Callback - Adding role to token:", {
+          userRole: (user as ExtendedUser).role,
+          tokenRole: token.role
         });
       }
       return token;
@@ -172,11 +172,11 @@ const handler = NextAuth({
       // Add custom properties to the session
       if (token && session.user) {
         const user = session.user as ExtendedUser;
-        user.roles = token.roles as string[];
+        user.role = token.role as 'admin' | 'writer' | 'none';
         console.log("Session Callback - Final session:", {
           userEmail: user.email,
-          userRoles: user.roles,
-          tokenRoles: token.roles
+          userRole: user.role,
+          tokenRole: token.role
         });
       }
       return session;

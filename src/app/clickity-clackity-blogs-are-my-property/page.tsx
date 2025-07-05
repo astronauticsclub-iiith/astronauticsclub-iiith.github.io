@@ -20,7 +20,7 @@ interface ExtendedUser {
   name?: string | null;
   email?: string | null;
   image?: string | null;
-  roles?: string[];
+  role?: 'admin' | 'writer' | 'none';
 }
 
 interface Blog {
@@ -52,7 +52,7 @@ interface UserProfile {
   name?: string;
   avatar?: string;
   bio?: string;
-  roles: string[];
+  role: 'admin' | 'writer' | 'none';
 }
 
 interface BlogStats {
@@ -111,19 +111,20 @@ export default function BlogAuthorDashboard() {
     if (status === "loading") return;
 
     const user = session?.user as ExtendedUser;
-    const userRoles = user?.roles || [];
-    if (!userRoles.some((role) => ["admin", "writer"].includes(role))) {
+    const userRole = user?.role;
+    if (userRole !== "admin" && userRole !== "writer") {
       router.push("/stay-away-snooper");
       return;
     }
 
-    fetchMyBlogs();
+    fetchMyBlogs(userRole);
     fetchUserProfile();
   }, [session, status, router]);
 
-  const fetchMyBlogs = async () => {
+  const fetchMyBlogs = async (role: string) => {
     try {
-      const response = await fetch("/api/my-blogs");
+      const url = role === 'admin' ? '/api/blogs' : '/api/my-blogs';
+      const response = await fetch(url);
       if (response.ok) {
         const data = await response.json();
         setBlogs(data.blogs);

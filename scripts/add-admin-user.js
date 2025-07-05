@@ -18,11 +18,11 @@ const UserSchema = new mongoose.Schema(
       type: String,
       trim: true,
     },
-    roles: {
-      type: [String],
-      enum: ['admin', 'writer'],
+    role: {
+      type: String,
+      enum: ['admin', 'writer', 'none'],
       required: true,
-      default: ['writer'],
+      default: 'none',
     },
     avatar: {
       type: String,
@@ -64,16 +64,15 @@ async function addAdminUser() {
       console.log('👤 User already exists:');
       console.log(`   Email: ${existingUser.email}`);
       console.log(`   Name: ${existingUser.name || 'Not set'}`);
-      console.log(`   Roles: ${existingUser.roles ? existingUser.roles.join(', ') : 'Not set'}`);
+      console.log(`   Role: ${existingUser.role || 'Not set'}`);
       console.log(`   Bio: ${existingUser.bio || 'Not set'}`);
       console.log(`   Created: ${existingUser.createdAt}`);
       
       // Update existing user to have admin role if they don't already
-      if (!existingUser.roles || !existingUser.roles.includes('admin')) {
-        const updatedRoles = [...(existingUser.roles || []), 'admin'];
-        existingUser.roles = [...new Set(updatedRoles)]; // Remove duplicates
+      if (existingUser.role !== 'admin') {
+        existingUser.role = 'admin';
         await existingUser.save();
-        console.log(`✅ Added admin role to existing user. New roles: ${existingUser.roles.join(', ')}`);
+        console.log(`✅ Set user role to admin.`);
       }
       return;
     }
@@ -82,7 +81,7 @@ async function addAdminUser() {
     const newUser = new User({
       email: adminEmail,
       name: 'Mohit Singh',
-      roles: ['admin', 'writer'], // Give both admin and writer roles
+      role: 'admin', // Set role to admin
       bio: 'System Administrator and Content Creator'
     });
 
@@ -91,7 +90,7 @@ async function addAdminUser() {
     console.log('🎉 Admin user created successfully!');
     console.log(`   Email: ${savedUser.email}`);
     console.log(`   Name: ${savedUser.name}`);
-    console.log(`   Roles: ${savedUser.roles.join(', ')}`);
+    console.log(`   Role: ${savedUser.role}`);
     console.log(`   Bio: ${savedUser.bio}`);
     console.log(`   User ID: ${savedUser._id}`);
     console.log(`   Created: ${savedUser.createdAt}`);
