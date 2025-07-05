@@ -278,7 +278,9 @@ export default function FAQSection() {
               }}
             >
               <motion.button
-                className="w-full flex justify-between items-center p-6 text-left"
+                className={`w-full flex justify-between items-center p-6 text-left ${
+                  openItem === item.id ? "cursor-close" : "cursor-open"
+                }`}
                 onClick={() => toggleItem(item.id)}
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
