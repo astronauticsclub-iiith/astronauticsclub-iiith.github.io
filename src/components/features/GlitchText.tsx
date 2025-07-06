@@ -21,7 +21,7 @@ const GlitchText: React.FC<GlitchTextProps> = ({ text, className }) => {
         }
       }
       setGlitchedText(newText);
-    }, 50);
+    }, 300);
 
     return () => clearInterval(interval);
   }, [text]);
