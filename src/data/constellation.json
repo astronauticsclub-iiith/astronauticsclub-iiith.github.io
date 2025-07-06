@@ -54,7 +54,7 @@
         "clickable": true,
         "name": "Sanyam Gandhi",
         "photo": "sanyam.jpg",
-        "designation": "Events Team Member",
+        "designation": "Events Team",
         "desc": "Sanyam Gandhi is a passionate student with a keen interest in technology and science, particularly in the realms of quantum and space sciences. Beyond his academic pursuits, he is set to launch his own company, SEAC, next year, inline with his entrepreneurial spirit and drive for innovation.",
         "email": "sanyam.gandhi@research.iiit.ac.in",
         "linkedin": ""
@@ -66,7 +66,7 @@
         "clickable": true,
         "name": "Veena Ramadas",
         "photo": "veena.jpg",
-        "designation": "Events Team Member",
+        "designation": "Events Team",
         "desc": "Veena is a literature lover and singer with a passion for reading and exploring new ideas. She enjoys stories, melodies, and pondering the mysteries of the universe.",
         "email": "veena.ramadas@research.iiit.ac.in",
         "linkedin": ""
@@ -78,7 +78,7 @@
         "clickable": true,
         "name": "Kandagantla Akshith",
         "photo": "akshith.jpg",
-        "designation": "Events Team Member",
+        "designation": "Events Team",
         "desc": "An space nerd  fell in love with space  beginner in CAD modelling.",
         "email": "kandagatla.akshith@research.iiit.ac.in",
         "linkedin": ""
@@ -96,7 +96,7 @@
         "clickable": true,
         "name": "Aryanil Panja",
         "photo": "aryanil.jpg",
-        "designation": "Events Team Lead",
+        "designation": "Events Team",
         "desc": "",
         "email": "aryanil.panja@research.iiit.ac.in",
         "linkedin": ""
@@ -126,7 +126,7 @@
         "clickable": true,
         "name": "Arushi Shukla",
         "photo": "arushi.png",
-        "designation": "Events Team Member",
+        "designation": "Events Team",
         "desc": "Arushi is a first year CSE student. She loves stargazing, reading books, painting and chatting endlessly with people 🙃",
         "email": "arushi.shukla@students.iiit.ac.in",
         "linkedin": ""
@@ -186,7 +186,7 @@
         "clickable": true,
         "name": "Aayush Bahukhandi",
         "photo": "aayush.jpg",
-        "designation": "Projects Team Member",
+        "designation": "Projects Team",
         "desc": "",
         "email": "aayush.bahukhandi@research.iiit.ac.in",
         "linkedin": ""
@@ -198,7 +198,7 @@
         "clickable": true,
         "name": "Pritika Sinharay",
         "photo": "pritika.jpg",
-        "designation": "Projects Team Member",
+        "designation": "Projects Team",
         "desc": "",
         "email": "pritika.sinharay@research.iiit.ac.in",
         "linkedin": ""
@@ -210,7 +210,7 @@
         "clickable": true,
         "name": "Pullepu Abhiroop",
         "photo": "abhiroop.jpg",
-        "designation": "Projects Team Member",
+        "designation": "Projects Team",
         "desc": "",
         "email": "pullepu.abhiroop@research.iiit.ac.in",
         "linkedin": ""
@@ -222,7 +222,7 @@
         "clickable": true,
         "name": "Nav Singhal",
         "photo": "nav.jpg",
-        "designation": "Projects Team Member",
+        "designation": "Projects Team",
         "desc": "Nav is a curious member with a strong passion for aerospace technology and robotics. Known for an inquisitive mindset, he enjoys delving into research and exploring innovative solutions, often falling down rabbit holes.  Outside of the club, he can be found reading books, playing open-world games, or diving into new areas of interest.",
         "email": "nav.singhal@students.iiit.ac.in",
         "linkedin": ""
@@ -234,7 +234,7 @@
         "clickable": true,
         "name": "Shrish Kiran Kadam",
         "photo": "shrish.jpg",
-        "designation": "Projects Team Member",
+        "designation": "Projects Team",
         "desc": "Shrish has a passion for cosmology, astronomy, and nature. His hobbies include soccer, trekking, and running marathons, reflecting his love for both intellectual and physical challenges.",
         "email": "shrish.kadam@research.iiit.ac.in",
         "linkedin": ""
@@ -246,7 +246,7 @@
         "clickable": true,
         "name": "Sricharan Kumar",
         "photo": "sricharan.jpg",
-        "designation": "Projects Team Member",
+        "designation": "Projects Team",
         "desc": "Sricharan has a vivid interest in electronics and photography. He is currently a part of the ECD programme. His goal in life is to create something that is permanent and will be looked upon by people for generations to come",
         "email": "sricharan.v@research.iiit.ac.in",
         "linkedin": ""
@@ -258,7 +258,7 @@
         "clickable": true,
         "name": "Srinivas Kolla",
         "photo": "srinivas.jpg",
-        "designation": "Projects Team Member",
+        "designation": "Projects Team",
         "desc": "",
         "email": "srinivas.kolla@students.iiit.ac.in",
         "linkedin": ""
@@ -276,7 +276,7 @@
         "clickable": true,
         "name": "Kandagantla Akshith",
         "photo": "akshith.jpg",
-        "designation": "Projects Team Member",
+        "designation": "Projects Team",
         "desc": "An space nerd  fell in love with space  beginner in CAD modelling.",
         "email": "kandagatla.akshith@research.iiit.ac.in",
         "linkedin": ""
@@ -309,7 +309,7 @@
         "clickable": true,
         "name": "Aisha Harris",
         "photo": "aisha.jpg",
-        "designation": "Astrophotography Team Member",
+        "designation": "Astrophotography Team",
         "desc": "",
         "email": "aisha.harris@students.iiit.ac.in",
         "linkedin": ""
@@ -321,7 +321,7 @@
         "clickable": true,
         "name": "Mohit Singh",
         "photo": "mohit.jpg",
-        "designation": "Astrophotography Team Member",
+        "designation": "Astrophotography Team",
         "desc": "Another astronomy enthusiast - loves astrophotography, and a bit of webdev",
         "email": "mohit.singh@research.iiit.ac.in",
         "linkedin": "https://www.linkedin.com/in/unignoramus/"
@@ -333,7 +333,7 @@
         "clickable": true,
         "name": "Ananya Kasavajhala",
         "photo": "ananya_k.jpg",
-        "designation": "Astrophotography Team Member",
+        "designation": "Astrophotography Team",
         "desc": "",
         "email": "ananya.kasavajhala@research.iiit.ac.in",
         "linkedin": ""
@@ -348,7 +348,7 @@
         "clickable": true,
         "name": "Sricharan Kumar",
         "photo": "sricharan.jpg",
-        "designation": "Astrophotography Team Member",
+        "designation": "Astrophotography Team",
         "desc": "Sricharan has a vivid interest in electronics and photography. He is currently a part of the ECD programme. His goal in life is to create something that is permanent and will be looked upon by people for generations to come",
         "email": "sricharan.v@research.iiit.ac.in",
         "linkedin": ""
@@ -394,7 +394,7 @@
         "clickable": true,
         "name": "Vedant Tejas",
         "photo": "vedant.jpg",
-        "designation": "Outreach Team Member",
+        "designation": "Outreach Team",
         "desc": "",
         "email": "vedant.tejas@research.iiit.ac.in",
         "linkedin": ""
@@ -406,7 +406,7 @@
         "clickable": true,
         "name": "Gauri Krishnan",
         "photo": "gauri.jpg",
-        "designation": "Outreach Team Member",
+        "designation": "Outreach Team",
         "desc": "Gauri is a mixed media artist and a passionate dancer. She is fascinated by the mysteries of the Universe and also love reading.",
         "email": "gauri.krishnan@students.iiit.ac.in",
         "linkedin": ""
@@ -418,7 +418,7 @@
         "clickable": true,
         "name": "Shaurya Kochar",
         "photo": "shaurya.png",
-        "designation": "Outreach Team Member",
+        "designation": "Outreach Team",
         "desc": "Shaurya is passionate about astronautics and exploring ways to integrate finance with the space industry. He looks forward to connecting with others and contributing to the club's vision. Outside of astronautics, Shaurya enjoys learning, brainstorming innovative ideas, and making meaningful collaborations.",
         "email": "shaurya.kochar@research.iiit.ac.in",
         "linkedin": ""
@@ -436,7 +436,7 @@
         "clickable": true,
         "name": "Vijay Sudalairaguramaselvan",
         "photo": "vijay.jpeg",
-        "designation": "Outreach Team Member",
+        "designation": "Outreach Team",
         "desc": "",
         "email": "vijay.s@research.iiit.ac.in",
         "linkedin": ""
@@ -454,7 +454,7 @@
         "clickable": true,
         "name": "Sanyam Gandhi",
         "photo": "sanyam.jpg",
-        "designation": "Outreach Team Member",
+        "designation": "Outreach Team",
         "desc": "Sanyam Gandhi is a passionate student with a keen interest in technology and science, particularly in the realms of quantum and space sciences. Beyond his academic pursuits, he is set to launch his own company, SEAC, next year, inline with his entrepreneurial spirit and drive for innovation.",
         "email": "sanyam.gandhi@research.iiit.ac.in",
         "linkedin": ""
@@ -481,7 +481,7 @@
         "clickable": true,
         "name": "Mohit Singh",
         "photo": "mohit.jpg",
-        "designation": "Web Dev Team Member",
+        "designation": "Web Dev Team",
         "desc": "Another astronomy enthusiast - loves astrophotography, and a bit of webdev",
         "email": "mohit.singh@research.iiit.ac.in",
         "linkedin": "https://www.linkedin.com/in/unignoramus/"
@@ -493,7 +493,7 @@
         "clickable": true,
         "name": "Khushagra Trivedi",
         "photo": "khushagra.png",
-        "designation": "Web Dev Team Member",
+        "designation": "Web Dev Team",
         "desc": "",
         "email": "kushagra.trivedi@students.iiit.ac.in",
         "linkedin": ""
@@ -505,7 +505,7 @@
         "clickable": true,
         "name": "Mayank Goel",
         "photo": "mayank.jpeg",
-        "designation": "Web Dev Team Lead",
+        "designation": "Web Dev Team",
         "desc": "Mayank is a senior undergrad research student exploring the world of applied Quantum Computing. He is deep fascinated by symmetry and the geometrical structure of the universe. When not lost in qubits, he’s either strumming guitar or building something cool.",
         "email": "mayank.goe@research.iiit.ac.in",
         "linkedin": "https://www.linkedin.com/in/mayankgoel447/"
@@ -541,8 +541,8 @@
         "clickable": true,
         "name": "Jai Srikar M",
         "photo": "srikar.jpg",
-        "designation": "Content Writing Team Member",
-        "desc": ". As the club’s guide to all things cosmic, he shares mind-blowing space facts and the coolest stargazing tips, making the universe feel a little closer and a lot more fun. If you love space as much as he does (or even if you just think stars are cool), follow along for a fun ride through the galaxy—one post at a time!",
+        "designation": "Content Writing Team",
+        "desc": "As the club’s guide to all things cosmic, he shares mind-blowing space facts and the coolest stargazing tips, making the universe feel a little closer and a lot more fun. If you love space as much as he does (or even if you just think stars are cool), follow along for a fun ride through the galaxy—one post at a time!",
         "email": "jaisrikar.m@students.iiit.ac.in",
         "linkedin": ""
       },
@@ -571,7 +571,7 @@
         "clickable": true,
         "name": "Yakkala Viswanadha Kartikeya",
         "photo": "kartikeya.jpg",
-        "designation": "Content Writing Team Member",
+        "designation": "Content Writing Team",
         "desc": "Cosmic explorer, interested in how the universe was born, how it works and the mysteries of the universe. Strong interest on the concept of multiverse and alternate universes. Interest in science fiction, thrillers and mystery. ",
         "email": "kartikeya.yakkala@research.iiit.ac.in",
         "linkedin": ""
@@ -595,7 +595,7 @@
         "clickable": true,
         "name": "Alapati Sai Pavan Adit",
         "photo": "sai_pavan.jpg",
-        "designation": "Content Writing Team Member",
+        "designation": "Content Writing Team",
         "desc": "",
         "email": "saipavanadit.alapati@students.iiit.ac.in",
         "linkedin": ""
@@ -607,7 +607,7 @@
         "clickable": true,
         "name": "Ananya Agarwal",
         "photo": "ananya.jpg",
-        "designation": "Content Writing Team Member",
+        "designation": "Content Writing Team",
         "desc": "",
         "email": "ananya.agarwal@research.iiit.ac.in",
         "linkedin": ""
@@ -625,7 +625,7 @@
         "clickable": true,
         "name": "Saubhnik Chaudhuri",
         "photo": "saubhanik.jpg",
-        "designation": "Content Writing Team Member",
+        "designation": "Content Writing Team",
         "desc": "",
         "email": "saubhanik.chaudhuri@research.iiit.ac.in",
         "linkedin": ""
@@ -691,7 +691,7 @@
         "clickable": true,
         "name": "Aaryan Kashyap",
         "photo": "kashyap.jpeg",
-        "designation": "Design Team Member",
+        "designation": "Design Team",
         "desc": "",
         "email": "aaryan.kashyap@research.iiit.ac.in",
         "linkedin": ""
@@ -703,7 +703,7 @@
         "clickable": true,
         "name": "Sai Praneeth",
         "photo": "praneeth.jpg",
-        "designation": "Design Team Lead",
+        "designation": "Design Team",
         "desc": "",
         "email": "sai.praneeth@students.iiit.ac.in",
         "linkedin": ""
@@ -727,7 +727,7 @@
         "clickable": true,
         "name": "Anushka Sinha",
         "photo": "anushka_sinha.jpg",
-        "designation": "Design Team Member",
+        "designation": "Design Team",
         "desc": "Anushka is a first year CSE student and a fanatic of all things space and a lover of art. She is super excited to be a part of this club!",
         "email": "anushka.s@students.iiit.ac.in",
         "linkedin": ""
@@ -737,18 +737,6 @@
         "dec": 41.87,
         "magnitude": 3.82,
         "clickable": false
-      },
-      "Zeta": {
-        "ra": 121.2,
-        "dec": 35.71,
-        "magnitude": 3.17,
-        "clickable": true,
-        "name": "Lakshya Jindal",
-        "photo": "lakshya.jpg",
-        "designation": "Design Team Member",
-        "desc": "",
-        "email": "lakshya.jindal@research.iiit.ac.in",
-        "linkedin": ""
       },
       "Theta Draconis": {
         "ra": 115.25,
@@ -763,7 +751,7 @@
         "clickable": true,
         "name": "Arushi Shukla",
         "photo": "arushi.png",
-        "designation": "Design Team Member",
+        "designation": "Design Team",
         "desc": "Arushi is a first year CSE student. She loves stargazing, reading books, painting and chatting endlessly with people 🙃",
         "email": "arushi.shukla@students.iiit.ac.in",
         "linkedin": ""

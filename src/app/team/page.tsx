@@ -2,82 +2,37 @@
 
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Users } from "lucide-react";
+import { Users, Filter, ChevronDown, X } from "lucide-react";
 import Loader from "@/components/ui/Loader";
-import Image from "next/image";
 import "@/components/ui/bg-patterns.css";
 import "./team.css";
+import TeamCard from "@/components/features/TeamCard";
 
 type TeamMember = {
-  _id: string;
   name?: string;
   email: string;
   avatar?: string;
   designations?: string[];
   bio?: string;
+  linkedin?: string;
 };
 
 type FilterType = "all" | string;
 
-const TeamCard: React.FC<{
-  member: TeamMember;
-  index: number;
-}> = ({ member, index }) => {
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{
-        opacity: 1,
-        y: 0,
-        transition: { delay: 0.1 * index, duration: 0.5 },
-      }}
-      whileHover={{
-        y: -3,
-        transition: { duration: 0.1, delay: 0.05 },
-      }}
-      className="team-card"
-    >
-      <div className="team-card-image">
-        <Image
-          src={member.avatar || '/public/team/default.png'}
-          alt={member.name || "Team Member"}
-          fill
-          sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, 33vw"
-          style={{
-            objectFit: "cover",
-            objectPosition: "center",
-          }}
-          priority={index < 4}
-        />
-      </div>
-      <div className="team-card-content">
-        <h3 className="team-card-name">{member.name || "Unnamed Member"}</h3>
-        <p className="team-card-email">{member.email}</p>
-        {member.designations && member.designations.length > 0 && (
-          <div className="team-card-designations">
-            {member.designations.map((d) => (
-              <span key={d} className="team-card-designation">{d}</span>
-            ))}
-          </div>
-        )}
-        <p className="team-card-bio">{member.bio}</p>
-      </div>
-    </motion.div>
-  );
-};
 
 const TeamPage: React.FC = () => {
   const [members, setMembers] = useState<TeamMember[]>([]);
   const [allDesignations, setAllDesignations] = useState<string[]>([]);
   const [filter, setFilter] = useState<FilterType>("all");
   const [loading, setLoading] = useState(true);
+  const [showFilters, setShowFilters] = useState(false);
 
   useEffect(() => {
     const loadMembers = async () => {
       try {
         setLoading(true);
         await new Promise((resolve) => setTimeout(resolve, 800));
-        const response = await fetch("/api/users");
+        const response = await fetch("/api/team");
 
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
@@ -113,7 +68,7 @@ const TeamPage: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-background bg-pattern-graph pt-24 pb-16 md:pb-20 px-4">
-      <div className="team-container">
+      <div className="team-container px-4">
         <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -142,23 +97,67 @@ const TeamPage: React.FC = () => {
             <motion.button
               whileHover={{ scale: 1.05, y: -2 }}
               whileTap={{ scale: 0.95 }}
-              className={`team-filter-btn ${filter === "all" ? "active" : ""}`}
-              onClick={() => setFilter("all")}
+              className="team-filter-btn flex items-center gap-2"
+              onClick={() => setShowFilters(!showFilters)}
             >
-              All
+              <Filter size={16} />
+              Filters
+              <ChevronDown size={16} className={`transition-transform ${showFilters ? "rotate-180" : ""}`} />
             </motion.button>
-            {allDesignations.map((designation) => (
-              <motion.button
-                key={designation}
-                whileHover={{ scale: 1.05, y: -2 }}
-                whileTap={{ scale: 0.95 }}
-                className={`team-filter-btn ${filter === designation ? "active" : ""}`}
-                onClick={() => setFilter(designation)}
-              >
-                {designation}
-              </motion.button>
-            ))}
           </motion.div>
+          <AnimatePresence>
+            {showFilters && (
+              <motion.div
+                initial={{ opacity: 0, height: 0 }}
+                animate={{ opacity: 1, height: "auto" }}
+                exit={{ opacity: 0, height: 0 }}
+                transition={{ duration: 0.3 }}
+                className="overflow-hidden"
+              >
+                <div className="flex flex-wrap gap-3 mt-4">
+                  <motion.button
+                    whileHover={{ scale: 1.05, y: -2 }}
+                    whileTap={{ scale: 0.95 }}
+                    className={`team-filter-btn ${filter === "all" ? "active" : ""}`}
+                    onClick={() => setFilter("all")}
+                  >
+                    All
+                  </motion.button>
+                  {allDesignations.map((designation) => (
+                    <motion.button
+                      key={designation}
+                      whileHover={{ scale: 1.05, y: -2 }}
+                      whileTap={{ scale: 0.95 }}
+                      className={`team-filter-btn ${filter === designation ? "active" : ""}`}
+                      onClick={() => setFilter(designation)}
+                    >
+                      {designation}
+                    </motion.button>
+                  ))}
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+          {filter !== "all" && (
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="mt-4 flex items-center gap-3"
+            >
+              <span className="text-sm text-white font-bold bg-background border-2 border-white px-2 py-1 uppercase">
+                Active filter:
+              </span>
+              <div className="flex items-center gap-2 px-3 py-1 bg-white text-background font-medium text-sm border-2 border-background shadow-[2px_2px_0px_0px_rgba(128,128,128,0.5)]">
+                <span>{filter}</span>
+                <button
+                  onClick={() => setFilter("all")}
+                  className="text-background hover:opacity-70 ml-1"
+                >
+                  <X size={14} />
+                </button>
+              </div>
+            </motion.div>
+          )}
         </motion.div>
 
         <motion.div
@@ -206,7 +205,7 @@ const TeamPage: React.FC = () => {
             <AnimatePresence mode="wait">
               {filteredMembers.map((member, index) => (
                 <TeamCard
-                  key={member._id}
+                  key={member.email}
                   member={member}
                   index={index}
                 />

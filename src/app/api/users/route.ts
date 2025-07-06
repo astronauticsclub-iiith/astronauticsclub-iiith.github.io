@@ -6,7 +6,7 @@ import Logger from "@/lib/logger";
 
 export async function GET() {
   try {
-    // await requireAdmin();
+    await requireAdmin();
     await connectToDatabase();
 
     const users = await User.find({}).sort({ createdAt: -1 });
