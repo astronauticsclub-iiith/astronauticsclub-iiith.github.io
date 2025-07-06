@@ -2,11 +2,12 @@
 
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Users, Filter, ChevronDown, X } from "lucide-react";
+import { Filter, ChevronDown, X } from "lucide-react";
 import Loader from "@/components/ui/Loader";
 import "@/components/ui/bg-patterns.css";
 import "./team.css";
 import TeamCard from "@/components/features/TeamCard";
+import Image from "next/image";
 
 type TeamMember = {
   name?: string;
@@ -18,7 +19,6 @@ type TeamMember = {
 };
 
 type FilterType = "all" | string;
-
 
 const TeamPage: React.FC = () => {
   const [members, setMembers] = useState<TeamMember[]>([]);
@@ -40,7 +40,9 @@ const TeamPage: React.FC = () => {
 
         const data = await response.json();
         setMembers(data || []);
-        const designations = Array.from(new Set(data.flatMap((u: TeamMember) => u.designations || []))) as string[];
+        const designations = Array.from(
+          new Set(data.flatMap((u: TeamMember) => u.designations || []))
+        ) as string[];
         setAllDesignations(designations);
       } catch (error) {
         console.error("Error loading team members:", error);
@@ -55,7 +57,8 @@ const TeamPage: React.FC = () => {
 
   const filteredMembers = members.filter(
     (member) =>
-      filter === "all" || (member.designations && member.designations.includes(filter))
+      filter === "all" ||
+      (member.designations && member.designations.includes(filter))
   );
 
   if (loading) {
@@ -76,7 +79,14 @@ const TeamPage: React.FC = () => {
         >
           <div className="flex items-center gap-6 mb-6">
             <div className="w-16 h-16 flex items-center justify-center">
-              <Users size={64} className="text-white" />
+              <Image
+                src="/icons/team.svg"
+                alt="Team Icon"
+                width={64}
+                height={64}
+                className="w-16 h-16 object-contain"
+                priority
+              />
             </div>
             <div>
               <h1 className="text-2xl md:text-3xl lg:text-6xl font-black uppercase tracking-tighter text-white text-shadow-brutal">
@@ -102,7 +112,12 @@ const TeamPage: React.FC = () => {
             >
               <Filter size={16} />
               Filters
-              <ChevronDown size={16} className={`transition-transform ${showFilters ? "rotate-180" : ""}`} />
+              <ChevronDown
+                size={16}
+                className={`transition-transform ${
+                  showFilters ? "rotate-180" : ""
+                }`}
+              />
             </motion.button>
           </motion.div>
           <AnimatePresence>
@@ -118,7 +133,9 @@ const TeamPage: React.FC = () => {
                   <motion.button
                     whileHover={{ scale: 1.05, y: -2 }}
                     whileTap={{ scale: 0.95 }}
-                    className={`team-filter-btn ${filter === "all" ? "active" : ""}`}
+                    className={`team-filter-btn ${
+                      filter === "all" ? "active" : ""
+                    }`}
                     onClick={() => setFilter("all")}
                   >
                     All
@@ -128,7 +145,9 @@ const TeamPage: React.FC = () => {
                       key={designation}
                       whileHover={{ scale: 1.05, y: -2 }}
                       whileTap={{ scale: 0.95 }}
-                      className={`team-filter-btn ${filter === designation ? "active" : ""}`}
+                      className={`team-filter-btn ${
+                        filter === designation ? "active" : ""
+                      }`}
                       onClick={() => setFilter(designation)}
                     >
                       {designation}
@@ -204,11 +223,7 @@ const TeamPage: React.FC = () => {
           >
             <AnimatePresence mode="wait">
               {filteredMembers.map((member, index) => (
-                <TeamCard
-                  key={member.email}
-                  member={member}
-                  index={index}
-                />
+                <TeamCard key={member.email} member={member} index={index} />
               ))}
             </AnimatePresence>
           </motion.div>
