@@ -7,6 +7,8 @@ import Loader from "@/components/ui/Loader";
 import "@/components/ui/bg-patterns.css";
 import "./team.css";
 import TeamCard from "@/components/features/TeamCard";
+import WhimsicalTeamIcon from "@/components/features/WhimsicalTeamIcon";
+import { useWhimsy } from "@/context/WhimsyContext";
 import Image from "next/image";
 
 type TeamMember = {
@@ -21,6 +23,7 @@ type TeamMember = {
 type FilterType = "all" | string;
 
 const TeamPage: React.FC = () => {
+  const { whimsyMode } = useWhimsy();
   const [members, setMembers] = useState<TeamMember[]>([]);
   const [allDesignations, setAllDesignations] = useState<string[]>([]);
   const [filter, setFilter] = useState<FilterType>("all");
@@ -79,14 +82,22 @@ const TeamPage: React.FC = () => {
         >
           <div className="flex items-center gap-6 mb-6">
             <div className="w-16 h-16 flex items-center justify-center">
-              <Image
-                src="/icons/team.svg"
-                alt="Team Icon"
-                width={64}
-                height={64}
-                className="w-16 h-16 object-contain"
-                priority
-              />
+              {whimsyMode ? (
+                <WhimsicalTeamIcon
+                  width={64}
+                  height={64}
+                  className="w-16 h-16 object-contain"
+                />
+              ) : (
+                <Image
+                  src="/icons/team.svg"
+                  alt="Team Icon"
+                  width={64}
+                  height={64}
+                  className="w-16 h-16 object-contain"
+                  priority
+                />
+              )}
             </div>
             <div>
               <h1 className="text-2xl md:text-3xl lg:text-6xl font-black uppercase tracking-tighter text-white text-shadow-brutal">
