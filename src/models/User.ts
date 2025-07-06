@@ -7,6 +7,7 @@ export interface IUser extends Document {
   designations?: string[];
   avatar?: string;
   bio?: string;
+  linkedin?: string;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -42,6 +43,10 @@ const UserSchema: Schema = new Schema(
       type: String,
       trim: true,
       default: '',
+    },
+    linkedin: {
+      type: String,
+      trim: true,
     },
   },
   {
