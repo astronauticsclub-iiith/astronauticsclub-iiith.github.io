@@ -68,13 +68,17 @@ const WhimsyMouse = () => {
         target.tagName !== "HTML" &&
         target.textContent &&
         target.textContent.trim().length > 0 &&
-        (
-          // Check if it's an inline element or has direct text nodes
-          window.getComputedStyle(target).display.startsWith("inline") ||
+        // Check if it's an inline element or has direct text nodes
+        (window.getComputedStyle(target).display.startsWith("inline") ||
           Array.from(target.childNodes).some(
-            (node) => node.nodeType === Node.TEXT_NODE && node.textContent && node.textContent.trim().length > 0
-          )
-        );
+            (node) =>
+              node.nodeType === Node.TEXT_NODE &&
+              node.textContent &&
+              node.textContent.trim().length > 0
+          )) &&
+        // ensure the text is selectable
+        window.getComputedStyle(target).userSelect !== "none" &&
+        window.getComputedStyle(target).pointerEvents !== "none";
 
       // Set cursor state - priority: cursor-open, cursor-close, clickable, text
       if (hasCursorOpen) {
