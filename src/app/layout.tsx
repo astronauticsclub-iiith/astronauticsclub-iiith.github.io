@@ -16,11 +16,7 @@ const exo2 = Exo_2({
 // TODO: update URL to the actual domain when deploying
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://astronautics-club-iiith.vercel.app"),
   title: "Astronautics Club | IIIT Hyderabad",
-  icons: {
-    icon: "/favicon.ico",
-  },
   description:
     "Where astronomy meets space technology. Experience stargazing sessions, participate in space projects, and explore the cosmos!",
   keywords: [
@@ -33,37 +29,48 @@ export const metadata: Metadata = {
     "student club",
     "space projects",
     "SpaceTech",
+    "unignoramus",
   ],
   authors: [
-    { name: "Astronautics Club IIIT Hyderabad" },
+    {
+      name: "unignoramus",
+      url: "https://github.com/unignoramus11",
+    },
     { name: "Mayank Goel", url: "https://github.com/Mayank447" },
-    { name: "Mohit Kumar Singh", url: "https://github.com/unignoramus11" },
   ],
-  creator: "Astronautics Club IIIT Hyderabad",
-  applicationName: "Astronautics Club IIIT Hyderabad",
+  creator: "unignoramus",
+  icons: {
+    apple: "/apple-touch-icon.png",
+    icon: [
+      { url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
+      { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
+    ],
+  },
+  manifest: "/site.webmanifest",
   openGraph: {
-    type: "website",
-    locale: "en_US",
-    url: "https://astronautics-club-iiith.vercel.app",
     title: "Astronautics Club | IIIT Hyderabad",
     description:
       "Where astronomy meets space technology. Experience stargazing sessions, participate in space projects, and explore the cosmos!",
+    url: "https://astronautics-club-iiith.vercel.app",
     siteName: "Astronautics Club IIIT Hyderabad",
     images: [
       {
-        url: "/logo.png",
-        width: 512,
-        height: 512,
-        alt: "Astronautics Club Logo",
+        url: "https://astronautics-club-iiith.vercel.app/logo.png",
+        width: 1200,
+        height: 630,
+        alt: "Astronautics Club IIIT Hyderabad OG Image",
       },
     ],
+    locale: "en_US",
+    type: "website",
   },
   twitter: {
     card: "summary_large_image",
     title: "Astronautics Club | IIIT Hyderabad",
     description:
       "Where astronomy meets space technology. Experience stargazing sessions, participate in space projects, and explore the cosmos!",
-    images: ["/logo.png"],
+    creator: "@unignoramus11",
+    images: ["https://astronautics-club-iiith.vercel.app/logo.png"],
   },
 };
 
