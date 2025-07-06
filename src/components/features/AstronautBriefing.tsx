@@ -5,6 +5,7 @@ import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import WhimsicalTeamIcon from "./WhimsicalTeamIcon";
 import { ChevronLeft } from "lucide-react";
+import GlitchText from "./GlitchText";
 
 interface Star {
   ra: number;
@@ -30,10 +31,12 @@ interface Constellations {
 
 const AstronautBriefing: React.FC = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const canvasContainerRef = useRef<HTMLDivElement>(null);
   const [starDetailsVisible, setStarDetailsVisible] = useState(false);
   const [selectedStar, setSelectedStar] = useState<Star | null>(null);
   const [constellations, setConstellations] = useState<Constellations>({});
   const [hoveredStar, setHoveredStar] = useState<string | null>(null);
+  const [stats, setStats] = useState({ missions: 0, distance: "0.0K" });
 
   // Canvas state
   const scaleRef = useRef(0.8);
@@ -44,6 +47,16 @@ const AstronautBriefing: React.FC = () => {
   const isRotatingRef = useRef(false);
   const dragStartRef = useRef({ x: 0, y: 0 });
   const lastRotationRef = useRef({ x: 0, y: 0 });
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setStats({
+        missions: Math.floor(Math.random() * 20) + 5,
+        distance: `${(Math.random() * 100).toFixed(1)}K`,
+      });
+    }, 50);
+    return () => clearInterval(interval);
+  }, []);
 
   const getCanvasMousePosition = useCallback(
     (clientX: number, clientY: number) => {
@@ -198,15 +211,21 @@ const AstronautBriefing: React.FC = () => {
 
   useEffect(() => {
     const canvas = canvasRef.current;
-    if (!canvas) return;
+    const container = canvasContainerRef.current;
+    if (!canvas || !container) return;
 
-    // Initialize canvas size to match the container
-    const canvasWidth = window.innerWidth * 0.7;
-    const canvasHeight = window.innerHeight - 96; // Subtract 6rem (96px) for header
-    canvas.width = canvasWidth;
-    canvas.height = canvasHeight;
-    offsetXRef.current = canvasWidth / 2;
-    offsetYRef.current = canvasHeight / 2;
+    const setCanvasSize = () => {
+      if (!container) return;
+      const canvasWidth = container.clientWidth;
+      const canvasHeight = container.clientHeight;
+      canvas.width = canvasWidth;
+      canvas.height = canvasHeight;
+      offsetXRef.current = canvasWidth / 2;
+      offsetYRef.current = canvasHeight / 2;
+      drawScene();
+    };
+
+    setCanvasSize();
 
     // Load constellation data
     fetch("/data/constellation.json")
@@ -220,13 +239,7 @@ const AstronautBriefing: React.FC = () => {
 
     // Handle resizing
     const handleResize = () => {
-      const canvasWidth = window.innerWidth * 0.7;
-      const canvasHeight = window.innerHeight - 96; // Subtract 6rem (96px) for header
-      canvas.width = canvasWidth;
-      canvas.height = canvasHeight;
-      offsetXRef.current = canvasWidth / 2;
-      offsetYRef.current = canvasHeight / 2;
-      drawScene();
+      setCanvasSize();
     };
 
     window.addEventListener("resize", handleResize);
@@ -380,8 +393,8 @@ const AstronautBriefing: React.FC = () => {
 
   return (
     <div className="bg-background flex">
-      {/* Left Sidebar - 30% */}
-      <div className="w-[30%] flex flex-col bg-pattern-graph">
+      {/* Left Sidebar - Fixed Width */}
+      <div className="w-[512px] flex-shrink-0 flex flex-col bg-pattern-graph">
         {/* Header Section */}
         <motion.div
           initial={{ opacity: 0, x: -30 }}
@@ -429,6 +442,13 @@ const AstronautBriefing: React.FC = () => {
                 <div className="flex items-start gap-3">
                   <div className="w-2 h-2 bg-white mt-2 flex-shrink-0" />
                   <p>
+                    <strong className="text-white">INTERACT:</strong> Click on
+                    stars to learn about our team members
+                  </p>
+                </div>
+                <div className="flex items-start gap-3">
+                  <div className="w-2 h-2 bg-white mt-2 flex-shrink-0" />
+                  <p>
                     <strong className="text-white">ROTATE:</strong> Drag to
                     explore different regions of space
                   </p>
@@ -436,22 +456,8 @@ const AstronautBriefing: React.FC = () => {
                 <div className="flex items-start gap-3">
                   <div className="w-2 h-2 bg-white mt-2 flex-shrink-0" />
                   <p>
-                    <strong className="text-white">PAN:</strong> Hold Shift +
-                    Drag to move around the star map
-                  </p>
-                </div>
-                <div className="flex items-start gap-3">
-                  <div className="w-2 h-2 bg-white mt-2 flex-shrink-0" />
-                  <p>
                     <strong className="text-white">ZOOM:</strong> Use mouse
                     wheel to zoom in and out
-                  </p>
-                </div>
-                <div className="flex items-start gap-3">
-                  <div className="w-2 h-2 bg-white mt-2 flex-shrink-0" />
-                  <p>
-                    <strong className="text-white">INTERACT:</strong> Click on
-                    stars to learn about our team members
                   </p>
                 </div>
               </div>
@@ -635,7 +641,7 @@ const AstronautBriefing: React.FC = () => {
                           SPACE MISSIONS
                         </div>
                         <div className="text-2xl font-black text-white">
-                          {Math.floor(Math.random() * 20) + 5}
+                          <GlitchText text={String(stats.missions)} />
                         </div>
                       </motion.div>
                       <motion.div
@@ -648,7 +654,7 @@ const AstronautBriefing: React.FC = () => {
                           LIGHT YEARS TRAVELED
                         </div>
                         <div className="text-2xl font-black text-white">
-                          {(Math.random() * 100).toFixed(1)}K
+                          <GlitchText text={stats.distance} />
                         </div>
                       </motion.div>
                     </div>
@@ -719,9 +725,10 @@ const AstronautBriefing: React.FC = () => {
         </AnimatePresence>
       </div>
 
-      {/* Right Canvas - 70% */}
+      {/* Right Canvas - Remaining Space */}
       <div
-        className="w-[70%] relative overflow-hidden"
+        ref={canvasContainerRef}
+        className="flex-1 relative overflow-hidden"
         style={{
           height: "calc(100vh - 6rem)", // Adjust height to fit the header
         }}
