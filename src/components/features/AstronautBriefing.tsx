@@ -736,7 +736,7 @@ const AstronautBriefing: React.FC = () => {
         <canvas
           ref={canvasRef}
           id="starMap"
-          className="block cursor-grab active:cursor-grabbing cursor-space"
+          className="block cursor-open"
           onClick={handleCanvasClick}
           onMouseMove={handleCanvasMouseMove}
           onMouseDown={handleCanvasMouseDown}
