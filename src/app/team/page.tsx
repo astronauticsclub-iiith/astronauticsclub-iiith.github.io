@@ -8,6 +8,7 @@ import "@/components/ui/bg-patterns.css";
 import "./team.css";
 import TeamCard from "@/components/features/TeamCard";
 import WhimsicalTeamIcon from "@/components/features/WhimsicalTeamIcon";
+import AstronautBriefing from "@/components/features/AstronautBriefing";
 import { useWhimsy } from "@/context/WhimsyContext";
 import Image from "next/image";
 
@@ -29,6 +30,7 @@ const TeamPage: React.FC = () => {
   const [filter, setFilter] = useState<FilterType>("all");
   const [loading, setLoading] = useState(true);
   const [showFilters, setShowFilters] = useState(false);
+  const [isDesktop, setIsDesktop] = useState(false);
 
   useEffect(() => {
     const loadMembers = async () => {
@@ -58,6 +60,17 @@ const TeamPage: React.FC = () => {
     loadMembers();
   }, []);
 
+  useEffect(() => {
+    const checkDesktop = () => {
+      setIsDesktop(window.innerWidth >= 1024);
+    };
+
+    checkDesktop();
+    window.addEventListener("resize", checkDesktop);
+
+    return () => window.removeEventListener("resize", checkDesktop);
+  }, []);
+
   const filteredMembers = members.filter(
     (member) =>
       filter === "all" ||
@@ -68,6 +81,15 @@ const TeamPage: React.FC = () => {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center">
         <Loader fullscreen />
+      </div>
+    );
+  }
+
+  // Desktop whimsy mode astronaut briefing view
+  if (whimsyMode && isDesktop) {
+    return (
+      <div className="min-h-screen bg-background pt-24">
+        <AstronautBriefing />
       </div>
     );
   }

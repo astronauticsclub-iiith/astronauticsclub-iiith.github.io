@@ -56,7 +56,7 @@ async function syncTeamData() {
     const jsonPath = path.join(
       __dirname,
       "..",
-      "src",
+      "public",
       "data",
       "constellation.json"
     );
@@ -78,7 +78,7 @@ async function syncTeamData() {
           consolidatedUsers[email] = {
             email: email,
             name: star.name,
-            avatar: star.photo ? `/team/${star.photo}` : "",
+            avatar: star.photo ? star.photo : "",
             bio: star.desc,
             linkedin: star.linkedin,
             designations: [],
