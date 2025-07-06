@@ -13,15 +13,15 @@ const GlitchText: React.FC<GlitchTextProps> = ({ text, className }) => {
     const interval = setInterval(() => {
       let newText = "";
       for (let i = 0; i < text.length; i++) {
-        if (Math.random() > 0.5) {
-          // 50% chance to glitch a character
+        if (Math.random() > 0.2) {
+          // 80% chance to glitch a character
           newText += String.fromCharCode(33 + Math.random() * 94); // Random printable character
         } else {
           newText += text[i];
         }
       }
       setGlitchedText(newText);
-    }, 300);
+    }, 150);
 
     return () => clearInterval(interval);
   }, [text]);
