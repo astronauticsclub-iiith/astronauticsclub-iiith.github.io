@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useCallback, useEffect, useRef, useState } from "react";
-// Assuming your context is located here
 import { useWhimsy } from "@/context/WhimsyContext";
 
 type WhimsicalTeamIconProps = {
@@ -173,8 +172,11 @@ const WhimsicalTeamIcon: React.FC<WhimsicalTeamIconProps> = ({
         : isHovered3;
 
     const translatePart = `translate(${position.x}px, ${position.y}px)`;
-    const scaleY = isHovered || isBlinking ? 0.05 : 1;
-    const scalePart = `scaleY(${scaleY})`;
+    const scaleX =
+      isHovered || isBlinking ? (circleIndex === 1 ? 0.05 : 1.25) : 1.05;
+    const scaleY =
+      isHovered || isBlinking ? (circleIndex !== 1 ? 0.05 : 1.25) : 1.05;
+    const scalePart = `scaleX(${scaleX}) scaleY(${scaleY})`;
 
     return `${translatePart} ${scalePart}`;
   };
