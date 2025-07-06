@@ -518,7 +518,7 @@ const AstronautBriefing: React.FC = () => {
                     >
                       <ChevronLeft size={16} className="text-white" />
                     </motion.span>
-                    RETURN TO STAR MAP
+                    RETURN TO INSTRUCTIONS
                   </motion.button>
                 </motion.div>
 
