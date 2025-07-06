@@ -61,13 +61,30 @@ const WhimsyMouse = () => {
         target.classList.contains("cursor-close") ||
         !!target.closest(".cursor-close");
 
-      // Set cursor state - priority: cursor-open, cursor-close, clickable
+      // Check if target is normal selectable text
+      const isText =
+        !isClickable &&
+        target.tagName !== "BODY" &&
+        target.tagName !== "HTML" &&
+        target.textContent &&
+        target.textContent.trim().length > 0 &&
+        (
+          // Check if it's an inline element or has direct text nodes
+          window.getComputedStyle(target).display.startsWith("inline") ||
+          Array.from(target.childNodes).some(
+            (node) => node.nodeType === Node.TEXT_NODE && node.textContent && node.textContent.trim().length > 0
+          )
+        );
+
+      // Set cursor state - priority: cursor-open, cursor-close, clickable, text
       if (hasCursorOpen) {
         setHoverState("open");
       } else if (hasCursorClose) {
         setHoverState("close");
       } else if (isClickable) {
         setHoverState("hover");
+      } else if (isText) {
+        setHoverState("text-hover");
       } else {
         setHoverState("normal");
       }
