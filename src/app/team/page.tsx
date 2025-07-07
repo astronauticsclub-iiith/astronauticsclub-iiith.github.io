@@ -254,7 +254,7 @@ const TeamPage: React.FC = () => {
             transition={{ delay: 0.6 }}
             className="team-grid px-2"
           >
-            <AnimatePresence mode="wait">
+            <AnimatePresence>
               {filteredMembers.map((member, index) => (
                 <TeamCard key={member.email} member={member} index={index} />
               ))}

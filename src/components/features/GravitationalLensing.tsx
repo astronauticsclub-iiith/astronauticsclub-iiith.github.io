@@ -26,7 +26,7 @@ export default function GravitationalLensing({
     const canvas = canvasRef.current;
     if (!canvas) return;
 
-    const ctx = canvas.getContext("2d");
+    const ctx = canvas.getContext("2d", { willReadFrequently: true });
     if (!ctx) return;
 
     let w = 0;
@@ -73,7 +73,7 @@ export default function GravitationalLensing({
       px: number,
       py: number
     ) => {
-      const ctx = canvas.getContext("2d");
+      const ctx = canvas.getContext("2d", { willReadFrequently: true });
       if (!ctx || !imageDataSrcRef.current || !imageDataDstRef.current) return;
 
       const oldx = oldXRef.current;
@@ -209,7 +209,7 @@ export default function GravitationalLensing({
     if (!canvas) return;
     const w = canvas.width;
     const h = canvas.height;
-    const ctx = canvas.getContext("2d");
+    const ctx = canvas.getContext("2d", { willReadFrequently: true });
     if (!ctx || !imageDataSrcRef.current || !imageDataDstRef.current) return;
     const px = mouseX - rect.left;
     const py = mouseY - rect.top;

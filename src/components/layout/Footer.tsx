@@ -32,6 +32,7 @@ const Footer: React.FC = () => {
                     width={80}
                     height={78}
                     className="rounded-full"
+                    priority
                   />
                 </div>
               </div>
@@ -198,6 +199,7 @@ const Footer: React.FC = () => {
                 width={100}
                 height={100}
                 className="h-16 w-auto"
+                priority
               />
             </a>
           </div>

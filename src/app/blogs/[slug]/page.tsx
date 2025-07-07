@@ -229,7 +229,7 @@ const BlogPostPage = () => {
               />
             </div>
 
-            <div>
+            <div className="flex flex-col w-full h-full">
               <h3 className="font-bold text-xl text-white">
                 {blog.author.name || "Anonymous"}
               </h3>

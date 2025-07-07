@@ -151,6 +151,7 @@ const Navbar = () => {
                   : "10ms",
               }}
               unoptimized={whimsyMode}
+              priority
             />
             <div className="flex flex-col gap-0">
               <span

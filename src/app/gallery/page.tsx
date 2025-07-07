@@ -229,7 +229,7 @@ const Gallery: React.FC = () => {
             transition={{ delay: 0.6 }}
             className="gallery-masonry px-2"
           >
-            <AnimatePresence mode="wait">
+            <AnimatePresence>
               {filteredImages.map((image, index) => (
                 <PhotoCard
                   key={`image-${index}-${image.filename}`}
