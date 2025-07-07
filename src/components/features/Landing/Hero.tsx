@@ -208,7 +208,7 @@ const Hero = () => {
           <h1 className="font-bold">
             <span className="nowrap">
               A
-              <span ref={sRef} id="s-hover-effect">
+              <span ref={sRef} id="s-hover-effect" className="cursor-close">
                 s
               </span>
               tronautics
