@@ -6,15 +6,15 @@ const basePath = process.env.NEXT_PUBLIC_BASE_PATH || "";
 export default withAuth(
   function middleware(req) {
     const token = req.nextauth.token;
-    const isAdminRoute = req.nextUrl.pathname.startsWith("/imtheboss");
+    const isAdminRoute = req.nextUrl.pathname.startsWith(`${basePath}/imtheboss`);
     const isBlogAuthorRoute = req.nextUrl.pathname.startsWith(
-      "/clickity-clackity-blogs-are-my-property"
+      `${basePath}/clickity-clackity-blogs-are-my-property`
     );
-    const isLoginRoute = req.nextUrl.pathname.startsWith("/let-me-innn");
+    const isLoginRoute = req.nextUrl.pathname.startsWith(`${basePath}/let-me-innn`);
 
     // If user is not authenticated and trying to access protected routes
     if (!token && (isAdminRoute || isBlogAuthorRoute)) {
-      return NextResponse.redirect(new URL("/let-me-innn", req.url));
+      return NextResponse.redirect(new URL(`${basePath}/let-me-innn`, req.url));
     }
 
     // If user is authenticated but doesn't have the right role
@@ -33,20 +33,20 @@ export default withAuth(
         console.log(
           "Middleware - Redirecting to stay-away-snooper (no admin role)"
         );
-        return NextResponse.redirect(new URL("/stay-away-snooper", req.url));
+        return NextResponse.redirect(new URL(`${basePath}/stay-away-snooper`, req.url));
       }
 
       if (
         isBlogAuthorRoute &&
         userRole !== "admin" && userRole !== "writer"
       ) {
-        return NextResponse.redirect(new URL("/stay-away-snooper", req.url));
+        return NextResponse.redirect(new URL(`${basePath}/stay-away-snooper`, req.url));
       }
 
       // If authenticated user tries to access login page, redirect them appropriately
       if (isLoginRoute) {
         if (userRole === "admin") {
-          return NextResponse.redirect(new URL("/imtheboss", req.url));
+          return NextResponse.redirect(new URL(`${basePath}/imtheboss`, req.url));
         } else if (userRole === "writer") {
           return NextResponse.redirect(
             new URL("/clickity-clackity-blogs-are-my-property", req.url)
