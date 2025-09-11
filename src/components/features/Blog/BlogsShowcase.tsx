@@ -11,6 +11,8 @@ import { useWhimsy } from "@/context/WhimsyContext";
 import Loader from "@/components/ui/Loader";
 import "@/components/ui/bg-patterns.css";
 
+const prefix = process.env.NEXT_PUBLIC_BASE_PATH || "";
+
 interface BlogsShowcaseProps {
   className?: string;
 }
@@ -173,7 +175,7 @@ const BlogsShowcase = ({ className = "" }: BlogsShowcaseProps) => {
               <div className="flex items-center gap-4 mb-4">
                 <div className="w-24 h-24 flex items-center justify-center">
                   <Image
-                    src="/icons/telescope.svg"
+                    src={`${prefix}/icons/telescope.svg`}
                     alt="Telescope"
                     width={64}
                     height={64}
@@ -217,7 +219,7 @@ const BlogsShowcase = ({ className = "" }: BlogsShowcaseProps) => {
                 }`}
               >
                 <Image
-                  src="/icons/telescope.svg"
+                  src={`${prefix}/icons/telescope.svg`}
                   alt="Telescope"
                   width={64}
                   height={64}

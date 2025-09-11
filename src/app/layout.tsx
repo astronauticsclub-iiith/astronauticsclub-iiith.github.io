@@ -48,7 +48,7 @@ export const metadata: Metadata = {
       { url: `${prefix}/favicon-32x32.png`, sizes: "32x32", type: "image/png" },
     ],
   },
-  manifest: "/site.webmanifest",
+  manifest: `${prefix}/site.webmanifest`,
   openGraph: {
     title: "Astronautics Club | IIIT Hyderabad",
     description:
@@ -92,7 +92,7 @@ export default function RootLayout({
           rel="canonical"
           href="https://astronautics-club-iiith.vercel.app"
         />
-        <link rel="manifest" href="/site.webmanifest" />
+        <link rel="manifest" href={`${prefix}/site.webmanifest`} />
         <meta name="theme-color" content="#020001" />
       </head>
       <body

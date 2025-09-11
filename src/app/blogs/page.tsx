@@ -20,6 +20,8 @@ import Image from "next/image";
 import { useWhimsy } from "@/context/WhimsyContext";
 import "@/components/ui/bg-patterns.css";
 
+const prefix = process.env.NEXT_PUBLIC_BASE_PATH || "";
+
 const BlogsPage = () => {
   const [blogs, setBlogs] = useState<Blog[]>([]);
   const [loading, setLoading] = useState(true);
@@ -230,7 +232,7 @@ const BlogsPage = () => {
               }`}
             >
               <Image
-                src="/icons/telescope.svg"
+                src={`${prefix}/icons/telescope.svg`}
                 alt="Telescope"
                 width={64}
                 height={64}
