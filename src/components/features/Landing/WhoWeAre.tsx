@@ -5,10 +5,10 @@ import ClickableImage from "@/components/common/ClickableImage";
 import "@/components/ui/bg-patterns.css";
 import { useRouter } from "next/router";
 
-const router = useRouter();
-const prefix = router.basePath
-
 const WhoWeAre = () => {
+  const router = useRouter();
+  const prefix = router.basePath;
+
   const images = [
     {
       id: 1,
