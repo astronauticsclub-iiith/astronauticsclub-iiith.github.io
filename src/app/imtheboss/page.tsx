@@ -333,7 +333,7 @@ export default function AdminDashboard() {
     role: "admin" | "writer" | "none"
   ) => {
     try {
-      const response = await fetch(`/api/users/${userId}`,
+      const response = await fetch(`${basePath}/api/users/${userId}`,
         {
           method: "PUT",
           headers: { "Content-Type": "application/json" },

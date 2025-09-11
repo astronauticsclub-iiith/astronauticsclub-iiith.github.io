@@ -142,7 +142,7 @@ export default function BlogAuthorDashboard() {
 
   const fetchUserProfile = async () => {
     try {
-      const response = await fetch("/api/users/me");
+      const response = await fetch(`${basePath}/api/users/me`);
       if (response.ok) {
         const data = await response.json();
         setUserProfile(data);

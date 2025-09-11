@@ -230,7 +230,7 @@ const AstronautBriefing: React.FC = () => {
     setCanvasSize();
 
     // Load constellation data
-    fetch("/data/constellation.json")
+    fetch(`${basePath}/data/constellation.json`)
       .then((response) => response.json())
       .then((data: Constellations) => {
         setConstellations(data);
@@ -559,7 +559,7 @@ const AstronautBriefing: React.FC = () => {
                         >
                           <Image
                             className="w-24 h-24 object-cover border-4 border-white shadow-[8px_8px_0px_0px_rgba(255,255,255,0.3)]"
-                            src={selectedStar.photo || `${basePath}/logo.png`}
+                            src={`${basePath}/${selectedStar.photo}` || `${basePath}/logo.png`}
                             alt={selectedStar.name || "Astronaut"}
                             width={96}
                             height={96}
