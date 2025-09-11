@@ -4,6 +4,8 @@ import { parseStringPromise } from "xml2js";
 import { connectToDatabase } from "@/lib/mongodb";
 import User, { IUser } from "@/models/User";
 
+const basePath = process.env.NEXT_PUBLIC_BASE_PATH || "";
+
 interface ExtendedUser {
   id?: string;
   name?: string | null;
@@ -183,8 +185,8 @@ const handler = NextAuth({
     },
   },
   pages: {
-    signIn: "/let-me-innn",
-    error: "/stay-away-snooper",
+    signIn: `${basePath}/let-me-innn`,
+    error: `${basePath}/stay-away-snooper`,
   },
   debug: process.env.NODE_ENV === "development",
 });
