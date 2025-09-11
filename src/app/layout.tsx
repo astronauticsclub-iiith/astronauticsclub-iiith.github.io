@@ -7,6 +7,8 @@ import { WhimsyProvider } from "@/context/WhimsyContext";
 import { ImagePreviewProvider } from "@/context/ImagePreviewContext";
 import AuthProvider from "@/components/AuthProvider";
 
+const prefix = process.env.NEXT_PUBLIC_BASE_PATH || "";
+
 const exo2 = Exo_2({
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
@@ -40,10 +42,10 @@ export const metadata: Metadata = {
   ],
   creator: "unignoramus",
   icons: {
-    apple: "/apple-touch-icon.png",
+    apple: `${prefix}/apple-touch-icon.png`,
     icon: [
-      { url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
-      { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
+      { url: `${prefix}/favicon-16x16.png`, sizes: "16x16", type: "image/png" },
+      { url: `${prefix}/favicon-32x32.png`, sizes: "32x32", type: "image/png" },
     ],
   },
   manifest: "/site.webmanifest",

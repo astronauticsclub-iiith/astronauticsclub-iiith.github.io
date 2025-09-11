@@ -5,6 +5,8 @@ import User from "@/models/User";
 import { requireWriter } from "@/lib/auth";
 import Logger from "@/lib/logger";
 
+const prefix = process.env.NEXT_PUBLIC_BASE_PATH || "";
+
 // Helper function to populate author details
 async function populateAuthorDetails(blogs: Array<Record<string, unknown>>) {
   const authorEmails = [
@@ -16,7 +18,7 @@ async function populateAuthorDetails(blogs: Array<Record<string, unknown>>) {
   authors.forEach((author) => {
     authorMap.set(author.email, {
       name: author.name || "Anonymous",
-      avatar: author.avatar || "/team/default-avatar.png",
+      avatar: author.avatar || `${prefix}/team/default-avatar.png`,
       bio: author.bio || "Blog Author",
       email: author.email,
     });
@@ -26,7 +28,7 @@ async function populateAuthorDetails(blogs: Array<Record<string, unknown>>) {
     ...blog,
     author: authorMap.get((blog.author as { email: string }).email) || {
       name: "Anonymous",
-      avatar: "/team/default-avatar.png",
+      avatar: `{prefix}/team/default-avatar.png`,
       bio: "Blog Author",
       email: (blog.author as { email: string }).email,
     },

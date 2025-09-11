@@ -8,6 +8,8 @@ interface GravitationalLensingProps {
   mouseY: number;
 }
 
+const prefix = process.env.NEXT_PUBLIC_BASE_PATH || "";
+
 export default function GravitationalLensing({
   mouseX,
   mouseY,
@@ -184,9 +186,9 @@ export default function GravitationalLensing({
       };
 
       if (window.innerWidth < 1200) {
-        img.src = "/astronautics/gravitational-lensing/gravitational_lensing.png";
+        img.src = `${prefix}/gravitational-lensing/gravitational_lensing.png`;
       } else {
-        img.src = "/astronautics/gravitational-lensing/gravitational_lensing_extended.png";
+        img.src = `${prefix}/gravitational-lensing/gravitational_lensing_extended.png`;
       }
     };
 

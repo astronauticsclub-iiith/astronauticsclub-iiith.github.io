@@ -29,6 +29,8 @@ import {
 import Loader from "@/components/ui/Loader";
 import "@/components/ui/bg-patterns.css";
 
+const prefix = process.env.NEXT_PUBLIC_BASE_PATH || "";
+
 const BlogPostPage = () => {
   const { openPreview } = useImagePreview();
   const [blog, setBlog] = useState<Blog | null>(null);
@@ -216,14 +218,14 @@ const BlogPostPage = () => {
           <div className="flex items-center gap-4">
             <div className="w-16 h-16 border-2 border-white overflow-hidden">
               <Image
-                src={blog.author.avatar || "/team/default-avatar.png"}
+                src={blog.author.avatar || `${prefix}/team/default-avatar.png`}
                 alt={blog.author.name || "Anonymous"}
                 width={64}
                 height={64}
                 className="w-full h-full object-cover cursor-pointer cursor-open"
                 onClick={() =>
                   handleImageClick(
-                    blog.author.avatar || "/team/default-avatar.png"
+                    blog.author.avatar || `${prefix}/team/default-avatar.png`
                   )
                 }
               />

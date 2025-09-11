@@ -142,7 +142,7 @@ const Navbar = () => {
           {/* Logo */}
           <Link href="/" className="flex items-center space-x-4 text-white">
             <Image
-              src={whimsyMode ? "/icons/moon.gif" : `${prefix}/logo.png`}
+              src={whimsyMode ? `${prefix}/icons/moon.gif` : `${prefix}/logo.png`}
               alt="Logo"
               width={80}
               height={90}

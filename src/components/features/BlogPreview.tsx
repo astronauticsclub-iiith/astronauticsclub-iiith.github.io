@@ -18,6 +18,8 @@ import Image from 'next/image';
 import { useImagePreview } from '@/context/ImagePreviewContext';
 import "@/components/ui/bg-patterns.css";
 
+const prefix = process.env.NEXT_PUBLIC_BASE_PATH || "";
+
 interface BlogPreviewProps {
   title: string;
   excerpt: string;
@@ -139,12 +141,12 @@ export default function BlogPreview({
           <div className="flex items-center gap-4">
             <div className="w-16 h-16 border-2 border-white overflow-hidden">
               <Image
-                src={author.avatar || '/team/default-avatar.png'}
+                src={author.avatar || `${prefix}/team/default-avatar.png`}
                 alt={author.name}
                 width={64}
                 height={64}
                 className="w-full h-full object-cover cursor-pointer cursor-open"
-                onClick={() => handleImageClick(author.avatar || '/team/default-avatar.png')}
+                onClick={() => handleImageClick(author.avatar || `${prefix}/team/default-avatar.png`)}
               />
             </div>
 
