@@ -39,7 +39,7 @@ const TeamPage: React.FC = () => {
       try {
         setLoading(true);
         await new Promise((resolve) => setTimeout(resolve, 800));
-        const response = await fetch(`${basePath}/api/team`);
+        const response = await fetch(`/api/team`);
 
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);

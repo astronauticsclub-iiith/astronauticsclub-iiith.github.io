@@ -1,6 +1,8 @@
 import { withAuth } from "next-auth/middleware";
 import { NextResponse } from "next/server";
 
+const basePath = process.env.NEXT_PUBLIC_BASE_PATH || "";
+
 export default withAuth(
   function middleware(req) {
     const token = req.nextauth.token;
@@ -60,15 +62,15 @@ export default withAuth(
       authorized: ({ token, req }) => {
         // Allow access to public routes
         if (
-          req.nextUrl.pathname.startsWith("/api/auth") ||
-          req.nextUrl.pathname.startsWith("/api/blogs") ||
-          req.nextUrl.pathname.startsWith("/api/gallery") ||
-          req.nextUrl.pathname === "/stay-away-snooper" ||
-          req.nextUrl.pathname === "/let-me-innn" ||
-          req.nextUrl.pathname === "/" ||
-          req.nextUrl.pathname.startsWith("/blogs") ||
-          req.nextUrl.pathname.startsWith("/gallery") ||
-          req.nextUrl.pathname.startsWith("/_next") ||
+          req.nextUrl.pathname.startsWith(`${basePath}/api/auth`) ||
+          req.nextUrl.pathname.startsWith(`${basePath}/api/blogs`) ||
+          req.nextUrl.pathname.startsWith(`${basePath}/api/gallery`) ||
+          req.nextUrl.pathname === `${basePath}/stay-away-snooper` ||
+          req.nextUrl.pathname === `${basePath}/let-me-innn` ||
+          req.nextUrl.pathname === `${basePath}/` ||
+          req.nextUrl.pathname.startsWith(`${basePath}/blogs`) ||
+          req.nextUrl.pathname.startsWith(`${basePath}/gallery`) ||
+          req.nextUrl.pathname.startsWith(`${basePath}/_next`) ||
           req.nextUrl.pathname.includes(".")
         ) {
           return true;
@@ -83,11 +85,11 @@ export default withAuth(
 
 export const config = {
   matcher: [
-    "/imtheboss/:path*",
-    "/clickity-clackity-blogs-are-my-property/:path*",
-    "/let-me-innn/:path*",
-    "/api/upload/:path*",
-    "/api/users/:path*",
-    "/api/my-blogs/:path*",
+    `${basePath}/imtheboss/:path*`,
+    `${basePath}/clickity-clackity-blogs-are-my-property/:path*`,
+    `${basePath}/let-me-innn/:path*`,
+    `${basePath}/api/upload/:path*`,
+    `${basePath}/api/users/:path*`,
+    `${basePath}/api/my-blogs/:path*`,
   ],
 };
