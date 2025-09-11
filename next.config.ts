@@ -1,8 +1,8 @@
-import type { NextConfig } from "next";
-
-const nextConfig: NextConfig = {
-  output: "standalone",
+const nextConfig = {
+  basePath: '/astronautics',        
+  output: 'standalone',
   reactStrictMode: true,
 };
 
-export default nextConfig;
+
+module.exports = nextConfig;
