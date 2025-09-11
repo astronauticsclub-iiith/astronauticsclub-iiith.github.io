@@ -5,6 +5,8 @@ import { useEffect, useRef, useState } from "react";
 import "./Hero.css";
 import { useWhimsy } from "@/context/WhimsyContext";
 
+const prefix = process.env.NEXT_PUBLIC_BASE_PATH || "";
+
 const Hero = () => {
   const sRef = useRef<HTMLSpanElement>(null);
   const sparkleContainerRef = useRef<HTMLDivElement>(null);
@@ -220,7 +222,7 @@ const Hero = () => {
         <div className="hero-content">
           <Image
             id="scroll-down-arrow"
-            src="/icons/down.png"
+            src={`${prefix}/icons/down.png`}
             alt="scroll down"
             width={50}
             height={50}

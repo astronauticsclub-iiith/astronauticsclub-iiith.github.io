@@ -28,7 +28,7 @@ const Footer: React.FC = () => {
               <div className="relative w-20 h-20 rounded-full mx-auto md:mx-0">
                 <div className="w-full h-full rounded-full flex items-center justify-center">
                   <Image
-                    src={prefix+"logo.png"}
+                    src={`${prefix}/logo.png`}
                     alt="Astronautics Club Logo"
                     width={80}
                     height={78}
@@ -94,16 +94,6 @@ const Footer: React.FC = () => {
                 <span className="break-all">
                   astronauticsclub@students.iiit.ac.in
                 </span>
-              </a>
-
-              <a
-                href="tel:+919899199660"
-                className="flex items-center justify-center md:justify-end space-x-2 text-gray-300 duration-300 group"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <Phone className="w-4 h-4 group-hover:scale-110 transition-transform duration-300" />
-                <span>+91 9899199660</span>
               </a>
 
               {/* Social Media Links */}
@@ -195,7 +185,7 @@ const Footer: React.FC = () => {
               className="inline-block"
             >
               <Image
-                src={prefix+"iiit-logo.png"}
+                src={`${prefix}/iiit-logo.png`}
                 alt="IIIT Hyderabad Logo"
                 width={100}
                 height={100}

@@ -12,6 +12,8 @@ import AstronautBriefing from "@/components/features/AstronautBriefing";
 import { useWhimsy } from "@/context/WhimsyContext";
 import Image from "next/image";
 
+const prefix = process.env.NEXT_PUBLIC_BASE_PATH || "";
+
 type TeamMember = {
   name?: string;
   email: string;
@@ -112,7 +114,7 @@ const TeamPage: React.FC = () => {
                 />
               ) : (
                 <Image
-                  src="/icons/team.svg"
+                  src={`${prefix}/icons/team.svg`}
                   alt="Team Icon"
                   width={64}
                   height={64}
