@@ -1,5 +1,5 @@
 const nextConfig = {
-  basePath: '/astronautics',        
+  basePath: process.env.NEXT_PUBLIC_BASE_PATH || "",      
   output: 'standalone',
   reactStrictMode: true,
 };

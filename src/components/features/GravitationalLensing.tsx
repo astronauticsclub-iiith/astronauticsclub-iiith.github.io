@@ -184,9 +184,9 @@ export default function GravitationalLensing({
       };
 
       if (window.innerWidth < 1200) {
-        img.src = "/gravitational-lensing/gravitational_lensing.png";
+        img.src = "/astronautics/gravitational-lensing/gravitational_lensing.png";
       } else {
-        img.src = "/gravitational-lensing/gravitational_lensing_extended.png";
+        img.src = "/astronautics/gravitational-lensing/gravitational_lensing_extended.png";
       }
     };
 

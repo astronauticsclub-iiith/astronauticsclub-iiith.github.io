@@ -397,7 +397,7 @@ export default function BlogPreview({
                 img: ({ src = "", alt = "", width, height, ...props }) =>
                   typeof src === "string" ? (
                     <Image
-                      src={src}
+                      src={/astronautics/+src}
                       alt={alt}
                       width={typeof width === "number" ? width : 800}
                       height={typeof height === "number" ? height : 400}
