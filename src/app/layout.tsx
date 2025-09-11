@@ -51,11 +51,11 @@ export const metadata: Metadata = {
     title: "Astronautics Club | IIIT Hyderabad",
     description:
       "Where astronomy meets space technology. Experience stargazing sessions, participate in space projects, and explore the cosmos!",
-    url: "https://astronautics-club-iiith.vercel.app",
+    url: "https://clubs.iiit.ac.in/astronautics",
     siteName: "Astronautics Club IIIT Hyderabad",
     images: [
       {
-        url: "https://astronautics-club-iiith.vercel.app/logo.png",
+        url: "https://clubs.iiit.ac.in/astronautics/logo.png",
         width: 1200,
         height: 630,
         alt: "Astronautics Club IIIT Hyderabad OG Image",
@@ -70,7 +70,7 @@ export const metadata: Metadata = {
     description:
       "Where astronomy meets space technology. Experience stargazing sessions, participate in space projects, and explore the cosmos!",
     creator: "@unignoramus11",
-    images: ["https://astronautics-club-iiith.vercel.app/logo.png"],
+    images: ["https://clubs.iiit.ac.in/astronautics/logo.png"],
   },
 };
 
