@@ -15,6 +15,7 @@ import { useAlert } from "@/hooks/useAlert";
 import "@/components/ui/bg-patterns.css";
 import ProfileInfo from "@/components/features/mod/ProfileInfo";
 
+const basePath = process.env.NEXT_PUBLIC_BASE_PATH || "";
 interface ExtendedUser {
   id?: string;
   name?: string | null;
@@ -125,7 +126,7 @@ export default function BlogAuthorDashboard() {
 
   const fetchMyBlogs = async (role: string) => {
     try {
-      const url = role === 'admin' ? '/api/blogs' : '/api/my-blogs';
+      const url = role === 'admin' ? `${basePath}/api/blogs` : `${basePath}/api/my-blogs`;
       const response = await fetch(url);
       if (response.ok) {
         const data = await response.json();
@@ -202,7 +203,7 @@ export default function BlogAuthorDashboard() {
     };
 
     try {
-      const response = await fetch("/api/blogs", {
+      const response = await fetch(`${basePath}/api/blogs`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(blogData),
@@ -243,7 +244,7 @@ export default function BlogAuthorDashboard() {
 
   const performDeleteBlog = async (slug: string) => {
     try {
-      const response = await fetch(`/api/blogs/${slug}`, {
+      const response = await fetch(`${basePath}/api/blogs/${slug}`, {
         method: "DELETE",
       });
 
@@ -278,7 +279,7 @@ export default function BlogAuthorDashboard() {
     }
 
     try {
-      const response = await fetch(`/api/blogs/${editingBlog.slug}`, {
+      const response = await fetch(`${basePath}/api/blogs/${editingBlog.slug}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

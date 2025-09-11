@@ -33,7 +33,7 @@ const BlogsShowcase = ({ className = "" }: BlogsShowcaseProps) => {
     const fetchBlogs = async () => {
       try {
         setLoading(true);
-        const response = await fetch("/api/blogs?limit=5&sortBy=latest");
+        const response = await fetch(`${basePath}/api/blogs?limit=5&sortBy=latest`);
         if (response.ok) {
           const data = await response.json();
           setBlogs(data.blogs || []);
