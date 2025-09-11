@@ -85,11 +85,17 @@ export default withAuth(
 
 export const config = {
   matcher: [
-    `${basePath}/imtheboss/:path*`,
-    `${basePath}/clickity-clackity-blogs-are-my-property/:path*`,
-    `${basePath}/let-me-innn/:path*`,
-    `${basePath}/api/upload/:path*`,
-    `${basePath}/api/users/:path*`,
-    `${basePath}/api/my-blogs/:path*`,
+    `/imtheboss/:path*`,
+    `/clickity-clackity-blogs-are-my-property/:path*`,
+    `/let-me-innn/:path*`,
+    `/api/upload/:path*`,
+    `/api/users/:path*`,
+    `/api/my-blogs/:path*`,
+    `/astronautics/imtheboss/:path*`,
+    `/astronautics/clickity-clackity-blogs-are-my-property/:path*`,
+    `/astronautics/let-me-innn/:path*`,
+    `/astronautics/api/upload/:path*`,
+    `/astronautics/api/users/:path*`,
+    `/astronautics/api/my-blogs/:path*`,
   ],
 };
