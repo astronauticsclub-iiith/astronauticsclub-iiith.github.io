@@ -3,7 +3,7 @@
 import React from "react";
 import CustomLink from "@/components/common/custom-link/page";
 import Image from "next/image";
-import { Mail, Phone } from "lucide-react";
+import { Mail } from "lucide-react";
 
 const Footer: React.FC = () => {
   const currentYear = new Date().getFullYear();
