@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import { Mail } from "lucide-react";
 
-const prefix = process.env.NEXT_PUBLIC_BASE_PATH || "";
+const basePath = process.env.NEXT_PUBLIC_BASE_PATH || "";
 
 type TeamMember = {
   name?: string;
@@ -80,7 +80,7 @@ const TeamCard: React.FC<{
     >
       <div className="relative w-full h-80">
         <Image
-          src={member.avatar || `${prefix}/team/default.png`}
+          src={member.avatar || `${basePath}/team/default.png`}
           alt={member.name || "Team Member"}
           fill
           sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, 33vw"

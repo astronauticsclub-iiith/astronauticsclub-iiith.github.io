@@ -7,7 +7,7 @@ import { Mail } from "lucide-react";
 
 const Footer: React.FC = () => {
   const currentYear = new Date().getFullYear();
-  const prefix = process.env.NEXT_PUBLIC_BASE_PATH || "";
+  const basePath = process.env.NEXT_PUBLIC_BASE_PATH || "";
 
   const navigationLinks = [
     { href: "/", label: "Home" },
@@ -28,7 +28,7 @@ const Footer: React.FC = () => {
               <div className="relative w-20 h-20 rounded-full mx-auto md:mx-0">
                 <div className="w-full h-full rounded-full flex items-center justify-center">
                   <Image
-                    src={`${prefix}/logo.png`}
+                    src={`${basePath}/logo.png`}
                     alt="Astronautics Club Logo"
                     width={80}
                     height={78}
@@ -185,7 +185,7 @@ const Footer: React.FC = () => {
               className="inline-block"
             >
               <Image
-                src={`${prefix}/iiit-logo.png`}
+                src={`${basePath}/iiit-logo.png`}
                 alt="IIIT Hyderabad Logo"
                 width={100}
                 height={100}
