@@ -6,8 +6,7 @@ import Footer from "@/components/layout/Footer";
 import { WhimsyProvider } from "@/context/WhimsyContext";
 import { ImagePreviewProvider } from "@/context/ImagePreviewContext";
 import AuthProvider from "@/components/AuthProvider";
-
-const basePath = process.env.NEXT_PUBLIC_BASE_PATH || "";
+import { withBasePath } from "@/components/common/HelperFunction";
 
 const exo2 = Exo_2({
   subsets: ["latin"],
@@ -42,13 +41,13 @@ export const metadata: Metadata = {
   ],
   creator: "unignoramus",
   icons: {
-    apple: `${basePath}/apple-touch-icon.png`,
+    apple: withBasePath(`/apple-touch-icon.png`),
     icon: [
-      { url: `${basePath}/favicon-16x16.png`, sizes: "16x16", type: "image/png" },
-      { url: `${basePath}/favicon-32x32.png`, sizes: "32x32", type: "image/png" },
+      { url: withBasePath(`/favicon-16x16.png`), sizes: "16x16", type: "image/png" },
+      { url: withBasePath(`/favicon-32x32.png`), sizes: "32x32", type: "image/png" },
     ],
   },
-  manifest: `${basePath}/site.webmanifest`,
+  manifest: withBasePath(`/site.webmanifest`),
   openGraph: {
     title: "Astronautics Club | IIIT Hyderabad",
     description:
@@ -92,7 +91,7 @@ export default function RootLayout({
           rel="canonical"
           href="https://clubs.iiit.ac.in/astronautics"
         />
-        <link rel="manifest" href={`${basePath}/site.webmanifest`} />
+        <link rel="manifest" href="/site.webmanifest" />
         <meta name="theme-color" content="#020001" />
       </head>
       <body

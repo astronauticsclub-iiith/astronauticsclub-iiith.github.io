@@ -2,8 +2,7 @@
 
 import { useState, useRef } from "react";
 import Image from "next/image";
-
-const basePath = process.env.NEXT_PUBLIC_BASE_PATH || "";
+import { withBasePath } from "../common/HelperFunction";
 
 interface UserProfile {
   id: string;
@@ -45,7 +44,7 @@ export default function ProfileEditor({
       const formData = new FormData();
       formData.append("file", file);
 
-      const response = await fetch(`${basePath}/api/upload/avatar`, {
+      const response = await fetch(withBasePath(`/api/upload/avatar`), {
         method: "POST",
         body: formData,
       });
@@ -89,7 +88,7 @@ export default function ProfileEditor({
   const handleSaveProfile = async () => {
     setSaving(true);
     try {
-      const response = await fetch(`${basePath}/api/users/me`, {
+      const response = await fetch(withBasePath(`/api/users/me`), {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",

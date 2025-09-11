@@ -28,8 +28,8 @@ import {
 } from "@/lib/api";
 import Loader from "@/components/ui/Loader";
 import "@/components/ui/bg-patterns.css";
+import { withBasePath } from "@/components/common/HelperFunction";
 
-const basePath = process.env.NEXT_PUBLIC_BASE_PATH || "";
 
 const BlogPostPage = () => {
   const { openPreview } = useImagePreview();
@@ -218,14 +218,14 @@ const BlogPostPage = () => {
           <div className="flex items-center gap-4">
             <div className="w-16 h-16 border-2 border-white overflow-hidden">
               <Image
-                src={blog.author.avatar || `${basePath}/team/default-avatar.png`}
+                src={withBasePath(blog.author.avatar || `/team/default-avatar.png`)}
                 alt={blog.author.name || "Anonymous"}
                 width={64}
                 height={64}
                 className="w-full h-full object-cover cursor-pointer cursor-open"
                 onClick={() =>
                   handleImageClick(
-                    blog.author.avatar || `${basePath}/team/default-avatar.png`
+                    withBasePath(blog.author.avatar || `/team/default-avatar.png`)
                   )
                 }
               />
@@ -268,7 +268,7 @@ const BlogPostPage = () => {
                   style={{ zIndex: index === currentImageIndex ? 1 : 0 }}
                 >
                   <Image
-                    src={image}
+                    src={withBasePath(image)}
                     alt={`${blog.title} - Image ${index + 1}`}
                     width={800}
                     height={400}
@@ -480,7 +480,7 @@ const BlogPostPage = () => {
                 img: ({ src = "", alt = "", width, height, ...props }) =>
                   typeof src === "string" ? (
                     <Image
-                      src={src}
+                      src={withBasePath(src)}
                       alt={alt}
                       width={typeof width === "number" ? width : 800}
                       height={typeof height === "number" ? height : 400}

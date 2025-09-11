@@ -29,8 +29,8 @@ import DesignationCombobox from "@/components/admin/DesignationCombobox";
 import { useAlert } from "@/hooks/useAlert";
 import { Event } from "@/types/event";
 import "@/components/ui/bg-patterns.css";
+import { withBasePath } from "@/components/common/HelperFunction";
 
-const basePath = process.env.NEXT_PUBLIC_BASE_PATH || "";
 interface ExtendedUser {
   id?: string;
   name?: string | null;
@@ -138,7 +138,7 @@ export default function AdminDashboard() {
 
   const fetchUsers = async () => {
     try {
-      const response = await fetch(`${basePath}/api/users`);
+      const response = await fetch(withBasePath(`/api/users`));
       if (response.ok) {
         const data = await response.json();
         setUsers(data);
@@ -154,7 +154,7 @@ export default function AdminDashboard() {
 
   const fetchUserProfile = async () => {
     try {
-      const response = await fetch(`${basePath}/api/users/me`);
+      const response = await fetch(withBasePath(`/api/users/me`));
       if (response.ok) {
         const data = await response.json();
         setUserProfile(data);
@@ -167,7 +167,7 @@ export default function AdminDashboard() {
   const fetchLogs = useCallback(async () => {
     setLogsLoading(true);
     try {
-      const response = await fetch(`${basePath}/api/logs?limit=50`);
+      const response = await fetch(withBasePath(`/api/logs?limit=50`));
       if (response.ok) {
         const data = await response.json();
         setLogs(data.logs || []);
@@ -185,7 +185,7 @@ export default function AdminDashboard() {
   const fetchGalleryImages = useCallback(async () => {
     setGalleryLoading(true);
     try {
-      const response = await fetch(`${basePath}/api/gallery/admin`);
+      const response = await fetch(withBasePath(`/api/gallery/admin`));
       if (response.ok) {
         const data = await response.json();
         setGalleryImages(data.images || []);
@@ -203,7 +203,7 @@ export default function AdminDashboard() {
   const fetchEvents = useCallback(async () => {
     setEventsLoading(true);
     try {
-      const response = await fetch(`${basePath}/api/events/admin`);
+      const response = await fetch(withBasePath(`/api/events/admin`));
       if (response.ok) {
         const data = await response.json();
         setEvents(data.events || []);
@@ -288,7 +288,7 @@ export default function AdminDashboard() {
   const addUser = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const response = await fetch(`${basePath}/api/users`, {
+      const response = await fetch(withBasePath(`/api/users`), {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(newUser),
@@ -310,7 +310,7 @@ export default function AdminDashboard() {
 
   const updateUserDesignations = async (userId: string, designations: string[]) => {
     try {
-      const response = await fetch(`${basePath}/api/users/${userId}`, {
+      const response = await fetch(withBasePath(`/api/users/${userId}`), {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ designations }),
@@ -333,7 +333,7 @@ export default function AdminDashboard() {
     role: "admin" | "writer" | "none"
   ) => {
     try {
-      const response = await fetch(`${basePath}/api/users/${userId}`,
+      const response = await fetch(withBasePath(`/api/users/${userId}`),
         {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
@@ -401,7 +401,7 @@ export default function AdminDashboard() {
         formData.append("filename", uploadFilename);
       }
 
-      const response = await fetch(`${basePath}/api/gallery/admin`, {
+      const response = await fetch(withBasePath(`/api/gallery/admin`), {
         method: "POST",
         body: formData,
       });
@@ -429,9 +429,9 @@ export default function AdminDashboard() {
   const deleteImage = async (image: GalleryImage) => {
     try {
       const response = await fetch(
-        `${basePath}/api/gallery/admin?filename=${encodeURIComponent(
+        withBasePath(`/api/gallery/admin?filename=${encodeURIComponent(
           image.filename
-        )}&category=${image.category}`,
+        )}&category=${image.category}`),
         { method: "DELETE" }
       );
 
@@ -454,7 +454,7 @@ export default function AdminDashboard() {
     newCategory?: "astrophotography" | "events"
   ) => {
     try {
-      const response = await fetch(`${basePath}/api/gallery/admin`, {
+      const response = await fetch(withBasePath(`/api/gallery/admin`), {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -503,7 +503,7 @@ export default function AdminDashboard() {
       console.log("Creating event with data:", eventData);
       console.log("Registration link value:", newEvent.registrationLink);
 
-      const response = await fetch(`${basePath}/api/events/admin`, {
+      const response = await fetch(withBasePath(`/api/events/admin`), {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(eventData),
@@ -538,7 +538,7 @@ export default function AdminDashboard() {
 
   const updateEvent = async (eventId: string, eventData: Partial<Event>) => {
     try {
-      const response = await fetch(`${basePath}/api/events/admin`, {
+      const response = await fetch(withBasePath(`/api/events/admin`), {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ ...eventData, id: eventId }),
@@ -562,7 +562,7 @@ export default function AdminDashboard() {
   const deleteEvent = async (eventId: string) => {
     try {
       const response = await fetch(
-        `${basePath}/api/events/admin?id=${encodeURIComponent(eventId)}`,
+        withBasePath(`/api/events/admin?id=${encodeURIComponent(eventId)}`),
         { method: "DELETE" }
       );
 
@@ -774,7 +774,7 @@ export default function AdminDashboard() {
                       <div className="w-10 h-10 sm:w-12 sm:h-12 border-2 border-white overflow-hidden bg-white transition-transform duration-200 hover:scale-105">
                         {user.avatar ? (
                           <Image
-                            src={user.avatar}
+                            src={withBasePath(user.avatar)}
                             alt={user.name || "User"}
                             width={48}
                             height={48}

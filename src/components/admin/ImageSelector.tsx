@@ -4,8 +4,7 @@ import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ImageIcon, ChevronDown, X, Check, Plus } from "lucide-react";
 import Image from "next/image";
-
-const basePath = process.env.NEXT_PUBLIC_BASE_PATH || "";
+import { withBasePath } from "../common/HelperFunction";
 
 interface GalleryImage {
   id: string;
@@ -41,7 +40,7 @@ const ImageSelector: React.FC<ImageSelectorProps> = ({
       setLoading(true);
       setError(null);
       try {
-        const response = await fetch(`${basePath}/api/gallery/admin`);
+        const response = await fetch(withBasePath(`/api/gallery/admin`));
         if (response.ok) {
           const data = await response.json();
           setGalleryImages(data.images || []);
@@ -65,7 +64,7 @@ const ImageSelector: React.FC<ImageSelectorProps> = ({
     setLoading(true);
     setError(null);
     try {
-      const response = await fetch(`${basePath}/api/gallery/admin`);
+      const response = await fetch(withBasePath(`/api/gallery/admin`));
       if (response.ok) {
         const data = await response.json();
         setGalleryImages(data.images || []);
@@ -113,7 +112,7 @@ const ImageSelector: React.FC<ImageSelectorProps> = ({
             >
               <div className="aspect-square relative overflow-hidden">
                 <Image
-                  src={selectedImage}
+                  src={withBasePath(selectedImage)}
                   alt={
                     getSelectedImageData(selectedImage)?.alt || "Selected image"
                   }
@@ -239,7 +238,7 @@ const ImageSelector: React.FC<ImageSelectorProps> = ({
                       >
                         <div className="aspect-square relative overflow-hidden">
                           <Image
-                            src={image.src}
+                            src={withBasePath(image.src)}
                             alt={image.alt}
                             fill
                             className="object-cover"

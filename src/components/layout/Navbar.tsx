@@ -5,8 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useWhimsy } from "@/context/WhimsyContext";
-
-const basePath = process.env.NEXT_PUBLIC_BASE_PATH || "";
+import { withBasePath } from "../common/HelperFunction";
 
 // Helper function to get initial first visit state
 const getInitialFirstVisit = (): boolean => {
@@ -142,7 +141,7 @@ const Navbar = () => {
           {/* Logo */}
           <Link href="/" className="flex items-center space-x-4 text-white">
             <Image
-              src={whimsyMode ? `${basePath}/icons/moon.gif` : `${basePath}/logo.png`}
+              src={whimsyMode ? withBasePath(`/icons/moon.gif`) : withBasePath(`/logo.png`)}
               alt="Logo"
               width={80}
               height={90}

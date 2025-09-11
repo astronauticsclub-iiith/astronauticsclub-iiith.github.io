@@ -19,8 +19,7 @@ import { fetchBlogs } from "@/lib/api";
 import Image from "next/image";
 import { useWhimsy } from "@/context/WhimsyContext";
 import "@/components/ui/bg-patterns.css";
-
-const basePath = process.env.NEXT_PUBLIC_BASE_PATH || "";
+import { withBasePath } from "@/components/common/HelperFunction";
 
 const BlogsPage = () => {
   const [blogs, setBlogs] = useState<Blog[]>([]);
@@ -232,7 +231,7 @@ const BlogsPage = () => {
               }`}
             >
               <Image
-                src={`${basePath}/icons/telescope.svg`}
+                src={withBasePath(`/icons/telescope.svg`)}
                 alt="Telescope"
                 width={64}
                 height={64}

@@ -1,20 +1,19 @@
 import { withAuth } from "next-auth/middleware";
 import { NextResponse } from "next/server";
-
-const basePath = process.env.NEXT_PUBLIC_BASE_PATH || "";
+import { withBasePath } from "./components/common/HelperFunction";
 
 export default withAuth(
   function middleware(req) {
     const token = req.nextauth.token;
-    const isAdminRoute = req.nextUrl.pathname.startsWith(`${basePath}/imtheboss`);
+    const isAdminRoute = req.nextUrl.pathname.startsWith(withBasePath(`/imtheboss`));
     const isBlogAuthorRoute = req.nextUrl.pathname.startsWith(
-      `${basePath}/clickity-clackity-blogs-are-my-property`
+      withBasePath(`/clickity-clackity-blogs-are-my-property`)
     );
-    const isLoginRoute = req.nextUrl.pathname.startsWith(`${basePath}/let-me-innn`);
+    const isLoginRoute = req.nextUrl.pathname.startsWith(withBasePath(`/let-me-innn`));
 
     // If user is not authenticated and trying to access protected routes
     if (!token && (isAdminRoute || isBlogAuthorRoute)) {
-      return NextResponse.redirect(new URL(`${basePath}/let-me-innn`, req.url));
+      return NextResponse.redirect(new URL(withBasePath(`/let-me-innn`, req.url)));
     }
 
     // If user is authenticated but doesn't have the right role
@@ -33,20 +32,20 @@ export default withAuth(
         console.log(
           "Middleware - Redirecting to stay-away-snooper (no admin role)"
         );
-        return NextResponse.redirect(new URL(`${basePath}/stay-away-snooper`, req.url));
+        return NextResponse.redirect(new URL(withBasePath(`/stay-away-snooper`), req.url));
       }
 
       if (
         isBlogAuthorRoute &&
         userRole !== "admin" && userRole !== "writer"
       ) {
-        return NextResponse.redirect(new URL(`${basePath}/stay-away-snooper`, req.url));
+        return NextResponse.redirect(new URL(withBasePath(`/stay-away-snooper`), req.url));
       }
 
       // If authenticated user tries to access login page, redirect them appropriately
       if (isLoginRoute) {
         if (userRole === "admin") {
-          return NextResponse.redirect(new URL(`${basePath}/imtheboss`, req.url));
+          return NextResponse.redirect(new URL(withBasePath(`/imtheboss`), req.url));
         } else if (userRole === "writer") {
           return NextResponse.redirect(
             new URL("/clickity-clackity-blogs-are-my-property", req.url)
@@ -62,15 +61,15 @@ export default withAuth(
       authorized: ({ token, req }) => {
         // Allow access to public routes
         if (
-          req.nextUrl.pathname.startsWith(`${basePath}/api/auth`) ||
-          req.nextUrl.pathname.startsWith(`${basePath}/api/blogs`) ||
-          req.nextUrl.pathname.startsWith(`${basePath}/api/gallery`) ||
-          req.nextUrl.pathname === `${basePath}/stay-away-snooper` ||
-          req.nextUrl.pathname === `${basePath}/let-me-innn` ||
-          req.nextUrl.pathname === `${basePath}/` ||
-          req.nextUrl.pathname.startsWith(`${basePath}/blogs`) ||
-          req.nextUrl.pathname.startsWith(`${basePath}/gallery`) ||
-          req.nextUrl.pathname.startsWith(`${basePath}/_next`) ||
+          req.nextUrl.pathname.startsWith(withBasePath(`/api/auth`)) ||
+          req.nextUrl.pathname.startsWith(withBasePath(`/api/blogs`)) ||
+          req.nextUrl.pathname.startsWith(withBasePath(`/api/gallery`)) ||
+          req.nextUrl.pathname === withBasePath(`/stay-away-snooper`) ||
+          req.nextUrl.pathname === withBasePath(`/let-me-innn`) ||
+          req.nextUrl.pathname === withBasePath(`/`) ||
+          req.nextUrl.pathname.startsWith(withBasePath(`/blogs`)) ||
+          req.nextUrl.pathname.startsWith(withBasePath(`/gallery`)) ||
+          req.nextUrl.pathname.startsWith(withBasePath(`/_next`)) ||
           req.nextUrl.pathname.includes(".")
         ) {
           return true;

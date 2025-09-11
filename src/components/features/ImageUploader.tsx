@@ -4,8 +4,7 @@ import { useState, useRef } from "react";
 import Image from "next/image";
 import { useAlert } from "@/hooks/useAlert";
 import CustomAlert from "@/components/ui/CustomAlert";
-
-const basePath = process.env.NEXT_PUBLIC_BASE_PATH || "";
+import { withBasePath } from "../common/HelperFunction";
 
 interface UploadedImage {
   filename: string;
@@ -49,7 +48,7 @@ export default function ImageUploader({
         const formData = new FormData();
         formData.append("file", file);
 
-        const response = await fetch(`${basePath}/api/upload`, {
+        const response = await fetch(withBasePath(`/api/upload`), {
           method: "POST",
           body: formData,
         });

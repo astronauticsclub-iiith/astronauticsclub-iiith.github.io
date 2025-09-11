@@ -3,68 +3,67 @@
 import "./WhoWeAre.css";
 import ClickableImage from "@/components/common/ClickableImage";
 import "@/components/ui/bg-patterns.css";
+import { withBasePath } from "@/components/common/HelperFunction";
 
 const WhoWeAre = () => {
-  const basePath = process.env.NEXT_PUBLIC_BASE_PATH || "";
-
   const images = [
     {
       id: 1,
-      src: `${basePath}/landing/collage/1.jpeg`,
+      src: withBasePath(`/landing/collage/1.jpeg`),
       alt: "Astronautics image 1",
       size: "large",
     },
     {
       id: 2,
-      src: `${basePath}/landing/collage/2.jpeg`,
+      src: withBasePath(`/landing/collage/2.jpeg`),
       alt: "Astronautics image 2",
       size: "medium",
     },
     {
       id: 3,
-      src: `${basePath}/landing/collage/3.jpeg`,
+      src: withBasePath(`/landing/collage/3.jpeg`),
       alt: "Astronautics image 3",
       size: "small",
     },
     {
       id: 4,
-      src: `${basePath}/landing/collage/4.jpeg`,
+      src: withBasePath(`/landing/collage/4.jpeg`),
       alt: "Astronautics image 4",
       size: "medium",
     },
     {
       id: 5,
-      src: `${basePath}/landing/collage/5.jpeg`,
+      src: withBasePath(`/landing/collage/5.jpeg`),
       alt: "Astronautics image 5",
       size: "large",
     },
     {
       id: 6,
-      src: `${basePath}/landing/collage/6.jpeg`,
+      src: withBasePath(`/landing/collage/6.jpeg`),
       alt: "Astronautics image 6",
       size: "small",
     },
     {
       id: 7,
-      src: `${basePath}/landing/collage/7.jpeg`,
+      src: withBasePath(`/landing/collage/7.jpeg`),
       alt: "Astronautics image 7",
       size: "medium",
     },
     {
       id: 8,
-      src: `${basePath}/landing/collage/8.jpeg`,
+      src: withBasePath(`/landing/collage/8.jpeg`),
       alt: "Astronautics image 8",
       size: "small",
     },
     {
       id: 9,
-      src: `${basePath}/landing/collage/9.jpeg`,
+      src: withBasePath(`/landing/collage/9.jpeg`),
       alt: "Astronautics image 9",
       size: "small",
     },
     {
       id: 10,
-      src: `${basePath}/landing/collage/10.jpeg`,
+      src: withBasePath(`/landing/collage/10.jpeg`),
       alt: "Astronautics image 10",
       size: "medium",
     },

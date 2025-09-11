@@ -2,13 +2,12 @@
 
 import { useEffect, useRef } from "react";
 import { useWhimsy } from "@/context/WhimsyContext";
+import { withBasePath } from "../common/HelperFunction";
 
 interface GravitationalLensingProps {
   mouseX: number;
   mouseY: number;
 }
-
-const basePath = process.env.NEXT_PUBLIC_BASE_PATH || "";
 
 export default function GravitationalLensing({
   mouseX,
@@ -186,9 +185,9 @@ export default function GravitationalLensing({
       };
 
       if (window.innerWidth < 1200) {
-        img.src = `${basePath}/gravitational-lensing/gravitational_lensing.png`;
+        img.src = withBasePath(`/gravitational-lensing/gravitational_lensing.png`);
       } else {
-        img.src = `${basePath}/gravitational-lensing/gravitational_lensing_extended.png`;
+        img.src = withBasePath(`/gravitational-lensing/gravitational_lensing_extended.png`);
       }
     };
 

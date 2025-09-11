@@ -3,8 +3,7 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import { parseStringPromise } from "xml2js";
 import { connectToDatabase } from "@/lib/mongodb";
 import User, { IUser } from "@/models/User";
-
-const basePath = process.env.NEXT_PUBLIC_BASE_PATH || "";
+import { withBasePath } from "@/components/common/HelperFunction";
 
 interface ExtendedUser {
   id?: string;
@@ -185,8 +184,8 @@ const handler = NextAuth({
     },
   },
   pages: {
-    signIn: `${basePath}/let-me-innn`,
-    error: `${basePath}/stay-away-snooper`,
+    signIn: withBasePath(`/let-me-innn`),
+    error: withBasePath(`/stay-away-snooper`),
   },
   debug: process.env.NODE_ENV === "development",
 });

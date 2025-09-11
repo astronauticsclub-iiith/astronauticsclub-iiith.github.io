@@ -14,8 +14,8 @@ import CustomConfirm from "@/components/ui/CustomConfirm";
 import { useAlert } from "@/hooks/useAlert";
 import "@/components/ui/bg-patterns.css";
 import ProfileInfo from "@/components/features/mod/ProfileInfo";
+import { withBasePath } from "@/components/common/HelperFunction";
 
-const basePath = process.env.NEXT_PUBLIC_BASE_PATH || "";
 interface ExtendedUser {
   id?: string;
   name?: string | null;
@@ -126,8 +126,8 @@ export default function BlogAuthorDashboard() {
 
   const fetchMyBlogs = async (role: string) => {
     try {
-      const url = role === 'admin' ? `${basePath}/api/blogs` : `${basePath}/api/my-blogs`;
-      const response = await fetch(url);
+      const url = role === 'admin' ? `/api/blogs` : `/api/my-blogs`;
+      const response = await fetch(withBasePath(url));
       if (response.ok) {
         const data = await response.json();
         setBlogs(data.blogs);
@@ -142,7 +142,7 @@ export default function BlogAuthorDashboard() {
 
   const fetchUserProfile = async () => {
     try {
-      const response = await fetch(`${basePath}/api/users/me`);
+      const response = await fetch(withBasePath(`/api/users/me`));
       if (response.ok) {
         const data = await response.json();
         setUserProfile(data);
@@ -203,7 +203,7 @@ export default function BlogAuthorDashboard() {
     };
 
     try {
-      const response = await fetch(`${basePath}/api/blogs`, {
+      const response = await fetch(withBasePath(`/api/blogs`), {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(blogData),
@@ -244,7 +244,7 @@ export default function BlogAuthorDashboard() {
 
   const performDeleteBlog = async (slug: string) => {
     try {
-      const response = await fetch(`${basePath}/api/blogs/${slug}`, {
+      const response = await fetch(withBasePath(`/api/blogs/${slug}`), {
         method: "DELETE",
       });
 
@@ -279,7 +279,7 @@ export default function BlogAuthorDashboard() {
     }
 
     try {
-      const response = await fetch(`${basePath}/api/blogs/${editingBlog.slug}`, {
+      const response = await fetch(withBasePath(`/api/blogs/${editingBlog.slug}`), {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -455,7 +455,7 @@ export default function BlogAuthorDashboard() {
                   transition={{ duration: 0.3 }}
                 >
                   <Image
-                    src={imagePath}
+                    src={withBasePath(imagePath)}
                     alt={`Blog image ${index + 1}`}
                     fill
                     className="object-cover transition-transform duration-300 group-hover:scale-110"

@@ -11,8 +11,7 @@ import WhimsicalTeamIcon from "@/components/features/WhimsicalTeamIcon";
 import AstronautBriefing from "@/components/features/AstronautBriefing";
 import { useWhimsy } from "@/context/WhimsyContext";
 import Image from "next/image";
-
-const basePath = process.env.NEXT_PUBLIC_BASE_PATH || "";
+import { withBasePath } from "@/components/common/HelperFunction";
 
 type TeamMember = {
   name?: string;
@@ -39,7 +38,7 @@ const TeamPage: React.FC = () => {
       try {
         setLoading(true);
         await new Promise((resolve) => setTimeout(resolve, 800));
-        const response = await fetch(`${basePath}/api/team`);
+        const response = await fetch(withBasePath(`/api/team`));
 
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
@@ -114,7 +113,7 @@ const TeamPage: React.FC = () => {
                 />
               ) : (
                 <Image
-                  src={`${basePath}/icons/team.svg`}
+                  src={withBasePath(`/icons/team.svg`)}
                   alt="Team Icon"
                   width={64}
                   height={64}

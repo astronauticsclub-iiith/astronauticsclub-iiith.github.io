@@ -10,8 +10,7 @@ import Image from "next/image";
 import { useWhimsy } from "@/context/WhimsyContext";
 import Loader from "@/components/ui/Loader";
 import "@/components/ui/bg-patterns.css";
-
-const basePath = process.env.NEXT_PUBLIC_BASE_PATH || "";
+import { withBasePath } from "@/components/common/HelperFunction";
 
 interface BlogsShowcaseProps {
   className?: string;
@@ -33,7 +32,7 @@ const BlogsShowcase = ({ className = "" }: BlogsShowcaseProps) => {
     const fetchBlogs = async () => {
       try {
         setLoading(true);
-        const response = await fetch(`${basePath}/api/blogs?limit=5&sortBy=latest`);
+        const response = await fetch(withBasePath(`/api/blogs?limit=5&sortBy=latest`));
         if (response.ok) {
           const data = await response.json();
           setBlogs(data.blogs || []);
@@ -175,7 +174,7 @@ const BlogsShowcase = ({ className = "" }: BlogsShowcaseProps) => {
               <div className="flex items-center gap-4 mb-4">
                 <div className="w-24 h-24 flex items-center justify-center">
                   <Image
-                    src={`${basePath}/icons/telescope.svg`}
+                    src={withBasePath(`/icons/telescope.svg`)}
                     alt="Telescope"
                     width={64}
                     height={64}
@@ -219,7 +218,7 @@ const BlogsShowcase = ({ className = "" }: BlogsShowcaseProps) => {
                 }`}
               >
                 <Image
-                  src={`${basePath}/icons/telescope.svg`}
+                  src={withBasePath(`/icons/telescope.svg`)}
                   alt="Telescope"
                   width={64}
                   height={64}

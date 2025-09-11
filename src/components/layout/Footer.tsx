@@ -4,10 +4,10 @@ import React from "react";
 import CustomLink from "@/components/common/custom-link/page";
 import Image from "next/image";
 import { Mail } from "lucide-react";
+import { withBasePath } from "../common/HelperFunction";
 
 const Footer: React.FC = () => {
   const currentYear = new Date().getFullYear();
-  const basePath = process.env.NEXT_PUBLIC_BASE_PATH || "";
 
   const navigationLinks = [
     { href: "/", label: "Home" },
@@ -28,7 +28,7 @@ const Footer: React.FC = () => {
               <div className="relative w-20 h-20 rounded-full mx-auto md:mx-0">
                 <div className="w-full h-full rounded-full flex items-center justify-center">
                   <Image
-                    src={`${basePath}/logo.png`}
+                    src={withBasePath(`/logo.png`)}
                     alt="Astronautics Club Logo"
                     width={80}
                     height={78}
@@ -185,7 +185,7 @@ const Footer: React.FC = () => {
               className="inline-block"
             >
               <Image
-                src={`${basePath}/iiit-logo.png`}
+                src={withBasePath(`/iiit-logo.png`)}
                 alt="IIIT Hyderabad Logo"
                 width={100}
                 height={100}

@@ -4,8 +4,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import { Mail } from "lucide-react";
-
-const basePath = process.env.NEXT_PUBLIC_BASE_PATH || "";
+import { withBasePath } from "../common/HelperFunction";
 
 type TeamMember = {
   name?: string;
@@ -80,7 +79,7 @@ const TeamCard: React.FC<{
     >
       <div className="relative w-full h-80">
         <Image
-          src={member.avatar || `${basePath}/team/default.png`}
+          src={withBasePath(member.avatar || `/team/default.png`)}
           alt={member.name || "Team Member"}
           fill
           sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, 33vw"

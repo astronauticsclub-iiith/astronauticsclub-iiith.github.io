@@ -1,7 +1,6 @@
+import { withBasePath } from '@/components/common/HelperFunction';
 import { Blog, BlogFilters } from '@/types/blog';
 import { Event, EventFilters, EventResponse } from '@/types/event';
-
-const basePath = process.env.NEXT_PUBLIC_BASE_PATH || "";
 
 export async function fetchBlogs(filters?: Partial<BlogFilters>, page = 1, limit = 10) {
   try {
@@ -13,7 +12,7 @@ export async function fetchBlogs(filters?: Partial<BlogFilters>, page = 1, limit
     params.append('page', page.toString());
     params.append('limit', limit.toString());
 
-    const response = await fetch(`${basePath}/api/blogs?${params}`);
+    const response = await fetch(withBasePath(`/api/blogs?${params}`));
     
     if (!response.ok) {
       throw new Error('Failed to fetch blogs');
@@ -28,7 +27,7 @@ export async function fetchBlogs(filters?: Partial<BlogFilters>, page = 1, limit
 
 export async function fetchBlogBySlug(slug: string): Promise<Blog> {
   try {
-    const response = await fetch(`${basePath}/api/blogs/${slug}`);
+    const response = await fetch(withBasePath(`/api/blogs/${slug}`));
     
     if (!response.ok) {
       throw new Error('Failed to fetch blog');
@@ -43,7 +42,7 @@ export async function fetchBlogBySlug(slug: string): Promise<Blog> {
 
 export async function incrementBlogViews(slug: string): Promise<{ views: number }> {
   try {
-    const response = await fetch(`${basePath}/api/blogs/${slug}`, {
+    const response = await fetch(withBasePath(`/api/blogs/${slug}`), {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
@@ -69,7 +68,7 @@ export async function toggleBlogLike(
   userId: string
 ): Promise<{ likes: number; hasLiked: boolean }> {
   try {
-    const response = await fetch(`${basePath}/api/blogs/${slug}`, {
+    const response = await fetch(withBasePath(`/api/blogs/${slug}`), {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
@@ -93,7 +92,7 @@ export async function toggleBlogLike(
 
 export async function createBlog(blogData: Omit<Blog, '_id' | 'createdAt' | 'updatedAt'>): Promise<Blog> {
   try {
-    const response = await fetch(`${basePath}/api/blogs`, {
+    const response = await fetch(withBasePath(`/api/blogs`), {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -114,7 +113,7 @@ export async function createBlog(blogData: Omit<Blog, '_id' | 'createdAt' | 'upd
 
 export async function updateBlog(slug: string, blogData: Partial<Blog>): Promise<Blog> {
   try {
-    const response = await fetch(`${basePath}/api/blogs/${slug}`, {
+    const response = await fetch(withBasePath(`/api/blogs/${slug}`), {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -135,7 +134,7 @@ export async function updateBlog(slug: string, blogData: Partial<Blog>): Promise
 
 export async function deleteBlog(slug: string): Promise<{ message: string }> {
   try {
-    const response = await fetch(`${basePath}/api/blogs/${slug}`, {
+    const response = await fetch(withBasePath(`/api/blogs/${slug}`), {
       method: 'DELETE',
     });
 
@@ -175,7 +174,7 @@ export async function fetchEvents(filters?: Partial<EventFilters>, page = 1, lim
     params.append('page', page.toString());
     params.append('limit', limit.toString());
 
-    const response = await fetch(`${basePath}/api/events?${params}`);
+    const response = await fetch(withBasePath(`/api/events?${params}`));
     
     if (!response.ok) {
       throw new Error('Failed to fetch events');
@@ -190,7 +189,7 @@ export async function fetchEvents(filters?: Partial<EventFilters>, page = 1, lim
 
 export async function createEvent(eventData: Omit<Event, '_id' | 'createdAt' | 'updatedAt'>): Promise<Event> {
   try {
-    const response = await fetch(`${basePath}/api/events`, {
+    const response = await fetch(withBasePath(`/api/events`), {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

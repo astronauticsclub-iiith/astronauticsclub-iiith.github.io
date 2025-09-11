@@ -4,6 +4,7 @@ import { useEffect, useState, useCallback, useRef } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import Loader from "../ui/Loader";
+import { withBasePath } from "./HelperFunction";
 
 interface ImagePreviewProps {
   src: string;
@@ -169,7 +170,7 @@ const ImagePreview = ({ src, alt, isOpen, onClose }: ImagePreviewProps) => {
               }}
             >
               <Image
-                src={src}
+                src={withBasePath(src)}
                 alt={alt}
                 fill
                 className="object-contain transition-opacity duration-300"

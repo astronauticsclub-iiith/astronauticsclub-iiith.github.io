@@ -4,8 +4,7 @@ import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import "./Hero.css";
 import { useWhimsy } from "@/context/WhimsyContext";
-
-const basePath = process.env.NEXT_PUBLIC_BASE_PATH || "";
+import { withBasePath } from "@/components/common/HelperFunction";
 
 const Hero = () => {
   const sRef = useRef<HTMLSpanElement>(null);
@@ -222,7 +221,7 @@ const Hero = () => {
         <div className="hero-content">
           <Image
             id="scroll-down-arrow"
-            src={`${basePath}/icons/down.png`}
+            src={withBasePath(`/icons/down.png`)}
             alt="scroll down"
             width={50}
             height={50}

@@ -8,8 +8,7 @@ import Image from "next/image";
 import GalleryIcon from "@/components/features/GalleryIcon";
 import "@/components/ui/bg-patterns.css";
 import "./gallery.css";
-
-const basePath = process.env.NEXT_PUBLIC_BASE_PATH || "";
+import { withBasePath } from "@/components/common/HelperFunction";
 
 type GalleryImage = {
   src: string;
@@ -49,7 +48,7 @@ const PhotoCard: React.FC<{
     >
       <div className="gallery-card-image">
         <Image
-          src={image.src}
+          src={withBasePath(image.src)}
           alt={image.alt || image.label}
           fill
           sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, 33vw"
@@ -81,7 +80,7 @@ const Gallery: React.FC = () => {
         // Simulate network delay for better UX
         await new Promise((resolve) => setTimeout(resolve, 800));
 
-        const response = await fetch(`${basePath}/api/gallery`);
+        const response = await fetch(withBasePath(`/api/gallery`));
 
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);

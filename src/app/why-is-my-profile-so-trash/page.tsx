@@ -8,8 +8,7 @@ import ProfileEditor from "@/components/features/ProfileEditor";
 import { useAlert } from "@/hooks/useAlert";
 import CustomAlert from "@/components/ui/CustomAlert";
 import "@/components/ui/bg-patterns.css";
-
-const basePath = process.env.NEXT_PUBLIC_BASE_PATH || "";
+import { withBasePath } from "@/components/common/HelperFunction";
 
 interface UserProfile {
   id: string;
@@ -30,13 +29,13 @@ export default function MyProfilePage() {
   useEffect(() => {
     if (status === "loading") return;
     if (status === "unauthenticated") {
-      router.push(`${basePath}/let-me-innn`);
+      router.push(`/let-me-innn`);
       return;
     }
 
     const fetchUserProfile = async () => {
       try {
-        const response = await fetch(`${basePath}/api/users/me`);
+        const response = await fetch(withBasePath(`/api/users/me`));
         if (response.ok) {
           const data = await response.json();
           setUserProfile(data);
