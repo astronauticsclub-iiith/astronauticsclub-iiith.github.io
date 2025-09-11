@@ -9,6 +9,8 @@ import GalleryIcon from "@/components/features/GalleryIcon";
 import "@/components/ui/bg-patterns.css";
 import "./gallery.css";
 
+const basePath = process.env.NEXT_PUBLIC_BASE_PATH || "";
+
 type GalleryImage = {
   src: string;
   alt: string;
@@ -79,7 +81,7 @@ const Gallery: React.FC = () => {
         // Simulate network delay for better UX
         await new Promise((resolve) => setTimeout(resolve, 800));
 
-        const response = await fetch("/api/gallery");
+        const response = await fetch(`${basePath}/api/gallery`);
 
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);

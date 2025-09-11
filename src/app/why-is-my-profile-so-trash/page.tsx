@@ -9,6 +9,8 @@ import { useAlert } from "@/hooks/useAlert";
 import CustomAlert from "@/components/ui/CustomAlert";
 import "@/components/ui/bg-patterns.css";
 
+const basePath = process.env.NEXT_PUBLIC_BASE_PATH || "";
+
 interface UserProfile {
   id: string;
   email: string;
@@ -34,7 +36,7 @@ export default function MyProfilePage() {
 
     const fetchUserProfile = async () => {
       try {
-        const response = await fetch("/api/users/me");
+        const response = await fetch(`${basePath}/api/users/me`);
         if (response.ok) {
           const data = await response.json();
           setUserProfile(data);

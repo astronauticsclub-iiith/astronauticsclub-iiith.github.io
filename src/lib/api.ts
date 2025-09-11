@@ -13,7 +13,7 @@ export async function fetchBlogs(filters?: Partial<BlogFilters>, page = 1, limit
     params.append('page', page.toString());
     params.append('limit', limit.toString());
 
-    const response = await fetch(`${basePath}api/blogs?${params}`);
+    const response = await fetch(`${basePath}/api/blogs?${params}`);
     
     if (!response.ok) {
       throw new Error('Failed to fetch blogs');
@@ -175,7 +175,7 @@ export async function fetchEvents(filters?: Partial<EventFilters>, page = 1, lim
     params.append('page', page.toString());
     params.append('limit', limit.toString());
 
-    const response = await fetch(`/api/events?${params}`);
+    const response = await fetch(`${basePath}/api/events?${params}`);
     
     if (!response.ok) {
       throw new Error('Failed to fetch events');
@@ -190,7 +190,7 @@ export async function fetchEvents(filters?: Partial<EventFilters>, page = 1, lim
 
 export async function createEvent(eventData: Omit<Event, '_id' | 'createdAt' | 'updatedAt'>): Promise<Event> {
   try {
-    const response = await fetch(`/api/events`, {
+    const response = await fetch(`${basePath}/api/events`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

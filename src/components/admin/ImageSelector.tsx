@@ -5,6 +5,8 @@ import { motion, AnimatePresence } from "framer-motion";
 import { ImageIcon, ChevronDown, X, Check, Plus } from "lucide-react";
 import Image from "next/image";
 
+const basePath = process.env.NEXT_PUBLIC_BASE_PATH || "";
+
 interface GalleryImage {
   id: string;
   src: string;
@@ -39,7 +41,7 @@ const ImageSelector: React.FC<ImageSelectorProps> = ({
       setLoading(true);
       setError(null);
       try {
-        const response = await fetch("/api/gallery/admin");
+        const response = await fetch(`${basePath}/api/gallery/admin`);
         if (response.ok) {
           const data = await response.json();
           setGalleryImages(data.images || []);
@@ -63,7 +65,7 @@ const ImageSelector: React.FC<ImageSelectorProps> = ({
     setLoading(true);
     setError(null);
     try {
-      const response = await fetch("/api/gallery/admin");
+      const response = await fetch(`${basePath}/api/gallery/admin`);
       if (response.ok) {
         const data = await response.json();
         setGalleryImages(data.images || []);
