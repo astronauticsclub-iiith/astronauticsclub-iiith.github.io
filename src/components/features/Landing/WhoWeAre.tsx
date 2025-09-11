@@ -3,11 +3,9 @@
 import "./WhoWeAre.css";
 import ClickableImage from "@/components/common/ClickableImage";
 import "@/components/ui/bg-patterns.css";
-import { useRouter } from "next/router";
 
 const WhoWeAre = () => {
-  const router = useRouter();
-  const prefix = router.basePath;
+  const prefix = process.env.NEXT_PUBLIC_BASE_PATH || "";
 
   const images = [
     {
