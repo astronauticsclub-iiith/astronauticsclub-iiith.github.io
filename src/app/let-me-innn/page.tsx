@@ -6,8 +6,7 @@ import { signIn, getSession } from "next-auth/react";
 import Link from "next/link";
 import { Lock } from "lucide-react";
 import Loader from "@/components/ui/Loader";
-
-const basePath = process.env.NEXT_PUBLIC_BASE_PATH || "";
+import { withBasePath } from "@/components/common/HelperFunction";
 
 function LoginContent() {
   const searchParams = useSearchParams();
@@ -21,7 +20,7 @@ function LoginContent() {
       setError(null);
 
       try {
-        const serviceUrl = `${window.location.origin}/${basePath}/let-me-innn`;
+        const serviceUrl = `${window.location.origin}${withBasePath(`let-me-innn`)}`;
 
         const result = await signIn("credentials", {
           ticket,
@@ -74,7 +73,7 @@ function LoginContent() {
   }, [searchParams, handleCASCallback]);
 
   const initiateLogin = () => {
-    const serviceUrl = `${window.location.origin}/${basePath}/let-me-innn`;
+    const serviceUrl = `${window.location.origin}${withBasePath(`let-me-innn`)}`;
     const casLoginUrl = `https://login.iiit.ac.in/cas/login?service=${encodeURIComponent(
       serviceUrl
     )}`;

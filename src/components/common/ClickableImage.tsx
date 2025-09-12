@@ -35,7 +35,9 @@ const ClickableImage = ({
       className={`clickable-image-wrapper cursor-open h-full w-full ${wrapperClassName}`}
       onClick={handleClick}
     >
-      <Image src={withBasePath(src)} alt={alt || ""} className={className} {...props} />
+      <Image 
+      src={typeof src === "string" ? withBasePath(src) : src}
+      alt={alt || ""} className={className} {...props} />
     </div>
   );
 };

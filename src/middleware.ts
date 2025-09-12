@@ -13,7 +13,7 @@ export default withAuth(
 
     // If user is not authenticated and trying to access protected routes
     if (!token && (isAdminRoute || isBlogAuthorRoute)) {
-      return NextResponse.redirect(new URL(withBasePath(`/let-me-innn`, req.url)));
+      return NextResponse.redirect(new URL(withBasePath(`/let-me-innn`), req.url));
     }
 
     // If user is authenticated but doesn't have the right role

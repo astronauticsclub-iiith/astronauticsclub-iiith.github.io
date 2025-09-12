@@ -170,7 +170,7 @@ const ImagePreview = ({ src, alt, isOpen, onClose }: ImagePreviewProps) => {
               }}
             >
               <Image
-                src={withBasePath(src)}
+                src={typeof src === "string" ? withBasePath(src) : src}
                 alt={alt}
                 fill
                 className="object-contain transition-opacity duration-300"

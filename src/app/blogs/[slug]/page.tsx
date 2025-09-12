@@ -252,7 +252,7 @@ const BlogPostPage = () => {
               className="relative border-4 border-white overflow-hidden"
               style={{ height: "24rem" }}
             >
-              {blog.images.map((image, index) => (
+              {blog.images.map((image: string, index) => (
                 <motion.div
                   key={index}
                   className="absolute inset-0 w-full h-full"
@@ -480,7 +480,7 @@ const BlogPostPage = () => {
                 img: ({ src = "", alt = "", width, height, ...props }) =>
                   typeof src === "string" ? (
                     <Image
-                      src={withBasePath(src)}
+                      src={typeof src === "string" ? withBasePath(src) : src}
                       alt={alt}
                       width={typeof width === "number" ? width : 800}
                       height={typeof height === "number" ? height : 400}

@@ -431,7 +431,7 @@ export default function BlogAuthorDashboard() {
             transition={{ duration: 0.6, delay: 0.4 }}
             className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-4 lg:gap-6"
           >
-            {currentImages.map((imagePath, index) => (
+            {currentImages.map((imagePath : string, index) => (
               <motion.div
                 key={index}
                 initial={{ opacity: 0, scale: 0.8, y: 20 }}
