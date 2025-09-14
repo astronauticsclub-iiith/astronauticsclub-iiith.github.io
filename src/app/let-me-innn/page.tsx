@@ -29,6 +29,7 @@ function LoginContent() {
         });
 
         if (result?.error) {
+          console.error("SignIn error:", result.error);
           setError("Authentication failed. Please try again.");
         } else {
           // Check if user has proper role
