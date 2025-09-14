@@ -91,7 +91,7 @@ export default function RootLayout({
           rel="canonical"
           href="https://clubs.iiit.ac.in/astronautics"
         />
-        <link rel="manifest" href="/site.webmanifest" />
+        <link rel="manifest" href="/astronautics/site.webmanifest" />
         <meta name="theme-color" content="#020001" />
       </head>
       <body

@@ -65,7 +65,7 @@ const handler = NextAuth({
         try {
           // Get the ticket from the credentials
           const ticket = credentials?.ticket;
-          const service = credentials?.service || process.env.NEXTAUTH_URL;
+          const service = credentials?.service || `${process.env.NEXTAUTH_URL}/api/auth/callback/credentials`;
 
           if (!ticket) {
             console.log("CAS Authorization - No ticket provided");

@@ -84,12 +84,6 @@ export default withAuth(
 
 export const config = {
   matcher: [
-    `/imtheboss/:path*`,
-    `/clickity-clackity-blogs-are-my-property/:path*`,
-    `/let-me-innn/:path*`,
-    `/api/upload/:path*`,
-    `/api/users/:path*`,
-    `/api/my-blogs/:path*`,
     `/astronautics/imtheboss/:path*`,
     `/astronautics/clickity-clackity-blogs-are-my-property/:path*`,
     `/astronautics/let-me-innn/:path*`,
