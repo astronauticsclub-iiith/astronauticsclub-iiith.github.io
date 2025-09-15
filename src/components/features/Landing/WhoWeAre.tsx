@@ -3,7 +3,7 @@
 import "./WhoWeAre.css";
 import ClickableImage from "@/components/common/ClickableImage";
 import "@/components/ui/bg-patterns.css";
-import { withBasePath } from "./HelperFunction";
+import { withBasePath } from "@/components/common/HelperFunction";
 
 const WhoWeAre = () => {
 
