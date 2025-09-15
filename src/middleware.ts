@@ -48,7 +48,7 @@ export default withAuth(
           return NextResponse.redirect(new URL(withBasePath(`/imtheboss`), req.url));
         } else if (userRole === "writer") {
           return NextResponse.redirect(
-            new URL("/clickity-clackity-blogs-are-my-property", req.url)
+            new URL(withBasePath("/clickity-clackity-blogs-are-my-property"), req.url)
           );
         }
       }
