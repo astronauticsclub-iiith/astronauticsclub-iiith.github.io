@@ -529,5 +529,17 @@
       "type": "workshop",
       "date": "2025-09-18"
     }
+  },
+  {
+    "timestamp": "2025-09-15T12:11:11.426Z",
+    "level": "info",
+    "message": "Gallery image deleted",
+    "source": "admin/gallery",
+    "userEmail": "mayank.goe@research.iiit.ac.in",
+    "action": "delete_image",
+    "details": {
+      "filename": "temp.jpg",
+      "category": "others"
+    }
   }
 ]

@@ -3,7 +3,6 @@
 import Image, { ImageProps } from "next/image";
 import { useImagePreview } from "@/context/ImagePreviewContext";
 import "./ClickableImage.css";
-import { withBasePath } from "./HelperFunction";
 
 interface ClickableImageProps extends Omit<ImageProps, "onClick"> {
   wrapperClassName?: string;
@@ -36,7 +35,7 @@ const ClickableImage = ({
       onClick={handleClick}
     >
       <Image 
-      src={typeof src === "string" ? withBasePath(src) : src}
+      src={typeof src === "string" ? src : src}
       alt={alt || ""} className={className} {...props} />
     </div>
   );

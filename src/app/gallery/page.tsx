@@ -48,7 +48,7 @@ const PhotoCard: React.FC<{
     >
       <div className="gallery-card-image">
         <Image
-          src={image.src}
+          src={withBasePath(image.src)}
           alt={image.alt || image.label}
           fill
           sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, 33vw"

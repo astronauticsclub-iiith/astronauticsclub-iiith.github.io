@@ -3,6 +3,7 @@
 import "./WhoWeAre.css";
 import ClickableImage from "@/components/common/ClickableImage";
 import "@/components/ui/bg-patterns.css";
+import { withBasePath } from "./HelperFunction";
 
 const WhoWeAre = () => {
 
@@ -80,7 +81,7 @@ const WhoWeAre = () => {
               <div key={image.id} className={`image-frame ${image.size}`}>
                 <div className="image-container">
                   <ClickableImage
-                    src={image.src}
+                    src={withBasePath(image.src)}
                     alt={image.alt}
                     fill
                     sizes="(max-width: 752px) 100vw, (max-width: 1184px) 50vw, 33vw"
