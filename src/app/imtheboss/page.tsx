@@ -388,6 +388,28 @@ export default function AdminDashboard() {
     }
   };
 
+  const removeUser = async (
+    userId: string,
+  ) => {
+    try {
+      const response = await fetch(withBasePath(`/api/users/${userId}`),
+        {
+          method: "DELETE",
+          headers: { "Content-Type": "application/json" },
+        });
+
+      if (response.ok) {
+        fetchUsers();
+        showSuccess("User removed successfully");
+      } else {
+        showError("Failed to remove user");
+      }
+    } catch (error) {
+      console.error("Error removing user:", error);
+      showError("Failed to remove user");
+    }
+  };
+
   const uploadImage = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!uploadFile) {
@@ -824,6 +846,12 @@ export default function AdminDashboard() {
                         />
                       </div>
                     </div>
+                    <button
+                      onClick={() => removeUser(user._id)}
+                      className="px-2 sm:px-3 py-1 border-2 border-white text-white font-bold hover:bg-white hover:text-background transition-all duration-200 text-base sm:text-lg lg:text-xl hover:scale-105 active:scale-95 min-w-[2.5rem] flex items-center justify-center"
+                    >
+                    ×
+                    </button>
                   </motion.div>
                 ))}
                 {users.length === 0 && (
