@@ -541,5 +541,41 @@
       "filename": "temp.jpg",
       "category": "others"
     }
+  },
+  {
+    "timestamp": "2025-09-15T14:01:10.106Z",
+    "level": "info",
+    "message": "Write operation: UPDATE_BLOG blog",
+    "source": "write_operation",
+    "userEmail": "mayank.goe@research.iiit.ac.in",
+    "action": "UPDATE_BLOG",
+    "details": {
+      "resourceType": "blog",
+      "resourceId": "68c7dd10b8954e925ece5f47",
+      "title": "Astronomy 101: Comsic Distance Ladder",
+      "slug": "cosmic-distance-ladder",
+      "updatedFields": [
+        "title",
+        "excerpt",
+        "content",
+        "tags",
+        "readTime",
+        "images"
+      ]
+    }
+  },
+  {
+    "timestamp": "2025-09-15T14:03:48.124Z",
+    "level": "info",
+    "message": "Write operation: CREATE_BLOG blog",
+    "source": "write_operation",
+    "userEmail": "mayank.goe@research.iiit.ac.in",
+    "action": "CREATE_BLOG",
+    "details": {
+      "resourceType": "blog",
+      "resourceId": "68c81cc43039300e97cd1ead",
+      "title": "Astronomy 101: cosmic distance ladder continued",
+      "slug": "astronomy-101-cosmic-distance-ladder-continued"
+    }
   }
 ]
