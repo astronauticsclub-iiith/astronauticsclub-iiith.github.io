@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { Shield, Settings, FileText, LogOut } from "lucide-react";
 import Image from "next/image";
+import { withBasePath } from "../../common/HelperFunction";
 
 interface UserProfile {
   id: string;
@@ -41,7 +42,7 @@ export default function ProfileInfo({
           <div className="w-12 h-12 sm:w-16 sm:h-16 border-2 border-white overflow-hidden bg-white transition-transform duration-200 hover:scale-105">
             {userProfile.avatar ? (
               <Image
-                src={userProfile.avatar}
+                src={withBasePath(userProfile.avatar)}
                 alt={userProfile.name || "Profile"}
                 width={64}
                 height={64}

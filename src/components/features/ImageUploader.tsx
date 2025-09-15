@@ -196,7 +196,7 @@ export default function ImageUploader({
                 >
                   <div className="aspect-video relative border-2 border-white overflow-hidden mb-3">
                     <Image
-                      src={image.filePath}
+                      src={withBasePath(image.filePath)}
                       alt={image.filename}
                       fill
                       sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"

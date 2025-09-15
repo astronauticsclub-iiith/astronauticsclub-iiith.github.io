@@ -186,7 +186,7 @@ export default function BlogPreview({
                   style={{ zIndex: index === currentImageIndex ? 1 : 0 }}
                 >
                   <Image
-                    src={image}
+                    src={withBasePath(image)}
                     alt={`${title} - Image ${index + 1}`}
                     width={800}
                     height={400}
@@ -395,10 +395,10 @@ export default function BlogPreview({
                     {...props}
                   />
                 ),
-                img: ({ src = "", alt = "", width, height, ...props }) =>
+                img: ({ src, alt = "", width, height, ...props }) =>
                   typeof src === "string" ? (
                     <Image
-                      src={/astronautics/+src}
+                      src={withBasePath(src)}
                       alt={alt}
                       width={typeof width === "number" ? width : 800}
                       height={typeof height === "number" ? height : 400}

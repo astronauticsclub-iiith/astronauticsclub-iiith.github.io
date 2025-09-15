@@ -5,6 +5,7 @@ import { Heart, Eye, Calendar, ArrowUpRight, Clock } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { Blog } from "@/types/blog";
+import { withBasePath } from "../../common/HelperFunction"
 
 interface BlogCardProps {
   blog: Blog;
@@ -58,7 +59,7 @@ const BlogCard = ({
           {blog.images.length > 0 && (
             <div className="relative h-48 overflow-hidden border-b-4 border-white">
               <Image
-                src={blog.images[0]}
+                src={withBasePath(blog.images[0])}
                 alt={blog.title}
                 width={320}
                 height={192}
@@ -134,7 +135,7 @@ const BlogCard = ({
           {blog.images.length > 0 && (
             <div className="relative sm:col-span-2 h-56 sm:h-auto border-b-4 sm:border-b-0 sm:border-r-4 border-white overflow-hidden">
               <Image
-                src={blog.images[0]}
+                src={withBasePath(blog.images[0])}
                 alt={blog.title}
                 width={640}
                 height={360}
@@ -178,7 +179,7 @@ const BlogCard = ({
               <div className="w-12 h-12 border-2 border-white overflow-hidden bg-white">
                 {blog.author.avatar ? (
                   <Image
-                    src={blog.author.avatar}
+                    src={withBasePath(blog.author.avatar)}
                     alt={blog.author.name || "Author"}
                     width={48}
                     height={48}
