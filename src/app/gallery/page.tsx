@@ -106,7 +106,7 @@ const Gallery: React.FC = () => {
   );
 
   const handleImageClick = (image: GalleryImage) => {
-    openPreview(image.src, image.alt);
+    openPreview(withBasePath(image.src), image.alt);
   };
 
   if (loading) {
