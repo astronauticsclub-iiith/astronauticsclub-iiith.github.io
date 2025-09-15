@@ -33,7 +33,7 @@ export async function PUT(request: NextRequest) {
     const { user } = await requireWriter();
     const body = await request.json();
     
-    const { name, bio } = body;
+    const { name, bio, linkedin } = body;
     
     // Validate input
     if (name !== undefined && typeof name !== 'string') {
@@ -50,13 +50,21 @@ export async function PUT(request: NextRequest) {
       );
     }
     
+    if (linkedin !== undefined && typeof linkedin !== 'string') { // Add better string checking
+      return NextResponse.json(
+        { error: "Linkedin must be a string" },
+        { status: 400 }
+      );
+    }
+
     // Update user profile
     await connectToDatabase();
     const updatedUser = await User.findByIdAndUpdate(
       user._id,
       { 
         ...(name !== undefined && { name: name.trim() }),
-        ...(bio !== undefined && { bio: bio.trim() })
+        ...(bio !== undefined && { bio: bio.trim() }),
+        ...(linkedin !== undefined && { linkedin: linkedin.trim() })
       },
       { new: true, runValidators: true }
     );
