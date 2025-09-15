@@ -166,7 +166,7 @@ const EventTimelineItem: React.FC<{ event: Event; index: number }> = ({
                 sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
                 className="transition-transform duration-300 hover:scale-105 cursor-pointer object-cover"
                 onClick={() =>
-                  event.image && openPreview(event.image, event.title)
+                  event.image && openPreview(withBasePath(event.image), event.title)
                 }
               />
             </div>

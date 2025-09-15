@@ -100,7 +100,7 @@ const BlogPostPage = () => {
   };
 
   const handleImageClick = (imageSrc: string) => {
-    openPreview(imageSrc, blog?.title || "Blog image");
+    openPreview(withBasePath(imageSrc), blog?.title || "Blog image");
   };
 
   const nextImage = () => {

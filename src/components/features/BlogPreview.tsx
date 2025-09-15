@@ -48,7 +48,7 @@ export default function BlogPreview({
   const [views] = useState(123);
 
   const handleImageClick = (imageSrc: string) => {
-    openPreview(imageSrc, title || "Blog image");
+    openPreview(withBasePath(imageSrc), title || "Blog image");
   };
 
   const nextImage = () => {
