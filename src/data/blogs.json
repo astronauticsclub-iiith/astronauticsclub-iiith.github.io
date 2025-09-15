@@ -2,20 +2,20 @@
   {
     "id": "1",
     "title": "Astronomy 101: Comsic Distance Ladder",
-    "slug": "orion-nebula-stellar-nursery",
+    "slug": "cosmic-distance-ladder",
     "excerpt": "universe.",
     "content": "Ever wondered how distances to moon, sun or near planet was measured?",
     "author": {
       "name": "Mayank Goel",
-      "avatar": "/uploads/test.png",
+      "avatar": "/team/mayank.jpeg",
       "bio": "Astrophysicist specializing in stellar formation"
     },
     "publishedAt": "2024-01-15T10:30:00Z",
     "readTime": 8,
-    "tags": ["nebula", "star-formation", "deep-sky", "orion"],
-    "images": ["/uploads/test.png", "/uploads/test2.png"],
-    "views": 2847,
-    "likes": 156
+    "tags": ["Astronomy 101", "Cosmic Distance Ladder"],
+    "images": ["/uploads/blog_images/cosmic_distance_ladder.jpg"],
+    "views": 28,
+    "likes": 1
   },
   {
     "id": "2",

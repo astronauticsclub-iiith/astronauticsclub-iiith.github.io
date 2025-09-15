@@ -79,7 +79,7 @@ const TeamCard: React.FC<{
     >
       <div className="relative w-full h-80">
         <Image
-          src={withBasePath(member.avatar || `/team/default.png`)}
+          src={withBasePath(member.avatar || `/team/default-avatar.svg`)}
           alt={member.name || "Team Member"}
           fill
           sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, 33vw"
