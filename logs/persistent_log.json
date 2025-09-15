@@ -488,5 +488,46 @@
         "role": "admin"
       }
     }
+  },
+  {
+    "timestamp": "2025-09-15T09:04:55.109Z",
+    "level": "info",
+    "message": "Write operation: CREATE_USER user",
+    "source": "write_operation",
+    "userEmail": "mayank.goe@research.iiit.ac.in",
+    "action": "CREATE_USER",
+    "details": {
+      "resourceType": "user",
+      "resourceId": "68c7d6b7049ee3ab2568b99e",
+      "email": "harsh.kapoor@research.iiit.ac.in",
+      "role": "admin"
+    }
+  },
+  {
+    "timestamp": "2025-09-15T09:11:42.479Z",
+    "level": "info",
+    "message": "Gallery image uploaded",
+    "source": "admin/gallery",
+    "userEmail": "mayank.goe@research.iiit.ac.in",
+    "action": "upload_image",
+    "details": {
+      "filename": "Total lunar eclipse 2025.jpeg",
+      "category": "astrophotography",
+      "fileSize": 21864
+    }
+  },
+  {
+    "timestamp": "2025-09-15T09:17:08.172Z",
+    "level": "info",
+    "message": "Event created",
+    "source": "admin/events",
+    "userEmail": "mayank.goe@research.iiit.ac.in",
+    "action": "create_event",
+    "details": {
+      "eventId": "2025_cad_workshop",
+      "title": "3D CAD Workshop",
+      "type": "workshop",
+      "date": "2025-09-18"
+    }
   }
 ]
