@@ -10,7 +10,7 @@ interface GalleryImage {
   id: string;
   src: string;
   alt: string;
-  category: "astrophotography" | "events";
+  category: "astrophotography" | "events" | "others";
   label: string;
   filename: string;
   size: number;

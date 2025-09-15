@@ -24,7 +24,7 @@ export async function GET() {
       ".svg",
       ".avif",
     ];
-    const categories = ["astrophotography", "events"];
+    const categories = ["astrophotography", "events", "others"];
     const allImages = [];
 
     for (const category of categories) {
@@ -53,7 +53,7 @@ export async function GET() {
           allImages.push({
             src: `/gallery/${category}/${file}`,
             alt: label,
-            category: category as "astrophotography" | "events",
+            category: category as "astrophotography" | "events" | "others",
             label,
             filename: file,
             size: stats.size,

@@ -145,7 +145,7 @@ export default function BlogPreview({
                 width={64}
                 height={64}
                 className="w-full h-full object-cover cursor-pointer cursor-open"
-                onClick={() => handleImageClick(withBasePath(author.avatar || `/team/default-avatar.svg`))}
+                onClick={() => handleImageClick(author.avatar || `/team/default-avatar.svg`)}
               />
             </div>
 

@@ -13,14 +13,14 @@ import { withBasePath } from "@/components/common/HelperFunction";
 type GalleryImage = {
   src: string;
   alt: string;
-  category: "astrophotography" | "events";
+  category: "astrophotography" | "events" | "others";
   label: string;
   filename: string;
   size: number;
   modified: string;
 };
 
-type FilterType = "all" | "astrophotography" | "events";
+type FilterType = "all" | "astrophotography" | "events" | "others";
 
 const PhotoCard: React.FC<{
   image: GalleryImage;
@@ -176,6 +176,16 @@ const Gallery: React.FC = () => {
             >
               Events
             </motion.button>
+            <motion.button
+              whileHover={{ scale: 1.05, y: -2 }}
+              whileTap={{ scale: 0.95 }}
+              className={`gallery-filter-btn ${
+                filter === "others" ? "active" : ""
+              }`}
+              onClick={() => setFilter("others")}
+            >
+              Others
+            </motion.button>
           </motion.div>
         </motion.div>
 
@@ -237,7 +247,7 @@ const Gallery: React.FC = () => {
                   image={image}
                   index={index}
                   onClick={() => handleImageClick(image)}
-                />
+                />  
               ))}
             </AnimatePresence>
           </motion.div>

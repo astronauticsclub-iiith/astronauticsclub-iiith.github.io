@@ -18,7 +18,7 @@ interface GalleryImage {
   id: string;
   src: string;
   alt: string;
-  category: "astrophotography" | "events";
+  category: "astrophotography" | "events" | "others";
   label: string;
   filename: string;
   size: number;
@@ -32,7 +32,7 @@ interface AdminPhotoCardProps {
   onEdit: (
     image: GalleryImage,
     newFilename?: string,
-    newCategory?: "astrophotography" | "events"
+    newCategory?: "astrophotography" | "events" | "others"
   ) => Promise<void>;
   onDelete: (image: GalleryImage) => void;
   isEditing: boolean;
@@ -51,7 +51,7 @@ const AdminPhotoCard: React.FC<AdminPhotoCardProps> = ({
 }) => {
   const [editedFilename, setEditedFilename] = useState("");
   const [editedCategory, setEditedCategory] = useState<
-    "astrophotography" | "events"
+    "astrophotography" | "events" | "others"
   >(image.category);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showCategoryDropdown, setShowCategoryDropdown] = useState(false);
@@ -78,11 +78,13 @@ const AdminPhotoCard: React.FC<AdminPhotoCardProps> = ({
   }, [showCategoryDropdown]);
 
   // Get icon for category
-  const getCategoryIcon = (category: "astrophotography" | "events") => {
+  const getCategoryIcon = (category: "astrophotography" | "events" | "others") => {
     switch (category) {
       case "astrophotography":
         return <Camera size={18} />;
       case "events":
+        return <Calendar size={18} />;
+      case "others":
         return <Calendar size={18} />;
       default:
         return <Camera size={18} />;
@@ -234,6 +236,22 @@ const AdminPhotoCard: React.FC<AdminPhotoCardProps> = ({
                       >
                         <Calendar size={16} />
                         <span className="uppercase">EVENTS</span>
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setEditedCategory("others");
+                          setShowCategoryDropdown(false);
+                        }}
+                        disabled={isSubmitting}
+                        className={`w-full flex items-center gap-2 px-3 py-2 text-left font-medium hover:bg-white hover:text-background transition-colors disabled:opacity-50 disabled:cursor-not-allowed ${
+                          editedCategory === "others"
+                            ? "bg-white text-background"
+                            : "text-white"
+                        }`}
+                      >
+                        <Calendar size={16} />
+                        <span className="uppercase">OTHERS</span>
                       </button>
                     </motion.div>
                   )}

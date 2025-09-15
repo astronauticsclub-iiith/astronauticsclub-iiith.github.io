@@ -31,7 +31,7 @@ export async function GET() {
       ".svg",
       ".avif",
     ];
-    const categories = ["astrophotography", "events"];
+    const categories = ["astrophotography", "events", "others"];
     const allImages = [];
 
     for (const category of categories) {
@@ -54,7 +54,7 @@ export async function GET() {
             id: `${category}-${file}`,
             src: `/gallery/${category}/${file}`,
             alt: generateLabel(file),
-            category: category as "astrophotography" | "events",
+            category: category as "astrophotography" | "events" | "others",
             label: generateLabel(file),
             filename: file,
             size: stats.size,
@@ -97,9 +97,9 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "No file provided" }, { status: 400 });
     }
 
-    if (!["astrophotography", "events"].includes(category)) {
+    if (!["astrophotography", "events", "others"].includes(category)) {
       return NextResponse.json(
-        { error: "Invalid category. Must be 'astrophotography' or 'events'" },
+        { error: "Invalid category. Must be 'astrophotography', 'events' or 'others'" },
         { status: 400 }
       );
     }
@@ -168,7 +168,7 @@ export async function POST(request: NextRequest) {
       id: `${category}-${filename}`,
       src: `/gallery/${category}/${filename}`,
       alt: generateLabel(filename),
-      category: category as "astrophotography" | "events",
+      category: category as "astrophotography" | "events" | "others",
       label: generateLabel(filename),
       filename,
       size: file.size,
@@ -205,11 +205,11 @@ export async function PUT(request: NextRequest) {
     }
 
     if (
-      !["astrophotography", "events"].includes(currentCategory) ||
-      (newCategory && !["astrophotography", "events"].includes(newCategory))
+      !["astrophotography", "events", "others"].includes(currentCategory) ||
+      (newCategory && !["astrophotography", "events", "others"].includes(newCategory))
     ) {
       return NextResponse.json(
-        { error: "Invalid category. Must be 'astrophotography' or 'events'" },
+        { error: "Invalid category. Must be 'astrophotography', 'events' or 'others'" },
         { status: 400 }
       );
     }
@@ -270,7 +270,7 @@ export async function PUT(request: NextRequest) {
       id: `${targetCategory}-${targetFilename}`,
       src: `/gallery/${targetCategory}/${targetFilename}`,
       alt: generateLabel(targetFilename),
-      category: targetCategory as "astrophotography" | "events",
+      category: targetCategory as "astrophotography" | "events" | "others",
       label: generateLabel(targetFilename),
       filename: targetFilename,
       size: stats.size,
@@ -307,9 +307,9 @@ export async function DELETE(request: NextRequest) {
       );
     }
 
-    if (!["astrophotography", "events"].includes(category)) {
+    if (!["astrophotography", "events", "others"].includes(category)) {
       return NextResponse.json(
-        { error: "Invalid category. Must be 'astrophotography' or 'events'" },
+        { error: "Invalid category. Must be 'astrophotography', 'events' or 'others'" },
         { status: 400 }
       );
     }

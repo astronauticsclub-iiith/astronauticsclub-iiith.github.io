@@ -72,7 +72,7 @@ interface GalleryImage {
   id: string;
   src: string;
   alt: string;
-  category: "astrophotography" | "events";
+  category: "astrophotography" | "events" | "others";
   label: string;
   filename: string;
   size: number;
@@ -94,7 +94,7 @@ export default function AdminDashboard() {
   const [galleryLoading, setGalleryLoading] = useState(false);
   const [uploadFile, setUploadFile] = useState<File | null>(null);
   const [uploadCategory, setUploadCategory] = useState<
-    "astrophotography" | "events"
+    "astrophotography" | "events" | "others"
   >("astrophotography");
   const [uploadFilename, setUploadFilename] = useState("");
   const [showUploadCategoryDropdown, setShowUploadCategoryDropdown] =
@@ -262,11 +262,13 @@ export default function AdminDashboard() {
   }, [showUploadCategoryDropdown]);
 
   // Get icon for upload category
-  const getUploadCategoryIcon = (category: "astrophotography" | "events") => {
+  const getUploadCategoryIcon = (category: "astrophotography" | "events" | "others") => {
     switch (category) {
       case "astrophotography":
         return <Camera size={18} />;
       case "events":
+        return <Calendar size={18} />;
+      case "others":
         return <Calendar size={18} />;
       default:
         return <Camera size={18} />;
@@ -451,7 +453,7 @@ export default function AdminDashboard() {
   const updateImage = async (
     image: GalleryImage,
     newFilename?: string,
-    newCategory?: "astrophotography" | "events"
+    newCategory?: "astrophotography" | "events" | "others"
   ) => {
     try {
       const response = await fetch(withBasePath(`/api/gallery/admin`), {
@@ -1041,6 +1043,21 @@ export default function AdminDashboard() {
                           >
                             <Calendar size={16} />
                             <span className="uppercase">EVENTS</span>
+                          </button>
+                          <button
+                            type="button"
+                            onClick={() => {
+                              setUploadCategory("others");
+                              setShowUploadCategoryDropdown(false);
+                            }}
+                            className={`w-full flex items-center gap-2 px-3 py-2 text-left font-medium hover:bg-white hover:text-background transition-colors ${
+                              uploadCategory === "others"
+                                ? "bg-white text-background"
+                                : "text-white"
+                            }`}
+                          >
+                            <Calendar size={16} />
+                            <span className="uppercase">OTHERS</span>
                           </button>
                         </motion.div>
                       )}

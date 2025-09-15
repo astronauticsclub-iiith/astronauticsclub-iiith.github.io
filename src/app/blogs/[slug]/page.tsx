@@ -225,7 +225,7 @@ const BlogPostPage = () => {
                 className="w-full h-full object-cover cursor-pointer cursor-open"
                 onClick={() =>
                   handleImageClick(
-                    withBasePath(blog.author.avatar || `/team/default-avatar.svg`)
+                    blog.author.avatar || `/team/default-avatar.svg`
                   )
                 }
               />
