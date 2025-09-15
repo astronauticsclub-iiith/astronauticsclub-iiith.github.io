@@ -2,7 +2,6 @@
 
 import React, { createContext, useContext, useState } from "react";
 import ImagePreview from "@/components/common/ImagePreview";
-import { withBasePath } from "@/components/common/HelperFunction"
 
 // Define the context type
 type ImagePreviewContextType = {
@@ -50,7 +49,7 @@ export const ImagePreviewProvider: React.FC<{ children: React.ReactNode }> = ({
     <ImagePreviewContext.Provider value={value}>
       {children}
       <ImagePreview
-        src={withBasePath(previewImage.src)}
+        src={previewImage.src}
         alt={previewImage.alt}
         isOpen={isPreviewOpen}
         onClose={closePreview}
