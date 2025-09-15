@@ -140,12 +140,12 @@ export default function BlogPreview({
           <div className="flex items-center gap-4">
             <div className="w-16 h-16 border-2 border-white overflow-hidden">
               <Image
-                src={withBasePath(author.avatar || `/team/default-avatar.png`)}
+                src={withBasePath(author.avatar || `/team/default-avatar.svg`)}
                 alt={author.name}
                 width={64}
                 height={64}
                 className="w-full h-full object-cover cursor-pointer cursor-open"
-                onClick={() => handleImageClick(withBasePath(author.avatar || `/team/default-avatar.png`))}
+                onClick={() => handleImageClick(withBasePath(author.avatar || `/team/default-avatar.svg`))}
               />
             </div>
 
