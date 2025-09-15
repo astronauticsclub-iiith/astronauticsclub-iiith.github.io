@@ -10,6 +10,7 @@ export async function GET() {
     return NextResponse.json({
       id: user._id,
       email: user.email,
+      linkedin: user.linkedin,
       name: user.name,
       role: user.role,
       designations: user.designations,
@@ -70,6 +71,7 @@ export async function PUT(request: NextRequest) {
     return NextResponse.json({
       id: updatedUser._id,
       email: updatedUser.email,
+      linkedin: updatedUser.linkedin,
       name: updatedUser.name,
       role: updatedUser.role,
       avatar: updatedUser.avatar,

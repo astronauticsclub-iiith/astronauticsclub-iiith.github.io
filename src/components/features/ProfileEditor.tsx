@@ -9,6 +9,7 @@ interface UserProfile {
   email: string;
   name?: string;
   avatar?: string;
+  linkedin? : string;
   bio?: string;
   role: 'admin' | 'writer' | 'none';
   designations?: string[];
@@ -32,6 +33,7 @@ export default function ProfileEditor({
   const [formData, setFormData] = useState({
     name: user.name || "",
     bio: user.bio || "",
+    linkedin: user.linkedin || "",
   });
   const [uploading, setUploading] = useState(false);
   const [saving, setSaving] = useState(false);
@@ -140,7 +142,7 @@ export default function ProfileEditor({
               <div className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 lg:w-28 lg:h-28 border-2 sm:border-4 border-white overflow-hidden bg-background flex items-center justify-center transition-all duration-300 hover:border-opacity-80 hover:shadow-lg hover:shadow-white/20 hover:rotate-1">
                 {avatarPreview ? (
                   <Image
-                    src={avatarPreview}
+                    src={withBasePath(avatarPreview)}
                     alt="Avatar"
                     width={112}
                     height={112}
@@ -229,6 +231,24 @@ export default function ProfileEditor({
               />
             </div>
 
+            <div
+              className="animate-slide-in-from-left"
+              style={{ animationDelay: "0.3s" }}
+            >
+              <label className="block text-xs sm:text-sm font-bold text-white mb-1 sm:mb-2 uppercase tracking-wide">
+                LINKEDIN
+              </label>
+              <input
+                type="text"
+                value={formData.linkedin}
+                onChange={(e) =>
+                  setFormData({ ...formData, linkedin: e.target.value })
+                }
+                placeholder=""
+                className="w-full bg-background border-2 border-white px-2 sm:px-3 md:px-4 py-1 sm:py-2 md:py-3 text-white font-medium placeholder-[#666] focus:ring-2 focus:ring-white focus:border-white text-xs sm:text-sm md:text-base transition-all duration-200 focus:scale-[1.01] sm:focus:scale-[1.02] hover:border-opacity-80"
+              />
+            </div>
+
             {!isSelfEdit && (
               <>
                 <div
@@ -265,17 +285,17 @@ export default function ProfileEditor({
             style={{ animationDelay: "0.5s" }}
           >
             <button
-              onClick={onClose}
-              className="flex-1 px-2 sm:px-3 md:px-4 py-2 sm:py-2 md:py-3 border-2 border-white text-white font-bold hover:bg-white hover:text-background transition-all duration-200 uppercase text-xs sm:text-sm md:text-base hover:scale-105 active:scale-95 min-h-[2.5rem] flex items-center justify-center"
-            >
-              CANCEL
-            </button>
-            <button
               onClick={handleSaveProfile}
               disabled={saving}
               className="flex-1 px-2 sm:px-3 md:px-4 py-2 sm:py-2 md:py-3 border-2 border-white bg-white text-background font-bold hover:bg-[#e0e0e0] disabled:bg-[#666] disabled:border-[#666] disabled:text-white transition-all duration-200 uppercase text-xs sm:text-sm md:text-base hover:scale-105 active:scale-95 disabled:hover:scale-100 disabled:cursor-not-allowed min-h-[2.5rem] flex items-center justify-center"
             >
               {saving ? "SAVING..." : "SAVE CHANGES"}
+            </button>
+            <button
+              onClick={onClose}
+              className="flex-1 px-2 sm:px-3 md:px-4 py-2 sm:py-2 md:py-3 border-2 border-white text-white font-bold hover:bg-white hover:text-background transition-all duration-200 uppercase text-xs sm:text-sm md:text-base hover:scale-105 active:scale-95 min-h-[2.5rem] flex items-center justify-center"
+            >
+              CANCEL
             </button>
           </div>
         </div>
