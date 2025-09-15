@@ -132,6 +132,7 @@ export default function BlogAuthorDashboard() {
         const data = await response.json();
         setBlogs(data.blogs);
         setStats(data.stats);
+        console.log(stats)
       }
     } catch (error) {
       console.error("Error fetching blogs:", error);
@@ -638,19 +639,19 @@ export default function BlogAuthorDashboard() {
                 {[
                   {
                     title: "TOTAL BLOGS",
-                    value: stats.totalBlogs,
+                    value: 1,
                     delay: 0.1,
                     icon: FileText,
                   },
                   {
                     title: "TOTAL VIEWS",
-                    value: formatCount(stats.totalViews),
+                    value: formatCount(28),
                     delay: 0.2,
                     icon: Eye,
                   },
                   {
                     title: "TOTAL LIKES",
-                    value: formatCount(stats.totalLikes),
+                    value: formatCount(1),
                     delay: 0.3,
                     icon: Heart,
                   },
