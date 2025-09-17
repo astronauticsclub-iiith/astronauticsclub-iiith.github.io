@@ -134,6 +134,7 @@ export default function AdminDashboard() {
     handleConfirm,
     alertState,
     confirmState,
+    showConfirm,
   } = useAlert();
 
   const fetchUsers = async () => {
@@ -388,7 +389,7 @@ export default function AdminDashboard() {
     }
   };
 
-  const removeUser = async (
+  const deleteUser = async (
     userId: string,
   ) => {
     try {
@@ -409,6 +410,15 @@ export default function AdminDashboard() {
       showError("Failed to remove user");
     }
   };
+
+  const removeUser = async (userId: string) => {
+    showConfirm(
+        "REMOVE MEMBER",
+        "Are you sure you want to remove this member? This action cannot be undone.",
+        () => deleteUser(userId),
+        { type: "danger", confirmText: "REMOVE MEMBER" }
+      );
+  }
 
   const uploadImage = async (e: React.FormEvent) => {
     e.preventDefault();
