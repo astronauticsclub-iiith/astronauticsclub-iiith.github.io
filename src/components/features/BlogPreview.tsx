@@ -17,7 +17,7 @@ import {
 import Image from 'next/image';
 import { useImagePreview } from '@/context/ImagePreviewContext';
 import "@/components/ui/bg-patterns.css";
-import { withBasePath } from '../common/HelperFunction';
+import { withBasePath, withUploadPath } from '../common/HelperFunction';
 
 interface BlogPreviewProps {
   title: string;
@@ -140,10 +140,11 @@ export default function BlogPreview({
           <div className="flex items-center gap-4">
             <div className="w-16 h-16 border-2 border-white overflow-hidden">
               <Image
-                src={withBasePath(author.avatar || `/team/default-avatar.svg`)}
+                src={author.avatar ? withUploadPath(author.avatar) : withBasePath(`/team/default-avatar.svg`)}
                 alt={author.name}
                 width={64}
                 height={64}
+                unoptimized={!!author.avatar}
                 className="w-full h-full object-cover cursor-pointer cursor-open"
                 onClick={() => handleImageClick(author.avatar || `/team/default-avatar.svg`)}
               />

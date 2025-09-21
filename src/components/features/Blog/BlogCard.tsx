@@ -5,7 +5,7 @@ import { Heart, Eye, Calendar, ArrowUpRight, Clock } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { Blog } from "@/types/blog";
-import { withBasePath } from "../../common/HelperFunction"
+import { withBasePath, withUploadPath } from "../../common/HelperFunction"
 
 interface BlogCardProps {
   blog: Blog;
@@ -179,10 +179,11 @@ const BlogCard = ({
               <div className="w-12 h-12 border-2 border-white overflow-hidden bg-white">
                 {blog.author.avatar ? (
                   <Image
-                    src={withBasePath(blog.author.avatar)}
+                    src={withUploadPath(blog.author.avatar)}
                     alt={blog.author.name || "Author"}
                     width={48}
                     height={48}
+                    unoptimized
                     className="w-full h-full object-cover"
                   />
                 ) : (

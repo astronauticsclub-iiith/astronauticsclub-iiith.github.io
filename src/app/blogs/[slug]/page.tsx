@@ -28,7 +28,7 @@ import {
 } from "@/lib/api";
 import Loader from "@/components/ui/Loader";
 import "@/components/ui/bg-patterns.css";
-import { withBasePath } from "@/components/common/HelperFunction";
+import { withBasePath, withUploadPath } from "@/components/common/HelperFunction";
 
 
 const BlogPostPage = () => {
@@ -218,11 +218,12 @@ const BlogPostPage = () => {
           <div className="flex items-center gap-4">
             <div className="w-16 h-16 border-2 border-white overflow-hidden">
               <Image
-                src={withBasePath(blog.author.avatar || `/team/default-avatar.svg`)}
+                src={blog.author.avatar ? withUploadPath(blog.author.avatar) : withBasePath(`/team/default-avatar.svg`)}
                 alt={blog.author.name || "Anonymous"}
                 width={64}
                 height={64}
                 className="w-full h-full object-cover cursor-pointer cursor-open"
+                unoptimized={!!blog.author.avatar}
                 onClick={() =>
                   handleImageClick(
                     blog.author.avatar || `/team/default-avatar.svg`

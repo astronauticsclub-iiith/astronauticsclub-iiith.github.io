@@ -2,7 +2,7 @@
 
 import { useState, useRef } from "react";
 import Image from "next/image";
-import { withBasePath } from "../common/HelperFunction";
+import { withBasePath, withUploadPath } from "../common/HelperFunction";
 
 interface UserProfile {
   id: string;
@@ -142,10 +142,11 @@ export default function ProfileEditor({
               <div className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 lg:w-28 lg:h-28 border-2 sm:border-4 border-white overflow-hidden bg-background flex items-center justify-center transition-all duration-300 hover:border-opacity-80 hover:shadow-lg hover:shadow-white/20 hover:rotate-1">
                 {avatarPreview ? (
                   <Image
-                    src={withBasePath(avatarPreview)}
+                    src={withUploadPath(avatarPreview)}
                     alt="Avatar"
                     width={112}
                     height={112}
+                    unoptimized
                     className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
                   />
                 ) : (

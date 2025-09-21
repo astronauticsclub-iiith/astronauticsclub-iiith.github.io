@@ -63,7 +63,7 @@ export async function POST(request: NextRequest) {
 
     // Delete old avatar if exists
     if (user.avatar) {
-      const oldAvatarPath = path.join(process.cwd(), "public", user.avatar);
+      const oldAvatarPath = path.join(UPLOAD_DIRECTORY, "avatars", user.avatar);
       if (fs.existsSync(oldAvatarPath)) {
         fs.unlinkSync(oldAvatarPath);
       }
@@ -73,12 +73,12 @@ export async function POST(request: NextRequest) {
       file.name,
       (user._id as { toString: () => string }).toString()
     );
-    const filePath = path.join(UPLOAD_DIRECTORY, uniqueFilename);
+    const filePath = path.join(UPLOAD_DIRECTORY, "avatars", uniqueFilename);
 
     const buffer = Buffer.from(await file.arrayBuffer());
     await writeFile(filePath, buffer);
 
-    const publicPath = `/uploads/avatars/${uniqueFilename}`;
+    const publicPath = `/avatars/${uniqueFilename}`;
 
     // Update user's avatar in database
     await connectToDatabase();

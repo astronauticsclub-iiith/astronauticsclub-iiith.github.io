@@ -29,7 +29,7 @@ import DesignationCombobox from "@/components/admin/DesignationCombobox";
 import { useAlert } from "@/hooks/useAlert";
 import { Event } from "@/types/event";
 import "@/components/ui/bg-patterns.css";
-import { withBasePath } from "@/components/common/HelperFunction";
+import { withBasePath, withUploadPath } from "@/components/common/HelperFunction";
 
 interface ExtendedUser {
   id?: string;
@@ -808,10 +808,11 @@ export default function AdminDashboard() {
                       <div className="w-10 h-10 sm:w-12 sm:h-12 border-2 border-white overflow-hidden bg-white transition-transform duration-200 hover:scale-105">
                         {user.avatar ? (
                           <Image
-                            src={withBasePath(user.avatar)}
+                            src={withUploadPath(user.avatar)}
                             alt={user.name || "User"}
                             width={48}
                             height={48}
+                            unoptimized
                             className="w-full h-full object-cover"
                           />
                         ) : (

@@ -16,7 +16,7 @@ async function populateAuthorDetails(blogs: Array<Record<string, unknown>>) {
     authorMap.set(author.email, {
       name: author.name || "Anonymous",
       avatar: author.avatar || `/team/default-avatar.svg`,
-      bio: author.bio || "Blog Author",
+      bio: author.bio || "",
       email: author.email,
     });
   });
@@ -26,7 +26,7 @@ async function populateAuthorDetails(blogs: Array<Record<string, unknown>>) {
     author: authorMap.get((blog.author as { email: string }).email) || {
       name: "Anonymous",
       avatar: `/team/default-avatar.svg`,
-      bio: "Blog Author",
+      bio: "",
       email: (blog.author as { email: string }).email,
     },
   }));
