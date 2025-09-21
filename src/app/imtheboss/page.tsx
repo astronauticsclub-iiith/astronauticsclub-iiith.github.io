@@ -810,9 +810,9 @@ export default function AdminDashboard() {
                           <Image
                             src={withUploadPath(user.avatar)}
                             alt={user.name || "User"}
+                            unoptimized
                             width={48}
                             height={48}
-                            unoptimized
                             className="w-full h-full object-cover"
                           />
                         ) : (

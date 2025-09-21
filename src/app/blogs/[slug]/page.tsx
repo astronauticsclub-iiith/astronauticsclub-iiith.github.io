@@ -100,7 +100,7 @@ const BlogPostPage = () => {
   };
 
   const handleImageClick = (imageSrc: string) => {
-    openPreview(withBasePath(imageSrc), blog?.title || "Blog image");
+    openPreview(withUploadPath(imageSrc), blog?.title || "Blog image");
   };
 
   const nextImage = () => {
@@ -269,10 +269,11 @@ const BlogPostPage = () => {
                   style={{ zIndex: index === currentImageIndex ? 1 : 0 }}
                 >
                   <Image
-                    src={withBasePath(image)}
+                    src={withUploadPath(image)}
                     alt={`${blog.title} - Image ${index + 1}`}
                     width={800}
                     height={400}
+                    unoptimized
                     className="w-full h-full object-cover cursor-pointer cursor-open"
                     onClick={() => handleImageClick(image)}
                   />
@@ -481,8 +482,9 @@ const BlogPostPage = () => {
                 img: ({ src = "", alt = "", width, height, ...props }) =>
                   typeof src === "string" ? (
                     <Image
-                      src={typeof src === "string" ? withBasePath(src) : src}
+                      src={typeof src === "string" ? withUploadPath(src) : src}
                       alt={alt}
+                      unoptimized
                       width={typeof width === "number" ? width : 800}
                       height={typeof height === "number" ? height : 400}
                       className="my-6 max-w-full rounded-lg shadow-lg border border-[var(--accent-really-dark)]"

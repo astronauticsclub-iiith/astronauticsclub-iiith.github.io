@@ -6,7 +6,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import WhimsicalTeamIcon from "./WhimsicalTeamIcon";
 import { ChevronLeft } from "lucide-react";
 import GlitchText from "./GlitchText";
-import { withBasePath } from "../common/HelperFunction";
+import { withBasePath, withUploadPath } from "../common/HelperFunction";
 
 interface Star {
   ra: number;
@@ -558,8 +558,9 @@ const AstronautBriefing: React.FC = () => {
                         >
                           <Image
                             className="w-24 h-24 object-cover border-4 border-white shadow-[8px_8px_0px_0px_rgba(255,255,255,0.3)]"
-                            src={withBasePath(selectedStar.photo || `/logo.png`)}
+                            src={selectedStar.photo ?  withUploadPath(selectedStar.photo) :  withBasePath(`/logo.png`)}
                             alt={selectedStar.name || "Astronaut"}
+                            unoptimized={!!selectedStar.photo}
                             width={96}
                             height={96}
                           />

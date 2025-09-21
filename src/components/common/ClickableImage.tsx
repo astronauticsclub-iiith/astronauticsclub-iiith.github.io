@@ -35,7 +35,7 @@ const ClickableImage = ({
       onClick={handleClick}
     >
       <Image 
-      src={typeof src === "string" ? src : src}
+      src={src}
       alt={alt || ""} className={className} {...props} />
     </div>
   );

@@ -8,7 +8,7 @@ import Image from "next/image";
 import GalleryIcon from "@/components/features/GalleryIcon";
 import "@/components/ui/bg-patterns.css";
 import "./gallery.css";
-import { withBasePath } from "@/components/common/HelperFunction";
+import { withBasePath, withUploadPath } from "@/components/common/HelperFunction";
 
 type GalleryImage = {
   src: string;
@@ -48,8 +48,9 @@ const PhotoCard: React.FC<{
     >
       <div className="gallery-card-image">
         <Image
-          src={withBasePath(image.src)}
+          src={withUploadPath(image.src)}
           alt={image.alt || image.label}
+          unoptimized
           fill
           sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, 33vw"
           style={{
@@ -106,7 +107,7 @@ const Gallery: React.FC = () => {
   );
 
   const handleImageClick = (image: GalleryImage) => {
-    openPreview(withBasePath(image.src), image.alt);
+    openPreview(withUploadPath(image.src), image.alt);
   };
 
   if (loading) {

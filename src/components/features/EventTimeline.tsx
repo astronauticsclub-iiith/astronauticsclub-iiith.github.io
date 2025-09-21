@@ -18,7 +18,7 @@ import {
 import { Event } from "@/types/event";
 import Image from "next/image";
 import { useImagePreview } from "@/context/ImagePreviewContext";
-import { withBasePath } from "../common/HelperFunction"
+import { withBasePath, withUploadPath } from "../common/HelperFunction"
 
 interface EventTimelineProps {
   events: Event[];
@@ -160,8 +160,9 @@ const EventTimelineItem: React.FC<{ event: Event; index: number }> = ({
               } relative h-36 sm:h-40 md:h-48 border-b-2 sm:border-b-3 md:border-b-4 overflow-hidden cursor-open`}
             >
               <Image
-                src={withBasePath(event.image)}
+                src={withUploadPath(event.image)}
                 alt={event.title}
+                unoptimized
                 fill
                 sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
                 className="transition-transform duration-300 hover:scale-105 cursor-pointer object-cover"

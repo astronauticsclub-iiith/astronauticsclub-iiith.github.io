@@ -48,7 +48,7 @@ export default function BlogPreview({
   const [views] = useState(123);
 
   const handleImageClick = (imageSrc: string) => {
-    openPreview(withBasePath(imageSrc), title || "Blog image");
+    openPreview(withUploadPath(imageSrc), title || "Blog image");
   };
 
   const nextImage = () => {
@@ -187,8 +187,9 @@ export default function BlogPreview({
                   style={{ zIndex: index === currentImageIndex ? 1 : 0 }}
                 >
                   <Image
-                    src={withBasePath(image)}
+                    src={withUploadPath(image)}
                     alt={`${title} - Image ${index + 1}`}
+                    unoptimized
                     width={800}
                     height={400}
                     className="w-full h-full object-cover cursor-pointer cursor-open"
@@ -399,8 +400,9 @@ export default function BlogPreview({
                 img: ({ src, alt = "", width, height, ...props }) =>
                   typeof src === "string" ? (
                     <Image
-                      src={withBasePath(src)}
+                      src={withUploadPath(src)}
                       alt={alt}
+                      unoptimized
                       width={typeof width === "number" ? width : 800}
                       height={typeof height === "number" ? height : 400}
                       className="my-6 max-w-full rounded-lg shadow-lg border border-[var(--accent-really-dark)]"

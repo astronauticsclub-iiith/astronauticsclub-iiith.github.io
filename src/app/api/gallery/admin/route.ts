@@ -3,6 +3,7 @@ import { promises as fs } from "fs";
 import path from "path";
 import { Logger } from "@/lib/logger";
 import { requireAdmin } from "@/lib/auth";
+import { withStoragePath } from "@/components/common/HelperFunction";
 
 // Helper function to generate label from filename
 function generateLabel(filename: string): string {
@@ -18,8 +19,7 @@ export async function GET() {
   try {
     await requireAdmin();
 
-    const publicDir = path.join(process.cwd(), "public");
-    const galleryDir = path.join(publicDir, "gallery");
+    const galleryDir = withStoragePath("gallery");
 
     const imageExtensions = [
       ".jpg",
@@ -130,8 +130,7 @@ export async function POST(request: NextRequest) {
       : file.name;
 
     // Ensure gallery directory structure exists
-    const publicDir = path.join(process.cwd(), "public");
-    const galleryDir = path.join(publicDir, "gallery");
+    const galleryDir = withStoragePath("gallery");
     const categoryDir = path.join(galleryDir, category);
 
     await fs.mkdir(categoryDir, { recursive: true });
@@ -214,8 +213,7 @@ export async function PUT(request: NextRequest) {
       );
     }
 
-    const publicDir = path.join(process.cwd(), "public");
-    const galleryDir = path.join(publicDir, "gallery");
+    const galleryDir = withStoragePath("gallery");
 
     const oldPath = path.join(galleryDir, currentCategory, currentFilename);
 
@@ -314,8 +312,7 @@ export async function DELETE(request: NextRequest) {
       );
     }
 
-    const publicDir = path.join(process.cwd(), "public");
-    const galleryDir = path.join(publicDir, "gallery");
+    const galleryDir = withStoragePath("gallery");
     const filePath = path.join(galleryDir, category, filename);
 
     // Ensure the file exists

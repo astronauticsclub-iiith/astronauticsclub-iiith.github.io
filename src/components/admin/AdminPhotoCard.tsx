@@ -12,7 +12,7 @@ import {
   Calendar,
 } from "lucide-react";
 import Image from "next/image";
-import { withBasePath } from "../common/HelperFunction";
+import { withUploadPath } from "../common/HelperFunction";
 
 interface GalleryImage {
   id: string;
@@ -136,8 +136,9 @@ const AdminPhotoCard: React.FC<AdminPhotoCardProps> = ({
       {/* Image */}
       <div className="aspect-video relative overflow-hidden border-b-2 border-white">
         <Image
-          src={withBasePath(image.src)}
+          src={withUploadPath(image.src)}
           alt={image.alt}
+          unoptimized
           fill
           className="object-cover transition-transform duration-300 hover:scale-110"
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"

@@ -4,7 +4,7 @@ import { useState, useRef } from "react";
 import Image from "next/image";
 import { useAlert } from "@/hooks/useAlert";
 import CustomAlert from "@/components/ui/CustomAlert";
-import { withBasePath } from "../common/HelperFunction";
+import { withBasePath, withUploadPath } from "../common/HelperFunction";
 
 interface UploadedImage {
   filename: string;
@@ -196,8 +196,9 @@ export default function ImageUploader({
                 >
                   <div className="aspect-video relative border-2 border-white overflow-hidden mb-3">
                     <Image
-                      src={withBasePath(image.filePath)}
+                      src={withUploadPath(image.filePath)}
                       alt={image.filename}
+                      unoptimized
                       fill
                       sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
                       className="object-cover"

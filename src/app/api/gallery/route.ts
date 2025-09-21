@@ -1,11 +1,11 @@
 import { NextResponse } from "next/server";
 import { promises as fs } from "fs";
 import path from "path";
+import { withStoragePath } from "@/components/common/HelperFunction";
 
 export async function GET() {
   try {
-    const publicDir = path.join(process.cwd(), "public");
-    const galleryDir = path.join(publicDir, "gallery");
+    const galleryDir = withStoragePath("gallery");
 
     // Check if gallery directory exists
     try {

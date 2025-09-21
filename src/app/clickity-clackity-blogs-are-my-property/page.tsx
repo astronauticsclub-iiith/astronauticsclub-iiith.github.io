@@ -14,7 +14,7 @@ import CustomConfirm from "@/components/ui/CustomConfirm";
 import { useAlert } from "@/hooks/useAlert";
 import "@/components/ui/bg-patterns.css";
 import ProfileInfo from "@/components/features/mod/ProfileInfo";
-import { withBasePath } from "@/components/common/HelperFunction";
+import { withBasePath, withUploadPath } from "@/components/common/HelperFunction";
 
 interface ExtendedUser {
   id?: string;
@@ -456,8 +456,9 @@ export default function BlogAuthorDashboard() {
                   transition={{ duration: 0.3 }}
                 >
                   <Image
-                    src={withBasePath(imagePath)}
+                    src={withUploadPath(imagePath)}
                     alt={`Blog image ${index + 1}`}
+                    unoptimized
                     fill
                     className="object-cover transition-transform duration-300 group-hover:scale-110"
                   />

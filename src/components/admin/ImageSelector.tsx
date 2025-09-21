@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ImageIcon, ChevronDown, X, Check, Plus } from "lucide-react";
 import Image from "next/image";
-import { withBasePath } from "../common/HelperFunction";
+import { withBasePath, withUploadPath } from "../common/HelperFunction";
 
 interface GalleryImage {
   id: string;
@@ -112,10 +112,9 @@ const ImageSelector: React.FC<ImageSelectorProps> = ({
             >
               <div className="aspect-square relative overflow-hidden">
                 <Image
-                  src={withBasePath(selectedImage)}
-                  alt={
-                    getSelectedImageData(selectedImage)?.alt || "Selected image"
-                  }
+                  src={withUploadPath(selectedImage)}
+                  alt={getSelectedImageData(selectedImage)?.alt || "Selected image"}
+                  unoptimized
                   fill
                   className="object-cover"
                   sizes="128px"
@@ -238,8 +237,9 @@ const ImageSelector: React.FC<ImageSelectorProps> = ({
                       >
                         <div className="aspect-square relative overflow-hidden">
                           <Image
-                            src={withBasePath(image.src)}
+                            src={withUploadPath(image.src)}
                             alt={image.alt}
+                            unoptimized
                             fill
                             className="object-cover"
                             sizes="(max-width: 768px) 50vw, (max-width: 1200px) 33vw, 16vw"

@@ -44,9 +44,9 @@ export default function ProfileInfo({
               <Image
                 src={withUploadPath(userProfile.avatar)}
                 alt={userProfile.name || "Profile"}
+                unoptimized
                 width={64}
                 height={64}
-                unoptimized
                 className="w-full h-full object-cover"
               />
             ) : (
