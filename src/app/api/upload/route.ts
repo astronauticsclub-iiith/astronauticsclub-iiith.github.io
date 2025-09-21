@@ -10,8 +10,7 @@ const ALLOWED_FILE_TYPES = (
   process.env.ALLOWED_FILE_TYPES ||
   "image/jpeg,image/png,image/gif,application/pdf"
 ).split(",");
-const UPLOAD_DIRECTORY =
-  process.env.UPLOAD_DIRECTORY || path.join(process.cwd(), "public/uploads");
+const UPLOAD_DIRECTORY = process.env.UPLOAD_DIRECTORY || path.join(process.cwd(), "public/uploads");
 
 // Ensure the upload directory exists
 const ensureUploadDirectory = async () => {

@@ -8,7 +8,7 @@ import User from "@/models/User";
 
 const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB for avatars
 const ALLOWED_FILE_TYPES = ["image/jpeg", "image/png", "image/gif"];
-const UPLOAD_DIRECTORY = path.join(process.cwd(), "public/uploads/avatars");
+const UPLOAD_DIRECTORY = process.env.UPLOAD_DIRECTORY || path.join(process.cwd(), "public/uploads");
 
 const ensureUploadDirectory = async () => {
   try {
