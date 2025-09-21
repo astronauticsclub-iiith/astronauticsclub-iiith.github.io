@@ -76,14 +76,14 @@ export async function POST(request: NextRequest) {
 
     // Generate a unique filename
     const uniqueFilename = generateUniqueFilename(file.name);
-    const filePath = path.join(FILE_DIRECTORY, uniqueFilename);
+    const filePath = path.join(FILE_DIRECTORY, "blogs", uniqueFilename);
 
     // Convert the file to a Buffer and save it
     const buffer = Buffer.from(await file.arrayBuffer());
     await writeFile(filePath, buffer);
 
     // Return the URL to the uploaded file
-    const publicPath = `/uploads/${uniqueFilename}`;
+    const publicPath = `/blogs/${uniqueFilename}`;
 
     return NextResponse.json(
       {
@@ -128,7 +128,7 @@ export async function GET(request: NextRequest) {
 
       return NextResponse.json({
         filename,
-        filePath: `/uploads/${filename}`,
+        filePath: filename,
         fileSize: stats.size,
         createdAt: stats.birthtime,
         modifiedAt: stats.mtime,
@@ -145,7 +145,7 @@ export async function GET(request: NextRequest) {
         const stats = fs.statSync(path.join(FILE_DIRECTORY, filename));
         return {
           filename,
-          filePath: `/uploads/${filename}`,
+          filePath: filename,
           fileSize: stats.size,
           createdAt: stats.birthtime,
           modifiedAt: stats.mtime,
