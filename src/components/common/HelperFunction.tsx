@@ -4,6 +4,8 @@ export function withBasePath(path: string) {
 }
 
 export function withUploadPath(path: string) {
-  const base = process.env.UPLOAD_DIRECTORY || "";
+  // const base = process.env.UPLOAD_DIRECTORY || "";
+  const base = "/astronautics/uploads";
+  console.log("base", base)
   return `${base.replace(/\/$/, "")}/${path.replace(/^\//, "")}`;
 }
