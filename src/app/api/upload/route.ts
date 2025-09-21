@@ -10,12 +10,12 @@ const ALLOWED_FILE_TYPES = (
   process.env.ALLOWED_FILE_TYPES ||
   "image/jpeg,image/png,image/gif,application/pdf"
 ).split(",");
-const UPLOAD_DIRECTORY = process.env.FILE_DIRECTORY || path.join(process.cwd(), "public/uploads");
+const FILE_DIRECTORY = process.env.FILE_DIRECTORY || path.join(process.cwd(), "public/uploads");
 
 // Ensure the upload directory exists
 const ensureUploadDirectory = async () => {
   try {
-    await mkdir(UPLOAD_DIRECTORY, { recursive: true });
+    await mkdir(FILE_DIRECTORY, { recursive: true });
   } catch (error) {
     console.error("Failed to create upload directory:", error);
   }
@@ -76,7 +76,7 @@ export async function POST(request: NextRequest) {
 
     // Generate a unique filename
     const uniqueFilename = generateUniqueFilename(file.name);
-    const filePath = path.join(UPLOAD_DIRECTORY, uniqueFilename);
+    const filePath = path.join(FILE_DIRECTORY, uniqueFilename);
 
     // Convert the file to a Buffer and save it
     const buffer = Buffer.from(await file.arrayBuffer());
@@ -116,7 +116,7 @@ export async function GET(request: NextRequest) {
 
     // If a specific filename is requested, return its details
     if (filename) {
-      const filePath = path.join(UPLOAD_DIRECTORY, filename);
+      const filePath = path.join(FILE_DIRECTORY, filename);
 
       // Check if file exists
       if (!fs.existsSync(filePath)) {
@@ -137,12 +137,12 @@ export async function GET(request: NextRequest) {
 
     // Otherwise, list all files in the uploads directory
     const files = fs
-      .readdirSync(UPLOAD_DIRECTORY)
+      .readdirSync(FILE_DIRECTORY)
       .filter(
-        (file) => !fs.statSync(path.join(UPLOAD_DIRECTORY, file)).isDirectory()
+        (file) => !fs.statSync(path.join(FILE_DIRECTORY, file)).isDirectory()
       )
       .map((filename) => {
-        const stats = fs.statSync(path.join(UPLOAD_DIRECTORY, filename));
+        const stats = fs.statSync(path.join(FILE_DIRECTORY, filename));
         return {
           filename,
           filePath: `/uploads/${filename}`,

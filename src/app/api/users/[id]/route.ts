@@ -3,6 +3,10 @@ import { connectToDatabase } from "@/lib/mongodb";
 import User from "@/models/User";
 import { requireAdmin } from "@/lib/auth";
 import Logger from "@/lib/logger";
+import fs from "fs";
+import path from "path";
+
+const FILE_DIRECTORY = process.env.FILE_DIRECTORY || path.join(process.cwd(), "public/")
 
 export async function PUT(
   request: NextRequest,
@@ -74,13 +78,23 @@ export async function DELETE(
   try {
     const { user: adminUser } = await requireAdmin();
     await connectToDatabase();
-
+    
     const { id } = await params;
-    const user = await User.findByIdAndDelete(id);
-
+    const user = await User.findById(id);
     if (!user) {
       return NextResponse.json({ error: "User not found" }, { status: 404 });
     }
+
+    // Deleting the user avatar
+    const avatarFilename = user.avatar; 
+    if (avatarFilename) {
+      const filePath = path.join(FILE_DIRECTORY, avatarFilename); // server path
+      fs.unlink(filePath, (error) => {
+          if (error) console.error(error);
+        });
+    };
+
+    await User.findByIdAndDelete(id);
 
     // Log the action
     Logger.logWriteOperation(

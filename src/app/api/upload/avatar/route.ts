@@ -8,11 +8,11 @@ import User from "@/models/User";
 
 const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB for avatars
 const ALLOWED_FILE_TYPES = ["image/jpeg", "image/png", "image/gif"];
-const UPLOAD_DIRECTORY = process.env.FILE_DIRECTORY || path.join(process.cwd(), "public/uploads");
+const FILE_DIRECTORY = process.env.FILE_DIRECTORY || path.join(process.cwd(), "public/uploads");
 
 const ensureUploadDirectory = async () => {
   try {
-    await mkdir(UPLOAD_DIRECTORY, { recursive: true });
+    await mkdir(FILE_DIRECTORY, { recursive: true });
   } catch (error) {
     console.error("Failed to create upload directory:", error);
   }
@@ -63,7 +63,7 @@ export async function POST(request: NextRequest) {
 
     // Delete old avatar if exists
     if (user.avatar) {
-      const oldAvatarPath = path.join(UPLOAD_DIRECTORY, "avatars", user.avatar);
+      const oldAvatarPath = path.join(FILE_DIRECTORY, user.avatar);
       if (fs.existsSync(oldAvatarPath)) {
         fs.unlinkSync(oldAvatarPath);
       }
@@ -73,7 +73,7 @@ export async function POST(request: NextRequest) {
       file.name,
       (user._id as { toString: () => string }).toString()
     );
-    const filePath = path.join(UPLOAD_DIRECTORY, "avatars", uniqueFilename);
+    const filePath = path.join(FILE_DIRECTORY, "avatars", uniqueFilename);
 
     const buffer = Buffer.from(await file.arrayBuffer());
     await writeFile(filePath, buffer);
