@@ -805,5 +805,18 @@
         "images"
       ]
     }
+  },
+  {
+    "timestamp": "2025-09-21T20:19:16.259Z",
+    "level": "info",
+    "message": "Write operation: DELETE_USER user",
+    "source": "write_operation",
+    "userEmail": "mayank.goe@research.iiit.ac.in",
+    "action": "DELETE_USER",
+    "details": {
+      "resourceType": "user",
+      "resourceId": "68d05c29909bae670785ff89",
+      "email": "kushagra.trivedi@students.iiit.ac.in"
+    }
   }
 ]
