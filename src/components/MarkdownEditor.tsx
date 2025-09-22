@@ -1,13 +1,17 @@
 import Image from 'next/image';
 import {withUploadPath} from '@/components/common/HelperFunction';
-import { ImgHTMLAttributes, ClassAttributes } from 'react';
-import { ReactNode } from 'react';
+import { ImgHTMLAttributes, ClassAttributes} from 'react';
+import React, { ReactNode } from 'react';
 
 // Define a simple type for the Markdown AST node
-type MarkdownNode = {
+type MarkdownNodeDiv = {
   properties?: {
     className?: string | string[];
   };
+};
+
+type CSSWithVars = React.CSSProperties & {
+  [key: `--${string}`]: string | number;
 };
 
 export const markDownComponents = {
@@ -41,18 +45,19 @@ export const markDownComponents = {
       {...props}
     />
   ),
-  h6: ({ ...props }) => (
-    <h6
-      className="text-[1rem] font-semibold text-foreground opacity-70 mb-2 uppercase tracking-wide"
-      {...props}
-    />
-  ),
-  p: ({ ...props }) => (
-    <p
-      className="text-foreground font-medium leading-[1.8] mb-6"
-      {...props}
-    />
-  ),
+  h6: ({ ...props }) => {
+    return (
+      <h6 className="text-[1rem] font-semibold text-foreground opacity-70 mb-2 uppercase tracking-wide"
+        {...props}>
+      </h6>
+    );
+  },
+  p: ({ ...props }) => {
+    return (
+      <p className="text-foreground font-medium leading-[1.8] mb-6" {...props}>
+      </p>
+    );
+  },
   a: ({ ...props }) => (
     <a
       className="custom-link text-accent hover:text-accent-medium transition-colors duration-200"
@@ -169,7 +174,7 @@ export const markDownComponents = {
     },
 
   // For text, image alignment
-  div: ({ node, children }: { node?: MarkdownNode; children?: ReactNode }) => {
+  div: ({ node, children }: { node?: MarkdownNodeDiv; children?: ReactNode }) => {
       const className = String(node?.properties?.className || '');
       let textAlign: 'left' | 'center' | 'right' = 'left';
 
@@ -179,6 +184,11 @@ export const markDownComponents = {
         textAlign = 'right';
       }
 
-      return <div style={{ textAlign }}>{children}</div>;
+      const style: CSSWithVars = {
+        textAlign,
+        '--text-align': textAlign,
+      };
+      return <div style={style}>{children}</div>;
     },
+
 };

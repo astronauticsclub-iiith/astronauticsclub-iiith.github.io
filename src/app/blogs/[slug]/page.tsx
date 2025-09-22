@@ -10,6 +10,7 @@ import rehypeKatex from "rehype-katex";
 import remarkGfm from "remark-gfm";
 import rehypeRaw from 'rehype-raw';
 import rehypeHighlight from "rehype-highlight";
+import remarkAttr from 'remark-attr';
 import { markDownComponents } from "@/components/MarkdownEditor";
 import {
   ArrowLeft,
@@ -204,7 +205,7 @@ const BlogPostPage = () => {
         >
           <div className="prose prose-invert max-w-none">
             <ReactMarkdown
-              remarkPlugins={[remarkGfm, remarkMath, remarkDirective]}
+              remarkPlugins={[remarkGfm, remarkMath, remarkDirective, remarkAttr]}
               rehypePlugins={[rehypeRaw, rehypeHighlight, rehypeKatex]}
               components={markDownComponents}
             >
