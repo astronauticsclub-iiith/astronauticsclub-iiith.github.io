@@ -26,7 +26,7 @@ async function populateAuthorDetails(blogs: Array<Record<string, unknown>>) {
     ...blog,
     author: authorMap.get((blog.author as { email: string }).email) || {
       name: "Anonymous",
-      avatar: `/team/default-avatar.svg`,
+      avatar: "",
       bio: "",
       email: (blog.author as { email: string }).email,
     },

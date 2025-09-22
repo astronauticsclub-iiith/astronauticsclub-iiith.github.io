@@ -220,7 +220,7 @@ const BlogPostPage = () => {
           <div className="flex items-center gap-4">
             <div className="w-16 h-16 border-2 border-white overflow-hidden">
               <Image
-                src={blog.author.avatar ? withUploadPath(blog.author.avatar) : withBasePath(`/team/default-avatar.svg`)}
+                src={blog.author.avatar ? withUploadPath(blog.author.avatar) : withBasePath(`/default-avatar.svg`)}
                 alt={blog.author.name || "Anonymous"}
                 width={64}
                 height={64}
@@ -228,7 +228,7 @@ const BlogPostPage = () => {
                 unoptimized={!!blog.author.avatar}
                 onClick={() =>
                   handleImageClick(
-                    blog.author.avatar || `/team/default-avatar.svg`
+                    blog.author.avatar || `/default-avatar.svg`
                   )
                 }
               />

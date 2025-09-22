@@ -79,7 +79,7 @@ const TeamCard: React.FC<{
     >
       <div className="relative w-full h-80">
         <Image
-          src={member.avatar ? withUploadPath(member.avatar) : withBasePath(`/team/default-avatar.svg`)}
+          src={member.avatar ? withUploadPath(member.avatar) : withBasePath(`/default-avatar.svg`)}
           alt={member.name || "Team Member"}
           unoptimized={!!member.avatar}
           fill
