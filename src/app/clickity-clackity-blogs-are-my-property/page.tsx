@@ -95,7 +95,7 @@ export default function BlogAuthorDashboard() {
     excerpt: "",
     content: "",
     tags: "",
-    readTime: 5,
+    readTime: 1,
     images: [],
   });
   const {
@@ -173,6 +173,12 @@ export default function BlogAuthorDashboard() {
       .trim();
   };
 
+  function calculateReadTime(text: string, wpm = 200): number {
+    const words = text.trim().split(/\s+/).length;
+    return Math.max(1, Math.ceil(words / wpm));
+  }
+
+
   const publishBlog = async () => {
     if (!newBlog.title || !newBlog.content || !newBlog.excerpt) {
       showError("Please fill in all required fields");
@@ -195,7 +201,7 @@ export default function BlogAuthorDashboard() {
         email: session?.user?.email || "",
       },
       publishedAt: new Date().toISOString(),
-      readTime: newBlog.readTime,
+      readTime: calculateReadTime(newBlog.content),
       tags: newBlog.tags
         .split(",")
         .map((tag) => tag.trim())
@@ -216,7 +222,7 @@ export default function BlogAuthorDashboard() {
           excerpt: "",
           content: "",
           tags: "",
-          readTime: 5,
+          readTime: 1,
           images: [],
         });
         setActiveTab("dashboard");
@@ -288,7 +294,7 @@ export default function BlogAuthorDashboard() {
           excerpt: editingBlog.excerpt,
           content: editingBlog.content,
           tags: editingBlog.tags,
-          readTime: editingBlog.readTime,
+          readTime: calculateReadTime(editingBlog.content),
           images: editingBlog.images,
         }),
       });
@@ -939,31 +945,6 @@ export default function BlogAuthorDashboard() {
                       }
                       className="bg-background border-2 border-white p-3 sm:p-4 text-white font-medium placeholder-[#666] focus:border-yellow-300 focus:outline-none transition-all duration-300 focus:shadow-lg"
                     />
-                    <input
-                      type="number"
-                      placeholder="READ TIME (MINUTES)"
-                      value={
-                        activeTab === "write"
-                          ? newBlog.readTime
-                          : editingBlog?.readTime || ""
-                      }
-                      onChange={(e) =>
-                        activeTab === "write"
-                          ? setNewBlog({
-                              ...newBlog,
-                              readTime: parseInt(e.target.value) || 5,
-                            })
-                          : setEditingBlog(
-                              editingBlog
-                                ? {
-                                    ...editingBlog,
-                                    readTime: parseInt(e.target.value) || 5,
-                                  }
-                                : null
-                            )
-                      }
-                      className="bg-background border-2 border-white p-3 sm:p-4 text-white font-medium placeholder-[#666] focus:border-yellow-300 focus:outline-none transition-all duration-300 focus:shadow-lg"
-                    />
                   </motion.div>
 
                   <motion.div
@@ -1029,7 +1010,7 @@ export default function BlogAuthorDashboard() {
                     readTime={
                       activeTab === "write"
                         ? newBlog.readTime
-                        : editingBlog?.readTime || 5
+                        : editingBlog?.readTime || 1
                     }
                     author={{
                       name:
