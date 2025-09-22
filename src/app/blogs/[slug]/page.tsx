@@ -15,8 +15,6 @@ import {
   Eye,
   Heart,
   Share2,
-  ChevronLeft,
-  ChevronRight,
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -40,7 +38,6 @@ const BlogPostPage = () => {
   const [liked, setLiked] = useState(false);
   const [likes, setLikes] = useState(0);
   const [views, setViews] = useState(0);
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [userId, setUserId] = useState<string>("");
 
   const params = useParams() as { slug: string };
@@ -103,20 +100,6 @@ const BlogPostPage = () => {
 
   const handleImageClick = (imageSrc: string) => {
     openPreview(withUploadPath(imageSrc), blog?.title || "Blog image");
-  };
-
-  const nextImage = () => {
-    if (blog && blog.images.length > 1) {
-      setCurrentImageIndex((prev) => (prev + 1) % blog.images.length);
-    }
-  };
-
-  const prevImage = () => {
-    if (blog && blog.images.length > 1) {
-      setCurrentImageIndex(
-        (prev) => (prev - 1 + blog.images.length) % blog.images.length
-      );
-    }
   };
 
   const formatDate = (dateString: string) => {
@@ -209,138 +192,6 @@ const BlogPostPage = () => {
             </div>
           </div>
         </motion.div>
-
-        {/* Author info */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2 }}
-          className="mb-12 border-4 border-white p-6 backdrop-blur-sm"
-        >
-          <div className="flex items-center gap-4">
-            <div className="w-16 h-16 border-2 border-white overflow-hidden">
-              <Image
-                src={blog.author.avatar ? withUploadPath(blog.author.avatar) : withBasePath(`/default-avatar.svg`)}
-                alt={blog.author.name || "Anonymous"}
-                width={64}
-                height={64}
-                className="w-full h-full object-cover cursor-pointer cursor-open"
-                unoptimized={!!blog.author.avatar}
-                onClick={() =>
-                  handleImageClick(
-                    blog.author.avatar || `/default-avatar.svg`
-                  )
-                }
-              />
-            </div>
-
-            <div className="flex flex-col w-full h-full">
-              <h3 className="font-bold text-xl text-white">
-                {blog.author.name || "Anonymous"}
-              </h3>
-              <p className="text-[#e0e0e0] font-medium">{blog.author.bio}</p>
-            </div>
-          </div>
-        </motion.div>
-
-        {/* Image Carousel */}
-        {blog.images.length > 0 && (
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3 }}
-            className="mb-12"
-          >
-            <div
-              className="relative border-4 border-white overflow-hidden"
-              style={{ height: "24rem" }}
-            >
-              {blog.images.map((image: string, index) => (
-                <motion.div
-                  key={index}
-                  className="absolute inset-0 w-full h-full"
-                  initial={{ opacity: 0 }}
-                  animate={{
-                    opacity: index === currentImageIndex ? 1 : 0,
-                    scale: index === currentImageIndex ? 1 : 1.05,
-                  }}
-                  transition={{
-                    opacity: { duration: 0.5 },
-                    scale: { duration: 0.7 },
-                  }}
-                  style={{ zIndex: index === currentImageIndex ? 1 : 0 }}
-                >
-                  <Image
-                    src={withUploadPath(image)}
-                    alt={`${blog.title} - Image ${index + 1}`}
-                    width={800}
-                    height={400}
-                    unoptimized
-                    className="w-full h-full object-cover cursor-pointer cursor-open"
-                    onClick={() => handleImageClick(image)}
-                  />
-                </motion.div>
-              ))}
-
-              {/* Navigation arrows */}
-              {blog.images.length > 1 && (
-                <>
-                  <motion.button
-                    onClick={prevImage}
-                    whileHover={{ scale: 1.1 }}
-                    whileTap={{ scale: 0.9 }}
-                    className="absolute left-4 top-1/2 p-2 bg-white text-background hover:bg-[#e0e0e0] transition-colors z-10"
-                    aria-label="Previous image"
-                  >
-                    <ChevronLeft size={24} />
-                  </motion.button>
-                  <motion.button
-                    onClick={nextImage}
-                    whileHover={{ scale: 1.1 }}
-                    whileTap={{ scale: 0.9 }}
-                    className="absolute right-4 top-1/2 p-2 bg-white text-background hover:bg-[#e0e0e0] transition-colors z-10"
-                    aria-label="Next image"
-                  >
-                    <ChevronRight size={24} />
-                  </motion.button>
-                </>
-              )}
-
-              {/* Image indicators */}
-              {blog.images.length > 1 && (
-                <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex gap-2 z-10">
-                  {blog.images.map((_, index) => (
-                    <motion.button
-                      key={index}
-                      onClick={() => setCurrentImageIndex(index)}
-                      className={`w-3 h-3 border-2 border-white transition-all ${
-                        index === currentImageIndex
-                          ? "bg-white"
-                          : "bg-transparent"
-                      }`}
-                      whileHover={{ scale: 1.2 }}
-                      whileTap={{ scale: 0.9 }}
-                      aria-label={`Go to image ${index + 1}`}
-                    />
-                  ))}
-                </div>
-              )}
-
-              {/* Image counter */}
-              {blog.images.length > 1 && (
-                <motion.div
-                  className="absolute top-4 right-4 bg-white text-background px-3 py-1 font-bold text-sm z-10"
-                  key={currentImageIndex}
-                  initial={{ opacity: 0, y: -10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.3 }}
-                >
-                  {currentImageIndex + 1} / {blog.images.length}
-                </motion.div>
-              )}
-            </div>
-          </motion.div>
-        )}
 
         {/* Content - Rendered Markdown */}
         <motion.div
@@ -484,7 +335,7 @@ const BlogPostPage = () => {
                 img: ({ src = "", alt = "", width, height, ...props }) =>
                   typeof src === "string" ? (
                     <Image
-                      src={typeof src === "string" ? withUploadPath(src) : src}
+                      src={withUploadPath(src)}
                       alt={alt}
                       unoptimized
                       width={typeof width === "number" ? width : 800}
@@ -539,6 +390,39 @@ const BlogPostPage = () => {
                 <Share2 size={18} />
                 Share
               </button>
+            </div>
+          </div>
+        </motion.div>
+
+        {/* Author info */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.2 }}
+          className="mb-12 border-4 border-white p-6 backdrop-blur-sm"
+        >
+          <div className="flex items-center gap-4">
+            <div className="w-16 h-16 border-2 border-white overflow-hidden">
+              <Image
+                src={blog.author.avatar ? withUploadPath(blog.author.avatar) : withBasePath(`/default-avatar.svg`)}
+                alt={blog.author.name || "Anonymous"}
+                width={64}
+                height={64}
+                className="w-full h-full object-cover cursor-pointer cursor-open"
+                unoptimized={!!blog.author.avatar}
+                onClick={() =>
+                  handleImageClick(
+                    blog.author.avatar || `/default-avatar.svg`
+                  )
+                }
+              />
+            </div>
+
+            <div className="flex flex-col w-full h-full">
+              <h3 className="font-bold text-xl text-white">
+                {blog.author.name || "Anonymous"}
+              </h3>
+              <p className="text-[#e0e0e0] font-medium">{blog.author.bio}</p>
             </div>
           </div>
         </motion.div>
