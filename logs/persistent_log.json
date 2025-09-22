@@ -1166,5 +1166,71 @@
         "images"
       ]
     }
+  },
+  {
+    "timestamp": "2025-09-22T13:55:00.800Z",
+    "level": "info",
+    "message": "Write operation: UPDATE_BLOG blog",
+    "source": "write_operation",
+    "userEmail": "mayank.goe@research.iiit.ac.in",
+    "action": "UPDATE_BLOG",
+    "details": {
+      "resourceType": "blog",
+      "resourceId": "68c89a1d9dc50d4088a627dc",
+      "title": "Breaking Down The Toughest Photoshoot",
+      "slug": "breaking-down-the-toughest-photoshoot",
+      "updatedFields": [
+        "title",
+        "excerpt",
+        "content",
+        "tags",
+        "readTime",
+        "images"
+      ]
+    }
+  },
+  {
+    "timestamp": "2025-09-22T13:58:25.969Z",
+    "level": "info",
+    "message": "Write operation: UPDATE_BLOG blog",
+    "source": "write_operation",
+    "userEmail": "mayank.goe@research.iiit.ac.in",
+    "action": "UPDATE_BLOG",
+    "details": {
+      "resourceType": "blog",
+      "resourceId": "68c89a1d9dc50d4088a627dc",
+      "title": "Breaking Down The Toughest Photoshoot",
+      "slug": "breaking-down-the-toughest-photoshoot",
+      "updatedFields": [
+        "title",
+        "excerpt",
+        "content",
+        "tags",
+        "readTime",
+        "images"
+      ]
+    }
+  },
+  {
+    "timestamp": "2025-09-22T13:59:45.210Z",
+    "level": "info",
+    "message": "Write operation: UPDATE_BLOG blog",
+    "source": "write_operation",
+    "userEmail": "mayank.goe@research.iiit.ac.in",
+    "action": "UPDATE_BLOG",
+    "details": {
+      "resourceType": "blog",
+      "resourceId": "68c89a1d9dc50d4088a627dc",
+      "title": "Breaking Down The Toughest Photoshoot",
+      "slug": "breaking-down-the-toughest-photoshoot",
+      "updatedFields": [
+        "title",
+        "excerpt",
+        "content",
+        "tags",
+        "readTime",
+        "images"
+      ]
+    }
   }
 ]
