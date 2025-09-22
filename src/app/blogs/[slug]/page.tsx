@@ -30,7 +30,6 @@ import Loader from "@/components/ui/Loader";
 import "@/components/ui/bg-patterns.css";
 import { withBasePath, withUploadPath } from "@/components/common/HelperFunction";
 
-
 const BlogPostPage = () => {
   const { openPreview } = useImagePreview();
   const [blog, setBlog] = useState<Blog | null>(null);
@@ -332,19 +331,35 @@ const BlogPostPage = () => {
                     {...props}
                   />
                 ),
-                img: ({ src = "", alt = "", width, height, ...props }) =>
-                  typeof src === "string" ? (
-                    <Image
-                      src={withUploadPath(src)}
+                img: ({ src = "", alt = "", ...props }) => {
+                    if (typeof src !== "string") return null;
+                    
+                    // Destructure width and height out of props to avoid conflicts
+                    const { width: _width, height: _height, ...restProps } = props;
+
+                    // Match syntax like: ![alt](/path/image.png =300x200)
+                    const match = src.match(/^(.*)#(\d+)x(\d+)$/);
+                    let realSrc = src;
+                    let imgWidth : number = 800;
+                    let imgHeight : number = 400;
+
+                    if (match) {
+                      realSrc = match[1].trim(); // actual image path
+                      if (match[2]) imgWidth = Number(match[2]);
+                      if (match[3]) imgHeight = Number(match[3]);
+                    }
+
+                    return (<Image
+                      src={withUploadPath(realSrc)}
                       alt={alt}
+                      width={imgWidth}
+                      height={imgHeight}
                       unoptimized
-                      width={typeof width === "number" ? width : 800}
-                      height={typeof height === "number" ? height : 400}
                       className="my-6 max-w-full rounded-lg shadow-lg border border-[var(--accent-really-dark)]"
                       draggable={false}
-                      {...props}
+                      {...restProps}
                     />
-                  ) : null,
+                    )}
               }}
             >
               {blog.content}
