@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Exo_2 } from "next/font/google";
 import "./globals.css";
+import "katex/dist/katex.min.css";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import { WhimsyProvider } from "@/context/WhimsyContext";

@@ -4,6 +4,8 @@ import { useState, useEffect } from "react";
 import { useParams, notFound } from "next/navigation";
 import { motion } from "framer-motion";
 import ReactMarkdown from "react-markdown";
+import remarkMath from "remark-math";
+import rehypeKatex from "rehype-katex";
 import remarkGfm from "remark-gfm";
 import rehypeHighlight from "rehype-highlight";
 import {
@@ -349,8 +351,8 @@ const BlogPostPage = () => {
         >
           <div className="prose prose-invert max-w-none">
             <ReactMarkdown
-              remarkPlugins={[remarkGfm]}
-              rehypePlugins={[rehypeHighlight]}
+              remarkPlugins={[remarkGfm, remarkMath]}
+              rehypePlugins={[rehypeHighlight, rehypeKatex]}
               components={{
                 h1: ({ ...props }) => (
                   <h1

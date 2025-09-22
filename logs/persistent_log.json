@@ -818,5 +818,331 @@
       "resourceId": "68d05c29909bae670785ff89",
       "email": "kushagra.trivedi@students.iiit.ac.in"
     }
+  },
+  {
+    "timestamp": "2025-09-21T22:54:30.486Z",
+    "level": "info",
+    "message": "Gallery image deleted",
+    "source": "admin/gallery",
+    "userEmail": "mayank.goe@research.iiit.ac.in",
+    "action": "delete_image",
+    "details": {
+      "filename": "star_party_2024(2).jpg",
+      "category": "astrophotography"
+    }
+  },
+  {
+    "timestamp": "2025-09-21T22:54:52.869Z",
+    "level": "info",
+    "message": "Gallery image updated",
+    "source": "admin/gallery",
+    "userEmail": "mayank.goe@research.iiit.ac.in",
+    "action": "update_image",
+    "details": {
+      "oldFilename": "star_party_2019(3).jpeg",
+      "newFilename": "star_party_2020.jpeg",
+      "oldCategory": "astrophotography",
+      "newCategory": "astrophotography"
+    }
+  },
+  {
+    "timestamp": "2025-09-21T23:13:01.498Z",
+    "level": "info",
+    "message": "Write operation: UPDATE_BLOG blog",
+    "source": "write_operation",
+    "userEmail": "mayank.goe@research.iiit.ac.in",
+    "action": "UPDATE_BLOG",
+    "details": {
+      "resourceType": "blog",
+      "resourceId": "68c89a1d9dc50d4088a627dc",
+      "title": "Breaking Down The Toughest Photoshoot",
+      "slug": "breaking-down-the-toughest-photoshoot",
+      "updatedFields": [
+        "title",
+        "excerpt",
+        "content",
+        "tags",
+        "readTime",
+        "images"
+      ]
+    }
+  },
+  {
+    "timestamp": "2025-09-21T23:17:21.141Z",
+    "level": "info",
+    "message": "Gallery image uploaded",
+    "source": "admin/gallery",
+    "userEmail": "mayank.goe@research.iiit.ac.in",
+    "action": "upload_image",
+    "details": {
+      "filename": "Trip to birla planetrium.jpg",
+      "category": "events",
+      "fileSize": 10638
+    }
+  },
+  {
+    "timestamp": "2025-09-21T23:42:23.695Z",
+    "level": "info",
+    "message": "Event created",
+    "source": "admin/events",
+    "userEmail": "mayank.goe@research.iiit.ac.in",
+    "action": "create_event",
+    "details": {
+      "eventId": "2025_hovercraft_challenge",
+      "title": "Hovercraft Challenge",
+      "type": "competition",
+      "date": "2025-10-05"
+    }
+  },
+  {
+    "timestamp": "2025-09-21T23:42:44.662Z",
+    "level": "info",
+    "message": "Event updated",
+    "source": "admin/events",
+    "userEmail": "mayank.goe@research.iiit.ac.in",
+    "action": "update_event",
+    "details": {
+      "eventId": "2025_cad_workshop",
+      "title": "3D CAD Workshop",
+      "changes": {
+        "id": "2025_cad_workshop",
+        "title": "3D CAD Workshop",
+        "description": "The CAD Workshop is a hands-on session on Computer-Aided Design, where participants will learn how to create and model designs digitally using CAD tools. It introduces the basics of 3D modeling, visualizing and simulation for engineering and 3D printing those designs.",
+        "date": "2025-09-18",
+        "time": "21:00",
+        "location": "H205",
+        "type": "workshop",
+        "organizer": "",
+        "registrationLink": "",
+        "status": "completed"
+      }
+    }
+  },
+  {
+    "timestamp": "2025-09-21T23:45:10.312Z",
+    "level": "info",
+    "message": "Event created",
+    "source": "admin/events",
+    "userEmail": "mayank.goe@research.iiit.ac.in",
+    "action": "create_event",
+    "details": {
+      "eventId": "2019_lunar_eclipse",
+      "title": "lunar eclipse viewing session",
+      "type": "stargazing",
+      "date": "2019-07-16"
+    }
+  },
+  {
+    "timestamp": "2025-09-21T23:47:22.871Z",
+    "level": "info",
+    "message": "Event created",
+    "source": "admin/events",
+    "userEmail": "mayank.goe@research.iiit.ac.in",
+    "action": "create_event",
+    "details": {
+      "eventId": "2020_lunar_eclipse",
+      "title": "penumbral lunar eclipse session",
+      "type": "stargazing",
+      "date": "2020-01-10"
+    }
+  },
+  {
+    "timestamp": "2025-09-21T23:50:25.402Z",
+    "level": "info",
+    "message": "Event created",
+    "source": "admin/events",
+    "userEmail": "mayank.goe@research.iiit.ac.in",
+    "action": "create_event",
+    "details": {
+      "eventId": "2019_introductory_meet",
+      "title": "introductory meet",
+      "type": "other",
+      "date": "2019-09-02"
+    }
+  },
+  {
+    "timestamp": "2025-09-21T23:53:42.557Z",
+    "level": "info",
+    "message": "Event created",
+    "source": "admin/events",
+    "userEmail": "mayank.goe@research.iiit.ac.in",
+    "action": "create_event",
+    "details": {
+      "eventId": "2019_messier_object_meet",
+      "title": "messier object meet",
+      "type": "theory",
+      "date": "2019-10-09"
+    }
+  },
+  {
+    "timestamp": "2025-09-21T23:55:43.018Z",
+    "level": "info",
+    "message": "Event created",
+    "source": "admin/events",
+    "userEmail": "mayank.goe@research.iiit.ac.in",
+    "action": "create_event",
+    "details": {
+      "eventId": "2019_star_party",
+      "title": "star party @ kokatpally reservoir",
+      "type": "starparty",
+      "date": "2019-11-27"
+    }
+  },
+  {
+    "timestamp": "2025-09-21T23:56:49.239Z",
+    "level": "info",
+    "message": "Event updated",
+    "source": "admin/events",
+    "userEmail": "mayank.goe@research.iiit.ac.in",
+    "action": "update_event",
+    "details": {
+      "eventId": "2020_lunar_eclipse",
+      "title": "Penumbral lunar eclipse session",
+      "changes": {
+        "id": "2020_lunar_eclipse",
+        "title": "Penumbral lunar eclipse session",
+        "description": "Viewed the January 2020 lunar eclipse was a penumbral eclipse, also known as the \"Wolf Moon Eclipse.",
+        "date": "2020-01-10",
+        "time": "22:30",
+        "location": "",
+        "type": "stargazing",
+        "organizer": "",
+        "registrationLink": "",
+        "status": "completed",
+        "image": "/gallery/events/eclipse_viewing_session_2018.jpeg"
+      }
+    }
+  },
+  {
+    "timestamp": "2025-09-21T23:58:52.870Z",
+    "level": "info",
+    "message": "Event created",
+    "source": "admin/events",
+    "userEmail": "mayank.goe@research.iiit.ac.in",
+    "action": "create_event",
+    "details": {
+      "eventId": "2019_stargazing_1",
+      "title": "star gazing session",
+      "type": "stargazing",
+      "date": "2019-09-13"
+    }
+  },
+  {
+    "timestamp": "2025-09-21T23:59:38.684Z",
+    "level": "info",
+    "message": "Event created",
+    "source": "admin/events",
+    "userEmail": "mayank.goe@research.iiit.ac.in",
+    "action": "create_event",
+    "details": {
+      "eventId": "2019_stargazing_2",
+      "title": "star gazing session",
+      "type": "stargazing",
+      "date": "2019-11-09"
+    }
+  },
+  {
+    "timestamp": "2025-09-22T00:01:19.853Z",
+    "level": "info",
+    "message": "Event created",
+    "source": "admin/events",
+    "userEmail": "mayank.goe@research.iiit.ac.in",
+    "action": "create_event",
+    "details": {
+      "eventId": "2019_stargazing_3",
+      "title": "star gazing session",
+      "type": "stargazing",
+      "date": "2019-11-12"
+    }
+  },
+  {
+    "timestamp": "2025-09-22T00:06:36.591Z",
+    "level": "info",
+    "message": "Event created",
+    "source": "admin/events",
+    "userEmail": "mayank.goe@research.iiit.ac.in",
+    "action": "create_event",
+    "details": {
+      "eventId": "2020_space_snaps",
+      "title": "space snaps",
+      "type": "competition",
+      "date": "2020-07-20"
+    }
+  },
+  {
+    "timestamp": "2025-09-22T00:08:19.237Z",
+    "level": "info",
+    "message": "Event created",
+    "source": "admin/events",
+    "userEmail": "mayank.goe@research.iiit.ac.in",
+    "action": "create_event",
+    "details": {
+      "eventId": "2021_star_gazing",
+      "title": "star gazing on campus",
+      "type": "stargazing",
+      "date": "2021-02-01"
+    }
+  },
+  {
+    "timestamp": "2025-09-22T00:10:01.738Z",
+    "level": "info",
+    "message": "Event created",
+    "source": "admin/events",
+    "userEmail": "mayank.goe@research.iiit.ac.in",
+    "action": "create_event",
+    "details": {
+      "eventId": "2021_Space_escapade",
+      "title": "space escapade",
+      "type": "competition",
+      "date": "2021-02-21"
+    }
+  },
+  {
+    "timestamp": "2025-09-22T00:14:52.119Z",
+    "level": "info",
+    "message": "Event updated",
+    "source": "admin/events",
+    "userEmail": "mayank.goe@research.iiit.ac.in",
+    "action": "update_event",
+    "details": {
+      "eventId": "2025_hovercraft_challenge",
+      "title": "Hovercraft Challenge",
+      "changes": {
+        "id": "2025_hovercraft_challenge",
+        "title": "Hovercraft Challenge",
+        "description": "s part of Infinium – IIIT Hyderabad’s first-ever Tech FesT, we are excited to present the Hovercraft Challenge! An interdisciplinary technical competition where participants will design and construct small-scale hovercraft capable of navigating a custom-built obstacle track akin to rovers transversing on unknown martian surface.",
+        "date": "2025-10-05",
+        "time": "15:00",
+        "location": "Himalaya corridor",
+        "type": "competition",
+        "organizer": "",
+        "registrationLink": "",
+        "status": "upcoming"
+      }
+    }
+  },
+  {
+    "timestamp": "2025-09-22T00:15:10.546Z",
+    "level": "info",
+    "message": "Event updated",
+    "source": "admin/events",
+    "userEmail": "mayank.goe@research.iiit.ac.in",
+    "action": "update_event",
+    "details": {
+      "eventId": "2025_hovercraft_challenge",
+      "title": "Hovercraft Challenge",
+      "changes": {
+        "id": "2025_hovercraft_challenge",
+        "title": "Hovercraft Challenge",
+        "description": "As part of Infinium – IIIT Hyderabad’s first-ever Tech FesT, we are excited to present the Hovercraft Challenge! An interdisciplinary technical competition where participants will design and construct small-scale hovercraft capable of navigating a custom-built obstacle track akin to rovers transversing on unknown martian surface.",
+        "date": "2025-10-05",
+        "time": "15:00",
+        "location": "Himalaya corridor",
+        "type": "competition",
+        "organizer": "",
+        "registrationLink": "",
+        "status": "upcoming"
+      }
+    }
   }
 ]
