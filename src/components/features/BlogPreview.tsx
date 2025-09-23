@@ -4,12 +4,10 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
-import remarkDirective from 'remark-directive';
 import remarkMath from "remark-math";
 import rehypeKatex from "rehype-katex";
 import rehypeRaw from 'rehype-raw';
 import rehypeHighlight from 'rehype-highlight';
-import remarkAttr from 'remark-attr';
 import { markDownComponents } from "@/components/MarkdownEditor";
 import {
   Calendar,
@@ -127,7 +125,7 @@ export default function BlogPreview({
         >
           <div className="prose prose-invert max-w-none">
             <ReactMarkdown
-              remarkPlugins={[remarkGfm, remarkMath, remarkDirective, remarkAttr]}
+              remarkPlugins={[remarkGfm, remarkMath]}
               rehypePlugins={[rehypeRaw, rehypeHighlight, rehypeKatex]}
               components={markDownComponents} 
             >
