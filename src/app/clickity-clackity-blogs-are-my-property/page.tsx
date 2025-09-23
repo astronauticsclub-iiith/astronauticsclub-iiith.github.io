@@ -646,19 +646,19 @@ export default function BlogAuthorDashboard() {
                 {[
                   {
                     title: "TOTAL BLOGS",
-                    value: 1,
+                    value: formatCount(stats.totalBlogs),
                     delay: 0.1,
                     icon: FileText,
                   },
                   {
                     title: "TOTAL VIEWS",
-                    value: formatCount(28),
+                    value: formatCount(stats.totalViews),
                     delay: 0.2,
                     icon: Eye,
                   },
                   {
                     title: "TOTAL LIKES",
-                    value: formatCount(1),
+                    value: formatCount(stats.totalLikes),
                     delay: 0.3,
                     icon: Heart,
                   },

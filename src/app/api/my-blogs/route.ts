@@ -15,7 +15,7 @@ async function populateAuthorDetails(blogs: Array<Record<string, unknown>>) {
   authors.forEach((author) => {
     authorMap.set(author.email, {
       name: author.name || "Anonymous",
-      avatar: author.avatar || `/default-avatar.svg`,
+      avatar: author.avatar || ``,
       bio: author.bio || "",
       email: author.email,
     });

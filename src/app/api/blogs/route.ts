@@ -18,7 +18,7 @@ async function populateAuthorDetails(blogs: Array<Record<string, unknown>>) {
     authorMap.set(author.email, {
       name: author.name || "Anonymous",
       avatar: author.avatar,
-      bio: author.bio || "Blog Author",
+      bio: author.bio || "",
       email: author.email,
     });
   });
@@ -95,6 +95,17 @@ export async function GET(request: NextRequest) {
       blogs as Array<Record<string, unknown>>
     );
 
+    // Calculate stats
+    const totalViews = await Blog.aggregate([
+      { $match: query },
+      { $group: { _id: null, totalViews: { $sum: "$views" } } },
+    ]);
+
+    const totalLikes = await Blog.aggregate([
+      { $match: query },
+      { $group: { _id: null, totalLikes: { $sum: "$likes" } } },
+    ]);
+
     return NextResponse.json({
       blogs: blogsWithAuthors,
       pagination: {
@@ -102,6 +113,11 @@ export async function GET(request: NextRequest) {
         page,
         limit,
         pages: Math.ceil(total / limit),
+      },
+      stats: {
+        totalBlogs: total,
+        totalViews: totalViews[0]?.totalViews || 0,
+        totalLikes: totalLikes[0]?.totalLikes || 0,
       },
     });
   } catch (error) {

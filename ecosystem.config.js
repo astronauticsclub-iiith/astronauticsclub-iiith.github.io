@@ -3,7 +3,7 @@ module.exports = {
     {
       name: "astronautics",
       script: "node_modules/next/dist/bin/next",
-      args: "start -p 80",
+      args: "start -p 3000",
       cwd: "/root/astronauticsclub-iiith.github.io",
       instances: 1,
       autorestart: true,
