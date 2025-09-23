@@ -46,7 +46,7 @@ const WhoWeAre = () => {
     },
     {
       id: 7,
-      src: `/landing/collage/7.jpeg`,
+      src: `/landing/collage/7.jpg`,
       alt: "Astronautics image 7",
       size: "medium",
     },

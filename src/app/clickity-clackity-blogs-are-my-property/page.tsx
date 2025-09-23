@@ -132,7 +132,6 @@ export default function BlogAuthorDashboard() {
         const data = await response.json();
         setBlogs(data.blogs);
         setStats(data.stats);
-        console.log(stats)
       }
     } catch (error) {
       console.error("Error fetching blogs:", error);

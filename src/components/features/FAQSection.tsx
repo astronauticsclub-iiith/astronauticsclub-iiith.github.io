@@ -93,7 +93,7 @@ const faqData: FAQItem[] = [
         for support/mentorship. His reply? He was waiting for someone in the
         college to take interest in this field. <br />
         <br />
-        With support from{" "}
+        With a lot of efforts and support from{" "}
         <a
           className="custom-link"
           href="https://sites.google.com/site/radhika41"
@@ -101,12 +101,10 @@ const faqData: FAQItem[] = [
           rel="noopener noreferrer"
         >
           Prof. Radhika Mamidi
-        </a>{" "}
-        then the SLC chair, an 8 inch Dobosonian reflector telescope was
-        procured. The first Astronomy club event was a total Lunar eclipse
-        viewing session on 27<sup>th</sup> July 2018 - the start of a new
-        academic year and our club as well! Further equipments like binoculars,
-        different eyepieces, tripods etc. were procured in the following year
+        </a>
+        , then the SLC chair, an 8 inch Dobosonian reflector telescope was
+        procured in our first year. We formally started our Club by holding a total lunar eclipse viewing session on 27<sup>th</sup> July 2018 – the start of the new academic year and our club as well!
+        Further equipments like binoculars, different eyepieces, tripods etc. were procured in the following year
         enhancing observational capabilities. A special mention goes to{" "}
         <a
           className="custom-link"
@@ -126,12 +124,9 @@ const faqData: FAQItem[] = [
           Shreyas Badami
         </a>
         , who were critical in managing the club in the following years, despite
-        the halt in the club&apos;s expansion due to COVID. <br />
+        the halt in the club&apos;s expansion due to COVID-19. <br />
         <br />
-        Around this time, India&apos;s space sector was witnessing a remarkable
-        boom, marked by the emergence of multiple SpaceTech startups and the
-        successful Chandrayaan-3 mission. Riding this wave of enthusiasm, the
-        club expanded its focus to include SpaceTech, leading to notable
+        The club expanded its focus to include SpaceTech, leading to notable
         achievements in 2021 and 2024, when our teams reached the World Finals
         of the prestigious CanSat Competition—a miniature satellite design
         competition organized by the American Astronautical Society and NASA. In
@@ -191,7 +186,7 @@ const faqData: FAQItem[] = [
         >
           LinkedIn
         </a>
-        , we run a weekly Space Stories series, covering the latest developments
+        , we run a monthly Space Stories series, covering the latest developments
         in Space Science and Technology.
         <br />
         🌌 On{" "}
@@ -212,19 +207,30 @@ const faqData: FAQItem[] = [
     id: 5,
     question: "What kind of projects does the club work on?",
     answer:
-      "The project team was started very recently in late 2024. Prior to this, our project work primarily focused on competition-based initiatives. Currently, we are working on building our own Reflector telescope, Equitorial platform and Radio telescope.",
+      "The project team was started very recently in late 2024. Prior to this, our project work primarily focused on competition-based initiatives. Currently, we are working on building our Radio telescope, Equitorial mount with Harmonic Drive and launching Model rockets.",
   },
   {
     id: 7,
     question:
       "I'm interested in learning about Astronomy and Astrophysics. Where do I start learning from?",
-    answer: "We wrote a blog on introduction to Astronomy here.",
+    answer: (
+      <div>
+        A good beginning point is the <b>Cosmic Distance Ladder</b> which is about how various lengths like Earth&apos;s radius, distances between Earth and sun, alpha-centuri etc. were measured. 
+        We wrote an article for the same{" "}
+        <a className="custom-link"
+          href="https://clubs.iiit.ac.in/astronautics/blogs/cosmic-distance-ladder"
+          target="_blank"
+          rel="noopener noreferrer">
+        here.
+        </a>
+      </div>
+    ),
   },
   {
     id: 8,
     question: "Can I suggest new activities or projects?",
     answer:
-      "Of course! We are open to any event idea or feedback. You may share your ideas with us at this link or through our social media handles.",
+      "Of course! We are open to any event idea or feedback. You may share your ideas by mailing us or through our social media handles.",
   },
 ];
 
