@@ -1,7 +1,19 @@
+// sync-json-from-data.d.ts
 const mongoose = require("mongoose");
 const path = require("path");
 const fs = require("fs");
 require("dotenv").config({ path: path.join(__dirname, "..", ".env.local") });
+
+// If star is clickable but no matching email found
+const keysToRemove = ["photo", "email", "name", "designation", "desc", "linkedin"];
+function removeKeys(obj, keys = keysToRemove) {
+  keys.forEach((key) => {
+    if (key in obj) {
+      delete obj[key];
+    }
+  });
+  return obj; // returns the modified object
+}
 
 // This schema must be kept in sync with src/models/User.ts
 const UserSchema = new mongoose.Schema(
@@ -48,7 +60,7 @@ const UserSchema = new mongoose.Schema(
 
 const User = mongoose.models.User || mongoose.model("User", UserSchema);
 
-async function syncJsonFromTeam() {
+export async function syncJsonFromTeam() {
   try {
     // 1. Connect to MongoDB
     if (!process.env.MONGODB_URI) {
@@ -70,10 +82,7 @@ async function syncJsonFromTeam() {
 
     // 3. Read the JSON file
     const jsonPath = path.join(
-      __dirname,
-      "..",
-      "public",
-      "data",
+      "/var/data/astronautics",
       "constellation.json"
     );
     const jsonData = JSON.parse(fs.readFileSync(jsonPath, "utf-8"));
@@ -119,9 +128,18 @@ async function syncJsonFromTeam() {
             console.log(`  - Updated: ${dbUser.name} (${email}) in JSON.`);
             updatedEntries++;
           }
-        } else {
-            entriesWithNoDbUser++;
-            console.log(`  - Warning: No database user found for ${star.name} (${email}).`);
+        } 
+        
+        // Remove the userdata if no matching email
+        else {
+          keysToRemove.forEach((key) => {
+            if (key in star) {
+              delete star[key];
+            }
+          });
+          star.clickable = false;
+          entriesWithNoDbUser++;
+          console.log(`  - Warning: No database user found for ${star.name} (${email}).`);
         }
       }
     }

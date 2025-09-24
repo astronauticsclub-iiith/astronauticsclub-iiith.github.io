@@ -7,6 +7,7 @@ import WhimsicalTeamIcon from "./WhimsicalTeamIcon";
 import { ChevronLeft } from "lucide-react";
 import GlitchText from "./GlitchText";
 import { withBasePath, withUploadPath } from "../common/HelperFunction";
+import {syncJsonFromTeam} from "../../../scripts/sync-team-from-json" 
 
 interface Star {
   ra: number;
@@ -229,7 +230,7 @@ const AstronautBriefing: React.FC = () => {
     setCanvasSize();
 
     // Load constellation data
-    fetch(withBasePath(`/data/constellation.json`))
+    fetch(withUploadPath(`/constellation.json`))
       .then((response) => response.json())
       .then((data: Constellations) => {
         setConstellations(data);
@@ -237,6 +238,8 @@ const AstronautBriefing: React.FC = () => {
       .catch((error) => {
         console.error("Error loading constellation data:", error);
       });
+
+    syncJsonFromTeam();
 
     // Handle resizing
     const handleResize = () => {
