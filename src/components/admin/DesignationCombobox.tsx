@@ -85,7 +85,7 @@ const DesignationCombobox: React.FC<DesignationComboboxProps> = ({
           disabled={disabled}
         />
         <button type="button" onClick={() => setIsOpen(!isOpen)} className="text-white" disabled={disabled}>
-          <ChevronDown size={16} className={`transition-transform ${isOpen ? 'rotate-180' : ''}`} />
+          <ChevronDown size={16} className={`transition-transform ${isOpen ? 'rotate-180' : ''} z-10`} />
         </button>
       </div>
       <AnimatePresence>
@@ -101,13 +101,13 @@ const DesignationCombobox: React.FC<DesignationComboboxProps> = ({
                 <li
                   key={designation}
                   onClick={() => handleSelect(designation)}
-                  className="px-3 py-2 text-white uppercase text-sm cursor-pointer hover:bg-white hover:text-background"
+                  className="z-10 px-3 py-2 text-white uppercase text-sm cursor-pointer hover:bg-white hover:text-background"
                 >
                   {designation}
                 </li>
               ))
             ) : (
-              <li className="px-3 py-2 text-gray-400 uppercase text-sm">
+              <li className="z-10 px-3 py-2 text-gray-400 uppercase text-sm z-10">
                 {inputValue.trim() === '' ? 'Type to search or add' : `No results. Press Enter to add "${inputValue.trim()}"`}
               </li>
             )}

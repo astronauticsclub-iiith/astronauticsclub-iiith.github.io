@@ -29,9 +29,9 @@ export async function POST(request: NextRequest) {
     const userData = await request.json();
     const { email, name, role } = userData;
 
-    if (!email || !role) {
+    if (!email || !role || !name) {
       return NextResponse.json(
-        { error: "Email and role are required" },
+        { error: "Name, email and role are required" },
         { status: 400 }
       );
     }

@@ -1,4 +1,3 @@
-// sync-json-from-data.d.ts
 const mongoose = require("mongoose");
 const path = require("path");
 const fs = require("fs");
@@ -6,14 +5,6 @@ require("dotenv").config({ path: path.join(__dirname, "..", ".env.local") });
 
 // If star is clickable but no matching email found
 const keysToRemove = ["photo", "email", "name", "designation", "desc", "linkedin"];
-function removeKeys(obj, keys = keysToRemove) {
-  keys.forEach((key) => {
-    if (key in obj) {
-      delete obj[key];
-    }
-  });
-  return obj; // returns the modified object
-}
 
 // This schema must be kept in sync with src/models/User.ts
 const UserSchema = new mongoose.Schema(

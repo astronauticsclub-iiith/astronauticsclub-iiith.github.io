@@ -52,6 +52,34 @@ export async function PUT(
       return NextResponse.json({ error: "User not found" }, { status: 404 });
     }
 
+    // Add in constellation.json
+    // const jsonPath = path.join("/var/data/astronautics", "constellation.json");
+    // const jsonData = JSON.parse(fs.readFileSync(jsonPath, "utf-8"));
+
+    // for (const constellationName in jsonData) 
+    // {
+    //   const constellation = jsonData[constellationName];
+    //   if (!user.designation.includes(constellation.team)) continue;
+
+    //   // Star with highest magnitude and which is not clickable
+    //   const starEntries = Object.entries(constellation.stars).filter(([_, star]) => !star.clickable);
+    //   const [starName, starObj] = starEntries.reduce((max, curr) =>
+    //     curr[1].magnitude > max[1].magnitude ? curr : max
+    //   );
+
+    //   constellation.stars[starName] = {
+    //     ...starObj,          // keep existing properties
+    //     clickable: true,     // make it clickable
+    //     name: name,    // add/update new properties
+    //     photo: "",
+    //     designation: constellation.team,
+    //     desc: "",
+    //     email: email,
+    //     linkedin: ""
+    //   };
+    // }
+    // fs.writeFileSync(jsonPath, JSON.stringify(jsonData, null, 2));
+
     // Log the action
     Logger.logWriteOperation(
       "UPDATE_USER",
@@ -95,6 +123,29 @@ export async function DELETE(
     };
 
     await User.findByIdAndDelete(id);
+
+    // Delete from constellation.json
+    const keysToRemove = ["photo", "email", "name", "designation", "desc", "linkedin"];
+    const jsonPath = path.join("/var/data/astronautics", "constellation.json");
+    const jsonData = JSON.parse(fs.readFileSync(jsonPath, "utf-8"));
+
+    for (const constellationName in jsonData) 
+    {
+      const constellation = jsonData[constellationName];
+      for (const starName in constellation.stars) 
+        {
+          const star = constellation.stars[starName];
+          if (star.clickable && star.email == user.email){
+            keysToRemove.forEach((key) => {
+              if (key in star) {
+                delete star[key];
+              }
+            });
+            star.clickable = false;
+          }
+      }
+    }
+    fs.writeFileSync(jsonPath, JSON.stringify(jsonData, null, 2));
 
     // Log the action
     Logger.logWriteOperation(
