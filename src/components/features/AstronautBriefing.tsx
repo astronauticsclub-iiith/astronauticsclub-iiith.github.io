@@ -6,29 +6,47 @@ import { motion, AnimatePresence } from "framer-motion";
 import WhimsicalTeamIcon from "./WhimsicalTeamIcon";
 import { ChevronLeft } from "lucide-react";
 import GlitchText from "./GlitchText";
-import { withBasePath, withUploadPath } from "../common/HelperFunction";
+import { withBasePath, withUploadPath, safeKey } from "../common/HelperFunction";
+import {User, Star, Constellations} from "../../types/user"
 
-interface Star {
-  ra: number;
-  dec: number;
-  magnitude: number;
-  name: string;
-  photo: string;
-  email: string;
-  linkedin: string;
-  designation: string;
-  desc: string;
-  clickable: boolean;
+function mergeMemberIntoStar(star: Star, member: User): Star {
+  return {
+    ...star,
+    clickable: true,
+    email: member.email,
+    name: member.name ?? star.name,
+    avatar: member.avatar ?? star.avatar,
+    designations: member.designations ?? star.designations,
+    desc: member.bio ?? star.desc,
+    linkedin: member.linkedin ?? star.linkedin,
+  };
 }
 
-interface Constellation {
-  stars: { [key: string]: Star };
-  lines: [string, string][];
-}
+function mergeJSON(constellations : Constellations, members : User[]): Constellations {
+    const memberMap = new Map<string, User>();
+    for (const m of members) {
+      memberMap.set(safeKey(m.email), m);
+    }
 
-interface Constellations {
-  [key: string]: Constellation;
-}
+    const merged: Constellations = {};
+    for (const [constellationName, constellation] of Object.entries(constellations)) {
+      const stars: Record<string, Star> = {};
+
+      for (const [starName, star] of Object.entries(constellation.stars)) {
+        const member = memberMap.get(safeKey(star.email));
+        stars[starName] = member
+          ? mergeMemberIntoStar(star, member)
+          : { ...star, clickable: false };
+      }
+
+      merged[constellationName] = {
+        ...constellation,
+        stars,
+      };
+    }
+
+    return merged
+  };
 
 const AstronautBriefing: React.FC = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -38,6 +56,7 @@ const AstronautBriefing: React.FC = () => {
   const [constellations, setConstellations] = useState<Constellations>({});
   const [hoveredStar, setHoveredStar] = useState<string | null>(null);
   const [stats, setStats] = useState({ missions: 0, distance: "0.0K" });
+  const [members, setMembers] = useState<User[]>([]);
 
   // Canvas state
   const scaleRef = useRef(0.8);
@@ -58,6 +77,30 @@ const AstronautBriefing: React.FC = () => {
     }, 50);
     return () => clearInterval(interval);
   }, []);
+
+
+  // Fetching all the member info from the database
+  useEffect(() => {
+    const loadMembers = async () => {
+      try {
+        await new Promise((resolve) => setTimeout(resolve, 800));
+        const response = await fetch(withBasePath(`/api/team`));
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const data = await response.json();
+        setMembers(data || []);
+      } catch (error) {
+        console.error("Error loading team members:", error);
+        setMembers([]);
+      }
+    };
+
+    loadMembers();
+  }, []);
+
 
   const getCanvasMousePosition = useCallback(
     (clientX: number, clientY: number) => {
@@ -210,6 +253,7 @@ const AstronautBriefing: React.FC = () => {
     drawStars();
   }, [drawCelestialGrid, drawStars]);
 
+
   useEffect(() => {
     const canvas = canvasRef.current;
     const container = canvasContainerRef.current;
@@ -228,7 +272,7 @@ const AstronautBriefing: React.FC = () => {
 
     setCanvasSize();
 
-    // Load constellation data
+    // Load constellation data  
     fetch(withUploadPath(`/constellation.json`))
       .then((response) => response.json())
       .then((data: Constellations) => {
@@ -237,6 +281,9 @@ const AstronautBriefing: React.FC = () => {
       .catch((error) => {
         console.error("Error loading constellation data:", error);
       });
+
+    // Merge with database data
+    setConstellations(mergeJSON(constellations, members));
 
     // Handle resizing
     const handleResize = () => {
@@ -259,7 +306,7 @@ const AstronautBriefing: React.FC = () => {
   const displayStarDetails = useCallback((star: Star) => {
     setSelectedStar(star);
     setStarDetailsVisible(true);
-  }, []);
+  }, [constellations]);
 
   const handleCanvasClick = useCallback(
     (e: React.MouseEvent<HTMLCanvasElement>) => {
@@ -568,9 +615,9 @@ const AstronautBriefing: React.FC = () => {
                         >
                           <Image
                             className="w-24 h-24 object-cover border-4 border-white shadow-[8px_8px_0px_0px_rgba(255,255,255,0.3)]"
-                            src={selectedStar.photo ?  withUploadPath(selectedStar.photo) :  withBasePath(`/logo.png`)}
+                            src={selectedStar.avatar ?  withUploadPath(selectedStar.avatar) :  withBasePath(`/default-avatar.svg`)}
                             alt={selectedStar.name || "Astronaut"}
-                            unoptimized={!!selectedStar.photo}
+                            unoptimized={!!selectedStar.avatar}
                             width={96}
                             height={96}
                           />
@@ -614,7 +661,7 @@ const AstronautBriefing: React.FC = () => {
                           transition={{ duration: 0.6, delay: 0.9 }}
                           className="text-lg text-[#e0e0e0] font-bold uppercase tracking-wide"
                         >
-                          {selectedStar.designation ||
+                          {selectedStar.designations ? selectedStar.designations.join(", ") :
                             "STELLAR NAVIGATION SPECIALIST"}
                         </motion.p>
                       </div>

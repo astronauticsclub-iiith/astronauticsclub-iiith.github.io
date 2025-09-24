@@ -6,6 +6,20 @@ import Logger from "@/lib/logger";
 import fs from "fs";
 import path from "path";
 
+type Star = {
+  ra: number;
+  dec: number;
+  magnitude: number;
+  clickable: boolean;
+  email?: string;
+};
+
+type Constellation = {
+  stars: Record<string, Star>;
+  lines: [string, string][];
+  team: string;
+};
+
 const FILE_DIRECTORY = process.env.FILE_DIRECTORY || path.join(process.cwd(), "public/")
 
 export async function PUT(
@@ -17,7 +31,7 @@ export async function PUT(
     await connectToDatabase();
 
     const userData = await request.json();
-    const { name, role, designations } = userData;
+    const { role, designations } = userData;
 
     if (role && !["admin", "writer", "none"].includes(role)) {
       return NextResponse.json(
@@ -38,7 +52,6 @@ export async function PUT(
     }
 
     const updateData: Record<string, unknown> = {};
-    if (name !== undefined) updateData.name = name;
     if (role !== undefined) updateData.role = role;
     if (designations !== undefined) updateData.designations = designations;
 
@@ -53,32 +66,32 @@ export async function PUT(
     }
 
     // Add in constellation.json
-    // const jsonPath = path.join("/var/data/astronautics", "constellation.json");
-    // const jsonData = JSON.parse(fs.readFileSync(jsonPath, "utf-8"));
+    const jsonPath = path.join("/var/data/astronautics", "constellation.json");
+    const jsonData = JSON.parse(fs.readFileSync(jsonPath, "utf-8"));
 
-    // for (const constellationName in jsonData) 
-    // {
-    //   const constellation = jsonData[constellationName];
-    //   if (!user.designation.includes(constellation.team)) continue;
+    let starName: string, starObj;
+    for (const constellationName in jsonData) 
+    {
+      const constellation = jsonData[constellationName] as Constellation;
+      if (!user.designations.includes(constellation.team)) continue;
+      
+      for (const starName in constellation.stars) {
+          const star = constellation.stars[starName];
+          if (star.email == user.email) break;
+      }
 
-    //   // Star with highest magnitude and which is not clickable
-    //   const starEntries = Object.entries(constellation.stars).filter(([_, star]) => !star.clickable);
-    //   const [starName, starObj] = starEntries.reduce((max, curr) =>
-    //     curr[1].magnitude > max[1].magnitude ? curr : max
-    //   );
-
-    //   constellation.stars[starName] = {
-    //     ...starObj,          // keep existing properties
-    //     clickable: true,     // make it clickable
-    //     name: name,    // add/update new properties
-    //     photo: "",
-    //     designation: constellation.team,
-    //     desc: "",
-    //     email: email,
-    //     linkedin: ""
-    //   };
-    // }
-    // fs.writeFileSync(jsonPath, JSON.stringify(jsonData, null, 2));
+      // Star with highest magnitude and which is not clickable
+      const starEntries = Object.entries(constellation.stars).filter(([_, star]) => !star.clickable);
+      [starName, starObj] = starEntries.reduce((max, curr) =>
+        curr[1].magnitude > max[1].magnitude ? curr : max
+      );
+      constellation.stars[starName] = {
+        ...starObj,        
+        clickable: true,    
+        email: user.email,
+      };
+    }
+    fs.writeFileSync(jsonPath, JSON.stringify(jsonData, null, 2));
 
     // Log the action
     Logger.logWriteOperation(
@@ -125,7 +138,6 @@ export async function DELETE(
     await User.findByIdAndDelete(id);
 
     // Delete from constellation.json
-    const keysToRemove = ["photo", "email", "name", "designation", "desc", "linkedin"];
     const jsonPath = path.join("/var/data/astronautics", "constellation.json");
     const jsonData = JSON.parse(fs.readFileSync(jsonPath, "utf-8"));
 
@@ -136,11 +148,7 @@ export async function DELETE(
         {
           const star = constellation.stars[starName];
           if (star.clickable && star.email == user.email){
-            keysToRemove.forEach((key) => {
-              if (key in star) {
-                delete star[key];
-              }
-            });
+            delete star["email"];
             star.clickable = false;
           }
       }

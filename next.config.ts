@@ -1,6 +1,6 @@
 const nextConfig = {
   basePath: process.env.NEXT_PUBLIC_BASE_PATH || "",      
-  output: 'standalone',
+  // output: 'standalone',
   reactStrictMode: true,
   images: {
     remotePatterns: [

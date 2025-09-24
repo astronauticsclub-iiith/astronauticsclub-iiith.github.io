@@ -84,24 +84,6 @@ export async function POST(request: NextRequest) {
     await connectToDatabase();
     await User.findByIdAndUpdate(user._id, { avatar: publicPath });
 
-    // Update user's avatar in constellation.json
-    const jsonPath = path.join("/var/data/astronautics", "constellation.json");
-    const jsonData = JSON.parse(fs.readFileSync(jsonPath, "utf-8"));
-
-    for (const constellationName in jsonData) 
-    {
-      const constellation = jsonData[constellationName];
-      for (const starName in constellation.stars) 
-        {
-          const star = constellation.stars[starName];
-          if (star.clickable && star.email == user.email){
-            star.photo = publicPath;
-          }
-      }
-    }
-    fs.writeFileSync(jsonPath, JSON.stringify(jsonData, null, 2));
-
-
     return NextResponse.json(
       {
         success: true,

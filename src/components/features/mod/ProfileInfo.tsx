@@ -4,17 +4,10 @@ import { motion } from "framer-motion";
 import { Shield, Settings, FileText, LogOut } from "lucide-react";
 import Image from "next/image";
 import { withUploadPath } from "../../common/HelperFunction";
-
-interface UserProfile {
-  id: string;
-  email: string;
-  name?: string;
-  avatar?: string;
-  role: 'admin' | 'writer' | 'none';
-}
+import {User} from "../../../types/user";
 
 interface ProfileInfoProps {
-  userProfile: UserProfile;
+  userProfile: User;
   type: "admin" | "writer";
   onEditProfile: () => void;
   onLogout: () => void;

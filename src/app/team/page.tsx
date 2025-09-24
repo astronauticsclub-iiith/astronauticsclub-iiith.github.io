@@ -12,21 +12,13 @@ import AstronautBriefing from "@/components/features/AstronautBriefing";
 import { useWhimsy } from "@/context/WhimsyContext";
 import Image from "next/image";
 import { withBasePath } from "@/components/common/HelperFunction";
-
-type TeamMember = {
-  name?: string;
-  email: string;
-  avatar?: string;
-  designations?: string[];
-  bio?: string;
-  linkedin?: string;
-};
+import {User} from "../../types/user"
 
 type FilterType = "all" | string;
 
 const TeamPage: React.FC = () => {
   const { whimsyMode } = useWhimsy();
-  const [members, setMembers] = useState<TeamMember[]>([]);
+  const [members, setMembers] = useState<User[]>([]);
   const [allDesignations, setAllDesignations] = useState<string[]>([]);
   const [filter, setFilter] = useState<FilterType>("all");
   const [loading, setLoading] = useState(true);
@@ -47,7 +39,7 @@ const TeamPage: React.FC = () => {
         const data = await response.json();
         setMembers(data || []);
         const designations = Array.from(
-          new Set(data.flatMap((u: TeamMember) => u.designations || []))
+          new Set(data.flatMap((u: User) => u.designations || []))
         ) as string[];
         setAllDesignations(designations);
       } catch (error) {

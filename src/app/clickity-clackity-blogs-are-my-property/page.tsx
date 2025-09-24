@@ -15,6 +15,7 @@ import { useAlert } from "@/hooks/useAlert";
 import "@/components/ui/bg-patterns.css";
 import ProfileInfo from "@/components/features/mod/ProfileInfo";
 import { withBasePath, withUploadPath } from "@/components/common/HelperFunction";
+import {User} from "../../types/user"
 
 interface ExtendedUser {
   id?: string;
@@ -45,15 +46,6 @@ interface Blog {
   likes: number;
   createdAt: string;
   updatedAt: string;
-}
-
-interface UserProfile {
-  id: string;
-  email: string;
-  name?: string;
-  avatar?: string;
-  bio?: string;
-  role: 'admin' | 'writer' | 'none';
 }
 
 interface BlogStats {
@@ -88,7 +80,7 @@ export default function BlogAuthorDashboard() {
   const [isPreview, setIsPreview] = useState(false);
   const [showProfileEditor, setShowProfileEditor] = useState(false);
   const [showImageUploader, setShowImageUploader] = useState(false);
-  const [userProfile, setUserProfile] = useState<UserProfile | null>(null);
+  const [userProfile, setUserProfile] = useState<User | null>(null);
   const [currentUserRole, setCurrentUserRole] = useState<'admin' | 'writer' | 'none' | undefined>(undefined);
   const [newBlog, setNewBlog] = useState<NewBlog>({
     title: "",

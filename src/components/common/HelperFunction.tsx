@@ -12,3 +12,7 @@ export function withStoragePath(path: string) {
   const base = process.env.FILE_DIRECTORY || "";
   return `${base.replace(/\/$/, "")}/${path.replace(/^\//, "")}`;
 }
+
+export function safeKey(email?: string) {
+  return (email || "").trim().toLowerCase();
+}
