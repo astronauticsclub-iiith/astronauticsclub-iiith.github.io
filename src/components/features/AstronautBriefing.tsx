@@ -7,7 +7,6 @@ import WhimsicalTeamIcon from "./WhimsicalTeamIcon";
 import { ChevronLeft } from "lucide-react";
 import GlitchText from "./GlitchText";
 import { withBasePath, withUploadPath } from "../common/HelperFunction";
-import {syncJsonFromTeam} from "../../../scripts/sync-team-from-json" 
 
 interface Star {
   ra: number;
@@ -239,8 +238,6 @@ const AstronautBriefing: React.FC = () => {
         console.error("Error loading constellation data:", error);
       });
 
-    syncJsonFromTeam();
-
     // Handle resizing
     const handleResize = () => {
       setCanvasSize();
@@ -384,16 +381,26 @@ const AstronautBriefing: React.FC = () => {
     isRotatingRef.current = false;
   }, []);
 
-  const handleCanvasWheel = useCallback(
-    (e: React.WheelEvent<HTMLCanvasElement>) => {
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+
+    const handleWheel = (e: WheelEvent) => {
       e.preventDefault();
       e.stopPropagation();
       const zoomSpeed = 0.001;
       scaleRef.current *= 1 - e.deltaY * zoomSpeed;
       drawScene();
-    },
-    [drawScene]
-  );
+    };
+
+    // Add non-passive listener
+    canvas.addEventListener('wheel', handleWheel, { passive: false });
+
+    // Cleanup
+    return () => {
+      canvas.removeEventListener('wheel', handleWheel);
+    };
+  }, [drawScene]);
 
   return (
     <div className="bg-background flex">
@@ -747,7 +754,6 @@ const AstronautBriefing: React.FC = () => {
           onMouseDown={handleCanvasMouseDown}
           onMouseUp={handleCanvasMouseUp}
           onMouseLeave={handleCanvasMouseLeave}
-          onWheel={handleCanvasWheel}
         />
       </div>
     </div>
