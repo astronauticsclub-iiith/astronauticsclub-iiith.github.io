@@ -29,6 +29,7 @@ const EventsPage = () => {
   const [filters, setFilters] = useState<EventFilters>({
     search: "",
     type: [],
+    year: [],
     status: [],
     sortBy: "latest",
   });
@@ -84,6 +85,15 @@ const EventsPage = () => {
     { value: "cancelled", label: "Cancelled" },
   ];
 
+  const currentYear = new Date().getFullYear();
+  const yearTypes = Array.from(
+    { length: currentYear - 2019 + 1 },
+    (_, i) => {
+      const year = currentYear - i;
+      return { value: year.toString(), label: year.toString() };
+    }
+  );
+
   useEffect(() => {
     const loadEvents = async () => {
       setLoading(true);
@@ -117,6 +127,13 @@ const EventsPage = () => {
     // Type filter
     if (filters.type.length > 0) {
       filtered = filtered.filter((event) => filters.type.includes(event.type));
+    }
+
+    // Year filter
+    if (filters.year.length > 0) {
+      filtered = filtered.filter((event) =>
+        filters.year.includes(event.date.substring(0, 4))
+      );
     }
 
     // Status filter
@@ -159,6 +176,15 @@ const EventsPage = () => {
     }));
   };
 
+  const handleYearToggle = (year: string) => {
+    setFilters((prev) => ({
+      ...prev,
+      year: prev.year.includes(year)
+        ? prev.year.filter((s) => s !== year)
+        : [...prev.year, year],
+    }));
+  };
+
   const handleStatusToggle = (status: string) => {
     setFilters((prev) => ({
       ...prev,
@@ -176,6 +202,7 @@ const EventsPage = () => {
     setFilters({
       search: "",
       type: [],
+      year: [],
       status: [],
       sortBy: "latest",
     });
@@ -184,6 +211,7 @@ const EventsPage = () => {
   const hasActiveFilters =
     filters.search ||
     filters.type.length > 0 ||
+    filters.year.length > 0 ||
     filters.status.length > 0 ||
     filters.sortBy !== "latest";
 
@@ -357,6 +385,28 @@ const EventsPage = () => {
                     </div>
                   </div>
 
+                  {/* YEAR */}
+                  <div>
+                    <h3 className="font-bold text-lg uppercase mb-4 inline-block px-2 py-1 bg-white text-background rotate-[1deg]">
+                      YEAR
+                    </h3>
+                    <div className="flex flex-wrap gap-3 mt-4">
+                      {yearTypes.map((year) => (
+                        <button
+                          key={year.value}
+                          onClick={() => handleYearToggle(year.value)}
+                          className={`px-4 py-2 border-2 border-white transition-colors font-medium text-sm ${
+                            filters.year.includes(year.value)
+                              ? "bg-white text-background shadow-[3px_3px_0px_0px_rgba(128,128,128,0.5)] -translate-y-1"
+                              : "text-white hover:bg-white hover:text-background hover:shadow-[3px_3px_0px_0px_rgba(128,128,128,0.5)] hover:-translate-y-0.5"
+                          } transform transition-transform`}
+                        >
+                          {year.label}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+
                   {/* Event Status */}
                   <div>
                     <h3 className="font-bold text-lg uppercase mb-4 inline-block px-2 py-1 bg-white text-background rotate-[1deg]">
@@ -410,6 +460,23 @@ const EventsPage = () => {
                   </span>
                   <button
                     onClick={() => handleTypeToggle(type)}
+                    className="text-background hover:opacity-70 ml-1"
+                  >
+                    <X size={14} />
+                  </button>
+                </div>
+              ))}
+              {filters.year.map((year) => (
+                <div
+                  key={year}
+                  className="flex items-center gap-2 px-3 py-1 bg-white text-background font-medium text-sm border-2 border-background shadow-[2px_2px_0px_0px_rgba(128,128,128,0.5)]"
+                >
+                  <span>
+                    {yearTypes.find((s) => s.value === year)?.label ||
+                      year}
+                  </span>
+                  <button
+                    onClick={() => handleYearToggle(year)}
                     className="text-background hover:opacity-70 ml-1"
                   >
                     <X size={14} />

@@ -27,6 +27,7 @@ export interface Event {
 export interface EventFilters {
   search: string;
   type: string[];
+  year: string[];
   status: string[];
   sortBy: "latest" | "oldest" | "alphabetical";
 }
