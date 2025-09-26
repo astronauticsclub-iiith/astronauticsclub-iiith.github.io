@@ -295,7 +295,7 @@ const AstronautBriefing: React.FC = () => {
     return () => {
       window.removeEventListener("resize", handleResize);
     };
-  }, [drawScene]);
+  }, [constellations, members, drawScene]);
 
   useEffect(() => {
     if (Object.keys(constellations).length > 0) {
@@ -306,7 +306,7 @@ const AstronautBriefing: React.FC = () => {
   const displayStarDetails = useCallback((star: Star) => {
     setSelectedStar(star);
     setStarDetailsVisible(true);
-  }, [constellations]);
+  }, []);
 
   const handleCanvasClick = useCallback(
     (e: React.MouseEvent<HTMLCanvasElement>) => {
