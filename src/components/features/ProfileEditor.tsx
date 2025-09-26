@@ -3,21 +3,11 @@
 import { useState, useRef } from "react";
 import Image from "next/image";
 import { withBasePath, withUploadPath } from "../common/HelperFunction";
-
-interface UserProfile {
-  id: string;
-  email: string;
-  name?: string;
-  avatar?: string;
-  linkedin? : string;
-  bio?: string;
-  role: 'admin' | 'writer' | 'none';
-  designations?: string[];
-}
+import { User } from "@/types/user";
 
 interface ProfileEditorProps {
-  user: UserProfile;
-  onProfileUpdate: (user: UserProfile) => void;
+  user: User;
+  onProfileUpdate: (user: User) => void;
   onClose: () => void;
   showSuccess?: (message: string) => void;
   isSelfEdit?: boolean;

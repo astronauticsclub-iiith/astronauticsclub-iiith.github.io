@@ -30,55 +30,9 @@ import { useAlert } from "@/hooks/useAlert";
 import { Event } from "@/types/event";
 import "@/components/ui/bg-patterns.css";
 import { withBasePath, withUploadPath } from "@/components/common/HelperFunction";
-
-interface ExtendedUser {
-  id?: string;
-  name?: string | null;
-  email?: string | null;
-  image?: string | null;
-  role?: 'admin' | 'writer' | 'none';
-}
-
-interface User {
-  _id: string;
-  email: string;
-  name?: string;
-  role: 'admin' | 'writer' | 'none';
-  designations?: string[];
-  avatar?: string;
-  createdAt: string;
-}
-
-interface UserProfile {
-  id: string;
-  email: string;
-  name?: string;
-  avatar?: string;
-  role: 'admin' | 'writer' | 'none';
-  designations?: string[];
-}
-
-interface LogEntry {
-  timestamp: string;
-  level: string;
-  message: string;
-  source: string;
-  userEmail: string;
-  action: string;
-  details: Record<string, unknown>;
-}
-
-interface GalleryImage {
-  id: string;
-  src: string;
-  alt: string;
-  category: "astrophotography" | "events" | "others";
-  label: string;
-  filename: string;
-  size: number;
-  modified: string;
-  created: string;
-}
+import { User } from "@/types/user";
+import { GalleryImage } from "@/types/gallery-image";
+import { LogEntry } from "@/types/log-entry";
 
 export default function AdminDashboard() {
   const { data: session, status } = useSession();
@@ -125,7 +79,7 @@ export default function AdminDashboard() {
   });
   const [loading, setLoading] = useState(true);
   const [showProfileEditor, setShowProfileEditor] = useState(false);
-  const [userProfile, setUserProfile] = useState<UserProfile | null>(null);
+  const [userProfile, setUserProfile] = useState<User | null>(null);
   const {
     showSuccess,
     showError,
@@ -222,7 +176,7 @@ export default function AdminDashboard() {
   useEffect(() => {
     if (status === "loading") return;
 
-    const user = session?.user as ExtendedUser;
+    const user = session?.user as User;
     if (user?.role !== "admin") {
       router.push("/stay-away-snooper");
       return;

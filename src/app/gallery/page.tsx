@@ -9,16 +9,7 @@ import GalleryIcon from "@/components/features/GalleryIcon";
 import "@/components/ui/bg-patterns.css";
 import "./gallery.css";
 import { withBasePath, withUploadPath } from "@/components/common/HelperFunction";
-
-type GalleryImage = {
-  src: string;
-  alt: string;
-  category: "astrophotography" | "events" | "others";
-  label: string;
-  filename: string;
-  size: number;
-  modified: string;
-};
+import { GalleryImage } from "@/types/gallery-image";
 
 type FilterType = "all" | "astrophotography" | "events" | "others";
 

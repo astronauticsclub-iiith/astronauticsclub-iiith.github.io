@@ -9,20 +9,12 @@ import { useAlert } from "@/hooks/useAlert";
 import CustomAlert from "@/components/ui/CustomAlert";
 import "@/components/ui/bg-patterns.css";
 import { withBasePath } from "@/components/common/HelperFunction";
-
-interface UserProfile {
-  id: string;
-  email: string;
-  name?: string;
-  avatar?: string;
-  role: 'admin' | 'writer' | 'none';
-  designations?: string[];
-}
+import { User } from "@/types/user";
 
 export default function MyProfilePage() {
   const { data: session, status } = useSession();
   const router = useRouter();
-  const [userProfile, setUserProfile] = useState<UserProfile | null>(null);
+  const [userProfile, setUserProfile] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
   const { showError, showSuccess, alertState, closeAlert } = useAlert();
 

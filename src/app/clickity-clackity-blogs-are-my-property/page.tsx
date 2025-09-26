@@ -15,44 +15,8 @@ import { useAlert } from "@/hooks/useAlert";
 import "@/components/ui/bg-patterns.css";
 import ProfileInfo from "@/components/features/mod/ProfileInfo";
 import { withBasePath, withUploadPath } from "@/components/common/HelperFunction";
-import {User} from "../../types/user"
-
-interface ExtendedUser {
-  id?: string;
-  name?: string | null;
-  email?: string | null;
-  image?: string | null;
-  role?: 'admin' | 'writer' | 'none';
-}
-
-interface Blog {
-  _id: string;
-  id: string;
-  title: string;
-  slug: string;
-  excerpt: string;
-  content: string;
-  author: {
-    name: string;
-    email: string;
-    avatar?: string;
-    bio?: string;
-  };
-  publishedAt: string;
-  readTime: number;
-  tags: string[];
-  images: string[];
-  views: number;
-  likes: number;
-  createdAt: string;
-  updatedAt: string;
-}
-
-interface BlogStats {
-  totalBlogs: number;
-  totalViews: number;
-  totalLikes: number;
-}
+import {User} from "@/types/user"
+import { Blog, BlogStats } from "@/types/blog";
 
 interface NewBlog {
   title: string;
@@ -104,7 +68,7 @@ export default function BlogAuthorDashboard() {
   useEffect(() => {
     if (status === "loading") return;
 
-    const user = session?.user as ExtendedUser;
+    const user = session?.user as User;
     const userRole = user?.role;
     setCurrentUserRole(userRole);
     if (userRole !== "admin" && userRole !== "writer") {
