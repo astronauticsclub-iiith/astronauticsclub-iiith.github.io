@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 
-const LOG_FILE = path.join(process.cwd(), 'logs', 'persistent_log.json');
+const LOG_FILE = path.join(process.env.FILE_DIRECTORY!, 'logs', 'persistent_log.json');
 
 interface LogEntry {
   timestamp: string;

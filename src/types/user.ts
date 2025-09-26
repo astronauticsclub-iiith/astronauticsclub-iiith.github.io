@@ -1,6 +1,5 @@
 export interface User {
-  _id?: string;
-  id?: string;
+  _id: string;
   name?: string;
   email: string;
   avatar?: string;
@@ -8,7 +7,7 @@ export interface User {
   linkedin?: string;
   designations?: string[];
   role: 'admin' | 'writer' | 'none';
-  createdAt?: string;
+  createdAt?: string | number | Date;
 }
 
 export interface Star {

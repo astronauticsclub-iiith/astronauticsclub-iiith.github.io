@@ -5,18 +5,10 @@ import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import { Mail } from "lucide-react";
 import { withBasePath, withUploadPath } from "../common/HelperFunction";
-
-type TeamMember = {
-  name?: string;
-  email: string;
-  avatar?: string;
-  designations?: string[];
-  bio?: string;
-  linkedin?: string;
-};
+import { User } from "@/types/user";
 
 const TeamCard: React.FC<{
-  member: TeamMember;
+  member: User;
   index: number;
 }> = ({ member, index }) => {
   const [isOverlayVisible, setOverlayVisible] = useState(false);

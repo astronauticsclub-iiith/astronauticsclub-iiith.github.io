@@ -13,18 +13,7 @@ import {
 } from "lucide-react";
 import Image from "next/image";
 import { withUploadPath } from "../common/HelperFunction";
-
-interface GalleryImage {
-  id: string;
-  src: string;
-  alt: string;
-  category: "astrophotography" | "events" | "others";
-  label: string;
-  filename: string;
-  size: number;
-  modified: string;
-  created: string;
-}
+import { GalleryImage } from "@/types/gallery-image";
 
 interface AdminPhotoCardProps {
   image: GalleryImage;

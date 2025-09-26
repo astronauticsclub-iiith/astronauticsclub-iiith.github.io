@@ -784,7 +784,7 @@ export default function AdminDashboard() {
                         </p>
                         <p className="text-xs text-[#999] font-medium">
                           JOINED:{" "}
-                          {new Date(user.createdAt).toLocaleDateString()}
+                          {user.createdAt? new Date(user.createdAt).toLocaleDateString(): ""}
                         </p>
                       </div>
                     </div>
