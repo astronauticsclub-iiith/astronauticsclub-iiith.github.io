@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { useSession, signOut } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
-import { Edit, Trash2, Eye, Heart, Upload, Plus, FileText } from "lucide-react";
+import { Edit, Trash2, Eye, Heart, Upload, Plus, FileText, BookCheck } from "lucide-react";
 import Image from "next/image";
 import ProfileEditor from "@/components/features/ProfileEditor";
 import ImageUploader from "@/components/features/ImageUploader";
@@ -157,7 +157,7 @@ export default function BlogAuthorDashboard() {
       },
       publishedAt: new Date().toISOString(),
       readTime: calculateReadTime(newBlog.content),
-      approved: (session?.user?.role == "admin"),
+      approved: false,
       tags: newBlog.tags
         .split(",")
         .map((tag) => tag.trim())
@@ -205,6 +205,15 @@ export default function BlogAuthorDashboard() {
     );
   };
 
+  const approveBlog = async (slug: string) => {
+    showConfirm(
+      "APPROVE BLOG",
+      "Are you sure you want to approve this blog? This action cannot be undone.",
+      () => performApproveBlog(slug),
+      { type: "danger", confirmText: "APPROVE BLOG" }
+    );
+  }
+
   const performDeleteBlog = async (slug: string) => {
     try {
       const response = await fetch(withBasePath(`/api/blogs/${slug}`), {
@@ -222,6 +231,32 @@ export default function BlogAuthorDashboard() {
     } catch (error) {
       console.error("Error deleting blog:", error);
       showError("Failed to delete blog");
+    }
+  };
+
+  const performApproveBlog = async (slug: string) => {
+    try {
+      const response = await fetch(withBasePath(`/api/blogs/${slug}`), {
+        method: "PATCH",
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          action: 'approve',
+        }),
+      });
+
+      if (response.ok) {
+        if (currentUserRole) {
+          fetchMyBlogs(currentUserRole);
+        }
+        showSuccess("Blog approved successfully");
+      } else {
+        showError("Failed to approve blog");
+      }
+    } catch (error) {
+      console.error("Error approving blog:", error);
+      showError("Failed to approve blog");
     }
   };
 
@@ -761,6 +796,20 @@ export default function BlogAuthorDashboard() {
                           />
                           DELETE
                         </motion.button>
+                        {session?.user?.role=="admin" && blog.approved==false? 
+                          <motion.button
+                            onClick={() => approveBlog(blog.slug)}
+                            className="group/btn flex-1 lg:flex-none px-3 sm:px-4 py-2 sm:py-3 border-2 border-white bg-[#1bbb1b] text-white font-bold hover:bg-white hover:text-[#d2042d] transition-all duration-300 uppercase text-xs sm:text-sm flex items-center justify-center gap-2"
+                            whileHover={{ scale: 1.05, y: -2 }}
+                            whileTap={{ scale: 0.95 }}
+                          >
+                            <BookCheck
+                              size={14}
+                              className="transition-transform duration-300 group-hover/btn:rotate-12"
+                            />
+                            APPROVE
+                          </motion.button>
+                        : ""}
                       </div>
                     </motion.div>
                   ))}

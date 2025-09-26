@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { connectToDatabase } from "@/lib/mongodb";
 import Blog from "@/models/Blog";
-import { requireWriter } from "@/lib/auth";
+import { requireAdmin, requireWriter } from "@/lib/auth";
 import Logger from "@/lib/logger";
 import { populateAuthorDetails } from "@/app/blogs/helper";
 
@@ -52,6 +52,20 @@ export async function PATCH(
     }
 
     switch (action) {
+      case "approve":
+        try{
+          await requireAdmin();
+          blog.approved = true;
+          await blog.save();
+          return NextResponse.json({approved: blog.approved})
+        } 
+        catch {
+          return NextResponse.json(
+            { error: "Unauthorized: admin only" },
+            { status: 401 }
+          );
+        }
+
       case "increment_view":
         blog.views = (blog.views || 0) + 1;
         await blog.save();

@@ -2,11 +2,13 @@ import { NextRequest, NextResponse } from "next/server";
 import { connectToDatabase } from "@/lib/mongodb";
 import Blog from "@/models/Blog";
 import { populateAuthorDetails } from "@/app/blogs/helper";
+import { requireWriter } from "@/lib/auth";
 
 export async function GET(request: NextRequest) {
   try {
     await connectToDatabase();
 
+    await requireWriter();
     const { searchParams } = new URL(request.url);
     const search = searchParams.get("search") || "";
     const tags = searchParams.get("tags") || "";

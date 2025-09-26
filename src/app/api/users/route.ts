@@ -3,6 +3,8 @@ import { connectToDatabase } from "@/lib/mongodb";
 import User from "@/models/User";
 import { requireAdmin } from "@/lib/auth";
 import Logger from "@/lib/logger";
+import fs from "fs";
+import path from "path";
 
 export async function GET() {
   try {
@@ -58,6 +60,28 @@ export async function POST(request: NextRequest) {
       role,
     });
 
+    // Add the user to constellation.json
+    const jsonPath = path.join("/var/data/astronautics", "constellation.json");
+    const jsonData = JSON.parse(fs.readFileSync(jsonPath, "utf-8"));
+
+    let starName : string = "", constellationName : string = "", magnitude : number = 10;
+    for (const c in jsonData) {
+      const constellation = jsonData[c];
+      for (const s in constellation.stars){
+        if (constellation.stars[s].magnitude < magnitude){
+          starName = s;
+          constellationName = c;
+          magnitude = constellation.stars[s].magnitude;
+        }
+      }
+    }
+
+    if (constellationName && starName){
+      jsonData[constellationName].stars[starName]["email"]=user.email;
+      jsonData[constellationName].stars[starName]["clickable"]=true;
+    }
+
+    fs.writeFileSync(jsonPath, JSON.stringify(jsonData, null, 2));
     await user.save();
 
     // Log the action

@@ -16,7 +16,7 @@ const BlogSchema = new Schema<BlogDocument>({
   publishedAt: { type: String, required: true },
   readTime: { type: Number, required: true },
   tags: [{ type: String, required: true }],
-  approved: [{ type: Boolean, required: true, default: false }],
+  approved: { type: Boolean, required: true, default: false },
   images: [{ type: String }],
   views: { type: Number, default: 0 },
   likes: { type: Number, default: 0 },
