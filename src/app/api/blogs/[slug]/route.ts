@@ -1,37 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
 import { connectToDatabase } from "@/lib/mongodb";
 import Blog from "@/models/Blog";
-import User from "@/models/User";
 import { requireWriter } from "@/lib/auth";
 import Logger from "@/lib/logger";
-
-// Helper function to populate author details
-async function populateAuthorDetails(blogs: Array<Record<string, unknown>>) {
-  const authorEmails = [
-    ...new Set(blogs.map((blog) => (blog.author as { email: string }).email)),
-  ];
-  const authors = await User.find({ email: { $in: authorEmails } }).lean();
-
-  const authorMap = new Map();
-  authors.forEach((author) => {
-    authorMap.set(author.email, {
-      name: author.name || "Anonymous",
-      avatar: author.avatar,
-      bio: author.bio || "",
-      email: author.email,
-    });
-  });
-
-  return blogs.map((blog) => ({
-    ...blog,
-    author: authorMap.get((blog.author as { email: string }).email) || {
-      name: "Anonymous",
-      avatar: "",
-      bio: "",
-      email: (blog.author as { email: string }).email,
-    },
-  }));
-}
+import { populateAuthorDetails } from "@/app/blogs/helper";
 
 export async function GET(
   request: NextRequest,

@@ -15,6 +15,7 @@ export interface Blog {
   readTime: number;
   tags: string[];
   images: string[];
+  approved: boolean;
   views: number;
   likes: number;
   likedBy?: string[];

@@ -1,24 +1,61 @@
 import { NextRequest, NextResponse } from "next/server";
 import { connectToDatabase } from "@/lib/mongodb";
 import Blog from "@/models/Blog";
-import { requireWriter } from "@/lib/auth";
 import { populateAuthorDetails } from "@/app/blogs/helper";
 
 export async function GET(request: NextRequest) {
   try {
-    const { user } = await requireWriter();
     await connectToDatabase();
 
     const { searchParams } = new URL(request.url);
+    const search = searchParams.get("search") || "";
+    const tags = searchParams.get("tags") || "";
+    const sortBy = searchParams.get("sortBy") || "latest";
     const limit = parseInt(searchParams.get("limit") || "10");
     const page = parseInt(searchParams.get("page") || "1");
+
+    // Build query
+    const query: Record<string, unknown> = {};
+
+    if (search) {
+      query.$or = [
+        { title: { $regex: search, $options: "i" } },
+        { excerpt: { $regex: search, $options: "i" } },
+        { "author.name": { $regex: search, $options: "i" } },
+        { tags: { $regex: search, $options: "i" } },
+      ];
+    }
+
+    if (tags) {
+      const tagArray = tags.split(",").filter((tag) => tag.trim());
+      if (tagArray.length > 0) {
+        query.tags = { $in: tagArray };
+      }
+    }
+
+    // Build sort
+    let sort: Record<string, 1 | -1> = {};
+    switch (sortBy) {
+      case "latest":
+        sort = { publishedAt: -1 };
+        break;
+      case "oldest":
+        sort = { publishedAt: 1 };
+        break;
+      case "popular":
+        sort = { views: -1 };
+        break;
+      case "most-liked":
+        sort = { likes: -1 };
+        break;
+      default:
+        sort = { publishedAt: -1 };
+    }
+
     const skip = (page - 1) * limit;
 
-    // Find blogs authored by the current user
-    const query = { "author.email": user.email };
-
     const [blogs, total] = await Promise.all([
-      Blog.find(query).sort({ createdAt: -1 }).skip(skip).limit(limit).lean(),
+      Blog.find(query).sort(sort).skip(skip).limit(limit).lean(),
       Blog.countDocuments(query),
     ]);
 
@@ -53,9 +90,9 @@ export async function GET(request: NextRequest) {
       },
     });
   } catch (error) {
-    console.error("Error fetching user blogs:", error);
+    console.error("Error fetching blogs:", error);
     return NextResponse.json(
-      { error: "Failed to fetch your blogs" },
+      { error: "Failed to fetch blogs" },
       { status: 500 }
     );
   }

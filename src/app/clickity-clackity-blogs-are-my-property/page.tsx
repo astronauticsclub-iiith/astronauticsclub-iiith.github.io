@@ -82,7 +82,7 @@ export default function BlogAuthorDashboard() {
 
   const fetchMyBlogs = async (role: string) => {
     try {
-      const url = role === 'admin' ? `/api/blogs` : `/api/my-blogs`;
+      const url = role === 'admin' ? `/api/admin-blogs` : `/api/my-blogs`;
       const response = await fetch(withBasePath(url));
       if (response.ok) {
         const data = await response.json();
@@ -157,6 +157,7 @@ export default function BlogAuthorDashboard() {
       },
       publishedAt: new Date().toISOString(),
       readTime: calculateReadTime(newBlog.content),
+      approved: (session?.user?.role == "admin"),
       tags: newBlog.tags
         .split(",")
         .map((tag) => tag.trim())

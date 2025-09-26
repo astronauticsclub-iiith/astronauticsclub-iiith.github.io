@@ -488,8 +488,8 @@ export default function AdminDashboard() {
         ...(newEvent.image && { image: newEvent.image }),
       };
 
-      console.log("Creating event with data:", eventData);
-      console.log("Registration link value:", newEvent.registrationLink);
+      // console.log("Creating event with data:", eventData);
+      // console.log("Registration link value:", newEvent.registrationLink);
 
       const response = await fetch(withBasePath(`/api/events/admin`), {
         method: "POST",
