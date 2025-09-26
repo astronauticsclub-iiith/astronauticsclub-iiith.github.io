@@ -118,7 +118,6 @@ export async function POST(request: NextRequest) {
       "content",
       "author",
       "publishedAt",
-      "approved",
       "readTime",
       "tags",
     ];

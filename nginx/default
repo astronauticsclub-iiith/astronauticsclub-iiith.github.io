@@ -1,6 +1,7 @@
 server {
     listen 80;
 
+    client_max_body_size 10m;
     location /astronautics/uploads/ {
         alias /var/data/astronautics/;
     }

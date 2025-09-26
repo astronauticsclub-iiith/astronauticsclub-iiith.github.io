@@ -45,7 +45,7 @@ export default function BlogPreview({
 }: BlogPreviewProps) {
   const { openPreview } = useImagePreview();
   const [likes] = useState(0);
-  const [views] = useState(123);
+  const [views] = useState(0);
 
   const handleImageClick = (imageSrc: string) => {
     openPreview(withUploadPath(imageSrc), title || "Blog image");

@@ -332,21 +332,33 @@ export default function BlogAuthorDashboard() {
     setShowImageUploader(false);
   };
 
-  const removeImageFromBlog = (imagePath: string) => {
-    if (activeTab === "write") {
-      const updatedImages =
-        newBlog.images?.filter((img) => img !== imagePath) || [];
-      setNewBlog({
-        ...newBlog,
-        images: updatedImages,
+  const removeImageFromBlog = async (imagePath: string) => {
+    try{
+      const response = await fetch(withBasePath(`/api/upload?filename=${encodeURIComponent(imagePath)}`), {
+        method: "DELETE",
       });
-    } else if (editingBlog) {
-      const updatedImages =
-        editingBlog.images?.filter((img) => img !== imagePath) || [];
-      setEditingBlog({
-        ...editingBlog,
-        images: updatedImages,
-      });
+
+      if (response.ok){
+        if (activeTab === "write") {
+          const updatedImages =
+            newBlog.images?.filter((img) => img !== imagePath) || [];
+          setNewBlog({
+            ...newBlog,
+            images: updatedImages,
+          });
+        } 
+        else if (editingBlog) {
+          const updatedImages =
+            editingBlog.images?.filter((img) => img !== imagePath) || [];
+          setEditingBlog({
+            ...editingBlog,
+            images: updatedImages,
+          });
+        }
+      }
+    } catch(err) {
+        console.error(err);
+        showError("Failed to delete image");
     }
   };
 
