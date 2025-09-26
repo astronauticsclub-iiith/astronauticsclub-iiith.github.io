@@ -8,6 +8,7 @@ import { ChevronLeft } from "lucide-react";
 import GlitchText from "./GlitchText";
 import { withBasePath, withUploadPath, safeKey } from "../common/HelperFunction";
 import {User, Star, Constellations} from "../../types/user"
+import Loader from "@/components/ui/Loader";
 
 function mergeMemberIntoStar(star: Star, member: User): Star {
   return {
@@ -57,6 +58,7 @@ const AstronautBriefing: React.FC = () => {
   const [hoveredStar, setHoveredStar] = useState<string | null>(null);
   const [stats, setStats] = useState({ missions: 0, distance: "0.0K" });
   const [members, setMembers] = useState<User[]>([]);
+  const [loading, setLoading] = useState(true);
 
   // Canvas state
   const scaleRef = useRef(0.8);
@@ -83,6 +85,7 @@ const AstronautBriefing: React.FC = () => {
   useEffect(() => {
     const loadMembers = async () => {
       try {
+        setLoading(true);
         await new Promise((resolve) => setTimeout(resolve, 800));
         const response = await fetch(withBasePath(`/api/team`));
 
@@ -95,6 +98,8 @@ const AstronautBriefing: React.FC = () => {
       } catch (error) {
         console.error("Error loading team members:", error);
         setMembers([]);
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -448,6 +453,14 @@ const AstronautBriefing: React.FC = () => {
       canvas.removeEventListener('wheel', handleWheel);
     };
   }, [drawScene]);
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-background flex items-center justify-center">
+        <Loader fullscreen />
+      </div>
+    );
+  }
 
   return (
     <div className="bg-background flex">
