@@ -100,7 +100,7 @@ const BlogPostPage = () => {
   };
 
   const handleImageClick = (imageSrc: string) => {
-    openPreview(withUploadPath(imageSrc), blog?.title || "Blog image");
+    openPreview(imageSrc, blog?.title || "Blog image");
   };
 
   const formatDate = (dateString: string) => {
@@ -272,7 +272,7 @@ const BlogPostPage = () => {
                 unoptimized={!!blog.author.avatar}
                 onClick={() =>
                   handleImageClick(
-                    blog.author.avatar || `/default-avatar.svg`
+                    blog.author.avatar? withUploadPath(blog.author.avatar) : withBasePath(`/default-avatar.svg`)
                   )
                 }
               />

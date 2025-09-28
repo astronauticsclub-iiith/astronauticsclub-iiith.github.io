@@ -48,7 +48,7 @@ export default function BlogPreview({
   const [views] = useState(0);
 
   const handleImageClick = (imageSrc: string) => {
-    openPreview(withUploadPath(imageSrc), title || "Blog image");
+    openPreview(imageSrc, title || "Blog image");
   };
 
   const formatDate = (dateString: string) => {
@@ -178,7 +178,7 @@ export default function BlogPreview({
                 height={64}
                 unoptimized={!!author.avatar}
                 className="w-full h-full object-cover cursor-pointer cursor-open"
-                onClick={() => handleImageClick(author.avatar || `/default-avatar.svg`)}
+                onClick={() => handleImageClick(author.avatar? withUploadPath(author.avatar) : withBasePath(`/default-avatar.svg`))}
               />
             </div>
 
