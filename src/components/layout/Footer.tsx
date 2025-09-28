@@ -154,7 +154,7 @@ const Footer: React.FC = () => {
 
                 {/* Discord icon */}
                 <a
-                  href="https://discord.gg/JyWZVJ8keb"
+                  href="https://discord.gg/3aYA9yMRUM"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
