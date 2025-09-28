@@ -178,6 +178,7 @@ const ImagePreview = ({ src, alt, isOpen, onClose }: ImagePreviewProps) => {
                 quality={95}
                 onLoad={handleImageLoad}
                 style={{ opacity: isLoading ? 0 : 1 }}
+                unoptimized
               />
             </div>
           </motion.div>
