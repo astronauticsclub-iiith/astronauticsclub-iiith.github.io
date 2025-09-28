@@ -154,6 +154,7 @@ export default function BlogAuthorDashboard() {
       content: newBlog.content,
       author: {
         email: session?.user?.email || "",
+        name: session?.user?.name || "",
       },
       publishedAt: new Date().toISOString(),
       readTime: calculateReadTime(newBlog.content),
