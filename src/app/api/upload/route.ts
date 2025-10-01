@@ -4,6 +4,19 @@ import path from "path";
 import { writeFile, mkdir } from "fs/promises";
 import { requireWriter } from '@/lib/auth';
 
+// Function to generate a unique filename
+const generateUniqueFilename = (originalFilename: string): string => {
+  const timestamp = Date.now();
+  const randomString = Math.random().toString(36).substring(2, 12);
+  const extension = path.extname(originalFilename);
+  const safeName = path
+    .basename(originalFilename, extension)
+    .replace(/[^a-zA-Z0-9]/g, "-")
+    .toLowerCase();
+
+  return `${safeName}-${timestamp}-${randomString}${extension}`;
+};
+
 // Load environment variables
 const MAX_FILE_SIZE = parseInt(process.env.MAX_FILE_SIZE || "10485760", 10); // Default 10MB
 const ALLOWED_FILE_TYPES = (
@@ -19,19 +32,6 @@ const ensureUploadDirectory = async () => {
   } catch (error) {
     console.error("Failed to create upload directory:", error);
   }
-};
-
-// Function to generate a unique filename
-const generateUniqueFilename = (originalFilename: string): string => {
-  const timestamp = Date.now();
-  const randomString = Math.random().toString(36).substring(2, 12);
-  const extension = path.extname(originalFilename);
-  const safeName = path
-    .basename(originalFilename, extension)
-    .replace(/[^a-zA-Z0-9]/g, "-")
-    .toLowerCase();
-
-  return `${safeName}-${timestamp}-${randomString}${extension}`;
 };
 
 // Handle GET request to list files or get a specific file

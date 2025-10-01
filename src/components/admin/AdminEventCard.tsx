@@ -203,7 +203,7 @@ const AdminEventCard: React.FC<AdminEventCardProps> = ({
                 type="text"
                 value={editedEvent.title || ""}
                 onChange={(e) => updateEditedEvent("title", e.target.value)}
-                className="w-full bg-background border-2 border-white p-2 text-white font-medium text-sm transition-all duration-200 focus:scale-[1.02] focus:ring-2 focus:ring-white"
+                className="w-full bg-background border-2 border-white p-2 text-white font-medium text-sm transition-all duration-200 focus:scale-[1.02] focus:ring-2 focus:ring-white uppercase"
                 placeholder="Event title..."
                 disabled={isSubmitting}
                 required
