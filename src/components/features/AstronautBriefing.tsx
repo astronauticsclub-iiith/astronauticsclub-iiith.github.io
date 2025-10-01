@@ -55,6 +55,7 @@ const AstronautBriefing: React.FC = () => {
   const [starDetailsVisible, setStarDetailsVisible] = useState(false);
   const [selectedStar, setSelectedStar] = useState<Star | null>(null);
   const [constellations, setConstellations] = useState<Constellations>({});
+  const [baseConstellations, setBaseConstellations] = useState<Constellations>({});
   const [hoveredStar, setHoveredStar] = useState<string | null>(null);
   const [stats, setStats] = useState({ missions: 0, distance: "0.0K" });
   const [members, setMembers] = useState<User[]>([]);
@@ -69,16 +70,6 @@ const AstronautBriefing: React.FC = () => {
   const isRotatingRef = useRef(false);
   const dragStartRef = useRef({ x: 0, y: 0 });
   const lastRotationRef = useRef({ x: 0, y: 0 });
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setStats({
-        missions: Math.floor(Math.random() * 20) + 5,
-        distance: `${(Math.random() * 100).toFixed(1)}K`,
-      });
-    }, 50);
-    return () => clearInterval(interval);
-  }, []);
 
 
   // Fetching all the member info from the database
@@ -106,6 +97,34 @@ const AstronautBriefing: React.FC = () => {
     loadMembers();
   }, []);
 
+  useEffect(() => {
+    const loadConstellations = async () => {
+      try{
+        const response = await fetch(withUploadPath(`/constellation.json`))
+        const data: Constellations = await response.json();
+        setBaseConstellations(data);
+      } catch(error) {
+        console.error("Error loading constellation data:", error);
+      };
+    }
+  
+    loadConstellations();
+  }, []);
+
+  useEffect(() => {
+    setConstellations(mergeJSON(baseConstellations, members));
+  }, [baseConstellations, members]);
+
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setStats({
+        missions: Math.floor(Math.random() * 20) + 5,
+        distance: `${(Math.random() * 100).toFixed(1)}K`,
+      });
+    }, 50);
+    return () => clearInterval(interval);
+  }, []);
 
   const getCanvasMousePosition = useCallback(
     (clientX: number, clientY: number) => {
@@ -277,19 +296,6 @@ const AstronautBriefing: React.FC = () => {
 
     setCanvasSize();
 
-    // Load constellation data  
-    fetch(withUploadPath(`/constellation.json`))
-      .then((response) => response.json())
-      .then((data: Constellations) => {
-        setConstellations(data);
-      })
-      .catch((error) => {
-        console.error("Error loading constellation data:", error);
-      });
-
-    // Merge with database data
-    setConstellations(mergeJSON(constellations, members));
-
     // Handle resizing
     const handleResize = () => {
       setCanvasSize();
@@ -300,7 +306,7 @@ const AstronautBriefing: React.FC = () => {
     return () => {
       window.removeEventListener("resize", handleResize);
     };
-  }, [constellations, members, drawScene]);
+  }, [drawScene]);
 
   useEffect(() => {
     if (Object.keys(constellations).length > 0) {
