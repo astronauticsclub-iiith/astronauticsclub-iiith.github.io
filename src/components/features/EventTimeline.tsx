@@ -145,10 +145,7 @@ const EventTimelineItem: React.FC<{ event: Event; index: number }> = ({
             } bg-background border-b-2 sm:border-b-3 md:border-b-4 p-3 sm:p-4 text-center`}
           >
             <div className="text-lg sm:text-xl md:text-2xl font-black text-white">
-              {formattedDate.day}
-            </div>
-            <div className="text-xs sm:text-sm font-bold text-white uppercase tracking-wider">
-              {formattedDate.month} {formattedDate.year}
+              {formattedDate.day} {formattedDate.month} {formattedDate.year}
             </div>
           </div>
 

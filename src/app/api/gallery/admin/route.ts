@@ -1,4 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
+import { connectToDatabase } from "@/lib/mongodb";
+import Event from "@/models/Event";
 import { promises as fs } from "fs";
 import path from "path";
 import { Logger } from "@/lib/logger";
@@ -247,6 +249,17 @@ export async function PUT(request: NextRequest) {
       }
     }
 
+    // Update in the events database (images may be linked to it)
+    try {
+      await connectToDatabase();
+      await Event.updateMany(
+        {image: path.join("/gallery", currentCategory, currentFilename)},
+        {$set: { image: path.join("/gallery", newCategory, newFilename) }},
+      );
+    } catch {
+      return  NextResponse.json({ error: "Failed to update the corresponding linked events" }, { status: 404 });
+    }
+
     // Move/rename the file
     await fs.rename(oldPath, newPath);
 
@@ -320,6 +333,17 @@ export async function DELETE(request: NextRequest) {
       await fs.access(filePath);
     } catch {
       return NextResponse.json({ error: "File not found" }, { status: 404 });
+    }
+
+    // Update in the events database (images may be linked to it)
+    try {
+      await connectToDatabase();
+      await Event.updateMany(
+        {image: path.join("/gallery", category, filename)},
+        {$set: { image: "" }},
+      );
+    } catch {
+      return  NextResponse.json({ error: "Failed to update the corresponding linked events" }, { status: 404 });
     }
 
     // Delete the file
