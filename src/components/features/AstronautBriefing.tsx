@@ -716,7 +716,7 @@ const AstronautBriefing: React.FC = () => {
                         className="border-2 border-white p-3 bg-background/30"
                       >
                         <div className="text-xs font-bold uppercase tracking-wide text-[#e0e0e0] mb-1">
-                          SPACE MISSIONS
+                          INITIATIVES LED
                         </div>
                         <div className="text-2xl font-black text-white">
                           <GlitchText text={String(stats.missions)} />
@@ -729,7 +729,7 @@ const AstronautBriefing: React.FC = () => {
                         className="border-2 border-white p-3 bg-background/30"
                       >
                         <div className="text-xs font-bold uppercase tracking-wide text-[#e0e0e0] mb-1">
-                          LIGHT YEARS TRAVELED
+                          HOURS IN THE LAB
                         </div>
                         <div className="text-2xl font-black text-white">
                           <GlitchText text={stats.distance} />

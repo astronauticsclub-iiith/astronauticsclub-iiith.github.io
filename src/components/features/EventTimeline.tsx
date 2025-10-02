@@ -231,14 +231,14 @@ const EventTimelineItem: React.FC<{ event: Event; index: number }> = ({
                   </span>
                 </div>
               )}
-              {event.participants && (
+              {(event.participants && event.participants>0)? (
                 <div className="flex items-start gap-2 text-[#e0e0e0]">
                   <Users size={16} className="mt-0.5 flex-shrink-0" />
                   <span className="font-medium">
                     {event.participants} participants
                   </span>
                 </div>
-              )}
+              ) : ""}
 
               {event.organizer && (
                 <div className="text-xs text-[#e0e0e0] mt-3 border-t-2 border-white pt-2">

@@ -125,7 +125,7 @@ const AdminEventCard: React.FC<AdminEventCardProps> = ({
       time: event.time || "",
       location: event.location || "",
       type: event.type,
-      participants: event.participants,
+      participants: event.participants || 0,
       organizer: event.organizer || "",
       registrationLink: event.registrationLink || "",
       status: event.status,
@@ -527,12 +527,12 @@ const AdminEventCard: React.FC<AdminEventCardProps> = ({
                 <span className="uppercase font-medium">{event.type}</span>
               </div>
 
-              {event.participants && (
+              {(event.participants && event.participants>0)? (
                 <div className="flex items-center gap-2 text-[#e0e0e0] text-xs sm:text-sm">
                   <Users size={14} />
                   <span>{event.participants} participants</span>
                 </div>
-              )}
+              ): ""}
 
               {event.organizer && (
                 <div className="text-[#e0e0e0] text-xs sm:text-sm">

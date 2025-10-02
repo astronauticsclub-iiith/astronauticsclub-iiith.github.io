@@ -24,7 +24,7 @@ const WhimsyContext = createContext<WhimsyContextType | undefined>(undefined);
 const getInitialWhimsyMode = (): boolean => {
   if (typeof window === "undefined") return false;
   try {
-    const savedMode = localStorage.getItem("whimsyMode");
+    const savedMode = sessionStorage.getItem("whimsyMode");
     return savedMode !== null ? JSON.parse(savedMode) : false;
   } catch (error) {
     console.error("Error loading whimsy mode from localStorage:", error);
@@ -49,9 +49,9 @@ export const WhimsyProvider: React.FC<{ children: React.ReactNode }> = ({
   useEffect(() => {
     if (!isLoaded) return;
     try {
-      localStorage.setItem("whimsyMode", JSON.stringify(whimsyMode));
+      sessionStorage.setItem("whimsyMode", JSON.stringify(whimsyMode));
     } catch (error) {
-      console.error("Error saving whimsy mode to localStorage:", error);
+      console.error("Error saving whimsy mode to sessionStorage:", error);
     }
   }, [whimsyMode, isLoaded]);
 
