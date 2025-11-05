@@ -226,9 +226,8 @@ const BlogsPage = () => {
         >
           <div className="flex items-center gap-6 mb-6">
             <div
-              className={`w-16 h-16 flex items-center justify-center ${
-                whimsyMode ? "telescope-whimsy" : ""
-              }`}
+              className={`w-16 h-16 flex items-center justify-center ${whimsyMode ? "telescope-whimsy" : ""
+                }`}
             >
               <Image
                 src={withBasePath(`/icons/telescope.svg`)}
@@ -289,9 +288,8 @@ const BlogsPage = () => {
               Filters
               <ChevronDown
                 size={16}
-                className={`transition-transform ${
-                  showFilters ? "rotate-180" : ""
-                }`}
+                className={`transition-transform ${showFilters ? "rotate-180" : ""
+                  }`}
               />
             </button>
 
@@ -308,9 +306,8 @@ const BlogsPage = () => {
                 </span>
                 <ChevronDown
                   size={16}
-                  className={`transition-transform ${
-                    showSortDropdown ? "rotate-180" : ""
-                  }`}
+                  className={`transition-transform ${showSortDropdown ? "rotate-180" : ""
+                    }`}
                 />
               </button>
               <AnimatePresence>
@@ -327,11 +324,10 @@ const BlogsPage = () => {
                         handleSortChange("latest");
                         setShowSortDropdown(false);
                       }}
-                      className={`w-full flex items-center gap-2 px-4 py-3 text-left font-medium hover:bg-white hover:text-background transition-colors ${
-                        filters.sortBy === "latest"
-                          ? "bg-white text-background"
-                          : "text-white"
-                      }`}
+                      className={`w-full flex items-center gap-2 px-4 py-3 text-left font-medium hover:bg-white hover:text-background transition-colors ${filters.sortBy === "latest"
+                        ? "bg-white text-background"
+                        : "text-white"
+                        }`}
                     >
                       <Zap size={18} /> Latest
                     </button>
@@ -340,11 +336,10 @@ const BlogsPage = () => {
                         handleSortChange("oldest");
                         setShowSortDropdown(false);
                       }}
-                      className={`w-full flex items-center gap-2 px-4 py-3 text-left font-medium hover:bg-white hover:text-background transition-colors ${
-                        filters.sortBy === "oldest"
-                          ? "bg-white text-background"
-                          : "text-white"
-                      }`}
+                      className={`w-full flex items-center gap-2 px-4 py-3 text-left font-medium hover:bg-white hover:text-background transition-colors ${filters.sortBy === "oldest"
+                        ? "bg-white text-background"
+                        : "text-white"
+                        }`}
                     >
                       <ArrowUpAZ size={18} /> Oldest
                     </button>
@@ -353,11 +348,10 @@ const BlogsPage = () => {
                         handleSortChange("popular");
                         setShowSortDropdown(false);
                       }}
-                      className={`w-full flex items-center gap-2 px-4 py-3 text-left font-medium hover:bg-white hover:text-background transition-colors ${
-                        filters.sortBy === "popular"
-                          ? "bg-white text-background"
-                          : "text-white"
-                      }`}
+                      className={`w-full flex items-center gap-2 px-4 py-3 text-left font-medium hover:bg-white hover:text-background transition-colors ${filters.sortBy === "popular"
+                        ? "bg-white text-background"
+                        : "text-white"
+                        }`}
                     >
                       <Eye size={18} /> Most Popular
                     </button>
@@ -366,11 +360,10 @@ const BlogsPage = () => {
                         handleSortChange("most-liked");
                         setShowSortDropdown(false);
                       }}
-                      className={`w-full flex items-center gap-2 px-4 py-3 text-left font-medium hover:bg-white hover:text-background transition-colors ${
-                        filters.sortBy === "most-liked"
-                          ? "bg-white text-background"
-                          : "text-white"
-                      }`}
+                      className={`w-full flex items-center gap-2 px-4 py-3 text-left font-medium hover:bg-white hover:text-background transition-colors ${filters.sortBy === "most-liked"
+                        ? "bg-white text-background"
+                        : "text-white"
+                        }`}
                     >
                       <ThumbsUp size={18} /> Most Liked
                     </button>
@@ -399,11 +392,10 @@ const BlogsPage = () => {
                       <button
                         key={tag}
                         onClick={() => handleTagToggle(tag)}
-                        className={`px-4 py-2 border-2 border-white transition-colors font-medium text-sm ${
-                          filters.tags.includes(tag)
-                            ? "bg-white text-background shadow-[3px_3px_0px_0px_rgba(128,128,128,0.5)] -translate-y-1"
-                            : "text-white hover:bg-white hover:text-background hover:shadow-[3px_3px_0px_0px_rgba(128,128,128,0.5)] hover:-translate-y-0.5"
-                        } transform transition-transform`}
+                        className={`px-4 py-2 border-2 border-white transition-colors font-medium text-sm ${filters.tags.includes(tag)
+                          ? "bg-white text-background shadow-[3px_3px_0px_0px_rgba(128,128,128,0.5)] -translate-y-1"
+                          : "text-white hover:bg-white hover:text-background hover:shadow-[3px_3px_0px_0px_rgba(128,128,128,0.5)] hover:-translate-y-0.5"
+                          } transform transition-transform`}
                       >
                         {tag}
                       </button>
@@ -498,26 +490,32 @@ const BlogsPage = () => {
         {/* Blogs Grid Layout */}
         {filteredAndSortedBlogs.length > 0 ? (
           <motion.div
+            layout
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.6 }}
             className="grid grid-cols-1 lg:grid-cols-2 gap-12 md:gap-8"
           >
-            {filteredAndSortedBlogs.map((blog, index) => (
-              <motion.div
-                key={blog.id}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{
-                  opacity: 1,
-                  y: 0,
-                  transition: { delay: 0.1 * index, duration: 0.5 },
-                }}
-                whileHover={{ y: -8, transition: { duration: 0.2 } }}
-                className="transform transition-transform"
-              >
-                <BlogCard blog={blog} />
-              </motion.div>
-            ))}
+            <AnimatePresence mode="popLayout">
+              {filteredAndSortedBlogs.map((blog, index) => (
+                <motion.div
+                  layout
+                  key={blog.id}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{
+                    opacity: 1,
+                    y: 0,
+                    transition: { delay: 0.1 * index, duration: 0.5 },
+                  }}
+                  exit={{ opacity: 0, y: -20 }}
+                  transition={{ delay: 0.05 * index, duration: 0.4 }}
+                  whileHover={{ y: -8, transition: { duration: 0.2 } }}
+                  className="transform transition-transform"
+                >
+                  <BlogCard blog={blog} />
+                </motion.div>
+              ))}
+            </AnimatePresence>
           </motion.div>
         ) : (
           <motion.div
