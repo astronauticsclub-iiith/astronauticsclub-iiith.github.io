@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { useSession, signOut } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
@@ -333,57 +333,55 @@ export default function BlogAuthorDashboard() {
     setShowImageUploader(false);
   };
 
-  const removeImageFromBlog = async (imagePath: string) => {
-    try{
+  const insertImageReference = useCallback((imagePath: string) => {
+    const imageMarkdown = `\n![Image](${imagePath})\n`;
+    if (activeTab === "write") {
+      setNewBlog((prev) => ({
+        ...prev,
+        content: prev.content + imageMarkdown,
+      }));
+    } else {
+      setEditingBlog((prev) =>
+        prev ? { ...prev, content: prev.content + imageMarkdown } : null
+      );
+    }
+  }, [activeTab]);
+
+  const copyImageUrl = useCallback((imagePath: string) => {
+    navigator.clipboard.writeText(imagePath);
+    showSuccess("Image URL copied to clipboard!");
+  }, [showSuccess]);
+
+  const removeImageFromBlog = useCallback(async (imagePath: string) => {
+    try {
       const response = await fetch(withBasePath(`/api/upload?filename=${encodeURIComponent(imagePath)}`), {
         method: "DELETE",
       });
 
-      if (response.ok){
+      if (response.ok) {
         if (activeTab === "write") {
-          const updatedImages =
-            newBlog.images?.filter((img) => img !== imagePath) || [];
-          setNewBlog({
-            ...newBlog,
-            images: updatedImages,
-          });
-        } 
-        else if (editingBlog) {
-          const updatedImages =
-            editingBlog.images?.filter((img) => img !== imagePath) || [];
-          setEditingBlog({
-            ...editingBlog,
-            images: updatedImages,
-          });
+          setNewBlog((prev) => ({
+            ...prev,
+            images: prev.images?.filter((img) => img !== imagePath) || [],
+          }));
+        } else {
+          setEditingBlog((prev) =>
+            prev
+              ? {
+                  ...prev,
+                  images: prev.images?.filter((img) => img !== imagePath) || [],
+                }
+              : null
+          );
         }
       }
-    } catch(err) {
-        console.error(err);
-        showError("Failed to delete image");
+    } catch (err) {
+      console.error(err);
+      showError("Failed to delete image");
     }
-  };
+  }, [activeTab, showError]); // Depends on activeTab and showError
 
-  const insertImageReference = (imagePath: string) => {
-    const imageMarkdown = `\n![Image](${imagePath})\n`;
-    if (activeTab === "write") {
-      setNewBlog({
-        ...newBlog,
-        content: newBlog.content + imageMarkdown,
-      });
-    } else if (editingBlog) {
-      setEditingBlog({
-        ...editingBlog,
-        content: editingBlog.content + imageMarkdown,
-      });
-    }
-  };
-
-  const copyImageUrl = (imagePath: string) => {
-    navigator.clipboard.writeText(imagePath);
-    showSuccess("Image URL copied to clipboard!");
-  };
-
-  const UploadedImagesPanel = () => {
+  const UploadedImagesPanel = useCallback(() => {
     const currentImages =
       activeTab === "write" ? newBlog.images || [] : editingBlog?.images || [];
 
@@ -515,7 +513,14 @@ export default function BlogAuthorDashboard() {
         )}
       </motion.div>
     );
-  };
+  }, [
+    activeTab,
+    newBlog.images,
+    editingBlog?.images,
+    insertImageReference,
+    copyImageUrl,
+    removeImageFromBlog,
+  ]);
 
   const formatCount = (num: number) => {
     if (num >= 1000000) return (num / 1000000).toFixed(1) + "M";
