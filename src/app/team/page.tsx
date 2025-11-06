@@ -70,19 +70,19 @@ const TeamPage: React.FC = () => {
       (member.designations && member.designations.includes(filter))
   );
 
-  if (loading) {
-    return (
-      <div className="min-h-screen bg-background flex items-center justify-center">
-        <Loader fullscreen />
-      </div>
-    );
-  }
-
-  // Desktop whimsy mode astronaut briefing view
+    // Desktop whimsy mode astronaut briefing view
   if (whimsyMode && isDesktop) {
     return (
       <div className="min-h-screen bg-background pt-24">
         <AstronautBriefing />
+      </div>
+    );
+  }
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-background flex items-center justify-center">
+        <Loader fullscreen />
       </div>
     );
   }
