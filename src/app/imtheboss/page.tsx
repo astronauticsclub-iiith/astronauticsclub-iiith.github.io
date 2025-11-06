@@ -756,7 +756,8 @@ export default function AdminDashboard() {
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: 0.1 * index, duration: 0.4 }}
-                    className="border-2 border-white p-3 sm:p-4 backdrop-blur-sm flex flex-col lg:flex-row justify-between items-start lg:items-center gap-3 sm:gap-4 hover:shadow-lg hover:shadow-white/5 transition-all duration-200 hover:scale-[1.01]"
+                    className="border-2 border-white p-3 sm:p-4 backdrop-blur-sm flex flex-col lg:flex-row justify-between items-start lg:items-center gap-3 sm:gap-4 hover:shadow-lg hover:shadow-white/5 transition-all duration-200 hover:scale-[1.01] relative"
+                    style={{ zIndex: users.length - index }}
                   >
                     <div className="flex items-center gap-3 sm:gap-4 flex-1 w-full lg:w-auto">
                       <div className="w-10 h-10 sm:w-12 sm:h-12 border-2 border-white overflow-hidden bg-white transition-transform duration-200 hover:scale-105">
