@@ -2,6 +2,7 @@
 
 import React, { createContext, useContext, useState, useEffect } from "react";
 import dynamic from "next/dynamic";
+import { usePathname } from "next/navigation";
 
 // Import WhimsyMouse with no SSR to avoid hydration errors
 const WhimsyMouse = dynamic(
@@ -40,6 +41,10 @@ export const WhimsyProvider: React.FC<{ children: React.ReactNode }> = ({
   const [whimsyMode, setWhimsyMode] = useState<boolean>(getInitialWhimsyMode);
   const [isLoaded, setIsLoaded] = useState<boolean>(false);
 
+  const pathname = usePathname();
+  const isAboutPage = pathname.startsWith("/about"); 
+  const isWhimsyActive = whimsyMode && !isAboutPage;
+
   // Mark as loaded after hydration
   useEffect(() => {
     setIsLoaded(true);
@@ -58,12 +63,12 @@ export const WhimsyProvider: React.FC<{ children: React.ReactNode }> = ({
   // Apply the whimsy class to the body element
   useEffect(() => {
     if (!isLoaded) return;
-    if (whimsyMode) {
+    if (isWhimsyActive) {
       document.body.classList.add("whimsy-mode");
     } else {
       document.body.classList.remove("whimsy-mode");
     }
-  }, [whimsyMode, isLoaded]);
+  }, [isWhimsyActive, isLoaded]);
 
   // Toggle function
   const toggleWhimsyMode = () => {
@@ -82,7 +87,7 @@ export const WhimsyProvider: React.FC<{ children: React.ReactNode }> = ({
     <WhimsyContext.Provider value={value}>
       {children}
       {/* Only render WhimsyMouse when loaded */}
-      {isLoaded && <WhimsyMouse />}
+      {isLoaded && isWhimsyActive && <WhimsyMouse />}
     </WhimsyContext.Provider>
   );
 };
