@@ -18,7 +18,7 @@ import {
 import { Event } from "@/types/event";
 import Image from "next/image";
 import { useImagePreview } from "@/context/ImagePreviewContext";
-import { withUploadPath } from "../common/HelperFunction"
+import { withUploadPath } from "../common/HelperFunction";
 
 interface EventTimelineProps {
   events: Event[];
@@ -161,10 +161,13 @@ const EventTimelineItem: React.FC<{ event: Event; index: number }> = ({
                 alt={event.title}
                 unoptimized
                 fill
+                loading="lazy"
+                priority={index < 3} // this will load first 3 images immediately
                 sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
                 className="transition-transform duration-300 hover:scale-105 cursor-pointer object-cover"
                 onClick={() =>
-                  event.image && openPreview(withUploadPath(event.image), event.title)
+                  event.image &&
+                  openPreview(withUploadPath(event.image), event.title)
                 }
               />
             </div>
@@ -231,14 +234,16 @@ const EventTimelineItem: React.FC<{ event: Event; index: number }> = ({
                   </span>
                 </div>
               )}
-              {(event.participants && event.participants>0)? (
+              {event.participants && event.participants > 0 ? (
                 <div className="flex items-start gap-2 text-[#e0e0e0]">
                   <Users size={16} className="mt-0.5 flex-shrink-0" />
                   <span className="font-medium">
                     {event.participants} participants
                   </span>
                 </div>
-              ) : ""}
+              ) : (
+                ""
+              )}
 
               {event.organizer && (
                 <div className="text-xs text-[#e0e0e0] mt-3 border-t-2 border-white pt-2">
