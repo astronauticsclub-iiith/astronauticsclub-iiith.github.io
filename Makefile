@@ -3,9 +3,11 @@
 
 SERVER_USER=ubuntu
 SERVER_HOST=iiit.example.edu
-SERVER_PATH=/var/www/astronautics-club
-BACKUP_PATH=/var/backups/astronautics-club
-UPLOADS_PATH=$(SERVER_PATH)/public/uploads
+SERVER_PATH=/var/data/astronautics
+BACKUP_PATH=/var/data/astronautics-backup
+AVATARS_UPLOAD_PATH=$(SERVER_PATH)/avatars
+BLOG_IMAGES_UPLOAD_PATH=$(SERVER_PATH)/blogs
+GALLERY_UPLOAD_PATH=$(SERVER_PATH)/gallery
 LOGS_PATH=$(SERVER_PATH)/logs
 LOCAL_BACKUP_DIR=./backups
 LOCAL_UPLOADS_DIR=./public/uploads
@@ -19,51 +21,65 @@ help:
 	@echo "Astronautics Club Website Makefile"
 	@echo ""
 	@echo "Core Commands:"
-	@echo "  make build                 - Build production files (e.g., Next.js/Vite build)"
+	@echo "  make build                 - Build production files (Next.js build)"
 	@echo "  make deploy                - Deploy build to server"
-	@echo "  make restart               - Restart NGINX service"
-	@echo "  make status                - Check NGINX service status"
+	@echo "  make restart               - Restart pm2, NGINX service"
+	@echo "  make status                - Check pm2, NGINX service status"
 	@echo ""
 	@echo "Backup & Restore:"
-	@echo "  make backup-uploads        - Backup uploads from server"
-	@echo "  make restore-uploads FILE=path/to/zip - Restore uploads to server"
-	@echo "  make backup-logs           - Backup logs from server"
-	@echo "  make restore-logs FILE=path/to/zip    - Restore logs to server"
+	@echo "  make backup-uploads                               - Backup uploads from server"
+	@echo "  make restore-uploads FILE=path/to/zip  - Restore uploads to server"
+	@echo "  make backup-logs                                     - Backup logs from server"
+	@echo "  make restore-logs FILE=path/to/zip         - Restore logs to server"
 	@echo ""
 	@echo "Maintenance:"
 	@echo "  make clean-backups         - Delete local backup files"
-	@echo "  make init-project          - Setup local folders"
+	@echo "  make init-backup          - Setup local folders for backup"
 	@echo "  make rebuild               - Clean and redeploy from scratch"
 
 # === BUILD ===
 build:
 	@echo "Building frontend for production..."
+	npm install --production
 	npm run build
 	@echo "Build completed."
 
 # === DEPLOYMENT ===
 deploy:
-	@echo "Deploying to server $(SERVER_HOST)..."
-	rsync -avz --delete --exclude 'node_modules' --exclude '.git' ./ $(SERVER_USER)@$(SERVER_HOST):$(SERVER_PATH)
-	@echo "Restarting NGINX..."
-	ssh $(SERVER_USER)@$(SERVER_HOST) 'sudo systemctl restart nginx'
-	@echo "Deployment complete! Visit http://$(SERVER_HOST)"
+	@echo "Building the project..."
+	make build
+	@echo "Deploying via pm2..."
+	pm2 restart astronautics || pm2 start ecosystem.config.js
+    pm2 save
+    @echo "Deployment completed."
 
 # === SERVICE MANAGEMENT ===
 start:
-	@echo "Starting NGINX..."
-	ssh $(SERVER_USER)@$(SERVER_HOST) 'sudo systemctl start nginx'
+	@echo "Starting pm2, NGINX..."
+	pm2 restart astronautics || pm2 start ecosystem.config.js
+    pm2 save
+	sudo systemctl start nginx
 
 stop:
-	@echo "Stopping NGINX..."
-	ssh $(SERVER_USER)@$(SERVER_HOST) 'sudo systemctl stop nginx'
+	@echo "Stopping pm2, NGINX..."
+	sudo systemctl stop nginx
+	pm2 stop astronautics
+	
+restart: stop start
+
+logs:
+    @echo "Showing logs from NGINX, pm2"
+    cat /var/log/nginx/access.log
+    cat /var/log/nginx/error.log
+    pm2 logs astronautics
 
 restart:
 	@echo "Restarting NGINX..."
 	ssh $(SERVER_USER)@$(SERVER_HOST) 'sudo systemctl restart nginx'
 
 status:
-	ssh $(SERVER_USER)@$(SERVER_HOST) 'sudo systemctl status nginx'
+    @echo "pm2 status"
+	pm2 status astronautics
 
 # === BACKUPS ===
 backup-uploads:
