@@ -82,7 +82,7 @@ async function addAdminUser() {
       email: adminEmail,
       name: 'Mohit Singh',
       role: 'admin', // Set role to admin
-      bio: 'System Administrator and Content Creator'
+      bio: 'Web Dev Team'
     });
 
     const savedUser = await newUser.save();
