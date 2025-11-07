@@ -294,7 +294,7 @@ const BlogsShowcase = ({ className = "" }: BlogsShowcaseProps) => {
                 viewport={{ once: true }}
                 style={{ scrollSnapAlign: "start" }}
               >
-                <BlogCard blog={blog} variant="showcase" />
+                <BlogCard blog={blog} index={index} variant="showcase" />
               </motion.div>
             ))}
 

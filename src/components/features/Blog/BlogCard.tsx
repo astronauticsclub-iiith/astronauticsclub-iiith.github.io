@@ -9,12 +9,14 @@ import { withUploadPath } from "../../common/HelperFunction"
 
 interface BlogCardProps {
   blog: Blog;
+  index: number;
   variant?: "default" | "showcase";
   className?: string;
 }
 
 const BlogCard = ({
   blog,
+  index,
   variant = "default",
   className = "",
 }: BlogCardProps) => {
@@ -62,6 +64,8 @@ const BlogCard = ({
                 src={withUploadPath(blog.images[0])}
                 alt={blog.title}
                 unoptimized
+                loading="lazy"
+                priority={index<4}
                 width={320}
                 height={192}
                 className="w-full h-full object-cover"

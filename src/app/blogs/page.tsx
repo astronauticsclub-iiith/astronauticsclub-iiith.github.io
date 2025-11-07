@@ -515,7 +515,7 @@ const BlogsPage = () => {
                 whileHover={{ y: -8, transition: { duration: 0.2 } }}
                 className="transform transition-transform"
               >
-                <BlogCard blog={blog} />
+                <BlogCard blog={blog} index={index}/>
               </motion.div>
             ))}
           </motion.div>
