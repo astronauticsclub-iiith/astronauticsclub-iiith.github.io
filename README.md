@@ -1,29 +1,82 @@
 # Astronautics Club Website
 
-This is the code repo for the website of Astronautics Club, IIIT Hyderabad. The website is hosted at [https://clubs.iiit.ac.in/astronautics](https://clubs.iiit.ac.in/astronautics). You may use this repository as a reference for building your own projects.
+The website is hosted at [https://clubs.iiit.ac.in/astronautics](https://clubs.iiit.ac.in/astronautics). This is the repo for the website code of Astronautics Club, IIIT Hyderabad. We have open-sourced, so people may use this repository or components of it for building your own projects.
 
 ## 🛠️ Tech Stack
 
-### Frontend
-
-- **NextJs** - React framework with App Router
+- **NextJs** - React framework which allows to write Frontend and Backend together. Hence, supports both server-side rendering and static site generation.
 - **TypeScript** - JavaScript with type safety
 - **Tailwind CSS** - CSS framework
-
-### Database and Backend 
-
 - **MongoDB & Moongose** - For storing blogs, events, users, and gallery data
-- **Next.js API Routes** - Serverless API endpoints
-- **NextAuth.js** - For authentication (for club members to access with CAS)
 
 ### Deployment
 
 - **Nginx** - Reverse proxy and file aliasing
 - **PM2** - Process manager for Node.js applications
 - **Docker** - Containerization
-- **Docker Compose** - Multi-container orchestration
 
-We support both local development and Docker-based setups for ease of use. While Docker is not used in the current hosting setup, it is provided for convenience.
+We support both local development (PM2) and Docker-based setups for ease of use. While Docker is not used in the current website hosting setup due to limited server space, it is provided for convenience.
+
+### Local Development Setup
+
+1. **Clone the repository**
+
+   ```bash
+   git clone https://github.com/astronauticsclub-iiith/astronauticsclub-iiith.github.io.git
+   cd astronauticsclub-iiith.github.io
+   ```
+
+2. **Set up NextJS and MongoDB**
+
+   - **NextJS**: Ensure react is installed.
+   - **Local MongoDB**: Either install and start MongoDB locally
+   - **MongoDB Atlas**: Or create a free cluster and get connection string. 
+
+3. **Set up environment variables**
+
+   Create a `.env.local` file, Use the `.env.example` as reference. Do update the variable `NEXT_PUBLIC_BASE_PATH=`. Update the same in `.env.local`. Also run the script `node scripts/local-setup.js`.
+
+4. **Build the project and run the development server**
+
+   ```bash
+   make build
+   npm run dev
+   ```
+
+6. **Open your browser**
+
+   Navigate to [http://localhost:3000](http://localhost:3000)
+
+### Docker Development Setup
+
+1. **Navigate to Docker directory**
+
+   ```bash
+   cd Docker-deployment
+   ```
+2. **Create `.env.local` file** (same as above)
+3. **Build and start containers**
+
+   ```bash
+   docker-compose -f docker-compose.dev.yml up -d
+   ```
+
+   Or use the Makefile:
+
+   ```bash
+   make build-dev
+   make start-dev
+   ```
+4. **View logs**
+
+   ```bash
+   make logs-dev
+   ```
+5. **Stop containers**
+
+   ```bash
+   make stop-dev
+   ```
 
 
 ## 🌟 Pages
@@ -180,72 +233,6 @@ astronauticsclub-iiith.github.io/
 - **Node.js** 18+ and npm/yarn/pnpm
 - **MongoDB** database (local or cloud instance like MongoDB Atlas)
 - **Git** for version control
-
-### Local Development Setup
-
-1. **Clone the repository**
-
-   ```bash
-   git clone https://github.com/astronauticsclub-iiith/astronauticsclub-iiith.github.io.git
-   cd astronauticsclub-iiith.github.io
-   ```
-
-2. **Set up environment variables**
-
-   Create a `.env.local` file in the root directory. Use the `.env.example` as reference, do change `NEXT_PUBLIC_BASE_PATH=`.
-
-3. **Set up NextJS and MongoDB**
-
-   - **NextJS**: Ensure react is installed.
-   - **Local MongoDB**: Install and start MongoDB locally
-   - **MongoDB Atlas**: Create a free cluster and get connection string. Update the same in `.env.local`. Also run the script `node scripts/local-setup.js`.
-
-4. **Build the project**
-
-   ```bash
-   make build
-   ```
-
-5. **Run the development server**
-
-   ```bash
-   npm run dev
-   ```
-
-6. **Open your browser**
-
-   Navigate to [http://localhost:3000](http://localhost:3000)
-
-### Docker Development Setup
-
-1. **Navigate to Docker directory**
-
-   ```bash
-   cd Docker-deployment
-   ```
-2. **Create `.env.local` file** (same as above)
-3. **Build and start containers**
-
-   ```bash
-   docker-compose -f docker-compose.dev.yml up -d
-   ```
-
-   Or use the Makefile:
-
-   ```bash
-   make build-dev
-   make start-dev
-   ```
-4. **View logs**
-
-   ```bash
-   make logs-dev
-   ```
-5. **Stop containers**
-
-   ```bash
-   make stop-dev
-   ```
 
 
 ## 🔐 Authentication & Authorization
