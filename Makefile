@@ -126,7 +126,7 @@ clean-backups:
 	rm -rf $(LOCAL_BACKUP_DIR)/*.zip
 	@echo "All backups removed."
 
-init-project:
+init-backup:
 	@echo "Initializing local directories..."
 	mkdir -p $(LOCAL_BACKUP_DIR) $(LOCAL_UPLOADS_DIR) $(LOCAL_LOGS_DIR)
 	@echo "Done."
