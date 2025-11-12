@@ -35,10 +35,11 @@ help:
 	@echo "  make rebuild               - Clean and redeploy from scratch"
 
 # === INSTALL DEPENDECY ===
-install-dependancies:
-	# install node, react
-	# install-mongodb
-	# install react
+install-dependance:
+	# if not node
+	curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
+	nvm install node
+	# 
 	npm install
 
 # === BUILD ===
