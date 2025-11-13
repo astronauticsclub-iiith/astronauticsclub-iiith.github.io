@@ -33,7 +33,7 @@ We support both local deployment (PM2) and Docker-based deployment for ease of u
 - **Blogs writer (Internal)**: Markdown-based blog system with syntax highlighting, LaTeX support, and approval workflow.
 
 ## Contribution Guidelines
-If you are interested in contributing to this project, please read our [#🤝-contributing](CONTRIBUTING.md) for setup guide, details on our codebase, and the process for submitting pull requests.
+If you are interested in contributing to this project, please read our [🤝-contributing](CONTRIBUTING.md) for setup guide, details on our codebase, and the process for submitting pull requests.
 
 ## 👥 Contributors
 

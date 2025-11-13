@@ -2,6 +2,7 @@
 
 import { SessionProvider } from 'next-auth/react';
 import { ReactNode } from 'react';
+import { withBasePath } from './common/HelperFunction';
 
 interface AuthProviderProps {
   children: ReactNode;
@@ -9,7 +10,7 @@ interface AuthProviderProps {
 
 export default function AuthProvider({ children }: AuthProviderProps) {
   return (
-    <SessionProvider basePath="/astronautics/api/auth">
+    <SessionProvider basePath={withBasePath(`/api/auth`)}>
       {children}
     </SessionProvider>
   );

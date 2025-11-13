@@ -15,8 +15,6 @@ const exo2 = Exo_2({
   variable: "--font-exo2",
 });
 
-// TODO: update URL to the actual domain when deploying
-
 export const metadata: Metadata = {
   title: "Astronautics Club | IIIT Hyderabad",
   description:
@@ -92,7 +90,7 @@ export default function RootLayout({
           rel="canonical"
           href="https://clubs.iiit.ac.in/astronautics"
         />
-        <link rel="manifest" href="/astronautics/site.webmanifest" />
+        <link rel="manifest" href={withBasePath(`site.webmanifest`)} />
         <meta name="theme-color" content="#020001" />
       </head>
       <body

@@ -18,7 +18,8 @@ help:
 	@echo "Astronautics Club Website Makefile"
 	@echo ""
 	@echo "Core Commands:"
-	@echo "  make build                 - Build production files (Next.js build)"
+	@echo "  make build                 - Build development files (Next.js build)"
+	@echo "  make build-production      - Build for production"
 	@echo "  make deploy                - Deploy build to server"
 	@echo "  make restart               - Restart pm2, NGINX service"
 	@echo "  make status                - Check pm2, NGINX service status"
@@ -34,36 +35,44 @@ help:
 	@echo "  make init-backup          - Setup local folders for backup"
 	@echo "  make rebuild               - Clean and redeploy from scratch"
 
-# === INSTALL DEPENDECY ===
-install-dependance:
-	# if not node
-	curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
-	nvm install node
-	# 
-	npm install
 
 # === BUILD ===
 build:
-	@echo "Building frontend for production..."
-	npm install --production
-	npm run build
+	@echo "Building frontend for development..."
+# 	@if [ ! -f ".env.local" ]; then \
+# 		cp .env.example .env.local \
+# 	fi
+	npm install
+	npm run dev
 	@echo "Build completed."
+
+build-production:
+	@echo "Building frontend for production..."
+# 	@if [ ! -f ".env.local" ]; then \
+# 		cp .env.example .env.local \
+# 	fi
+	npm install --omit=dev
+	npm run build
+	@echo "Production build completed."
 
 # === DEPLOYMENT ===
 deploy:
 	@echo "Building the project"
 	make build
+#	if	pm2 --version
+#	npm install pm2 -g
+#	fi
 	@echo "Deploying via pm2"
 	pm2 restart astronautics || pm2 start ecosystem.config.js
-    pm2 save
-    @echo "Deployment completed."
+	pm2 save
+	@echo "Deployment completed"
 
 # === SERVICE MANAGEMENT ===
 start:
 	@echo "Starting NGINX, pm2"
 	sudo systemctl start nginx
 	pm2 restart astronautics || pm2 start ecosystem.config.js
-    pm2 save
+	pm2 save
 	@echo "Started NGINX, pm2 successfully"
 
 stop:
@@ -76,9 +85,9 @@ restart: stop start
 
 logs:
 	@echo "Showing logs from NGINX, pm2"
-    cat /var/log/nginx/access.log
-    cat /var/log/nginx/error.log
-    pm2 logs astronautics
+	cat /var/log/nginx/access.log
+	cat /var/log/nginx/error.log
+	pm2 logs astronautics
 
 restart:
 	@echo "Restarting NGINX, pm2"
