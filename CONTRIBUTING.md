@@ -2,76 +2,97 @@
 
 ### Prerequisites
 
-- **Node.js** 18+ and npm/yarn/pnpm
+- **Node.js** 21+ and npm/yarn/pnpm
 - **MongoDB** database (local or cloud instance like MongoDB Atlas)
 - **Git** for version control
 
 
-## Local Development Setup
+## 🤝 Contributing
 
-1. **Clone the repository**
+We welcome contributions! Here's how you can help:
+
+### Development Workflow
+
+1. **Fork the repository**
+
+   Click the "Fork" button on GitHub.
 
    ```bash
-   git clone https://github.com/astronauticsclub-iiith/astronauticsclub-iiith.github.io.git
+   git clone  <your-fork-url>
    cd astronauticsclub-iiith.github.io
    ```
-
-2. **Set up NextJS, MongoDB and other depenancies**
-   ```bash
-
-   npm install
-   ```
-
-3. **Set up environment variables**
-
-   Create a `.env.local` file, Use the `.env.example` as reference. Do update the variable `NEXT_PUBLIC_BASE_PATH=`. Update the same in `.env.local`. Also run the script `node scripts/local-setup.js`.
-
-4. **Build the project and run the development server**
+2. **Check local build**
 
    ```bash
+   make environment-variable
    make build
-   npm run dev
    ```
+   Navigate to [http://localhost:3000](http://localhost:3000) to view the website and ensure it's working.
 
-6. **Open your browser**
-
-   Navigate to [http://localhost:3000](http://localhost:3000)
-
-### Docker Development Setup
-
-1. **Navigate to Docker directory**
+3. **Create a feature branch**
 
    ```bash
-   cd Docker-deployment
+   git checkout -b your-feature-name
+   # or
+   git checkout -b your-bug-fix
    ```
-2. **Create `.env.local` file** (same as above)
-3. **Build and start containers**
+4. **Make your changes**
+
+   - Write clean, readable code
+   - Follow existing code style
+   - Add comments for complex logic
+   - Update documentation if needed
+5. **Test your changes**
 
    ```bash
-   docker-compose -f docker-compose.dev.yml up -d
+   npm run lint        # Check for linting errors
+   npm run build       # Ensure build succeeds
+   npm run dev         # Test locally
    ```
-
-   Or use the Makefile:
-
-   ```bash
-   make build-dev
-   make start-dev
-   ```
-4. **View logs**
+6. **Commit your changes**
 
    ```bash
-   make logs-dev
+   git add .
+   git commit -m "feat: add new feature description"
+   # or
+   git commit -m "fix: fix bug description"
    ```
-5. **Stop containers**
+
+   Use conventional commit messages:
+
+   - `feat:` for new features
+   - `fix:` for bug fixes
+   - `docs:` for documentation
+   - `style:` for formatting
+   - `refactor:` for code refactoring
+   - `test:` for tests
+   - `chore:` for maintenance
+7. **Push to your fork**
 
    ```bash
-   make stop-dev
+   git push -u origin your-feature-name
    ```
+8. **Create a Pull Request**
+
+   - Go to the original repository on GitHub
+   - Click "New Pull Request"
+   - Select your branch
+   - Fill out the PR template
+   - Submit for review
+
 
 Note: CAS is not available in local/dev setup.
 
+## Project Structure Guidelines
 
-## 📁 Directory Structure
+- **Pages**: Add new pages in `src/app/`
+- **Components**: Reusable components in `src/components/`
+- **API Routes**: Add API endpoints in `src/app/api/`
+- **Types**: Define TypeScript types in `src/types/`
+- **Models**: Database models in `src/models/`
+- **Utilities**: Helper functions in `src/lib/`
+
+### 📁 Directory Structure
 
 ```
 astronauticsclub-iiith.github.io/
@@ -82,22 +103,20 @@ astronauticsclub-iiith.github.io/
 │   └── gravitational-lensing/  # Special effect assets
 │
 ├── scripts/                    # Utility scripts
-│   ├── add-admin-user.js       # Create admin user
-│   └── sync-json-from-team.js  # Team data sync
 │
 ├── src/
 │   ├── app/                    # Next.js App Router pages
 │   │   ├── api/                # API routes
 │   │   │   ├── admin-blogs/    # Admin blog management
 │   │   │   ├── auth/           # NextAuth configuration
-│   │   │   ├── blogs/          # Blog CRUD operations
-│   │   │   ├── events/         # Event management
+│   │   │   ├── blogs/          # Blog CRUD API
+│   │   │   ├── events/         # Event management API
 │   │   │   ├── gallery/        # Gallery management
-│   │   │   ├── logs/           # Logging endpoints
-│   │   │   ├── my-blogs/       # User's own blogs
+│   │   │   ├── logs/           # Logging endpoints API
+│   │   │   ├── my-blogs/       # User (club member's) own blogs
 │   │   │   ├── team/           # Team member API
 │   │   │   ├── upload/         # File upload endpoints
-│   │   │   └── users/          # User management
+│   │   │   └── users/          # User profile management API
 │   │   │
 │   │   ├── blogs/              # Blog pages
 │   │   │   └── [slug]/         # Individual blog post
@@ -106,7 +125,7 @@ astronauticsclub-iiith.github.io/
 │   │   ├── team/               # Team page
 │   │   ├── about/              # About page
 │   │   ├── imtheboss/          # Admin dashboard (protected)
-│   │   ├── clickity-clackity-blogs-are-my-property/  # Writer dashboard (protected)
+│   │   ├── clickity-clackity-blogs-are-my-property/  # Markdown-based blog writer (protected)
 │   │   ├── let-me-innn/        # Login page
 │   │   ├── stay-away-snooper/  # Unauthorized access page
 │   │   ├── layout.tsx          # Root layout
@@ -115,18 +134,7 @@ astronauticsclub-iiith.github.io/
 │   │
 │   ├── components/             # React components
 │   │   ├── admin/              # Admin-specific components
-│   │   │   ├── AdminEventCard.tsx
-│   │   │   ├── AdminPhotoCard.tsx
-│   │   │   ├── DesignationCombobox.tsx
-│   │   │   └── ImageSelector.tsx
-│   │   │
 │   │   ├── common/             # Shared components
-│   │   │   ├── AstroLoader.tsx
-│   │   │   ├── ClickableImage.tsx
-│   │   │   ├── ClientOnly.tsx
-│   │   │   ├── ImagePreview.tsx
-│   │   │   └── HelperFunction.tsx
-│   │   │
 │   │   ├── features/           # Feature components
 │   │   │   ├── Blog/           # Blog-related components
 │   │   │   ├── Landing/        # Landing page components
@@ -198,13 +206,15 @@ astronauticsclub-iiith.github.io/
 │       ├── restore-*.sh        # Restore scripts
 │       └── test-docker-setup.sh
 │
+├── .env.example                # Environment variables (in repo)
 ├── .env.local                  # Environment variables (not in repo)
 ├── ecosystem.config.js         # PM2 configuration
 ├── next.config.ts              # Next.js configuration
 ├── package.json                # Dependencies and scripts
 ├── tailwind.config.ts          # Tailwind CSS configuration
 ├── tsconfig.json               # TypeScript configuration
-└── README.md                   # This file
+└── README.md                   # Project overview
+└── CONTRIBUTING.md             # This file
 ```
 
 
@@ -505,66 +515,6 @@ make download-uploads
 # Downloads uploads as ZIP file
 ```
 
-## 🤝 Contributing
-
-We welcome contributions! Here's how you can help:
-
-### Development Workflow
-
-1. **Fork the repository**
-
-   Click the "Fork" button on GitHub
-2. **Create a feature branch**
-
-   ```bash
-   git checkout -b feature/your-feature-name
-   # or
-   git checkout -b fix/your-bug-fix
-   ```
-3. **Make your changes**
-
-   - Write clean, readable code
-   - Follow existing code style
-   - Add comments for complex logic
-   - Update documentation if needed
-4. **Test your changes**
-
-   ```bash
-   npm run lint        # Check for linting errors
-   npm run build       # Ensure build succeeds
-   npm run dev         # Test locally
-   ```
-5. **Commit your changes**
-
-   ```bash
-   git add .
-   git commit -m "feat: add new feature description"
-   # or
-   git commit -m "fix: fix bug description"
-   ```
-
-   Use conventional commit messages:
-
-   - `feat:` for new features
-   - `fix:` for bug fixes
-   - `docs:` for documentation
-   - `style:` for formatting
-   - `refactor:` for code refactoring
-   - `test:` for tests
-   - `chore:` for maintenance
-6. **Push to your fork**
-
-   ```bash
-   git push origin feature/your-feature-name
-   ```
-7. **Create a Pull Request**
-
-   - Go to the original repository on GitHub
-   - Click "New Pull Request"
-   - Select your branch
-   - Fill out the PR template
-   - Submit for review
-
 ### Code Style Guidelines
 
 - **TypeScript**: Use TypeScript for all new code
@@ -574,14 +524,6 @@ We welcome contributions! Here's how you can help:
 - **Formatting**: Use Prettier (if configured) or follow existing style
 - **Comments**: Add JSDoc comments for complex functions
 
-### Project Structure Guidelines
-
-- **Pages**: Add new pages in `src/app/`
-- **Components**: Reusable components in `src/components/`
-- **API Routes**: Add API endpoints in `src/app/api/`
-- **Types**: Define TypeScript types in `src/types/`
-- **Models**: Database models in `src/models/`
-- **Utilities**: Helper functions in `src/lib/`
 
 ### Testing Checklist
 
@@ -610,3 +552,36 @@ Before submitting a PR, ensure:
 
 - [IIIT Hyderabad](https://www.iiit.ac.in)
 - [Astronautics Club](https://clubs.iiit.ac.in/astronautics)
+
+
+
+### Docker Development Setup
+
+1. **Navigate to Docker directory**
+
+   ```bash
+   cd Docker-deployment
+   ```
+2. **Create `.env.local` file** (same as above)
+3. **Build and start containers**
+
+   ```bash
+   docker-compose -f docker-compose.dev.yml up -d
+   ```
+
+   Or use the Makefile:
+
+   ```bash
+   make build-dev
+   make start-dev
+   ```
+4. **View logs**
+
+   ```bash
+   make logs-dev
+   ```
+5. **Stop containers**
+
+   ```bash
+   make stop-dev
+   ```
