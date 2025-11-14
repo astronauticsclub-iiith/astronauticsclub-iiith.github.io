@@ -37,8 +37,10 @@ async function createDatabaseTable(){
         await Event.createCollection();
         console.log("Created event collection in MongoDB")
     }
-    catch (error) {
-        console.error('❌ Error creating DB tables:', error.message);
+    catch (error: unknown) {
+        if (error instanceof Error) {
+            console.error('❌ Error creating DB tables:', error.message);
+        }
         process.exit(1);
     } 
     finally {

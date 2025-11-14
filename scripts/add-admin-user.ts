@@ -3,15 +3,11 @@ import mongoose from "mongoose";
 import path from "path";
 import dotenv from "dotenv";
 import { fileURLToPath } from "url";
-
 import User from "@/models/User"
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 dotenv.config({ path: path.join(__dirname, "..", ".env.local") });
-
-
-const UserSchema = mongoose.models.User || mongoose.model('User', User);
 
 async function addAdminUser() {
   try {
@@ -30,7 +26,7 @@ async function addAdminUser() {
     const adminEmail = 'mohit.singh@research.iiit.ac.in';
     
     // Check if user already exists
-    const existingUser = await UserSchema.findOne({ email: adminEmail });
+    const existingUser = await User.findOne({ email: adminEmail });
     
     if (existingUser) {
       console.log('👤 User already exists:');
@@ -50,7 +46,7 @@ async function addAdminUser() {
     }
 
     // Create new admin user
-    const newUser = new UserSchema({
+    const newUser = new User({
       email: adminEmail,
       name: 'Mohit Singh',
       role: 'admin', // Set role to admin
@@ -67,15 +63,21 @@ async function addAdminUser() {
     console.log(`   User ID: ${savedUser._id}`);
     console.log(`   Created: ${savedUser.createdAt}`);
 
-  } catch (error) {
-    console.error('❌ Error creating admin user:', error.message);
-    
-    if (error.code === 11000) {
-      console.log('🔍 This might be a duplicate key error - user may already exist');
-    }
-    
+  } 
+  catch (error: unknown) {
+    if (error instanceof Error) {
+      console.error("❌ Error creating admin user:", error.message);
+      const e: any = error;
+        if (e.code === 11000) {
+          console.log("🔍 Duplicate key error — user may already exist");
+        }
+      } else {
+        console.error("❌ Unknown error:", error);
+      }
+
     process.exit(1);
-  } finally {
+  } 
+  finally {
     // Close the connection
     await mongoose.connection.close();
     console.log('🔌 Database connection closed');
