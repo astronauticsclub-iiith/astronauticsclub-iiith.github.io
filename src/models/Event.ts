@@ -1,5 +1,5 @@
 import mongoose, { Schema, Document } from "mongoose";
-import { Event as EventInterface } from "@/types/event";
+import { Event as EventInterface } from "../types/event";
 
 export interface EventDocument
   extends Omit<EventInterface, "_id" | "id">,

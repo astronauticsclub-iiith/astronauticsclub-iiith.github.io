@@ -68,6 +68,8 @@
    make stop-dev
    ```
 
+Note: CAS is not available in local/dev setup.
+
 
 ## 📁 Directory Structure
 

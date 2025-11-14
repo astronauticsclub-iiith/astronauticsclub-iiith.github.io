@@ -1,5 +1,5 @@
 import mongoose, { Schema, Document } from 'mongoose';
-import { Blog as BlogInterface } from '@/types/blog';
+import { Blog as BlogInterface } from '../types/blog';
 
 export interface BlogDocument extends Omit<BlogInterface, '_id' | 'id'>, Document {
   _id: mongoose.Types.ObjectId;

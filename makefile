@@ -43,6 +43,7 @@ build:
 # 		cp .env.example .env.local \
 # 	fi
 	npm install
+	npx tsx scripts/create-db-tables.ts
 	npm run dev
 	@echo "Build completed."
 
@@ -52,13 +53,14 @@ build-production:
 # 		cp .env.example .env.local \
 # 	fi
 	npm install --omit=dev
+	@npx tsx scripts/create-db-tables.ts
 	npm run build
 	@echo "Production build completed."
 
 # === DEPLOYMENT ===
 deploy:
 	@echo "Building the project"
-	make build
+	make build-production
 #	if	pm2 --version
 #	npm install pm2 -g
 #	fi

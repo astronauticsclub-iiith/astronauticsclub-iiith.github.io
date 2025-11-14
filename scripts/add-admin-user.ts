@@ -1,45 +1,17 @@
 #!/usr/bin/env node
+import mongoose from "mongoose";
+import path from "path";
+import dotenv from "dotenv";
+import { fileURLToPath } from "url";
 
-const mongoose = require('mongoose');
-const path = require('path');
-require('dotenv').config({ path: path.join(__dirname, '..', '.env.local') });
+import User from "@/models/User"
 
-// User schema definition (matching the TypeScript model)
-const UserSchema = new mongoose.Schema(
-  {
-    email: {
-      type: String,
-      required: true,
-      unique: true,
-      lowercase: true,
-      trim: true,
-    },
-    name: {
-      type: String,
-      trim: true,
-    },
-    role: {
-      type: String,
-      enum: ['admin', 'writer', 'none'],
-      required: true,
-      default: 'none',
-    },
-    avatar: {
-      type: String,
-      trim: true,
-    },
-    bio: {
-      type: String,
-      trim: true,
-      default: 'Blog Author',
-    },
-  },
-  {
-    timestamps: true,
-  }
-);
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+dotenv.config({ path: path.join(__dirname, "..", ".env.local") });
 
-const User = mongoose.models.User || mongoose.model('User', UserSchema);
+
+const UserSchema = mongoose.models.User || mongoose.model('User', User);
 
 async function addAdminUser() {
   try {
@@ -58,7 +30,7 @@ async function addAdminUser() {
     const adminEmail = 'mohit.singh@research.iiit.ac.in';
     
     // Check if user already exists
-    const existingUser = await User.findOne({ email: adminEmail });
+    const existingUser = await UserSchema.findOne({ email: adminEmail });
     
     if (existingUser) {
       console.log('👤 User already exists:');
@@ -78,7 +50,7 @@ async function addAdminUser() {
     }
 
     // Create new admin user
-    const newUser = new User({
+    const newUser = new UserSchema({
       email: adminEmail,
       name: 'Mohit Singh',
       role: 'admin', // Set role to admin
