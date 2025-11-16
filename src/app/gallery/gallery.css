@@ -94,20 +94,24 @@
 /* Photo Cards */
 .gallery-card {
   width: 100%;
-  background: var(--background);
-  border: 4px solid white;
+  background: #050509;
+  /* dark, minimal container to match reference */
+  border-radius: 18px;
+  border: none;
   cursor: pointer;
   transition: all 0.3s ease;
   break-inside: avoid;
-  box-shadow: 8px 8px 0px 0px rgba(128, 128, 128, 0.5);
+  box-shadow: 0 18px 35px rgba(0, 0, 0, 0.7);
   display: flex;
   flex-direction: column;
   height: 100%;
+  position: relative;
+  overflow: hidden;
 }
 
 .gallery-card:hover {
-  transform: translateY(-8px);
-  box-shadow: 12px 12px 0px 0px rgba(128, 128, 128, 0.5);
+  transform: translateY(-6px) scale(1.01);
+  box-shadow: 0 26px 45px rgba(0, 0, 0, 0.9);
 }
 
 .gallery-card::after {
@@ -118,10 +122,10 @@
 
 .gallery-card-image {
   width: 100%;
-  height: 220px;
+  height: 230px;
   position: relative;
   transition: all 0.3s ease;
-  border-bottom: 2px solid white;
+  border-bottom: none;
   flex-shrink: 0;
   overflow: hidden;
 }
@@ -135,24 +139,35 @@
   transform: scale(1.05);
 }
 
+/* Category + heading overlay */
 .gallery-category {
+  position: absolute;
+  top: 0.9rem;
+  left: 1rem;
   text-transform: uppercase;
-  font-size: 0.75em;
+  font-size: 0.7em;
   font-weight: 700;
-  color: var(--accent);
-  padding: 12px 16px 0;
-  letter-spacing: 0.5px;
+  color: #f1f5f9;
+  letter-spacing: 0.08em;
+  padding: 0.25rem 0.75rem;
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.6);
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
 }
 
 .gallery-heading {
+  position: absolute;
+  left: 1rem;
+  right: 1rem;
+  bottom: 1rem;
   font-weight: 700;
   color: white;
-  padding: 4px 16px 16px;
   font-size: 1rem;
   line-height: 1.4;
-  flex-grow: 1;
-  display: flex;
-  align-items: center;
+  display: block;
+  padding: 0;
+  text-shadow: 0 0 18px rgba(0, 0, 0, 0.9);
 }
 
 /* Loading State */
@@ -245,6 +260,10 @@
     gap: 1.25rem;
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   }
+
+  .gallery-card-image {
+    height: 220px;
+  }
 }
 
 @media (max-width: 1024px) {
@@ -259,6 +278,10 @@
   .gallery-masonry {
     grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
     gap: 2rem;
+  }
+
+  .gallery-card-image {
+    height: 210px;
   }
 }
 
@@ -289,7 +312,12 @@
     gap: 1.5rem;
     grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
   }
+
+  .gallery-card-image {
+    height: 220px;
+  }
 }
+
 @media (max-width: 640px) {
   .gallery-filters {
     flex-direction: column;
