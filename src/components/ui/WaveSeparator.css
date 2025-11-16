@@ -1,4 +1,5 @@
 /* Separator component styles */
+
 .separator {
   display: block;
   width: 100%;
@@ -77,5 +78,36 @@
 
   100% {
     transform: translate(85px, 0%);
+  }
+}
+
+/* Clouds separator layout */
+.cloud-separator {
+  overflow: hidden;
+  left: 0;
+  right: 0;
+  pointer-events: none;
+}
+
+.cloud-background-wrap {
+  height: 100%;
+}
+
+/* General cloud transform origin */
+.cloud-separator .cloud {
+  transform-origin: center bottom;
+}
+
+/* Desktop: visually smaller clouds */
+@media (min-width: 1024px) {
+  .cloud-separator .cloud {
+    transform: scale(0.65);
+  }
+}
+
+/* Large desktop: slightly smaller again */
+@media (min-width: 1280px) {
+  .cloud-separator .cloud {
+    transform: scale(0.55);
   }
 }
