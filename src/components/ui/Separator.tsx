@@ -4,7 +4,7 @@ import React, { useState, useEffect, useRef } from "react";
 import "./WaveSeparator.css";
 import "./CloudSeparator.css";
 import "./CloudFade.css";
-import "./bg-patterns.css"
+import "./bg-patterns.css";
 
 interface WaveSeparatorProps {
   color0?: string;
@@ -76,19 +76,17 @@ const CloudSeparator: React.FC<CloudSeparatorProps> = ({
   className = "",
   cloudCount: propCloudCount,
 }) => {
-  // State to track the actual cloud count based on screen size
   const [cloudCount, setCloudCount] = useState<number>(propCloudCount || 25);
-  // Add state to track client-side rendering
   const [isClient, setIsClient] = useState(false);
-  // Add state to track loaded state for animations
   const [isLoaded, setIsLoaded] = useState(false);
-  // Reference to the separator container
+  const [separatorHeightVh, setSeparatorHeightVh] = useState<number>(
+    height / 15
+  );
+
   const separatorRef = useRef<HTMLDivElement>(null);
 
-  // Mark component as client-rendered after mount
   useEffect(() => {
     setIsClient(true);
-    // Small delay to ensure smooth animation after initial render
     const timer = setTimeout(() => {
       setIsLoaded(true);
     }, 100);
@@ -96,52 +94,49 @@ const CloudSeparator: React.FC<CloudSeparatorProps> = ({
     return () => clearTimeout(timer);
   }, []);
 
-  // Update cloud count based on window width
   useEffect(() => {
     const handleResize = () => {
-      // If prop is provided, use that instead of responsive adjustment
       if (propCloudCount) {
         setCloudCount(propCloudCount);
+        setSeparatorHeightVh(height / 15);
         return;
       }
 
       const width = window.innerWidth;
+
       if (width < 640) {
-        setCloudCount(15); // Fewer clouds for mobile
+        // mobile – keep them nice and visible
+        setCloudCount(15);
+        setSeparatorHeightVh(26);
       } else if (width < 1024) {
-        setCloudCount(20); // Medium amount for tablets
+        // tablet – medium density and height
+        setCloudCount(20);
+        setSeparatorHeightVh(22);
       } else {
-        setCloudCount(25); // Full amount for desktops
+        // desktop – same feel but less tall band
+        setCloudCount(22);
+        setSeparatorHeightVh(16);
       }
     };
 
-    // Set initial value
     handleResize();
-
-    // Add event listener
     window.addEventListener("resize", handleResize);
 
-    // Clean up
     return () => {
       window.removeEventListener("resize", handleResize);
     };
-  }, [propCloudCount]);
+  }, [propCloudCount, height]);
 
-  // Create an array of clouds with different animation classes
   const clouds = Array.from({ length: cloudCount }, (_, i) => {
     const cloudClass = `cloud-x${(i % 25) + 1}`;
     const delayClass = `delay-${(i % 8) + 1}`;
 
-    // Calculate a horizontal offset to distribute clouds better initially
-    // This creates a staggered starting position within the separator
-    // Use a wider range (0%, 10%, 20%, 30%, 40%, 50%) for better distribution
     const horizontalOffset = `${(i % 6) * 10}%`;
 
-    // Calculate vertical position with padding to ensure clouds aren't cut off
     const minPadding = 10;
-    const maxPadding = height > 100 ? 120 : 80;
-    const topPosition =
-      Math.floor(Math.random() * (height - maxPadding)) + minPadding;
+    const maxPadding = height > 100 ? 80 : 60;
+    const bandHeight = Math.max(height - maxPadding - minPadding, 40);
+    const topPosition = minPadding + Math.floor(Math.random() * bandHeight);
 
     return (
       <div
@@ -182,11 +177,10 @@ const CloudSeparator: React.FC<CloudSeparatorProps> = ({
         isLoaded ? "loaded" : ""
       } ${className}`}
       style={{
-        height: `${height / 15}vh`,
+        height: `${separatorHeightVh}vh`,
       }}
       suppressHydrationWarning
     >
-      {/* Cloud container */}
       <div
         className="cloud-background-wrap relative z-10 w-full"
         suppressHydrationWarning
