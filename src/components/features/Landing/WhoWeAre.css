@@ -12,6 +12,7 @@
   margin: 0 auto;
 }
 
+/* Neumorphic Heading */
 .neumorphic-heading {
   font-size: 5.25rem;
   color: rgba(255, 255, 255, 0.12);
@@ -21,6 +22,7 @@
   margin-bottom: 2.5rem;
 }
 
+/* Content Layout */
 .content-wrapper {
   display: flex;
   flex-direction: row;
@@ -28,6 +30,7 @@
   margin-top: 1.5rem;
 }
 
+/* Image Collage - 70% width */
 .image-collage {
   flex: 7;
   display: grid;
@@ -38,6 +41,7 @@
   aspect-ratio: 4/3;
 }
 
+/* Image Frame Styles */
 .image-frame {
   border-radius: 15px;
   background: #11141a;
@@ -77,6 +81,7 @@
   z-index: 0;
 }
 
+/* Text Content - 30% width */
 .text-content {
   position: relative;
   flex: 3;
@@ -106,6 +111,7 @@
   z-index: 2;
 }
 
+/* Modern Heading */
 .modern-heading {
   font-size: 2.2rem;
   font-weight: 700;
@@ -114,6 +120,7 @@
   text-align: center;
 }
 
+/* Text Body */
 .text-body {
   color: #f1f1f1;
 }
@@ -128,6 +135,7 @@
   margin-bottom: 0;
 }
 
+/* Responsive Design */
 @media (max-width: 1024px) {
   .who-we-are {
     padding: 3rem 1.75rem;
