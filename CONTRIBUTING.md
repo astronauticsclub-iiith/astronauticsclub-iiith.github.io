@@ -18,13 +18,12 @@ We welcome contributions! Here's how you can help:
    Click the "Fork" button on GitHub.
 
    ```bash
-   git clone  <your-fork-url>
+   git clone <your-fork-url>
    cd astronauticsclub-iiith.github.io
    ```
-2. **Check local build**
+2. **Do local build**
 
    ```bash
-   make environment-variable
    make build
    ```
    Navigate to [http://localhost:3000](http://localhost:3000) to view the website and ensure it's working.
@@ -71,6 +70,8 @@ We welcome contributions! Here's how you can help:
 
    ```bash
    git push -u origin your-feature-name
+   # or
+   git push -u origin your-bug-fix
    ```
 8. **Create a Pull Request**
 
