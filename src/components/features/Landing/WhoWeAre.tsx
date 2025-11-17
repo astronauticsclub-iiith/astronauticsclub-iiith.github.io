@@ -92,8 +92,8 @@ const WhoWeAre = () => {
           </div>
 
           <div className="text-content">
-            <div className="text-content-wrapper ">
-              <div className="text-content-inner">
+            <div className="text-content-wrapper">
+              <div className="text-content-inner bg-pattern-lines-in-motion">
                 <h3 className="modern-heading">A Bunch of Astromaniacs!</h3>
                 <div className="text-body">
                   <p>

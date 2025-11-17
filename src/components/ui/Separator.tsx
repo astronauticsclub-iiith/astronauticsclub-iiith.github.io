@@ -21,7 +21,7 @@ const WaveSeparator: React.FC<WaveSeparatorProps> = ({
   color1 = "#b62f84",
   color2 = "#161148",
   color3 = "#6a71af",
-  color4 = "#e0e0e0",
+  color4 = "#0a0707",
   height = 80,
   className = "",
 }) => {
@@ -71,7 +71,7 @@ interface CloudSeparatorProps {
 }
 
 const CloudSeparator: React.FC<CloudSeparatorProps> = ({
-  height = 300,
+  height = 150,
   cloudColor = "#e0e0e0",
   className = "",
   cloudCount: propCloudCount,
@@ -95,6 +95,7 @@ const CloudSeparator: React.FC<CloudSeparatorProps> = ({
     // Small delay to ensure smooth animation after initial render
     const timer = setTimeout(() => {
       setIsLoaded(true);
+      height = window.innerHeight/10;
     }, 100);
 
     return () => clearTimeout(timer);
@@ -122,8 +123,8 @@ const CloudSeparator: React.FC<CloudSeparatorProps> = ({
         setSeparatorHeightVh(22);
       } else {
         // Desktop – similar density but a shorter band so clouds are less intrusive
-        setCloudCount(22);
-        setSeparatorHeightVh(16);
+        setCloudCount(25);
+        setSeparatorHeightVh(15);
       }
     };
 
@@ -192,10 +193,7 @@ const CloudSeparator: React.FC<CloudSeparatorProps> = ({
       className={`cloud-separator w-full absolute ${
         isLoaded ? "loaded" : ""
       } ${className}`}
-      style={{
-        // Use responsive separator height in vh
-        height: `${separatorHeightVh}vh`,
-      }}
+      style={{height: `${separatorHeightVh}`}}
       suppressHydrationWarning
     >
       {/* Cloud container */}

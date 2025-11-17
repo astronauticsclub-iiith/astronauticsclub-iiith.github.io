@@ -1,8 +1,7 @@
 /* Who We Are Section */
 .who-we-are {
-  background-color: #0b0e13;
   padding: 1rem 2rem;
-  padding-bottom: 9rem;
+  padding-bottom: 5rem;
   color: #f5f5f5;
   font-family: var(--font-geist-sans);
 }
@@ -14,11 +13,12 @@
 
 /* Neumorphic Heading */
 .neumorphic-heading {
-  font-size: 8rem;
+  outline: none;
+  font-size: 7em;
   color: #e0e0e0;
-  text-shadow: -8px -8px 12px rgba(255, 255, 255, 0.4),
-    8px 8px 12px rgba(0, 0, 0, 0.08);
-  font-weight: 600;
+  text-shadow: 3px 3px 5px rgba(228, 223, 223, 0.599),
+  -3px -3px 5px rgba(228, 223, 223, 0.599);
+  font-weight: 500;
   text-align: center;
   margin-bottom: 2.5rem;
 }
@@ -33,7 +33,7 @@
 
 /* Image Collage */
 .image-collage {
-  flex: 7;
+  flex: 13;
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   grid-template-rows: repeat(4, 1fr);
@@ -45,7 +45,6 @@
 /* Image Frame Styles */
 .image-frame {
   border-radius: 15px;
-  background: #11141a;
   box-shadow: inset 4px 4px 6px #00000080, inset -4px -4px 6px #2c2c2c70;
   position: relative;
   overflow: hidden;
@@ -85,7 +84,7 @@
 /* Text Content */
 .text-content {
   position: relative;
-  flex: 3;
+  flex: 7;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -93,7 +92,6 @@
 
 .text-content-wrapper {
   border-radius: 16px;
-  background: rgba(15, 19, 28, 0.8);
   border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
@@ -103,11 +101,9 @@
   width: 100%;
   padding: 2rem;
   border-radius: 16px;
-
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
   backdrop-filter: blur(3px);
   border: 1px solid rgba(255, 255, 255, 0.3);
-
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
@@ -119,7 +115,7 @@
   font-size: 2.2rem;
   font-weight: 700;
   margin-bottom: 1.5rem;
-  color: #d9e8ff;
+  color: #d5d3d3;
   text-align: center;
 }
 
@@ -224,13 +220,5 @@
 
   .modern-heading {
     font-size: 1.5rem;
-  }
-}
-
-/* Cloud scaling for desktop */
-@media (min-width: 1024px) {
-  .clouds-container {
-    transform: scale(0.6);
-    transform-origin: center bottom;
   }
 }
