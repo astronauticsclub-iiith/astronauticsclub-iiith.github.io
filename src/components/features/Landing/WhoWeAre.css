@@ -1,7 +1,7 @@
+/* Who We Are Section */
 .who-we-are {
   background-color: #0b0e13;
-
-  padding: 4rem 2rem;
+  padding: 1rem 2rem;
   padding-bottom: 9rem;
   color: #f5f5f5;
   font-family: var(--font-geist-sans);
@@ -14,9 +14,10 @@
 
 /* Neumorphic Heading */
 .neumorphic-heading {
-  font-size: 5.25rem;
-  color: rgba(255, 255, 255, 0.12);
-  text-shadow: 0 0 40px rgba(255, 255, 255, 0.18), 0 0 18px rgba(0, 0, 0, 0.9);
+  font-size: 8rem;
+  color: #e0e0e0;
+  text-shadow: -8px -8px 12px rgba(255, 255, 255, 0.4),
+    8px 8px 12px rgba(0, 0, 0, 0.08);
   font-weight: 600;
   text-align: center;
   margin-bottom: 2.5rem;
@@ -30,7 +31,7 @@
   margin-top: 1.5rem;
 }
 
-/* Image Collage - 70% width */
+/* Image Collage */
 .image-collage {
   flex: 7;
   display: grid;
@@ -81,17 +82,13 @@
   z-index: 0;
 }
 
-/* Text Content - 30% width */
+/* Text Content */
 .text-content {
   position: relative;
   flex: 3;
   display: flex;
   align-items: center;
   justify-content: center;
-}
-
-.bg-pattern-tic-tac-toe-light {
-  background-image: none !important;
 }
 
 .text-content-wrapper {
@@ -101,10 +98,16 @@
 }
 
 .text-content-inner {
+  position: relative;
   height: 100%;
   width: 100%;
   padding: 2rem;
   border-radius: 16px;
+
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(3px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
@@ -143,8 +146,10 @@
   }
 
   .neumorphic-heading {
-    font-size: 3.2rem;
-    font-weight: 800;
+    font-size: 3rem;
+    font-weight: 900;
+    color: #333;
+    padding: 1.5rem;
   }
 
   .content-wrapper {
@@ -174,6 +179,7 @@
 
 @media (max-width: 768px) {
   .neumorphic-heading {
+    min-width: 250px;
     font-size: 2.6rem;
   }
 
@@ -195,15 +201,25 @@
     max-width: 95%;
     gap: 0.5rem;
   }
+
+  .text-content-inner {
+    padding: 1.5rem;
+  }
 }
 
 @media (max-width: 480px) {
   .neumorphic-heading {
+    min-width: 200px;
     font-size: 2.2rem;
   }
 
   .text-body p {
     font-size: 0.95rem;
+    line-height: 1.6;
+  }
+
+  .text-content-inner {
+    padding: 1.25rem;
   }
 
   .modern-heading {
@@ -211,10 +227,10 @@
   }
 }
 
+/* Cloud scaling for desktop */
 @media (min-width: 1024px) {
   .clouds-container {
     transform: scale(0.6);
-
     transform-origin: center bottom;
   }
 }
