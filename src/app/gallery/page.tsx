@@ -8,7 +8,10 @@ import Image from "next/image";
 import GalleryIcon from "@/components/features/GalleryIcon";
 import "@/components/ui/bg-patterns.css";
 import "./gallery.css";
-import { withBasePath, withUploadPath } from "@/components/common/HelperFunction";
+import {
+  withBasePath,
+  withUploadPath,
+} from "@/components/common/HelperFunction";
 import { GalleryImage } from "@/types/gallery-image";
 
 type FilterType = "all" | "astrophotography" | "events" | "others";
@@ -239,7 +242,7 @@ const Gallery: React.FC = () => {
                   image={image}
                   index={index}
                   onClick={() => handleImageClick(image)}
-                />  
+                />
               ))}
             </AnimatePresence>
           </motion.div>
