@@ -6,7 +6,6 @@ import "@/components/ui/bg-patterns.css";
 import { withBasePath } from "@/components/common/HelperFunction";
 
 const WhoWeAre = () => {
-
   const images = [
     {
       id: 1,
@@ -85,9 +84,7 @@ const WhoWeAre = () => {
                     alt={image.alt}
                     fill
                     sizes="(max-width: 752px) 100vw, (max-width: 1184px) 50vw, 33vw"
-                    style={{
-                      objectFit: "cover",
-                    }}
+                    style={{ objectFit: "cover" }}
                   />
                 </div>
               </div>
@@ -95,7 +92,7 @@ const WhoWeAre = () => {
           </div>
 
           <div className="text-content">
-            <div className="text-content-wrapper bg-pattern-tic-tac-toe-light">
+            <div className="text-content-wrapper ">
               <div className="text-content-inner">
                 <h3 className="modern-heading">A Bunch of Astromaniacs!</h3>
                 <div className="text-body">
