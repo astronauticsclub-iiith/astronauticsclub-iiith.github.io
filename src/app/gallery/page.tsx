@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useImagePreview } from "@/context/ImagePreviewContext";
 import Loader from "@/components/ui/Loader";
@@ -16,6 +16,8 @@ import { GalleryImage } from "@/types/gallery-image";
 
 type FilterType = "all" | "astrophotography" | "events" | "others";
 
+const BATCH_SIZE = 12; // Only load 12 images at a time to prevent 429 errors
+
 const PhotoCard: React.FC<{
   image: GalleryImage;
   onClick: () => void;
@@ -23,21 +25,19 @@ const PhotoCard: React.FC<{
 }> = ({ image, onClick, index }) => {
   return (
     <motion.div
+      layout
       initial={{ opacity: 0, y: 20 }}
       animate={{
         opacity: 1,
         y: 0,
-        transition: { delay: 0.1 * index, duration: 0.5 },
+        transition: { delay: 0.05, duration: 0.4 },
       }}
       whileHover={{
-        y: -3,
-        transition: { duration: 0.1, delay: 0.05 },
+        zIndex: 10,
+        scale: 1.02,
+        transition: { duration: 0.2 },
       }}
-      whileTap={{
-        scale: 0.95,
-        transition: { duration: 0.1 },
-      }}
-      className="gallery-card cursor-open"
+      className="gallery-card cursor-zoom-in"
       onClick={onClick}
     >
       <div className="gallery-card-image">
@@ -45,17 +45,23 @@ const PhotoCard: React.FC<{
           src={withUploadPath(image.src)}
           alt={image.alt || image.label}
           unoptimized
-          fill
+          width={0}
+          height={0}
           sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, 33vw"
           style={{
-            objectFit: "cover",
-            objectPosition: "center",
+            width: "100%",
+            height: "auto",
+            display: "block",
           }}
-          priority={index < 4} // Load the first 4 images immediately
+          // Only prioritize the very first few images to save bandwidth
+          priority={index < 4}
         />
+        <div className="gallery-overlay" />
       </div>
-      <div className="gallery-category">{image.category}</div>
-      <div className="gallery-heading">{image.label}</div>
+      <div className="gallery-content">
+        <div className="gallery-category">{image.category}</div>
+        <div className="gallery-heading">{image.label}</div>
+      </div>
     </motion.div>
   );
 };
@@ -64,28 +70,24 @@ const Gallery: React.FC = () => {
   const [images, setImages] = useState<GalleryImage[]>([]);
   const [filter, setFilter] = useState<FilterType>("all");
   const [loading, setLoading] = useState(true);
+  const [visibleCount, setVisibleCount] = useState(BATCH_SIZE); // Track how many are shown
   const { openPreview } = useImagePreview();
+  
+  const [columns, setColumns] = useState(1);
 
-  // Fetch images from the gallery folders
   useEffect(() => {
     const loadImages = async () => {
       try {
         setLoading(true);
-
-        // Simulate network delay for better UX
-        await new Promise((resolve) => setTimeout(resolve, 800));
-
+        await new Promise((resolve) => setTimeout(resolve, 300));
         const response = await fetch(withBasePath(`/api/gallery`));
-
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
-
         const data = await response.json();
         setImages(data.images || []);
       } catch (error) {
         console.error("Error loading images:", error);
-        // If there's an error, set empty array so UI shows empty state
         setImages([]);
       } finally {
         setLoading(false);
@@ -95,10 +97,45 @@ const Gallery: React.FC = () => {
     loadImages();
   }, []);
 
-  // Get all filtered images
+  // Reset visible count when filter changes
+  useEffect(() => {
+    setVisibleCount(BATCH_SIZE);
+  }, [filter]);
+
+  // Handle window resize for columns
+  useEffect(() => {
+    const updateColumns = () => {
+      if (window.innerWidth >= 1440) setColumns(5);
+      else if (window.innerWidth >= 1024) setColumns(4);
+      else if (window.innerWidth >= 768) setColumns(3);
+      else if (window.innerWidth >= 640) setColumns(2);
+      else setColumns(1);
+    };
+    updateColumns();
+    window.addEventListener("resize", updateColumns);
+    return () => window.removeEventListener("resize", updateColumns);
+  }, []);
+
   const filteredImages = images.filter(
     (image) => filter === "all" || image.category === filter
   );
+
+  // Get only the currently visible slice to prevent massive requests
+  const visibleImages = filteredImages.slice(0, visibleCount);
+  const hasMore = visibleCount < filteredImages.length;
+
+  const loadMore = () => {
+    setVisibleCount((prev) => prev + BATCH_SIZE);
+  };
+
+  // Distribute visible images into columns
+  const distributedColumns = useMemo(() => {
+    const cols: GalleryImage[][] = Array.from({ length: columns }, () => []);
+    visibleImages.forEach((img, i) => {
+      cols[i % columns].push(img);
+    });
+    return cols;
+  }, [visibleImages, columns]);
 
   const handleImageClick = (image: GalleryImage) => {
     openPreview(withUploadPath(image.src), image.alt);
@@ -119,7 +156,7 @@ const Gallery: React.FC = () => {
         <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="mb-8 lg:mb-16"
+          className="mb-8 lg:mb-12"
         >
           <div className="flex items-center gap-6 mb-6">
             <div className="w-16 h-16 flex items-center justify-center">
@@ -141,46 +178,26 @@ const Gallery: React.FC = () => {
             transition={{ delay: 0.2 }}
             className="gallery-filters"
           >
-            <motion.button
-              whileHover={{ scale: 1.05, y: -2 }}
-              whileTap={{ scale: 0.95 }}
-              className={`gallery-filter-btn ${
-                filter === "all" ? "active" : ""
-              }`}
-              onClick={() => setFilter("all")}
-            >
-              All
-            </motion.button>
-            <motion.button
-              whileHover={{ scale: 1.05, y: -2 }}
-              whileTap={{ scale: 0.95 }}
-              className={`gallery-filter-btn ${
-                filter === "astrophotography" ? "active" : ""
-              }`}
-              onClick={() => setFilter("astrophotography")}
-            >
-              Astrophotography
-            </motion.button>
-            <motion.button
-              whileHover={{ scale: 1.05, y: -2 }}
-              whileTap={{ scale: 0.95 }}
-              className={`gallery-filter-btn ${
-                filter === "events" ? "active" : ""
-              }`}
-              onClick={() => setFilter("events")}
-            >
-              Events
-            </motion.button>
-            <motion.button
-              whileHover={{ scale: 1.05, y: -2 }}
-              whileTap={{ scale: 0.95 }}
-              className={`gallery-filter-btn ${
-                filter === "others" ? "active" : ""
-              }`}
-              onClick={() => setFilter("others")}
-            >
-              Others
-            </motion.button>
+            {(
+              [
+                "all",
+                "astrophotography",
+                "events",
+                "others",
+              ] as FilterType[]
+            ).map((f) => (
+              <motion.button
+                key={f}
+                whileHover={{ scale: 1.05, y: -2 }}
+                whileTap={{ scale: 0.95 }}
+                className={`gallery-filter-btn ${
+                  filter === f ? "active" : ""
+                }`}
+                onClick={() => setFilter(f)}
+              >
+                {f.charAt(0).toUpperCase() + f.slice(1)}
+              </motion.button>
+            ))}
           </motion.div>
         </motion.div>
 
@@ -189,63 +206,61 @@ const Gallery: React.FC = () => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.4 }}
-          className="mb-10"
+          className="mb-8"
         >
-          <div className="flex items-center flex-wrap gap-1 md:gap-4 justify-center md:justify-between">
-            <p className="text-[#e0e0e0] font-medium md:pl-4 py-2 text-center md:text-left">
-              Showing{" "}
-              <span className="font-bold accent bg-background px-1">
-                {filteredImages.length}
-              </span>{" "}
-              {filteredImages.length === 1 ? "image" : "images"}
-              {filter !== "all" ? ` in ${filter}` : ""}
-            </p>
-          </div>
+          <p className="text-[#e0e0e0] font-medium md:pl-4 py-2 text-center md:text-left">
+            Showing{" "}
+            <span className="font-bold accent bg-background px-1">
+              {visibleImages.length}
+            </span>{" "}
+            of {filteredImages.length} {filteredImages.length === 1 ? "image" : "images"}
+            {filter !== "all" ? ` in ${filter}` : ""}
+          </p>
         </motion.div>
 
-        {filteredImages.length === 0 ? (
+        {visibleImages.length === 0 ? (
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.6 }}
             className="gallery-empty"
           >
-            <motion.p
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.8 }}
-            >
+            <p>
               {filter === "all"
                 ? "No images found in the gallery."
                 : `No images found in ${filter}.`}
-            </motion.p>
-            <motion.p
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 1.0 }}
-              className="gallery-empty-hint"
-            >
+            </p>
+            <p className="gallery-empty-hint">
               Check back later for more images.
-            </motion.p>
+            </p>
           </motion.div>
         ) : (
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.6 }}
-            className="gallery-masonry px-2"
-          >
-            <AnimatePresence>
-              {filteredImages.map((image, index) => (
-                <PhotoCard
-                  key={`image-${index}-${image.filename}`}
-                  image={image}
-                  index={index}
-                  onClick={() => handleImageClick(image)}
-                />
-              ))}
-            </AnimatePresence>
-          </motion.div>
+          <>
+            <div className="gallery-masonry">
+              <AnimatePresence mode="popLayout">
+                {distributedColumns.map((columnImages, colIndex) => (
+                  <div key={colIndex} className="masonry-column">
+                    {columnImages.map((image, index) => (
+                      <PhotoCard
+                        key={`image-${colIndex}-${index}-${image.filename}`}
+                        image={image}
+                        index={index}
+                        onClick={() => handleImageClick(image)}
+                      />
+                    ))}
+                  </div>
+                ))}
+              </AnimatePresence>
+            </div>
+
+            {hasMore && (
+              <div className="flex justify-center mt-12">
+                <button onClick={loadMore} className="gallery-load-more-btn">
+                  Load More Cosmos
+                </button>
+              </div>
+            )}
+          </>
         )}
       </div>
     </div>
