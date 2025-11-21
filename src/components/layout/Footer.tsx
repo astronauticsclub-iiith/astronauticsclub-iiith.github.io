@@ -20,7 +20,7 @@ const Footer: React.FC = () => {
 
   return (
     <footer className="relative bg-black overflow-hidden rounded-t-2xl">
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 pb-4">
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 md:pt-8 pb-4">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {/* Club Info Section */}
           <div className="space-y-4 text-center md:text-left">

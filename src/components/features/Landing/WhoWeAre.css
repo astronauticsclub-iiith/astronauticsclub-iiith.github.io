@@ -137,46 +137,42 @@
 /* Responsive Design */
 @media (max-width: 1024px) {
   .who-we-are {
-    padding: 3rem 1.75rem;
-    padding-bottom: 7rem;
+    padding: 2rem 1.5rem; /* Reduced padding to give more width to content */
+    padding-bottom: 6rem;
   }
 
   .neumorphic-heading {
-    font-size: 3rem;
-    font-weight: 900;
-    color: #333;
-    padding: 1.5rem;
+    font-size: 4rem;
+    padding: 1rem;
   }
 
   .content-wrapper {
-    flex-direction: column;
-    gap: 3rem;
-    margin-top: 0.5rem;
+    gap: 1.5rem;
+    margin-top: 1rem;
   }
 
   .image-collage {
-    transform: scale(0.95);
-    transform-origin: center top;
-    max-width: 90%;
-    gap: 1rem;
-    margin: 0 auto;
+    gap: 0.75rem; 
   }
 
-  .text-content {
-    width: 100%;
-    padding: 0 1.5rem;
-  }
-
+  
+  /* Ensure text is legible in tight space */
   .text-content-inner {
-    max-width: 700px;
-    margin: 0 auto;
+    padding: 1.5rem;
   }
 }
 
 @media (max-width: 768px) {
+  .content-wrapper {
+    flex-direction: column;
+    gap: 3rem;
+  }
+
   .neumorphic-heading {
+    font-size: 2.8rem;
     min-width: 250px;
-    font-size: 2.6rem;
+    padding: 0;
+    margin-bottom: 0;
   }
 
   .modern-heading {
@@ -186,7 +182,7 @@
   .who-we-are {
     padding: 3rem 1.5rem;
     padding-top: 1rem;
-    padding-bottom: 6rem;
+    padding-bottom: 4rem;
   }
 
   .content-wrapper {
@@ -194,12 +190,22 @@
   }
 
   .image-collage {
+    flex: none;
+    width: 100%;
     max-width: 95%;
     gap: 0.5rem;
+    margin-top: 0;
+  }
+
+  .text-content {
+    flex: none;
+    width: 100%;
+    padding: 0 1rem;
   }
 
   .text-content-inner {
     padding: 1.5rem;
+    max-width: 100%;
   }
 }
 

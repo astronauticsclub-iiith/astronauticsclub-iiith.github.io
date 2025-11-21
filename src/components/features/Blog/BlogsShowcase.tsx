@@ -205,11 +205,11 @@ const BlogsShowcase = ({ className = "" }: BlogsShowcaseProps) => {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-100px" }}
       transition={{ duration: 0.3 }}
-      className={`pt-5 md:pt-16 pb-20 bg-background ${className} relative bg-pattern-topography`}
+      className={`pt-5 md:pt-16 pb-8 md:pb-12 bg-background ${className} relative bg-pattern-topography`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Header */}
-        <div className="flex items-end justify-between mb-6">
+        <div className="flex items-end justify-between mb-4 md:mb-6">
           <div>
             <div className="flex items-center gap-4 mb-4">
               <div
@@ -329,7 +329,7 @@ const BlogsShowcase = ({ className = "" }: BlogsShowcaseProps) => {
           </div>
 
           {/* Mobile navigation indicators */}
-          <div className="flex justify-center gap-2 mt-8 sm:hidden">
+          <div className="flex justify-center gap-2 mt-4 sm:mt-8 sm:hidden">
             {blogs.map((_, index) => (
               <button
                 key={index}
