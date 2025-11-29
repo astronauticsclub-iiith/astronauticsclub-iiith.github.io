@@ -90,6 +90,8 @@ export const config = {
     `/api/upload/:path*`,
     `/api/users/:path*`,
     `/api/my-blogs/:path*`,
+
+    // basePath can't be used here. So manually setting it for the Club server
     `/astronautics/imtheboss/:path*`,
     `/astronautics/clickity-clackity-blogs-are-my-property/:path*`,
     `/astronautics/let-me-innn/:path*`,

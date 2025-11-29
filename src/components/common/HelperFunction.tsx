@@ -1,3 +1,5 @@
+import path from "path";
+
 export function withBasePath(basePath: string) {
   const base = process.env.NEXT_PUBLIC_BASE_PATH || "";
   return `${base.replace(/\/$/, "")}/${basePath.replace(/^\//, "")}`;
@@ -15,4 +17,13 @@ export function withStoragePath(storagePath: string) {
 
 export function safeKey(email?: string) {
   return (email || "").trim().toLowerCase();
+}
+
+// Helper function to generate label from filename
+export function generateLabel(filename: string): string {
+  const nameWithoutExt = path.parse(filename).name;
+  return nameWithoutExt
+    .replace(/\s*\(.*?\)\s*/g, "")
+    .replace(/_/g, " ")
+    .replace(/\b\w/g, (l) => l.toUpperCase());
 }
