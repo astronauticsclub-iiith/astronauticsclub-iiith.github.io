@@ -1,4 +1,4 @@
-export interface InventoryInterface {
+export interface Inventory {
   id: string;
   name: string;
   image: string;
@@ -10,3 +10,16 @@ export interface InventoryInterface {
   borrower?: string;
   comments?: string;
 };
+
+export const validCategoryTypes = [
+  "astronomy",
+  "electronics",
+  "Inventorys",
+  "others",
+];
+    
+export const validStatusTypes = [
+  "working",
+  "needs repair",
+  "completely broken",
+];

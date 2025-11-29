@@ -1,5 +1,5 @@
 import mongoose, { Schema, Document } from "mongoose";
-import {InventoryInterface} from "@/types/inventory-item";
+import {Inventory as InventoryInterface} from "@/types/inventory-item";
 
 export interface InventoryDocument
   extends Omit<InventoryInterface, "_id" | "id">,

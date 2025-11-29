@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { connectToDatabase } from "@/lib/mongodb";
 import Inventory from "@/models/Inventory";
+import {validStatusTypes, validCategoryTypes} from "@/types/inventory-item";
 // import { promises as fs } from "fs";
 import { Logger } from "@/lib/logger";
 import { requireAdmin } from "@/lib/auth";
@@ -15,19 +16,6 @@ const requiredFields = [
     "year_purchase",
     "borrowed", 
     "status",
-];
-    
-const validCategoryTypes = [
-    "astronomy",
-    "electronics",
-    "Inventorys",
-    "others",
-];
-    
-const validStatusTypes = [
-    "working",
-    "needs repair",
-    "completely broken",
 ];
     
 
