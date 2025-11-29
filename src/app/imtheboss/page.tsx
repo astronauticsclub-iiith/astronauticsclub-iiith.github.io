@@ -16,6 +16,7 @@ import {
   Camera,
   Calendar,
   CalendarDays,
+  Package,
 } from "lucide-react";
 import Image from "next/image";
 import ProfileEditor from "@/components/features/ProfileEditor";
@@ -720,12 +721,12 @@ export default function AdminDashboard() {
             <button
               onClick={() => setActiveTab("inventory")}
               className={`w-full sm:w-auto px-3 sm:px-4 lg:px-6 py-2 sm:py-3 border-2 border-white font-bold transition-all duration-200 uppercase text-sm sm:text-base hover:scale-105 active:scale-95 ${
-                activeTab === "events"
+                activeTab === "inventory"
                   ? "bg-white text-background"
                   : "text-white hover:bg-white hover:text-background"
               }`}
             >
-              <CalendarDays className="inline mr-2" size={14} />
+              <Package className="inline mr-2" size={14} />
               <span className="hidden sm:inline">INVENTORY MANAGER</span>
               <span className="sm:hidden">INVENTORY</span>
             </button>
@@ -1465,9 +1466,10 @@ export default function AdminDashboard() {
               <form onSubmit={addInventoryItem} className="space-y-4">
                 {/* INVENTORY ITEM ID and NAME */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
+                  {/* Remove the id as input, set it automatically */}
                   <input
                     type="text"
-                    placeholder="EVENT ID (UNIQUE)"
+                    placeholder="INVENTORY ITEM ID (UNIQUE)"
                     value={newInventoryItem.id}
                     onChange={(e) =>
                       setnewInventoryItem({ ...newInventoryItem, id: e.target.value })
@@ -1489,7 +1491,7 @@ export default function AdminDashboard() {
 
                 {/* Description */}
                 <textarea
-                  placeholder="EVENT DESCRIPTION"
+                  placeholder="INVENTORY ITEM DESCRIPTION"
                   value={newInventoryItem.description}
                   onChange={(e) =>
                     setnewInventoryItem({ ...newInventoryItem, description: e.target.value })
