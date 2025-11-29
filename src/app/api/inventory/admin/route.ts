@@ -1,10 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
 import { connectToDatabase } from "@/lib/mongodb";
 import Inventory from "@/models/Inventory";
-import { promises as fs } from "fs";
+// import { promises as fs } from "fs";
 import { Logger } from "@/lib/logger";
 import { requireAdmin } from "@/lib/auth";
-import { withStoragePath, generateLabel } from "@/components/common/HelperFunction";
+// import { withStoragePath, generateLabel } from "@/components/common/HelperFunction";
 
 const requiredFields = [
     "id",
@@ -232,6 +232,64 @@ export async function PUT(request: NextRequest) {
 
     return NextResponse.json(
       { error: "Failed to update Inventory" },
+      { status: 500 }
+    );
+  }
+}
+
+// DELETE - Delete Inventory
+export async function DELETE(request: NextRequest) {
+  try {
+    const { user } = await requireAdmin();
+    await connectToDatabase();
+
+    const { searchParams } = new URL(request.url);
+    const id = searchParams.get("id");
+
+    if (!id) {
+      return NextResponse.json(
+        { error: "Inventory ID is required" },
+        { status: 400 }
+      );
+    }
+
+    // Find the Inventory first to get details for logging
+    const inventoryData = await Inventory.findOne({ id });
+    if (!inventoryData) {
+      return NextResponse.json({ error: "Inventory not found" }, { status: 404 });
+    }
+
+    // Delete the Inventory
+    await inventoryData.deleteOne({ id });
+
+    // Log the action
+    Logger.info("Inventory deleted", {
+      source: "admin/inventory",
+      userEmail: user?.email || undefined,
+      action: "delete_inventory",
+      details: {
+        InventoryId: id,
+        title: inventoryData.name,
+        type: inventoryData.category,
+        date: inventoryData.year_of_purchase,
+      },
+    });
+
+    return NextResponse.json({
+      message: "Inventory deleted successfully",
+    });
+  } catch (error) {
+    console.error("Error deleting Inventory:", error);
+
+    if (error instanceof Error && error.message.includes("access required")) {
+      return NextResponse.json(
+        { error: "Admin access required" },
+        { status: 403 }
+      );
+    }
+
+    return NextResponse.json(
+      { error: "Failed to delete Inventory" },
       { status: 500 }
     );
   }
