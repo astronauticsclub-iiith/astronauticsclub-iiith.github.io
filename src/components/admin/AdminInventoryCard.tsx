@@ -226,7 +226,7 @@ const AdminInventoryCard: React.FC<AdminInventoryCardProps> = ({
                 type="text"
                 value={editedInventory.name || ""}
                 onChange={(e) => updateEditedInventory("name", e.target.value)}
-                className="w-full bg-background border-2 border-white p-2 text-white font-medium text-sm transition-all duration-200 focus:scale-[1.02] focus:ring-2 focus:ring-white uppercase"
+                className="w-full bg-background border-2 border-white p-2 text-white font-medium text-sm transition-all duration-200 focus:scale-[1.02] focus:ring-2 focus:ring-white"
                 placeholder="Inventory Item name..."
                 disabled={isSubmitting}
                 required

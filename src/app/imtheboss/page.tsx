@@ -88,10 +88,6 @@ export default function AdminDashboard() {
     description: "",
     year_of_purchase: 2025 as number,
     status: "working",
-    isLent: false as boolean,
-    borrower: "",
-    borrowed_date: "",
-    comments: "",
   });
 
   const [newUser, setNewUser] = useState({
@@ -620,13 +616,6 @@ export default function AdminDashboard() {
       formData.append("description", newInventoryItem.description);
       formData.append("year_of_purchase", newInventoryItem.year_of_purchase.toString());
       formData.append("status", newInventoryItem.status);
-      formData.append("isLent", newInventoryItem.isLent.toString());
-
-      if (newInventoryItem.isLent) {
-        formData.append("borrower", newInventoryItem.borrower);
-        formData.append("borrowed_date", newInventoryItem.borrowed_date);
-        formData.append("comments", newInventoryItem.comments);
-      }
 
       if (newInventoryItem.imageFile) {
         formData.append("file", newInventoryItem.imageFile);
@@ -648,10 +637,6 @@ export default function AdminDashboard() {
           description: "",
           year_of_purchase: 2025,
           status: "working",
-          isLent: false,
-          borrower: "",
-          borrowed_date: "",
-          comments: "",
         });
         fetchInventory();
         showSuccess("Inventory Item added successfully");
@@ -1450,7 +1435,7 @@ export default function AdminDashboard() {
                     onChange={(e) =>
                       setnewInventoryItem({ ...newInventoryItem, name: e.target.value })
                     }
-                    className="w-full sm:col-span-2 bg-background border-2 border-white p-3 sm:p-4 text-white font-medium placeholder-[#666] uppercase text-sm sm:text-base transition-all duration-200 focus:scale-[1.02] hover:border-opacity-80 focus:ring-2 focus:ring-white focus:border-white"
+                    className="w-full sm:col-span-2 bg-background border-2 border-white p-3 sm:p-4 text-white font-medium placeholder-[#666] text-sm sm:text-base transition-all duration-200 focus:scale-[1.02] hover:border-opacity-80 focus:ring-2 focus:ring-white focus:border-white"
                     required
                   />
                 </div>
@@ -1538,7 +1523,7 @@ export default function AdminDashboard() {
                 />
 
                 {/* Image Upload */}
-                <div>
+                <div className="mb-4">
                   <label className="block text-white text-xs font-bold mb-1 uppercase">
                     Image
                   </label>
@@ -1548,65 +1533,9 @@ export default function AdminDashboard() {
                     onChange={(e) =>
                       setnewInventoryItem({ ...newInventoryItem, imageFile: e.target.files?.[0] || null })
                     }
-                    className="w-full bg-background border-2 border-white p-3 sm:p-4 text-white font-medium text-sm sm:text-base transition-all duration-200 focus:scale-[1.02] hover:border-opacity-80 focus:ring-2 focus:ring-white focus:border-white file:mr-4 file:py-2 file:px-4 file:border-0 file:text-sm file:font-bold file:bg-white file:text-background hover:file:bg-[#e0e0e0]"
+                    className="w-full bg-background border-2 border-white p-2 text-white font-medium text-sm transition-all duration-200 focus:scale-[1.02] focus:ring-2 focus:ring-white file:mr-4 file:py-1 file:px-2 file:border-0 file:text-xs file:font-bold file:bg-white file:text-background hover:file:bg-[#e0e0e0]"
                   />
                 </div>
-
-                {/* Lent Status */}
-                <div className="border-2 border-white p-3 sm:p-4">
-                  <div className="flex items-center gap-2 mb-4">
-                    <input
-                      type="checkbox"
-                      id="isLentToggle"
-                      checked={newInventoryItem.isLent}
-                      onChange={(e) =>
-                        setnewInventoryItem({ ...newInventoryItem, isLent: e.target.checked })
-                      }
-                      className="w-5 h-5 accent-white"
-                    />
-                    <label htmlFor="isLentToggle" className="text-white font-bold uppercase text-sm cursor-pointer">
-                      Item is currently lent out
-                    </label>
-                  </div>
-
-                  {newInventoryItem.isLent && (
-                    <div className="space-y-4 pl-4 border-l-2 border-white/30">
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
-                        <input
-                          type="text"
-                          placeholder="BORROWER NAME"
-                          value={newInventoryItem.borrower}
-                          onChange={(e) =>
-                            setnewInventoryItem({ ...newInventoryItem, borrower: e.target.value })
-                          }
-                          className="bg-background border-2 border-white p-3 sm:p-4 text-white font-medium placeholder-[#666] uppercase text-sm sm:text-base transition-all duration-200 focus:scale-[1.02] hover:border-opacity-80 focus:ring-2 focus:ring-white focus:border-white"
-                          required={newInventoryItem.isLent}
-                        />
-                        <input
-                          type="date"
-                          placeholder="BORROWED DATE"
-                          value={newInventoryItem.borrowed_date}
-                          onChange={(e) =>
-                            setnewInventoryItem({ ...newInventoryItem, borrowed_date: e.target.value })
-                          }
-                          className="bg-background border-2 border-white p-3 sm:p-4 text-white font-medium placeholder-[#666] text-sm sm:text-base transition-all duration-200 focus:scale-[1.02] hover:border-opacity-80 focus:ring-2 focus:ring-white focus:border-white"
-                          required={newInventoryItem.isLent}
-                        />
-                      </div>
-                      <textarea
-                        placeholder="COMMENTS / PURPOSE"
-                        value={newInventoryItem.comments}
-                        onChange={(e) =>
-                          setnewInventoryItem({ ...newInventoryItem, comments: e.target.value })
-                        }
-                        className="w-full bg-background border-2 border-white p-3 sm:p-4 text-white font-medium placeholder-[#666] text-sm sm:text-base transition-all duration-200 focus:scale-[1.02] hover:border-opacity-80 focus:ring-2 focus:ring-white focus:border-white resize-none"
-                        rows={2}
-                        required={newInventoryItem.isLent}
-                      />
-                    </div>
-                  )}
-                </div>
-
                 <button
                   type="submit"
                   className="w-full sm:w-auto px-3 sm:px-4 py-3 sm:py-4 border-2 border-white bg-white text-background font-bold hover:bg-[#e0e0e0] transition-all duration-200 uppercase text-sm sm:text-base hover:scale-105 active:scale-95"

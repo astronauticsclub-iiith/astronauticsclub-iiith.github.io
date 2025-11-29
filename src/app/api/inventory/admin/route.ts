@@ -52,10 +52,6 @@ export async function POST(request: NextRequest) {
     const description = formData.get("description") as string;
     const year_of_purchase = parseInt(formData.get("year_of_purchase") as string);
     const status = formData.get("status") as string;
-    const isLent = formData.get("isLent") === "true";
-    const borrower = formData.get("borrower") as string;
-    const borrowed_date = formData.get("borrowed_date") as string;
-    const comments = formData.get("comments") as string;
 
     // Validate required fields
     if (!id || !name || !category || !description || !year_of_purchase || !status) {
@@ -79,30 +75,6 @@ export async function POST(request: NextRequest) {
         { error: "Invalid status" },
         { status: 400 }
       );
-    }
-
-    // If isLent is true then some related fields can't be emoty
-    if (isLent) {
-      if (!borrower) {
-        return NextResponse.json(
-          { error: "Borrower can't be empty" },
-          { status: 400 }
-        );
-      }
-
-      if (!borrowed_date) {
-        return NextResponse.json(
-          { error: "Empty Borrow date" },
-          { status: 400 }
-        );
-      }
-
-      if (!comments) {
-        return NextResponse.json(
-          { error: "Specify the purpose in the comments" },
-          { status: 400 }
-        );
-      }
     }
 
     // Check if invnetory ID already exists
@@ -154,10 +126,7 @@ export async function POST(request: NextRequest) {
       description,
       year_of_purchase,
       status,
-      isLent,
-      borrower: isLent ? borrower : undefined,
-      borrowed_date: isLent ? borrowed_date : undefined,
-      comments: isLent ? comments : undefined,
+      isLent: false,
       image: imagePath,
     });
 
@@ -292,9 +261,9 @@ export async function PUT(request: NextRequest) {
       }
     } else if (updateData.isLent === false) {
       // If isLent is explicitly set to false, clear borrower-related fields
-      updateData.borrower = undefined;
-      updateData.borrowed_date = undefined;
-      updateData.comments = undefined;
+      updateData.borrower = "";
+      updateData.borrowed_date = "";
+      updateData.comments = "";
     }
 
     // Handle File Upload
