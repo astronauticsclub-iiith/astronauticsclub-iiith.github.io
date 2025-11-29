@@ -668,12 +668,13 @@ export default function AdminDashboard() {
     }
   }
 
-  const updateInventory = async (inventoryId: string, inventoryData: Partial<Inventory>) => {
+  const updateInventory = async (inventoryId: string, formData: FormData) => {
     try {
+      formData.append("id", inventoryId);
+
       const response = await fetch(withBasePath(`/api/inventory/admin`), {
         method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...inventoryData, id: inventoryId }),
+        body: formData,
       });
 
       if (response.ok) {

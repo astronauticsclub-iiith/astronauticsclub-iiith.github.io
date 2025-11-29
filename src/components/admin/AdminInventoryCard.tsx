@@ -13,12 +13,11 @@ import {
   Image as ImageIcon,
 } from "lucide-react";
 import { Inventory, validCategoryTypes, validStatusTypes } from "@/types/inventory-item";
-import ImageSelector from "./ImageSelector";
 
 interface AdminInventoryCardProps {
   inventory: Inventory;
   index: number;
-  onEdit: (inventoryId: string, inventoryData: Partial<Inventory>) => Promise<void>;
+  onEdit: (inventoryId: string, formData: FormData) => Promise<void>;
   onDelete: (inventoryId: string) => void;
   isEditing: boolean;
   onStartEdit: () => void;
@@ -35,6 +34,7 @@ const AdminInventoryCard: React.FC<AdminInventoryCardProps> = ({
   onCancelEdit,
 }) => {
   const [editedInventory, setEditedInventory] = useState<Partial<Inventory>>({});
+  const [imageFile, setImageFile] = useState<File | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showTypeDropdown, setShowTypeDropdown] = useState(false);
   const [showStatusDropdown, setShowStatusDropdown] = useState(false);
@@ -67,17 +67,12 @@ const AdminInventoryCard: React.FC<AdminInventoryCardProps> = ({
     };
   }, [showTypeDropdown, showStatusDropdown]);
 
-  const getisLentString = (isLent: boolean) => {
-    if (isLent) return "TRUE"
-    return "FALSE"
-  }
-
   const getStatusColor = (status: string) => {
     switch (status) {
       case "working":
         return "bg-green-600 border-green-600";
-        case "completely broken":
-          return "bg-red-600 border-red-600";
+      case "completely broken":
+        return "bg-red-600 border-red-600";
       case "needs repair":
         return "bg-gray-600 border-gray-600";
       default:
@@ -113,6 +108,7 @@ const AdminInventoryCard: React.FC<AdminInventoryCardProps> = ({
       borrower: inventory.borrower || "",
       comments: inventory.comments || "",
     });
+    setImageFile(null);
     onStartEdit();
   };
 
@@ -121,23 +117,25 @@ const AdminInventoryCard: React.FC<AdminInventoryCardProps> = ({
 
     setIsSubmitting(true);
     try {
+      const formData = new FormData();
       const updatedData = { ...editedInventory };
-      console.log("Updating inventory with data:", updatedData);
 
-      // Remove empty fields except for optional fields that should be preserved
+      // Append all fields to FormData
       Object.keys(updatedData).forEach((key) => {
-        if (
-          updatedData[key as keyof Inventory] === "" &&
-          key !== "borrower" &&
-          key !== "comments"
-        ) {
-          delete updatedData[key as keyof Inventory];
+        const value = updatedData[key as keyof Inventory];
+        if (value !== undefined && value !== null) {
+          // Skip empty optional fields if needed, but for now sending everything
+          formData.append(key, value.toString());
         }
       });
 
-      await onEdit(inventory.id, updatedData);
+      if (imageFile) {
+        formData.append("file", imageFile);
+      }
+
+      await onEdit(inventory.id, formData);
       onCancelEdit();
-    } 
+    }
     catch (error) {
       console.error("Error updating inventory item:", error);
     } finally {
@@ -147,12 +145,13 @@ const AdminInventoryCard: React.FC<AdminInventoryCardProps> = ({
 
   const handleCancelEdit = () => {
     setEditedInventory({});
+    setImageFile(null);
     onCancelEdit();
   };
 
   const updateEditedInventory = (
     field: keyof Inventory,
-    value: string | number | undefined | string[]
+    value: string | number | boolean | undefined
   ) => {
     setEditedInventory((prev) => ({ ...prev, [field]: value }));
   };
@@ -203,18 +202,18 @@ const AdminInventoryCard: React.FC<AdminInventoryCardProps> = ({
             </div>
 
             {/* Year of Purchase */}
-            <div className="grid grid-cols-2 gap-3">
-                <label className="block text-white text-xs font-bold mb-1 uppercase">
-                    Year of Purchase
-                </label>
-                <input
-                    type="number"
-                    value={editedInventory.year_of_purchase || ""}
-                    onChange={(e) => updateEditedInventory("year_of_purchase", e.target.value)}
-                    className="w-full bg-background border-2 border-white p-2 text-white font-medium text-sm transition-all duration-200 focus:scale-[1.02] focus:ring-2 focus:ring-white"
-                    disabled={isSubmitting}
-                    required
-                />
+            <div>
+              <label className="block text-white text-xs font-bold mb-1 uppercase">
+                Year of Purchase
+              </label>
+              <input
+                type="number"
+                value={editedInventory.year_of_purchase || ""}
+                onChange={(e) => updateEditedInventory("year_of_purchase", e.target.value)}
+                className="w-full bg-background border-2 border-white p-2 text-white font-medium text-sm transition-all duration-200 focus:scale-[1.02] focus:ring-2 focus:ring-white"
+                disabled={isSubmitting}
+                required
+              />
             </div>
 
             {/* Category and Status */}
@@ -238,9 +237,8 @@ const AdminInventoryCard: React.FC<AdminInventoryCardProps> = ({
                     </div>
                     <ChevronDown
                       size={16}
-                      className={`transition-transform ${
-                        showTypeDropdown ? "rotate-180" : ""
-                      }`}
+                      className={`transition-transform ${showTypeDropdown ? "rotate-180" : ""
+                        }`}
                     />
                   </button>
                   <AnimatePresence>
@@ -261,11 +259,10 @@ const AdminInventoryCard: React.FC<AdminInventoryCardProps> = ({
                               setShowTypeDropdown(false);
                             }}
                             disabled={isSubmitting}
-                            className={`w-full flex items-center gap-2 px-3 py-2 text-left font-medium hover:bg-white hover:text-background transition-colors disabled:opacity-50 disabled:cursor-not-allowed ${
-                              (editedInventory.category || inventory.category) === category
-                                ? "bg-white text-background"
-                                : "text-white"
-                            }`}
+                            className={`w-full flex items-center gap-2 px-3 py-2 text-left font-medium hover:bg-white hover:text-background transition-colors disabled:opacity-50 disabled:cursor-not-allowed ${(editedInventory.category || inventory.category) === category
+                              ? "bg-white text-background"
+                              : "text-white"
+                              }`}
                           >
                             <span className="uppercase">{category}</span>
                           </button>
@@ -292,9 +289,8 @@ const AdminInventoryCard: React.FC<AdminInventoryCardProps> = ({
                     </span>
                     <ChevronDown
                       size={16}
-                      className={`transition-transform ${
-                        showStatusDropdown ? "rotate-180" : ""
-                      }`}
+                      className={`transition-transform ${showStatusDropdown ? "rotate-180" : ""
+                        }`}
                     />
                   </button>
                   <AnimatePresence>
@@ -315,11 +311,10 @@ const AdminInventoryCard: React.FC<AdminInventoryCardProps> = ({
                               setShowStatusDropdown(false);
                             }}
                             disabled={isSubmitting}
-                            className={`w-full flex items-center gap-2 px-3 py-2 text-left font-medium hover:bg-white hover:text-background transition-colors disabled:opacity-50 disabled:cursor-not-allowed ${
-                              (editedInventory.status || inventory.status) === status
-                                ? "bg-white text-background"
-                                : "text-white"
-                            }`}
+                            className={`w-full flex items-center gap-2 px-3 py-2 text-left font-medium hover:bg-white hover:text-background transition-colors disabled:opacity-50 disabled:cursor-not-allowed ${(editedInventory.status || inventory.status) === status
+                              ? "bg-white text-background"
+                              : "text-white"
+                              }`}
                           >
                             <span className="uppercase">{status}</span>
                           </button>
@@ -332,28 +327,33 @@ const AdminInventoryCard: React.FC<AdminInventoryCardProps> = ({
             </div>
 
             {/* isLent */}
+            <div className="flex items-center gap-2">
+              <input
+                type="checkbox"
+                id={`isLent-${inventory.id}`}
+                checked={editedInventory.isLent || false}
+                onChange={(e) => updateEditedInventory("isLent", e.target.checked)}
+                className="w-4 h-4 accent-white"
+                disabled={isSubmitting}
+              />
+              <label htmlFor={`isLent-${inventory.id}`} className="text-white text-xs font-bold uppercase cursor-pointer">
+                Item is currently lent out
+              </label>
+            </div>
+
+            {/* Image Upload */}
             <div>
               <label className="block text-white text-xs font-bold mb-1 uppercase">
-                isLent
+                Image
               </label>
               <input
-                type="string"
-                value={editedInventory.isLent? getisLentString(editedInventory.isLent) : "FALSE"}
-                onChange={(e) =>
-                  updateEditedInventory("isLent", e.target.value)
-                }
-                className="w-full bg-background border-2 border-white p-2 text-white font-medium text-sm transition-all duration-200 focus:scale-[1.02] focus:ring-2 focus:ring-white"
-                placeholder="No"
+                type="file"
+                accept="image/*"
+                onChange={(e) => setImageFile(e.target.files?.[0] || null)}
+                className="w-full bg-background border-2 border-white p-2 text-white font-medium text-sm transition-all duration-200 focus:scale-[1.02] focus:ring-2 focus:ring-white file:mr-4 file:py-1 file:px-2 file:border-0 file:text-xs file:font-bold file:bg-white file:text-background hover:file:bg-[#e0e0e0]"
                 disabled={isSubmitting}
               />
             </div>
-
-            {/* Image Selection */}
-            <ImageSelector
-              selectedImage={editedInventory.image || ""}
-              onChange={(image) => updateEditedInventory("image", image)}
-              disabled={isSubmitting}
-            />
 
             {/* Edit Action Buttons */}
             <div className="flex gap-2 pt-2">
@@ -441,14 +441,14 @@ const AdminInventoryCard: React.FC<AdminInventoryCardProps> = ({
               {inventory.borrower && (
                 <div className="text-[#e0e0e0] text-xs sm:text-sm">
                   <span className="font-bold">Borrower:</span>{" "}
-                    {inventory.borrower}
+                  {inventory.borrower}
                 </div>
               )}
 
               {inventory.comments && (
                 <div className="text-[#e0e0e0] text-xs sm:text-sm">
                   <span className="font-bold">Comments:</span>{" "}
-                    {inventory.comments}
+                  {inventory.comments}
                 </div>
               )}
 

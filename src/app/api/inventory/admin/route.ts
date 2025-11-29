@@ -206,8 +206,9 @@ export async function PUT(request: NextRequest) {
     const { user } = await requireAdmin();
     await connectToDatabase();
 
-    const inventoryData = await request.json();
-    const { id } = inventoryData;
+    const formData = await request.formData();
+    const id = formData.get("id") as string;
+    const file = formData.get("file") as File;
 
     if (!id) {
       return NextResponse.json(
@@ -216,38 +217,121 @@ export async function PUT(request: NextRequest) {
       );
     }
 
-    // Validate catgeory type
-    if (inventoryData.category) {
-      if (!validCategoryTypes.includes(inventoryData.category)) {
-        return NextResponse.json(
-          { error: "Invalid Inventory type" },
-          { status: 400 }
-        );
+    const existingInventory = await Inventory.findOne({ id });
+    if (!existingInventory) {
+      return NextResponse.json(
+        { error: "Inventory item not found" },
+        { status: 404 }
+      );
+    }
+
+    // Extract fields to update
+    const updateData: Record<string, string | number | boolean | undefined> = {};
+    const fields = [
+      "name",
+      "category",
+      "description",
+      "year_of_purchase",
+      "status",
+      "isLent",
+      "borrower",
+      "borrowed_date",
+      "comments",
+    ];
+
+    fields.forEach((field) => {
+      const value = formData.get(field);
+      if (value !== null) {
+        if (field === "year_of_purchase") {
+          updateData[field] = parseInt(value as string);
+        } else if (field === "isLent") {
+          updateData[field] = value === "true";
+        } else {
+          updateData[field] = value as string;
+        }
       }
+    });
+
+    // Validate category type if provided
+    if (updateData.category && !validCategoryTypes.includes(updateData.category as string)) {
+      return NextResponse.json(
+        { error: "Invalid category" },
+        { status: 400 }
+      );
     }
 
     // Validate status if provided
-    if (inventoryData.status) {
-      if (!validStatusTypes.includes(inventoryData.status)) {
+    if (updateData.status && !validStatusTypes.includes(updateData.status as string)) {
+      return NextResponse.json(
+        { error: "Invalid status" },
+        { status: 400 }
+      );
+    }
+
+    // If isLent is true then some related fields can't be empty
+    if (updateData.isLent === true) {
+      if (!updateData.borrower && !existingInventory.borrower) {
         return NextResponse.json(
-          { error: "Invalid Inventory status" },
+          { error: "Borrower can't be empty" },
           { status: 400 }
         );
       }
+
+      if (!updateData.borrowed_date && !existingInventory.borrowed_date) {
+        return NextResponse.json(
+          { error: "Empty Borrow date" },
+          { status: 400 }
+        );
+      }
+
+      if (!updateData.comments && !existingInventory.comments) {
+        return NextResponse.json(
+          { error: "Specify the purpose in the comments" },
+          { status: 400 }
+        );
+      }
+    } else if (updateData.isLent === false) {
+      // If isLent is explicitly set to false, clear borrower-related fields
+      updateData.borrower = undefined;
+      updateData.borrowed_date = undefined;
+      updateData.comments = undefined;
     }
 
-    // Find and update the Inventory
-    const existingInventory = await Inventory.findOne({ id });
-    if (!existingInventory) {
-      return NextResponse.json({ error: "Inventory not found" }, { status: 404 });
-    }
+    // Handle File Upload
+    if (file) {
+      // Validate file type
+      const imageExtensions = [".jpg", ".jpeg", ".png", ".webp", ".gif", ".bmp", ".svg", ".avif"];
+      const fileExtension = path.extname(file.name).toLowerCase();
 
-    // Update the image
+      if (!imageExtensions.includes(fileExtension)) {
+        return NextResponse.json(
+          { error: "Invalid file type. Only image files are allowed." },
+          { status: 400 }
+        );
+      }
+
+      // Create filename (using ID)
+      const filename = `${id}${fileExtension}`;
+
+      // Ensure inventory directory structure exists
+      const inventoryDir = withStoragePath("inventory");
+      const category = updateData.category || existingInventory.category;
+      const categoryDir = path.join(inventoryDir, category);
+
+      await fs.mkdir(categoryDir, { recursive: true });
+
+      // Save file
+      const filePath = path.join(categoryDir, filename);
+      const buffer = Buffer.from(await file.arrayBuffer());
+      await fs.writeFile(filePath, buffer);
+
+      updateData.image = `/inventory/${category}/${filename}`;
+    }
 
     const updatedInventory = await Inventory.findOneAndUpdate(
       { id },
-      { $set: inventoryData },
-      { new: true, runValidators: true }
+      { $set: updateData },
+      { new: true }
     );
 
     console.log(
@@ -259,32 +343,22 @@ export async function PUT(request: NextRequest) {
     Logger.info("Inventory updated", {
       source: "admin/inventory",
       userEmail: user?.email || undefined,
-      action: "update_Inventory",
+      action: "update_inventory_item",
       details: {
         InventoryId: id,
-        title: updatedInventory.name,
-        changes: inventoryData,
+        title: updatedInventory?.name,
+        updates: Object.keys(updateData),
       },
     });
 
     return NextResponse.json({
       message: "Inventory updated successfully",
-      Inventory: updatedInventory,
+      inventory: updatedInventory,
     });
-  }
-
-  catch (error) {
-    console.error("Error updating Inventory:", error);
-
-    if (error instanceof Error && error.message.includes("access required")) {
-      return NextResponse.json(
-        { error: "Admin access required" },
-        { status: 403 }
-      );
-    }
-
+  } catch (error) {
+    console.error("Error updating inventory:", error);
     return NextResponse.json(
-      { error: "Failed to update Inventory" },
+      { error: "Failed to update inventory" },
       { status: 500 }
     );
   }
