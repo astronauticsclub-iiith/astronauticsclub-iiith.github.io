@@ -6,6 +6,30 @@ import { Logger } from "@/lib/logger";
 import { requireAdmin } from "@/lib/auth";
 import { withStoragePath, generateLabel } from "@/components/common/HelperFunction";
 
+const requiredFields = [
+    "id",
+    "name",
+    "category",
+    "description",
+    "image",
+    "year_purchase",
+    "borrowed", 
+    "status",
+];
+    
+const validCategoryTypes = [
+    "astronomy",
+    "electronics",
+    "Inventorys",
+    "others",
+];
+    
+const validStatusTypes = [
+    "working",
+    "needs repair",
+    "completely broken",
+];
+    
 
 // GET - List all inventory items for admin management
 export async function GET() {
@@ -43,7 +67,6 @@ export async function POST(request: NextRequest) {
     const inventoryData = await request.json();
 
     // Validate required fields
-    const requiredFields = ["id", "name", "category", "description", "image", "year_purchase", "borrowed", "status"];
     for (const field of requiredFields) {
       if (!inventoryData[field]) {
         return NextResponse.json(
@@ -54,7 +77,6 @@ export async function POST(request: NextRequest) {
     }
 
     // Validate category type
-    const validCategoryTypes = ["astronomy", "electronics", "events", "others"];
     if (!validCategoryTypes.includes(inventoryData.category)) {
       return NextResponse.json(
         { error: "Invalid category" },
@@ -63,8 +85,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Validate status
-    const validStatusTypes = ["working", "needs repair", "completely broken",];
-    if (!validStatusTypes.includes(inventoryData.category)) {
+    if (!validStatusTypes.includes(inventoryData.status)) {
       return NextResponse.json(
         { error: "Invalid status" },
         { status: 400 }
@@ -88,7 +109,7 @@ export async function POST(request: NextRequest) {
     // Store the image
 
     await newInventory.save();
-    console.log("API: Event saved successfully:", newInventory.toObject());
+    console.log("API: Inventory saved successfully:", newInventory.toObject());
 
     // Log the action
     Logger.info("Inventory created", {
@@ -96,7 +117,7 @@ export async function POST(request: NextRequest) {
       userEmail: user?.email || undefined,
       action: "add_inventory_item",
       details: {
-        eventId: newInventory.id,
+        InventoryId: newInventory.id,
         title: newInventory.name,
         type: newInventory.category,
         date: newInventory.year_of_purchase,
@@ -105,7 +126,7 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json({
       message: "Inventory created successfully",
-      event: newInventory,
+      Inventory: newInventory,
     });
   } 
   
@@ -121,6 +142,96 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json(
       { error: "Failed to add inventory" },
+      { status: 500 }
+    );
+  }
+}
+
+// PUT - Update existing Inventory Item
+export async function PUT(request: NextRequest) {
+  try {
+    const { user } = await requireAdmin();
+    await connectToDatabase();
+
+    const inventoryData = await request.json();
+    const { id } = inventoryData;
+
+    if (!id) {
+      return NextResponse.json(
+        { error: "Inventory ID is required" },
+        { status: 400 }
+      );
+    }
+
+    // Validate catgeory type
+    if (inventoryData.category) {
+      if (!validCategoryTypes.includes(inventoryData.category)) {
+        return NextResponse.json(
+          { error: "Invalid Inventory type" },
+          { status: 400 }
+        );
+      }
+    }
+
+    // Validate status if provided
+    if (inventoryData.status) {
+      if (!validStatusTypes.includes(inventoryData.status)) {
+        return NextResponse.json(
+          { error: "Invalid Inventory status" },
+          { status: 400 }
+        );
+      }
+    }
+
+    // Find and update the Inventory
+    const existingInventory = await Inventory.findOne({ id });
+    if (!existingInventory) {
+      return NextResponse.json({ error: "Inventory not found" }, { status: 404 });
+    }
+
+    // Update the image
+
+    const updatedInventory = await Inventory.findOneAndUpdate(
+      { id },
+      { $set: inventoryData },
+      { new: true, runValidators: true }
+    );
+
+    console.log(
+      "API PUT: Inventory updated successfully:",
+      updatedInventory?.toObject()
+    );
+
+    // Log the action
+    Logger.info("Inventory updated", {
+      source: "admin/inventory",
+      userEmail: user?.email || undefined,
+      action: "update_Inventory",
+      details: {
+        InventoryId: id,
+        title: updatedInventory.name,
+        changes: inventoryData,
+      },
+    });
+
+    return NextResponse.json({
+      message: "Inventory updated successfully",
+      Inventory: updatedInventory,
+    });
+  } 
+  
+  catch (error) {
+    console.error("Error updating Inventory:", error);
+
+    if (error instanceof Error && error.message.includes("access required")) {
+      return NextResponse.json(
+        { error: "Admin access required" },
+        { status: 403 }
+      );
+    }
+
+    return NextResponse.json(
+      { error: "Failed to update Inventory" },
       { status: 500 }
     );
   }
