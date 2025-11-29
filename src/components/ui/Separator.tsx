@@ -95,7 +95,6 @@ const CloudSeparator: React.FC<CloudSeparatorProps> = ({
     // Small delay to ensure smooth animation after initial render
     const timer = setTimeout(() => {
       setIsLoaded(true);
-      height = window.innerHeight/10;
     }, 100);
 
     return () => clearTimeout(timer);
@@ -190,10 +189,9 @@ const CloudSeparator: React.FC<CloudSeparatorProps> = ({
   return (
     <div
       ref={separatorRef}
-      className={`cloud-separator w-full absolute ${
-        isLoaded ? "loaded" : ""
-      } ${className}`}
-      style={{height: `${separatorHeightVh}`}}
+      className={`cloud-separator w-full absolute ${isLoaded ? "loaded" : ""
+        } ${className}`}
+      style={{ height: `${separatorHeightVh}` }}
       suppressHydrationWarning
     >
       {/* Cloud container */}
