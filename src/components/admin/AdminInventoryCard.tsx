@@ -10,7 +10,7 @@ import {
   X,
   ChevronDown,
   Calendar,
-  MapPin,
+  BadgeInfo,
 } from "lucide-react";
 import { Inventory, validCategoryTypes, validStatusTypes } from "@/types/inventory-item";
 import { withUploadPath } from "@/components/common/HelperFunction"
@@ -74,13 +74,13 @@ const AdminInventoryCard: React.FC<AdminInventoryCardProps> = ({
     };
   }, [showTypeDropdown, showStatusDropdown]);
 
-  const getStatusColor = (status: string) => {
-    switch (status) {
+  const getStatusColor = () => {
+    switch (editedInventory.status || inventory.status) {
       case "working":
         return "bg-green-600 border-green-600";
-      case "completely broken":
+      case "broken":
         return "bg-red-600 border-red-600";
-      case "needs repair":
+      case "repair":
         return "bg-gray-600 border-gray-600";
       default:
         return "bg-gray-600 border-gray-600";
@@ -93,7 +93,7 @@ const AdminInventoryCard: React.FC<AdminInventoryCardProps> = ({
         return "🔭";
       case "electronics":
         return "🔧";
-      case "events":
+      case "event":
         return "🎨";
       case "others":
         return "𝄜";
@@ -495,7 +495,7 @@ const AdminInventoryCard: React.FC<AdminInventoryCardProps> = ({
               </div>
               <div className="ml-3">
                 <span
-                  className={`px-2 py-1 text-xs font-bold uppercase border-2 text-white ${getStatusColor(inventory.status)}`}
+                  className={`px-2 py-1 text-xs font-bold uppercase border-2 text-white ${getStatusColor()}`}
                 >
                   {inventory.status}
                 </span>
@@ -506,27 +506,27 @@ const AdminInventoryCard: React.FC<AdminInventoryCardProps> = ({
             <div className="space-y-2 mb-3">
               <div className="flex items-center gap-2 text-[#e0e0e0] text-xs sm:text-sm">
                 <Calendar size={14} />
-                <span>
-                  {inventory.year_of_purchase}
-                </span>
+                <b>Purchased:</b>
+                <span className="uppercase">{inventory.year_of_purchase}</span>
               </div>
 
               {inventory.status && (
                 <div className="flex items-center gap-2 text-[#e0e0e0] text-xs sm:text-sm">
-                  <MapPin size={14} />
-                  <span>{inventory.status}</span>
+                  <BadgeInfo size={14} />
+                  <b>Status:</b>
+                  <span className="uppercase"> {inventory.status}</span>
                 </div>
               )}
 
               <div className="flex items-center gap-2 text-[#e0e0e0] text-xs sm:text-sm">
                 <span>{getCategoryIcon()}</span>
-                <span className="uppercase font-medium">{inventory.category}</span>
+                <b>Category:</b>
+                <span className="uppercase">{inventory.category}</span>
               </div>
 
               {inventory.isLent && (
-                <div className="text-[#e0e0e0] text-xs sm:text-sm">
-                  <span className="font-bold">isLent:</span>{" "}
-                  {inventory.isLent}
+                <div className="text-[#e0e0e0] text-xs sm:text-sm uppercase">
+                  THIS ITEM HAS BEEN BORROWED BY:
                 </div>
               )}
 
@@ -564,6 +564,28 @@ const AdminInventoryCard: React.FC<AdminInventoryCardProps> = ({
 
             {/* Action Buttons */}
             <div className="flex gap-2">
+              {!inventory.isLent && (
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  onClick={() => setIsBorrowing(true)}
+                  className="flex-1 px-2 py-1.5 border-2 border-white  bg-green-600 text-white font-bold text-xs uppercase transition-all duration-200 hover:bg-green-700"
+                >
+                  <Check className="inline mr-1" size={12} />
+                  BORROW
+                </motion.button>
+              )}
+              {inventory.isLent && inventory.borrower === session?.user?.email && (
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  onClick={() => setIsReturning(true)}
+                  className="flex-1 px-2 py-1.5 border-2 border-white bg-blue-600 text-white font-bold text-xs uppercase transition-all duration-200 hover:bg-blue-700"
+                >
+                  <Check className="inline mr-1" size={12} />
+                  RETURN
+                </motion.button>
+              )}
               <motion.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
@@ -582,28 +604,6 @@ const AdminInventoryCard: React.FC<AdminInventoryCardProps> = ({
                 <Trash2 className="inline mr-1" size={12} />
                 DELETE
               </motion.button>
-              {!inventory.isLent && (
-                <motion.button
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  onClick={() => setIsBorrowing(true)}
-                  className="flex-1 px-2 py-1.5 border-2 border-white bg-blue-600 text-white font-bold text-xs uppercase transition-all duration-200 hover:bg-blue-700"
-                >
-                  <Check className="inline mr-1" size={12} />
-                  BORROW
-                </motion.button>
-              )}
-              {inventory.isLent && inventory.borrower === session?.user?.email && (
-                <motion.button
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  onClick={() => setIsReturning(true)}
-                  className="flex-1 px-2 py-1.5 border-2 border-white bg-green-600 text-white font-bold text-xs uppercase transition-all duration-200 hover:bg-green-700"
-                >
-                  <Check className="inline mr-1" size={12} />
-                  RETURN
-                </motion.button>
-              )}
             </div>
           </div>
         )}
