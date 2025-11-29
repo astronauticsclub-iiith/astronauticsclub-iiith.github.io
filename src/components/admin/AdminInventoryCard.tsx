@@ -377,19 +377,13 @@ const AdminInventoryCard: React.FC<AdminInventoryCardProps> = ({
             </div>
 
             {/* isLent */}
-            <div className="flex items-center gap-2">
-              <input
-                type="checkbox"
-                id={`isLent-${inventory.id}`}
-                checked={editedInventory.isLent || false}
-                onChange={(e) => updateEditedInventory("isLent", e.target.checked)}
-                className="w-4 h-4 accent-white"
-                disabled={true} // Read-only in edit mode
-              />
-              <label htmlFor={`isLent-${inventory.id}`} className="text-white text-xs font-bold uppercase cursor-pointer">
-                Item is currently lent out
-              </label>
-            </div>
+            {editedInventory.isLent && (
+              <div className="flex items-center mb-2">
+                <span className="text-white text-xs font-bold uppercase bg-red-600 px-2 py-1 rounded">
+                  ITEM IS CURRENTLY LENT OUT
+                </span>
+              </div>
+            )}
 
             {editedInventory.isLent && (
               <div className="space-y-3 pl-4 border-l-2 border-white/30">

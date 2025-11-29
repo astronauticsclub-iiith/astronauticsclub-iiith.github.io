@@ -358,6 +358,20 @@ export async function DELETE(request: NextRequest) {
     // Delete the Inventory
     await inventoryData.deleteOne({ id });
 
+    // Delete the associated image file if it exists
+    if (inventoryData.image) {
+      try {
+        const inventoryDir = withStoragePath("inventory");
+        const relativePath = inventoryData.image.replace(/^\/inventory\//, "");
+        const filePath = path.join(inventoryDir, relativePath);
+
+        await fs.unlink(filePath);
+        console.log(`Deleted image file: ${filePath}`);
+      } catch (err) {
+        console.error("Error deleting image file:", err);
+      }
+    }
+
     // Log the action
     Logger.info("Inventory deleted", {
       source: "admin/inventory",
