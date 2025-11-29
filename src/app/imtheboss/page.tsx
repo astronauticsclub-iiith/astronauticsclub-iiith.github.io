@@ -610,8 +610,11 @@ export default function AdminDashboard() {
   const addInventoryItem = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
+      // Generate ID: name-randomString
+      const generatedId = `${newInventoryItem.name.toLowerCase().replace(/[^a-z0-9]+/g, "-")}-${Math.random().toString(36).substring(2, 8)}`;
+
       const formData = new FormData();
-      formData.append("id", newInventoryItem.id);
+      formData.append("id", generatedId);
       formData.append("name", newInventoryItem.name);
       formData.append("category", newInventoryItem.category);
       formData.append("description", newInventoryItem.description);
@@ -1438,17 +1441,6 @@ export default function AdminDashboard() {
 
               <form onSubmit={addInventoryItem} className="space-y-4">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
-                  {/* ID */}
-                  <input
-                    type="text"
-                    placeholder="INVENTORY ID (UNIQUE)"
-                    value={newInventoryItem.id}
-                    onChange={(e) =>
-                      setnewInventoryItem({ ...newInventoryItem, id: e.target.value })
-                    }
-                    className="bg-background border-2 border-white p-3 sm:p-4 text-white font-medium placeholder-[#666] uppercase text-sm sm:text-base transition-all duration-200 focus:scale-[1.02] hover:border-opacity-80 focus:ring-2 focus:ring-white focus:border-white"
-                    required
-                  />
                   {/* Name */}
                   <input
                     type="text"
@@ -1457,7 +1449,7 @@ export default function AdminDashboard() {
                     onChange={(e) =>
                       setnewInventoryItem({ ...newInventoryItem, name: e.target.value })
                     }
-                    className="bg-background border-2 border-white p-3 sm:p-4 text-white font-medium placeholder-[#666] uppercase text-sm sm:text-base transition-all duration-200 focus:scale-[1.02] hover:border-opacity-80 focus:ring-2 focus:ring-white focus:border-white"
+                    className="w-full sm:col-span-2 bg-background border-2 border-white p-3 sm:p-4 text-white font-medium placeholder-[#666] uppercase text-sm sm:text-base transition-all duration-200 focus:scale-[1.02] hover:border-opacity-80 focus:ring-2 focus:ring-white focus:border-white"
                     required
                   />
                 </div>
@@ -1651,7 +1643,7 @@ export default function AdminDashboard() {
                     Loading inventory items...
                   </span>
                 </div>
-              ) : events.length === 0 ? (
+              ) : inventory.length === 0 ? (
                 <div className="text-center py-8">
                   <p className="text-white font-bold uppercase">
                     No inventory items found
