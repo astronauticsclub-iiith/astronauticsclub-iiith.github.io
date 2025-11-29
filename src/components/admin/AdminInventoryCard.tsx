@@ -13,6 +13,9 @@ import {
   MapPin,
 } from "lucide-react";
 import { Inventory, validCategoryTypes, validStatusTypes } from "@/types/inventory-item";
+import { withUploadPath } from "@/components/common/HelperFunction"
+import { useSession } from "next-auth/react";
+import CustomConfirm from "@/components/ui/CustomConfirm";
 
 interface AdminInventoryCardProps {
   inventory: Inventory;
@@ -33,11 +36,14 @@ const AdminInventoryCard: React.FC<AdminInventoryCardProps> = ({
   onStartEdit,
   onCancelEdit,
 }) => {
+  const { data: session } = useSession();
   const [editedInventory, setEditedInventory] = useState<Partial<Inventory>>({});
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showTypeDropdown, setShowTypeDropdown] = useState(false);
   const [showStatusDropdown, setShowStatusDropdown] = useState(false);
+  const [isBorrowing, setIsBorrowing] = useState(false);
+  const [borrowComment, setBorrowComment] = useState("");
   const typeDropdownRef = useRef<HTMLDivElement>(null);
   const statusDropdownRef = useRef<HTMLDivElement>(null);
 
@@ -147,6 +153,28 @@ const AdminInventoryCard: React.FC<AdminInventoryCardProps> = ({
     setEditedInventory({});
     setImageFile(null);
     onCancelEdit();
+  };
+
+  const handleBorrowConfirm = async () => {
+    if (isSubmitting) return;
+
+    setIsSubmitting(true);
+    try {
+      const formData = new FormData();
+      formData.append("id", inventory.id);
+      formData.append("isLent", "true");
+      formData.append("borrower", session?.user?.name || "Admin");
+      formData.append("borrowed_date", new Date().toISOString().split("T")[0]);
+      formData.append("comments", borrowComment);
+
+      await onEdit(inventory.id, formData);
+      setIsBorrowing(false);
+      setBorrowComment("");
+    } catch (error) {
+      console.error("Error borrowing item:", error);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const updateEditedInventory = (
@@ -503,10 +531,11 @@ const AdminInventoryCard: React.FC<AdminInventoryCardProps> = ({
               {inventory.image && (
                 <div className="mt-2 mb-2 relative h-48 w-full">
                   <Image
-                    src={inventory.image}
+                    src={withUploadPath(inventory.image)}
                     alt={inventory.name}
                     fill
                     className="object-cover rounded-md border border-white/20"
+                    unoptimized
                   />
                 </div>
               )}
@@ -537,10 +566,55 @@ const AdminInventoryCard: React.FC<AdminInventoryCardProps> = ({
                 <Trash2 className="inline mr-1" size={12} />
                 DELETE
               </motion.button>
+              {!inventory.isLent && (
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  onClick={() => setIsBorrowing(true)}
+                  className="flex-1 px-2 py-1.5 border-2 border-white bg-blue-600 text-white font-bold text-xs uppercase transition-all duration-200 hover:bg-blue-700"
+                >
+                  <Check className="inline mr-1" size={12} />
+                  BORROW
+                </motion.button>
+              )}
             </div>
           </div>
         )}
       </div>
+
+      <CustomConfirm
+        isOpen={isBorrowing}
+        title="Borrow Item"
+        message="Please confirm the details below."
+        confirmText="CONFIRM"
+        cancelText="CANCEL"
+        type="info"
+        onConfirm={handleBorrowConfirm}
+        onCancel={() => setIsBorrowing(false)}
+      >
+        <div className="space-y-3 text-white">
+          <div className="text-sm">
+            <span className="font-bold text-blue-300">Borrower:</span>{" "}
+            {session?.user?.name || "Admin"}
+          </div>
+          <div className="text-sm">
+            <span className="font-bold text-blue-300">Date:</span>{" "}
+            {new Date().toLocaleDateString()}
+          </div>
+          <div>
+            <label className="block text-xs font-bold mb-1 uppercase text-blue-300">
+              Comments / Purpose
+            </label>
+            <textarea
+              value={borrowComment}
+              onChange={(e) => setBorrowComment(e.target.value)}
+              className="w-full bg-background border-2 border-white p-2 text-white font-medium text-sm transition-all duration-200 focus:scale-[1.02] focus:ring-2 focus:ring-blue-400 resize-none"
+              placeholder="Enter purpose..."
+              rows={3}
+            />
+          </div>
+        </div>
+      </CustomConfirm>
     </motion.div>
   );
 };

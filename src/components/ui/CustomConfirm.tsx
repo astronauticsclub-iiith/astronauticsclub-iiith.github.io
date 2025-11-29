@@ -12,6 +12,7 @@ interface CustomConfirmProps {
   type?: "danger" | "warning" | "info";
   onConfirm: () => void;
   onCancel: () => void;
+  children?: React.ReactNode;
 }
 
 export default function CustomConfirm({
@@ -23,6 +24,7 @@ export default function CustomConfirm({
   type = "warning",
   onConfirm,
   onCancel,
+  children,
 }: CustomConfirmProps) {
   const getTypeStyles = () => {
     switch (type) {
@@ -115,6 +117,7 @@ export default function CustomConfirm({
                 >
                   {message}
                 </motion.p>
+                {children && <div className="mt-4">{children}</div>}
               </div>
             </motion.div>
 
