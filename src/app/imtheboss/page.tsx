@@ -24,10 +24,12 @@ import CustomAlert from "@/components/ui/CustomAlert";
 import CustomConfirm from "@/components/ui/CustomConfirm";
 import AdminPhotoCard from "@/components/admin/AdminPhotoCard";
 import AdminEventCard from "@/components/admin/AdminEventCard";
+import AdminInventoryCard from "@/components/admin/AdminInventoryCard";
 import ImageSelector from "@/components/admin/ImageSelector";
 import DesignationCombobox from "@/components/admin/DesignationCombobox";
 import { useAlert } from "@/hooks/useAlert";
 import { Event } from "@/types/event";
+import { Inventory } from "@/types/inventory-item";
 import "@/components/ui/bg-patterns.css";
 import { withBasePath, withUploadPath } from "@/components/common/HelperFunction";
 import { User } from "@/types/user";
@@ -42,7 +44,7 @@ export default function AdminDashboard() {
   const [logs, setLogs] = useState<LogEntry[]>([]);
   const [logsLoading, setLogsLoading] = useState(false);
   const [activeTab, setActiveTab] = useState<
-    "users" | "logs" | "gallery" | "events"
+    "users" | "logs" | "gallery" | "events" | "inventory"
   >("users");
   const [galleryImages, setGalleryImages] = useState<GalleryImage[]>([]);
   const [galleryLoading, setGalleryLoading] = useState(false);
@@ -72,6 +74,23 @@ export default function AdminDashboard() {
     status: "upcoming" as const,
     image: "",
   });
+  
+  const [inventory, setInventory] = useState<Inventory[]>([]);
+  const [inventoryLoading, setInventoryLoading] = useState(false);
+  const [editingInventory, setEditingInventory] = useState<string | null>(null);
+  const [newInventoryItem, setnewInventoryItem] = useState({
+    id: "",
+    name: "",
+    image: "",
+    category: "astronomy" as const,
+    description: "",
+    year_of_purchase: 2025 as number,
+    status: "working" as const,
+    borrowed: false as boolean,
+    borrower: "",
+    comments: "",
+  });
+
   const [newUser, setNewUser] = useState({
     email: "",
     name: "",
@@ -173,6 +192,24 @@ export default function AdminDashboard() {
     }
   }, [showError]);
 
+  const fetchInventory = useCallback(async () => {
+    setInventoryLoading(true);
+    try {
+      const response = await fetch(withBasePath(`/api/inventory/admin`));
+      if (response.ok) {
+        const data = await response.json();
+        setInventory(data.inventory || []);
+      } else {
+        showError("Failed to fetch inventory");
+      }
+    } catch (error) {
+      console.error("Error fetching inventory:", error);
+      showError("Failed to fetch inventory");
+    } finally {
+      setInventoryLoading(false);
+    }
+  }, [showError]);
+
   useEffect(() => {
     if (status === "loading") return;
 
@@ -194,7 +231,10 @@ export default function AdminDashboard() {
     } else if (activeTab === "events") {
       fetchEvents();
     }
-  }, [activeTab, fetchLogs, fetchGalleryImages, fetchEvents]);
+    else if (activeTab === "inventory") {
+      fetchInventory();
+    }
+  }, [activeTab, fetchLogs, fetchGalleryImages, fetchEvents, fetchInventory]);
 
   // Close upload dropdown when clicking outside
   useEffect(() => {
@@ -488,9 +528,6 @@ export default function AdminDashboard() {
         ...(newEvent.image && { image: newEvent.image }),
       };
 
-      // console.log("Creating event with data:", eventData);
-      // console.log("Registration link value:", newEvent.registrationLink);
-
       const response = await fetch(withBasePath(`/api/events/admin`), {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -566,6 +603,17 @@ export default function AdminDashboard() {
       showError("Failed to delete event");
     }
   };
+
+  const addInventoryItem = async (e: React.FormEvent) => {
+    e.preventDefault();
+  }
+  const updateInventory = async (inventoryId: string, inventoryData: Partial<Inventory>) => {
+    console.log(inventoryId);
+    console.log(inventoryData);
+  }
+  const deleteInventory = async (inventoryId: string) => {
+    console.log(inventoryId);
+  }
 
   if (loading) {
     return (
@@ -668,6 +716,18 @@ export default function AdminDashboard() {
               <CalendarDays className="inline mr-2" size={14} />
               <span className="hidden sm:inline">EVENTS MANAGER</span>
               <span className="sm:hidden">EVENTS</span>
+            </button>
+            <button
+              onClick={() => setActiveTab("inventory")}
+              className={`w-full sm:w-auto px-3 sm:px-4 lg:px-6 py-2 sm:py-3 border-2 border-white font-bold transition-all duration-200 uppercase text-sm sm:text-base hover:scale-105 active:scale-95 ${
+                activeTab === "events"
+                  ? "bg-white text-background"
+                  : "text-white hover:bg-white hover:text-background"
+              }`}
+            >
+              <CalendarDays className="inline mr-2" size={14} />
+              <span className="hidden sm:inline">INVENTORY MANAGER</span>
+              <span className="sm:hidden">INVENTORY</span>
             </button>
           </div>
         </motion.div>
@@ -1375,6 +1435,125 @@ export default function AdminDashboard() {
                       isEditing={editingEvent === event.id}
                       onStartEdit={() => setEditingEvent(event.id)}
                       onCancelEdit={() => setEditingEvent(null)}
+                    />
+                  ))}
+                </div>
+              )}
+            </motion.div>
+          </motion.div>
+        )}
+
+        {/* Events Tab */}
+        {activeTab === "inventory" && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.4, duration: 0.5 }}
+            className="space-y-6 sm:space-y-8"
+          >
+            {/* Add Inventory Form */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 0.5, duration: 0.4 }}
+              className="border-2 sm:border-4 border-white p-3 sm:p-4 lg:p-6 backdrop-blur-sm hover:shadow-lg hover:shadow-white/10 transition-all duration-300"
+            >
+              <h2 className="text-lg sm:text-xl lg:text-2xl font-bold mb-4 sm:mb-6 text-white uppercase flex items-center gap-2">
+                <Plus size={18} className="sm:w-6 sm:h-6" />
+                ADD NEW INVENTORY ITEM
+              </h2>
+              <form onSubmit={addInventoryItem} className="space-y-4">
+                {/* INVENTORY ITEM ID and NAME */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
+                  <input
+                    type="text"
+                    placeholder="EVENT ID (UNIQUE)"
+                    value={newInventoryItem.id}
+                    onChange={(e) =>
+                      setnewInventoryItem({ ...newInventoryItem, id: e.target.value })
+                    }
+                    className="bg-background border-2 border-white p-3 sm:p-4 text-white font-medium placeholder-[#666] uppercase text-sm sm:text-base transition-all duration-200 focus:scale-[1.02] hover:border-opacity-80 focus:ring-2 focus:ring-white focus:border-white"
+                    required
+                  />
+                  <input
+                    type="text"
+                    placeholder="INVENTORY ITEM NAME"
+                    value={newInventoryItem.name}
+                    onChange={(e) =>
+                      setnewInventoryItem({ ...newInventoryItem, name: e.target.value })
+                    }
+                    className="bg-background border-2 border-white p-3 sm:p-4 text-white font-medium placeholder-[#666] uppercase text-sm sm:text-base transition-all duration-200 focus:scale-[1.02] hover:border-opacity-80 focus:ring-2 focus:ring-white focus:border-white"
+                    required
+                  />
+                </div>
+
+                {/* Description */}
+                <textarea
+                  placeholder="EVENT DESCRIPTION"
+                  value={newInventoryItem.description}
+                  onChange={(e) =>
+                    setnewInventoryItem({ ...newInventoryItem, description: e.target.value })
+                  }
+                  className="w-full bg-background border-2 border-white p-3 sm:p-4 text-white font-medium placeholder-[#666] text-sm sm:text-base transition-all duration-200 focus:scale-[1.02] hover:border-opacity-80 focus:ring-2 focus:ring-white focus:border-white resize-none"
+                  rows={3}
+                  required
+                />
+
+                <button
+                  type="submit"
+                  className="w-full sm:w-auto px-3 sm:px-4 py-3 sm:py-4 border-2 border-white bg-white text-background font-bold hover:bg-[#e0e0e0] transition-all duration-200 uppercase text-sm sm:text-base hover:scale-105 active:scale-95"
+                >
+                  <Plus className="inline mr-2" size={14} />
+                  ADD INVENTORY ITEM
+                </button>
+              </form>
+            </motion.div>
+
+            {/* Inventory List */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 0.6, duration: 0.4 }}
+              className="border-2 sm:border-4 border-white p-3 sm:p-4 lg:p-6 backdrop-blur-sm hover:shadow-lg hover:shadow-white/10 transition-all duration-300"
+            >
+              <h2 className="text-lg sm:text-xl lg:text-2xl font-bold mb-4 sm:mb-6 text-white uppercase flex items-center gap-2">
+                <CalendarDays size={18} className="sm:w-6 sm:h-6" />
+                INVENTORY LIST ({inventory.length})
+              </h2>
+
+              {inventoryLoading ? (
+                <div className="flex items-center justify-center py-8">
+                  <motion.div
+                    animate={{ rotate: 360 }}
+                    transition={{
+                      duration: 2,
+                      repeat: Infinity,
+                      ease: "linear",
+                    }}
+                    className="w-6 h-6 border-2 border-white border-t-transparent rounded-full"
+                  />
+                  <span className="ml-3 text-white font-bold uppercase">
+                    Loading inventory items...
+                  </span>
+                </div>
+              ) : events.length === 0 ? (
+                <div className="text-center py-8">
+                  <p className="text-white font-bold uppercase">
+                    No inventory items found
+                  </p>
+                </div>
+              ) : (
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
+                  {inventory.map((inventory_item, index) => (
+                    <AdminInventoryCard
+                      key={inventory_item.id}
+                      inventory={inventory_item}
+                      index={index}
+                      onEdit={updateInventory}
+                      onDelete={deleteInventory}
+                      isEditing={editingInventory === inventory_item.id}
+                      onStartEdit={() => setEditingInventory(inventory_item.id)}
+                      onCancelEdit={() => setEditingInventory(null)}
                     />
                   ))}
                 </div>

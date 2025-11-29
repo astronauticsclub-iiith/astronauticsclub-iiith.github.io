@@ -74,14 +74,12 @@ const AdminInventoryCard: React.FC<AdminInventoryCardProps> = ({
 
   const getStatusColor = (status: string) => {
     switch (status) {
-      case "upcoming":
-        return "bg-blue-600 border-blue-600";
-      case "ongoing":
+      case "working":
         return "bg-green-600 border-green-600";
-      case "completed":
+        case "completely broken":
+          return "bg-red-600 border-red-600";
+      case "needs repair":
         return "bg-gray-600 border-gray-600";
-      case "cancelled":
-        return "bg-red-600 border-red-600";
       default:
         return "bg-gray-600 border-gray-600";
     }
