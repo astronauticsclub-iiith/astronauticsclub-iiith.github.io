@@ -67,8 +67,8 @@ const AdminInventoryCard: React.FC<AdminInventoryCardProps> = ({
     };
   }, [showTypeDropdown, showStatusDropdown]);
 
-  const getBorrowedString = (borrowed: boolean) => {
-    if (borrowed) return "TRUE"
+  const getisLentString = (isLent: boolean) => {
+    if (isLent) return "TRUE"
     return "FALSE"
   }
 
@@ -109,7 +109,7 @@ const AdminInventoryCard: React.FC<AdminInventoryCardProps> = ({
       description: inventory.description,
       year_of_purchase: inventory.year_of_purchase,
       status: inventory.status,
-      borrowed: inventory.borrowed,
+      isLent: inventory.isLent,
       borrower: inventory.borrower || "",
       comments: inventory.comments || "",
     });
@@ -331,16 +331,16 @@ const AdminInventoryCard: React.FC<AdminInventoryCardProps> = ({
               </div>
             </div>
 
-            {/* Borrowed */}
+            {/* isLent */}
             <div>
               <label className="block text-white text-xs font-bold mb-1 uppercase">
-                Borrowed
+                isLent
               </label>
               <input
                 type="string"
-                value={editedInventory.borrowed? getBorrowedString(editedInventory.borrowed) : "FALSE"}
+                value={editedInventory.isLent? getisLentString(editedInventory.isLent) : "FALSE"}
                 onChange={(e) =>
-                  updateEditedInventory("borrowed", e.target.value)
+                  updateEditedInventory("isLent", e.target.value)
                 }
                 className="w-full bg-background border-2 border-white p-2 text-white font-medium text-sm transition-all duration-200 focus:scale-[1.02] focus:ring-2 focus:ring-white"
                 placeholder="No"
@@ -431,10 +431,10 @@ const AdminInventoryCard: React.FC<AdminInventoryCardProps> = ({
                 <span className="uppercase font-medium">{inventory.category}</span>
               </div>
 
-              {inventory.borrowed && (
+              {inventory.isLent && (
                 <div className="text-[#e0e0e0] text-xs sm:text-sm">
-                  <span className="font-bold">Borrowed:</span>{" "}
-                  {inventory.borrowed}
+                  <span className="font-bold">isLent:</span>{" "}
+                  {inventory.isLent}
                 </div>
               )}
 

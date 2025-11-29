@@ -1,12 +1,12 @@
 import { NextRequest, NextResponse } from "next/server";
 import { connectToDatabase } from "@/lib/mongodb";
 import Inventory from "@/models/Inventory";
-import {validStatusTypes, validCategoryTypes} from "@/types/inventory-item";
+import { validStatusTypes, validCategoryTypes } from "@/types/inventory-item";
 // import { promises as fs } from "fs";
 import { Logger } from "@/lib/logger";
 import { requireAdmin } from "@/lib/auth";
 // import { withStoragePath, generateLabel } from "@/components/common/HelperFunction";
-    
+
 
 // GET - List all inventory items for admin management
 export async function GET() {
@@ -16,9 +16,9 @@ export async function GET() {
 
     const inventory = await Inventory.find({}).sort({ year_of_purchase: -1 }).lean();
     return NextResponse.json({ inventory });
-  } 
-  
-  catch (error){
+  }
+
+  catch (error) {
     console.error("Error fetching admin inventory:", error);
 
     if (error instanceof Error && error.message.includes("access required")) {
@@ -45,14 +45,14 @@ export async function POST(request: NextRequest) {
 
     // Validate required fields
     const requiredFields = [
-        "id",
-        "name",
-        "category",
-        "description",
-        "image",
-        "year_purchase",
-        "borrowed", 
-        "status",
+      "id",
+      "name",
+      "category",
+      "description",
+      "image",
+      "year_of_purchase",
+      "isLent",
+      "status",
     ];
     for (const field of requiredFields) {
       if (!inventoryData[field]) {
@@ -79,23 +79,23 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // If borrowed is true then some related fields can't be emoty
-    if (inventoryData.borrowed){
-      if (inventoryData.borrower === ""){
+    // If isLent is true then some related fields can't be emoty
+    if (inventoryData.isLent) {
+      if (inventoryData.borrower === "") {
         return NextResponse.json(
           { error: "Borrower can't be empty" },
           { status: 400 }
         );
       }
 
-      if (inventoryData.borrowed_date === ""){
+      if (inventoryData.borrowed_date === "") {
         return NextResponse.json(
           { error: "Empty Borrow date" },
           { status: 400 }
         );
       }
 
-      if (inventoryData.comments === ""){
+      if (inventoryData.comments === "") {
         return NextResponse.json(
           { error: "Specify the purpose in the comments" },
           { status: 400 }
@@ -139,8 +139,8 @@ export async function POST(request: NextRequest) {
       message: "Inventory created successfully",
       Inventory: newInventory,
     });
-  } 
-  
+  }
+
   catch (error) {
     console.error("Error adding inventory:", error);
 
@@ -229,8 +229,8 @@ export async function PUT(request: NextRequest) {
       message: "Inventory updated successfully",
       Inventory: updatedInventory,
     });
-  } 
-  
+  }
+
   catch (error) {
     console.error("Error updating Inventory:", error);
 

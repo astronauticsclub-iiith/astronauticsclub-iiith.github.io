@@ -30,7 +30,7 @@ import ImageSelector from "@/components/admin/ImageSelector";
 import DesignationCombobox from "@/components/admin/DesignationCombobox";
 import { useAlert } from "@/hooks/useAlert";
 import { Event } from "@/types/event";
-import { Inventory } from "@/types/inventory-item";
+import { Inventory, validCategoryTypes, validStatusTypes } from "@/types/inventory-item";
 import "@/components/ui/bg-patterns.css";
 import { withBasePath, withUploadPath } from "@/components/common/HelperFunction";
 import { User } from "@/types/user";
@@ -75,7 +75,7 @@ export default function AdminDashboard() {
     status: "upcoming" as const,
     image: "",
   });
-  
+
   const [inventory, setInventory] = useState<Inventory[]>([]);
   const [inventoryLoading, setInventoryLoading] = useState(false);
   const [editingInventory, setEditingInventory] = useState<string | null>(null);
@@ -83,11 +83,11 @@ export default function AdminDashboard() {
     id: "",
     name: "",
     image: "",
-    category: "astronomy" as const,
+    category: "astronomy",
     description: "",
     year_of_purchase: 2025 as number,
-    status: "working" as const,
-    borrowed: false as boolean,
+    status: "working",
+    isLent: false as boolean,
     borrower: "",
     borrowed_date: "",
     comments: "",
@@ -409,11 +409,11 @@ export default function AdminDashboard() {
 
   const removeUser = async (userId: string) => {
     showConfirm(
-        "REMOVE MEMBER",
-        "Are you sure you want to remove this member? This action cannot be undone.",
-        () => deleteUser(userId),
-        { type: "danger", confirmText: "REMOVE MEMBER" }
-      );
+      "REMOVE MEMBER",
+      "Are you sure you want to remove this member? This action cannot be undone.",
+      () => deleteUser(userId),
+      { type: "danger", confirmText: "REMOVE MEMBER" }
+    );
   }
 
   const uploadImage = async (e: React.FormEvent) => {
@@ -617,10 +617,10 @@ export default function AdminDashboard() {
         year_of_purchase: newInventoryItem.year_of_purchase,
         category: newInventoryItem.category,
         status: newInventoryItem.status,
-        borrowed: newInventoryItem.borrowed,
-        ...(newInventoryItem.borrowed && { borrower: newInventoryItem.borrower }),
-        ...(newInventoryItem.borrowed && { borrowed_date: newInventoryItem.borrowed_date }),
-        ...(newInventoryItem.borrowed && { comments: newInventoryItem.comments }),
+        isLent: newInventoryItem.isLent,
+        ...(newInventoryItem.isLent && { borrower: newInventoryItem.borrower }),
+        ...(newInventoryItem.isLent && { borrowed_date: newInventoryItem.borrowed_date }),
+        ...(newInventoryItem.isLent && { comments: newInventoryItem.comments }),
       };
 
       const response = await fetch(withBasePath(`/api/inventory/admin`), {
@@ -639,20 +639,20 @@ export default function AdminDashboard() {
           description: "",
           year_of_purchase: 2025 as number,
           status: "working" as const,
-          borrowed: false as boolean,
+          isLent: false as boolean,
           borrower: "",
           borrowed_date: "",
           comments: "",
         });
         fetchInventory();
         showSuccess("Inventory Item added successfully");
-      } 
+      }
       else {
         const error = await response.json();
         showError(error.error || "Failed to add inventory item");
       }
-    } 
-    
+    }
+
     catch (error) {
       console.error("Error adding inventory item:", error);
       showError("Failed to add inventory item");
@@ -660,11 +660,45 @@ export default function AdminDashboard() {
   }
 
   const updateInventory = async (inventoryId: string, inventoryData: Partial<Inventory>) => {
-    console.log(inventoryId);
-    console.log(inventoryData);
+    try {
+      const response = await fetch(withBasePath(`/api/inventory/admin`), {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ...inventoryData, id: inventoryId }),
+      });
+
+      if (response.ok) {
+        setEditingInventory(null);
+        fetchInventory();
+        showSuccess("Inventory item updated successfully");
+      } else {
+        const error = await response.json();
+        showError(error.error || "Failed to update inventory item");
+      }
+    } catch (error) {
+      console.error("Error updating inventory item:", error);
+      showError("Failed to update inventory item");
+      throw error;
+    }
   }
   const deleteInventory = async (inventoryId: string) => {
-    console.log(inventoryId);
+    try {
+      const response = await fetch(
+        withBasePath(`/api/inventory/admin?id=${encodeURIComponent(inventoryId)}`),
+        { method: "DELETE" }
+      );
+
+      if (response.ok) {
+        fetchInventory();
+        showSuccess("Inventory item deleted successfully");
+      } else {
+        const error = await response.json();
+        showError(error.error || "Failed to delete inventory item");
+      }
+    } catch (error) {
+      console.error("Error deleting inventory item:", error);
+      showError("Failed to delete inventory item");
+    }
   }
 
   if (loading) {
@@ -723,11 +757,10 @@ export default function AdminDashboard() {
           <div className="flex flex-col sm:flex-row gap-2 sm:gap-4">
             <button
               onClick={() => setActiveTab("users")}
-              className={`w-full sm:w-auto px-3 sm:px-4 lg:px-6 py-2 sm:py-3 border-2 border-white font-bold transition-all duration-200 uppercase text-sm sm:text-base hover:scale-105 active:scale-95 ${
-                activeTab === "users"
-                  ? "bg-white text-background"
-                  : "text-white hover:bg-white hover:text-background"
-              }`}
+              className={`w-full sm:w-auto px-3 sm:px-4 lg:px-6 py-2 sm:py-3 border-2 border-white font-bold transition-all duration-200 uppercase text-sm sm:text-base hover:scale-105 active:scale-95 ${activeTab === "users"
+                ? "bg-white text-background"
+                : "text-white hover:bg-white hover:text-background"
+                }`}
             >
               <Users className="inline mr-2" size={14} />
               <span className="hidden sm:inline">USER MANAGEMENT</span>
@@ -735,11 +768,10 @@ export default function AdminDashboard() {
             </button>
             <button
               onClick={() => setActiveTab("logs")}
-              className={`w-full sm:w-auto px-3 sm:px-4 lg:px-6 py-2 sm:py-3 border-2 border-white font-bold transition-all duration-200 uppercase text-sm sm:text-base hover:scale-105 active:scale-95 ${
-                activeTab === "logs"
-                  ? "bg-white text-background"
-                  : "text-white hover:bg-white hover:text-background"
-              }`}
+              className={`w-full sm:w-auto px-3 sm:px-4 lg:px-6 py-2 sm:py-3 border-2 border-white font-bold transition-all duration-200 uppercase text-sm sm:text-base hover:scale-105 active:scale-95 ${activeTab === "logs"
+                ? "bg-white text-background"
+                : "text-white hover:bg-white hover:text-background"
+                }`}
             >
               <FileText className="inline mr-2" size={14} />
               <span className="hidden sm:inline">SYSTEM LOGS</span>
@@ -747,11 +779,10 @@ export default function AdminDashboard() {
             </button>
             <button
               onClick={() => setActiveTab("gallery")}
-              className={`w-full sm:w-auto px-3 sm:px-4 lg:px-6 py-2 sm:py-3 border-2 border-white font-bold transition-all duration-200 uppercase text-sm sm:text-base hover:scale-105 active:scale-95 ${
-                activeTab === "gallery"
-                  ? "bg-white text-background"
-                  : "text-white hover:bg-white hover:text-background"
-              }`}
+              className={`w-full sm:w-auto px-3 sm:px-4 lg:px-6 py-2 sm:py-3 border-2 border-white font-bold transition-all duration-200 uppercase text-sm sm:text-base hover:scale-105 active:scale-95 ${activeTab === "gallery"
+                ? "bg-white text-background"
+                : "text-white hover:bg-white hover:text-background"
+                }`}
             >
               <FolderOpen className="inline mr-2" size={14} />
               <span className="hidden sm:inline">GALLERY MANAGER</span>
@@ -759,11 +790,10 @@ export default function AdminDashboard() {
             </button>
             <button
               onClick={() => setActiveTab("events")}
-              className={`w-full sm:w-auto px-3 sm:px-4 lg:px-6 py-2 sm:py-3 border-2 border-white font-bold transition-all duration-200 uppercase text-sm sm:text-base hover:scale-105 active:scale-95 ${
-                activeTab === "events"
-                  ? "bg-white text-background"
-                  : "text-white hover:bg-white hover:text-background"
-              }`}
+              className={`w-full sm:w-auto px-3 sm:px-4 lg:px-6 py-2 sm:py-3 border-2 border-white font-bold transition-all duration-200 uppercase text-sm sm:text-base hover:scale-105 active:scale-95 ${activeTab === "events"
+                ? "bg-white text-background"
+                : "text-white hover:bg-white hover:text-background"
+                }`}
             >
               <CalendarDays className="inline mr-2" size={14} />
               <span className="hidden sm:inline">EVENTS MANAGER</span>
@@ -771,11 +801,10 @@ export default function AdminDashboard() {
             </button>
             <button
               onClick={() => setActiveTab("inventory")}
-              className={`w-full sm:w-auto px-3 sm:px-4 lg:px-6 py-2 sm:py-3 border-2 border-white font-bold transition-all duration-200 uppercase text-sm sm:text-base hover:scale-105 active:scale-95 ${
-                activeTab === "inventory"
-                  ? "bg-white text-background"
-                  : "text-white hover:bg-white hover:text-background"
-              }`}
+              className={`w-full sm:w-auto px-3 sm:px-4 lg:px-6 py-2 sm:py-3 border-2 border-white font-bold transition-all duration-200 uppercase text-sm sm:text-base hover:scale-105 active:scale-95 ${activeTab === "inventory"
+                ? "bg-white text-background"
+                : "text-white hover:bg-white hover:text-background"
+                }`}
             >
               <Package className="inline mr-2" size={14} />
               <span className="hidden sm:inline">INVENTORY MANAGER</span>
@@ -897,7 +926,7 @@ export default function AdminDashboard() {
                         </p>
                         <p className="text-xs text-[#999] font-medium">
                           JOINED:{" "}
-                          {user.createdAt? new Date(user.createdAt).toLocaleDateString(): ""}
+                          {user.createdAt ? new Date(user.createdAt).toLocaleDateString() : ""}
                         </p>
                       </div>
                     </div>
@@ -928,7 +957,7 @@ export default function AdminDashboard() {
                       onClick={() => removeUser(user._id)}
                       className="px-2 sm:px-3 py-1 border-2 border-white text-white font-bold hover:bg-white hover:text-background transition-all duration-200 text-base sm:text-lg lg:text-xl hover:scale-105 active:scale-95 min-w-[2.5rem] flex items-center justify-center"
                     >
-                    ×
+                      ×
                     </button>
                   </motion.div>
                 ))}
@@ -996,9 +1025,8 @@ export default function AdminDashboard() {
                       </div>
                       <ChevronDown
                         size={16}
-                        className={`transition-transform ${
-                          showUploadCategoryDropdown ? "rotate-180" : ""
-                        }`}
+                        className={`transition-transform ${showUploadCategoryDropdown ? "rotate-180" : ""
+                          }`}
                       />
                     </button>
                     <AnimatePresence>
@@ -1016,11 +1044,10 @@ export default function AdminDashboard() {
                               setUploadCategory("astrophotography");
                               setShowUploadCategoryDropdown(false);
                             }}
-                            className={`w-full flex items-center gap-2 px-3 py-2 text-left font-medium hover:bg-white hover:text-background transition-colors ${
-                              uploadCategory === "astrophotography"
-                                ? "bg-white text-background"
-                                : "text-white"
-                            }`}
+                            className={`w-full flex items-center gap-2 px-3 py-2 text-left font-medium hover:bg-white hover:text-background transition-colors ${uploadCategory === "astrophotography"
+                              ? "bg-white text-background"
+                              : "text-white"
+                              }`}
                           >
                             <Camera size={16} />
                             <span className="uppercase">ASTROPHOTOGRAPHY</span>
@@ -1031,11 +1058,10 @@ export default function AdminDashboard() {
                               setUploadCategory("events");
                               setShowUploadCategoryDropdown(false);
                             }}
-                            className={`w-full flex items-center gap-2 px-3 py-2 text-left font-medium hover:bg-white hover:text-background transition-colors ${
-                              uploadCategory === "events"
-                                ? "bg-white text-background"
-                                : "text-white"
-                            }`}
+                            className={`w-full flex items-center gap-2 px-3 py-2 text-left font-medium hover:bg-white hover:text-background transition-colors ${uploadCategory === "events"
+                              ? "bg-white text-background"
+                              : "text-white"
+                              }`}
                           >
                             <Calendar size={16} />
                             <span className="uppercase">EVENTS</span>
@@ -1046,11 +1072,10 @@ export default function AdminDashboard() {
                               setUploadCategory("others");
                               setShowUploadCategoryDropdown(false);
                             }}
-                            className={`w-full flex items-center gap-2 px-3 py-2 text-left font-medium hover:bg-white hover:text-background transition-colors ${
-                              uploadCategory === "others"
-                                ? "bg-white text-background"
-                                : "text-white"
-                            }`}
+                            className={`w-full flex items-center gap-2 px-3 py-2 text-left font-medium hover:bg-white hover:text-background transition-colors ${uploadCategory === "others"
+                              ? "bg-white text-background"
+                              : "text-white"
+                              }`}
                           >
                             <Calendar size={16} />
                             <span className="uppercase">OTHERS</span>
@@ -1385,7 +1410,7 @@ export default function AdminDashboard() {
           </motion.div>
         )}
 
-        {/* Events Tab */}
+        {/* Inventory Tab */}
         {activeTab === "inventory" && (
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -1404,13 +1429,13 @@ export default function AdminDashboard() {
                 <Plus size={18} className="sm:w-6 sm:h-6" />
                 ADD NEW INVENTORY ITEM
               </h2>
+
               <form onSubmit={addInventoryItem} className="space-y-4">
-                {/* INVENTORY ITEM ID and NAME */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
-                  {/* Remove the id as input, set it automatically */}
+                  {/* ID */}
                   <input
                     type="text"
-                    placeholder="INVENTORY ITEM ID (UNIQUE)"
+                    placeholder="INVENTORY ID (UNIQUE)"
                     value={newInventoryItem.id}
                     onChange={(e) =>
                       setnewInventoryItem({ ...newInventoryItem, id: e.target.value })
@@ -1418,9 +1443,10 @@ export default function AdminDashboard() {
                     className="bg-background border-2 border-white p-3 sm:p-4 text-white font-medium placeholder-[#666] uppercase text-sm sm:text-base transition-all duration-200 focus:scale-[1.02] hover:border-opacity-80 focus:ring-2 focus:ring-white focus:border-white"
                     required
                   />
+                  {/* Name */}
                   <input
                     type="text"
-                    placeholder="INVENTORY ITEM NAME"
+                    placeholder="ITEM NAME"
                     value={newInventoryItem.name}
                     onChange={(e) =>
                       setnewInventoryItem({ ...newInventoryItem, name: e.target.value })
@@ -1430,9 +1456,79 @@ export default function AdminDashboard() {
                   />
                 </div>
 
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4">
+                  {/* Category */}
+                  <div>
+                    <label className="block text-white text-xs font-bold mb-1 uppercase">
+                      Category
+                    </label>
+                    <select
+                      value={newInventoryItem.category}
+                      onChange={(e) =>
+                        setnewInventoryItem({
+                          ...newInventoryItem,
+                          category: e.target.value,
+                        })
+                      }
+                      className="w-full bg-background border-2 border-white p-3 sm:p-4 text-white font-medium text-sm sm:text-base transition-all duration-200 focus:scale-[1.02] hover:border-opacity-80 focus:ring-2 focus:ring-white focus:border-white uppercase"
+                      required
+                    >
+                      {validCategoryTypes.map((type) => (
+                        <option key={type} value={type}>
+                          {type.toUpperCase()}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+
+                  {/* Status */}
+                  <div>
+                    <label className="block text-white text-xs font-bold mb-1 uppercase">
+                      Status
+                    </label>
+                    <select
+                      value={newInventoryItem.status}
+                      onChange={(e) =>
+                        setnewInventoryItem({
+                          ...newInventoryItem,
+                          status: e.target.value,
+                        })
+                      }
+                      className="w-full bg-background border-2 border-white p-3 sm:p-4 text-white font-medium text-sm sm:text-base transition-all duration-200 focus:scale-[1.02] hover:border-opacity-80 focus:ring-2 focus:ring-white focus:border-white uppercase"
+                      required
+                    >
+                      {validStatusTypes.map((status) => (
+                        <option key={status} value={status}>
+                          {status.toUpperCase()}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+
+                  {/* Year of Purchase */}
+                  <div>
+                    <label className="block text-white text-xs font-bold mb-1 uppercase">
+                      Year
+                    </label>
+                    <input
+                      type="number"
+                      placeholder="YEAR"
+                      value={newInventoryItem.year_of_purchase}
+                      onChange={(e) =>
+                        setnewInventoryItem({
+                          ...newInventoryItem,
+                          year_of_purchase: parseInt(e.target.value),
+                        })
+                      }
+                      className="w-full bg-background border-2 border-white p-3 sm:p-4 text-white font-medium placeholder-[#666] text-sm sm:text-base transition-all duration-200 focus:scale-[1.02] hover:border-opacity-80 focus:ring-2 focus:ring-white focus:border-white"
+                      required
+                    />
+                  </div>
+                </div>
+
                 {/* Description */}
                 <textarea
-                  placeholder="INVENTORY ITEM DESCRIPTION"
+                  placeholder="ITEM DESCRIPTION"
                   value={newInventoryItem.description}
                   onChange={(e) =>
                     setnewInventoryItem({ ...newInventoryItem, description: e.target.value })
@@ -1441,6 +1537,67 @@ export default function AdminDashboard() {
                   rows={3}
                   required
                 />
+
+                {/* Image Selection */}
+                <ImageSelector
+                  selectedImage={newInventoryItem.image}
+                  onChange={(image) => setnewInventoryItem({ ...newInventoryItem, image })}
+                />
+
+                {/* Lent Status */}
+                <div className="border-2 border-white p-3 sm:p-4">
+                  <div className="flex items-center gap-2 mb-4">
+                    <input
+                      type="checkbox"
+                      id="isLentToggle"
+                      checked={newInventoryItem.isLent}
+                      onChange={(e) =>
+                        setnewInventoryItem({ ...newInventoryItem, isLent: e.target.checked })
+                      }
+                      className="w-5 h-5 accent-white"
+                    />
+                    <label htmlFor="isLentToggle" className="text-white font-bold uppercase text-sm cursor-pointer">
+                      Item is currently lent out
+                    </label>
+                  </div>
+
+                  {newInventoryItem.isLent && (
+                    <div className="space-y-4 pl-4 border-l-2 border-white/30">
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
+                        <input
+                          type="text"
+                          placeholder="BORROWER NAME"
+                          value={newInventoryItem.borrower}
+                          onChange={(e) =>
+                            setnewInventoryItem({ ...newInventoryItem, borrower: e.target.value })
+                          }
+                          className="bg-background border-2 border-white p-3 sm:p-4 text-white font-medium placeholder-[#666] uppercase text-sm sm:text-base transition-all duration-200 focus:scale-[1.02] hover:border-opacity-80 focus:ring-2 focus:ring-white focus:border-white"
+                          required={newInventoryItem.isLent}
+                        />
+                        <input
+                          type="date"
+                          placeholder="BORROWED DATE"
+                          value={newInventoryItem.borrowed_date}
+                          onChange={(e) =>
+                            setnewInventoryItem({ ...newInventoryItem, borrowed_date: e.target.value })
+                          }
+                          className="bg-background border-2 border-white p-3 sm:p-4 text-white font-medium placeholder-[#666] text-sm sm:text-base transition-all duration-200 focus:scale-[1.02] hover:border-opacity-80 focus:ring-2 focus:ring-white focus:border-white"
+                          required={newInventoryItem.isLent}
+                        />
+                      </div>
+                      <textarea
+                        placeholder="COMMENTS / PURPOSE"
+                        value={newInventoryItem.comments}
+                        onChange={(e) =>
+                          setnewInventoryItem({ ...newInventoryItem, comments: e.target.value })
+                        }
+                        className="w-full bg-background border-2 border-white p-3 sm:p-4 text-white font-medium placeholder-[#666] text-sm sm:text-base transition-all duration-200 focus:scale-[1.02] hover:border-opacity-80 focus:ring-2 focus:ring-white focus:border-white resize-none"
+                        rows={2}
+                        required={newInventoryItem.isLent}
+                      />
+                    </div>
+                  )}
+                </div>
 
                 <button
                   type="submit"
@@ -1547,13 +1704,12 @@ export default function AdminDashboard() {
                     <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-3">
                       <div className="flex items-center gap-2 sm:gap-3">
                         <span
-                          className={`px-2 py-1 text-xs font-bold uppercase border ${
-                            log.level === "error"
-                              ? "bg-red-600 text-white border-red-600"
-                              : log.level === "warn"
+                          className={`px-2 py-1 text-xs font-bold uppercase border ${log.level === "error"
+                            ? "bg-red-600 text-white border-red-600"
+                            : log.level === "warn"
                               ? "bg-yellow-600 text-white border-yellow-600"
                               : "bg-green-600 text-white border-green-600"
-                          }`}
+                            }`}
                         >
                           {log.level}
                         </span>

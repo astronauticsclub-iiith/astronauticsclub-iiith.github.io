@@ -6,7 +6,7 @@ export interface Inventory {
   description: string;
   year_of_purchase: number;
   status: "working" | "needs repair" | "completely broken";
-  borrowed: boolean;
+  isLent: boolean;
   borrower?: string;
   borrowed_date?: string;
   comments?: string;

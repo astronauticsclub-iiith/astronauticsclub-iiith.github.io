@@ -34,7 +34,7 @@ const InventorySchema = new Schema<InventoryDocument>(
     },
     description: { type: String, required: true },
     year_of_purchase: {type: Number, required: true},
-    borrowed: { type: Boolean, required: true },
+    isLent: { type: Boolean, required: true },
     borrower: { type: String },
     borrowed_date: { type: String },
     comments: { type: String },
