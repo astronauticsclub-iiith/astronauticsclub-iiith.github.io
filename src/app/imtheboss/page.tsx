@@ -83,6 +83,7 @@ export default function AdminDashboard() {
     id: "",
     name: "",
     image: "",
+    imageFile: null as File | null,
     category: "astronomy",
     description: "",
     year_of_purchase: 2025 as number,
@@ -609,24 +610,28 @@ export default function AdminDashboard() {
   const addInventoryItem = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const inventoryData = {
-        id: newInventoryItem.id,
-        name: newInventoryItem.name,
-        image: newInventoryItem.image,
-        description: newInventoryItem.description,
-        year_of_purchase: newInventoryItem.year_of_purchase,
-        category: newInventoryItem.category,
-        status: newInventoryItem.status,
-        isLent: newInventoryItem.isLent,
-        ...(newInventoryItem.isLent && { borrower: newInventoryItem.borrower }),
-        ...(newInventoryItem.isLent && { borrowed_date: newInventoryItem.borrowed_date }),
-        ...(newInventoryItem.isLent && { comments: newInventoryItem.comments }),
-      };
+      const formData = new FormData();
+      formData.append("id", newInventoryItem.id);
+      formData.append("name", newInventoryItem.name);
+      formData.append("category", newInventoryItem.category);
+      formData.append("description", newInventoryItem.description);
+      formData.append("year_of_purchase", newInventoryItem.year_of_purchase.toString());
+      formData.append("status", newInventoryItem.status);
+      formData.append("isLent", newInventoryItem.isLent.toString());
+
+      if (newInventoryItem.isLent) {
+        formData.append("borrower", newInventoryItem.borrower);
+        formData.append("borrowed_date", newInventoryItem.borrowed_date);
+        formData.append("comments", newInventoryItem.comments);
+      }
+
+      if (newInventoryItem.imageFile) {
+        formData.append("file", newInventoryItem.imageFile);
+      }
 
       const response = await fetch(withBasePath(`/api/inventory/admin`), {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(inventoryData),
+        body: formData,
       });
 
       if (response.ok) {
@@ -635,11 +640,12 @@ export default function AdminDashboard() {
           id: "",
           name: "",
           image: "",
-          category: "astronomy" as const,
+          imageFile: null,
+          category: "astronomy",
           description: "",
-          year_of_purchase: 2025 as number,
-          status: "working" as const,
-          isLent: false as boolean,
+          year_of_purchase: 2025,
+          status: "working",
+          isLent: false,
           borrower: "",
           borrowed_date: "",
           comments: "",
@@ -1538,11 +1544,20 @@ export default function AdminDashboard() {
                   required
                 />
 
-                {/* Image Selection */}
-                <ImageSelector
-                  selectedImage={newInventoryItem.image}
-                  onChange={(image) => setnewInventoryItem({ ...newInventoryItem, image })}
-                />
+                {/* Image Upload */}
+                <div>
+                  <label className="block text-white text-xs font-bold mb-1 uppercase">
+                    Image
+                  </label>
+                  <input
+                    type="file"
+                    accept="image/*"
+                    onChange={(e) =>
+                      setnewInventoryItem({ ...newInventoryItem, imageFile: e.target.files?.[0] || null })
+                    }
+                    className="w-full bg-background border-2 border-white p-3 sm:p-4 text-white font-medium text-sm sm:text-base transition-all duration-200 focus:scale-[1.02] hover:border-opacity-80 focus:ring-2 focus:ring-white focus:border-white file:mr-4 file:py-2 file:px-4 file:border-0 file:text-sm file:font-bold file:bg-white file:text-background hover:file:bg-[#e0e0e0]"
+                  />
+                </div>
 
                 {/* Lent Status */}
                 <div className="border-2 border-white p-3 sm:p-4">

@@ -2,10 +2,11 @@ import { NextRequest, NextResponse } from "next/server";
 import { connectToDatabase } from "@/lib/mongodb";
 import Inventory from "@/models/Inventory";
 import { validStatusTypes, validCategoryTypes } from "@/types/inventory-item";
-// import { promises as fs } from "fs";
+import { promises as fs } from "fs";
+import path from "path";
 import { Logger } from "@/lib/logger";
 import { requireAdmin } from "@/lib/auth";
-// import { withStoragePath, generateLabel } from "@/components/common/HelperFunction";
+import { withStoragePath } from "@/components/common/HelperFunction";
 
 
 // GET - List all inventory items for admin management
@@ -41,30 +42,31 @@ export async function POST(request: NextRequest) {
     const { user } = await requireAdmin();
     await connectToDatabase();
 
-    const inventoryData = await request.json();
+    const formData = await request.formData();
+    const file = formData.get("file") as File;
+
+    // Extract fields
+    const id = formData.get("id") as string;
+    const name = formData.get("name") as string;
+    const category = formData.get("category") as string;
+    const description = formData.get("description") as string;
+    const year_of_purchase = parseInt(formData.get("year_of_purchase") as string);
+    const status = formData.get("status") as string;
+    const isLent = formData.get("isLent") === "true";
+    const borrower = formData.get("borrower") as string;
+    const borrowed_date = formData.get("borrowed_date") as string;
+    const comments = formData.get("comments") as string;
 
     // Validate required fields
-    const requiredFields = [
-      "id",
-      "name",
-      "category",
-      "description",
-      "image",
-      "year_of_purchase",
-      "isLent",
-      "status",
-    ];
-    for (const field of requiredFields) {
-      if (!inventoryData[field]) {
-        return NextResponse.json(
-          { error: `${field} is required` },
-          { status: 400 }
-        );
-      }
+    if (!id || !name || !category || !description || !year_of_purchase || !status) {
+      return NextResponse.json(
+        { error: "Missing required fields" },
+        { status: 400 }
+      );
     }
 
     // Validate category type
-    if (!validCategoryTypes.includes(inventoryData.category)) {
+    if (!validCategoryTypes.includes(category)) {
       return NextResponse.json(
         { error: "Invalid category" },
         { status: 400 }
@@ -72,7 +74,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Validate status
-    if (!validStatusTypes.includes(inventoryData.status)) {
+    if (!validStatusTypes.includes(status)) {
       return NextResponse.json(
         { error: "Invalid status" },
         { status: 400 }
@@ -80,22 +82,22 @@ export async function POST(request: NextRequest) {
     }
 
     // If isLent is true then some related fields can't be emoty
-    if (inventoryData.isLent) {
-      if (inventoryData.borrower === "") {
+    if (isLent) {
+      if (!borrower) {
         return NextResponse.json(
           { error: "Borrower can't be empty" },
           { status: 400 }
         );
       }
 
-      if (inventoryData.borrowed_date === "") {
+      if (!borrowed_date) {
         return NextResponse.json(
           { error: "Empty Borrow date" },
           { status: 400 }
         );
       }
 
-      if (inventoryData.comments === "") {
+      if (!comments) {
         return NextResponse.json(
           { error: "Specify the purpose in the comments" },
           { status: 400 }
@@ -104,7 +106,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Check if invnetory ID already exists
-    const existingInventory = await Inventory.findOne({ id: inventoryData.id });
+    const existingInventory = await Inventory.findOne({ id });
     if (existingInventory) {
       return NextResponse.json(
         { error: "Inventory with this ID already exists" },
@@ -112,12 +114,52 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    let imagePath = "";
+
+    // Handle File Upload
+    if (file) {
+      // Validate file type
+      const imageExtensions = [".jpg", ".jpeg", ".png", ".webp", ".gif", ".bmp", ".svg", ".avif"];
+      const fileExtension = path.extname(file.name).toLowerCase();
+
+      if (!imageExtensions.includes(fileExtension)) {
+        return NextResponse.json(
+          { error: "Invalid file type. Only image files are allowed." },
+          { status: 400 }
+        );
+      }
+
+      // Create filename (using ID to ensure uniqueness and relation)
+      const filename = `${id}${fileExtension}`;
+
+      // Ensure inventory directory structure exists
+      const inventoryDir = withStoragePath("inventory");
+      const categoryDir = path.join(inventoryDir, category);
+
+      await fs.mkdir(categoryDir, { recursive: true });
+
+      // Save file
+      const filePath = path.join(categoryDir, filename);
+      const buffer = Buffer.from(await file.arrayBuffer());
+      await fs.writeFile(filePath, buffer);
+
+      imagePath = `/inventory/${category}/${filename}`;
+    }
+
     // Create new inventory
     const newInventory = new Inventory({
-      ...inventoryData,
+      id,
+      name,
+      category,
+      description,
+      year_of_purchase,
+      status,
+      isLent,
+      borrower: isLent ? borrower : undefined,
+      borrowed_date: isLent ? borrowed_date : undefined,
+      comments: isLent ? comments : undefined,
+      image: imagePath,
     });
-
-    // Store the image
 
     await newInventory.save();
     console.log("API: Inventory saved successfully:", newInventory.toObject());
