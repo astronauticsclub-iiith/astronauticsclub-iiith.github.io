@@ -43,6 +43,7 @@ const AdminInventoryCard: React.FC<AdminInventoryCardProps> = ({
   const [showTypeDropdown, setShowTypeDropdown] = useState(false);
   const [showStatusDropdown, setShowStatusDropdown] = useState(false);
   const [isBorrowing, setIsBorrowing] = useState(false);
+  const [isReturning, setIsReturning] = useState(false);
   const [borrowComment, setBorrowComment] = useState("");
   const typeDropdownRef = useRef<HTMLDivElement>(null);
   const statusDropdownRef = useRef<HTMLDivElement>(null);
@@ -163,7 +164,7 @@ const AdminInventoryCard: React.FC<AdminInventoryCardProps> = ({
       const formData = new FormData();
       formData.append("id", inventory.id);
       formData.append("isLent", "true");
-      formData.append("borrower", session?.user?.name || "Admin");
+      formData.append("borrower", session?.user?.email || "admin@example.com");
       formData.append("borrowed_date", new Date().toISOString().split("T")[0]);
       formData.append("comments", borrowComment);
 
@@ -172,6 +173,27 @@ const AdminInventoryCard: React.FC<AdminInventoryCardProps> = ({
       setBorrowComment("");
     } catch (error) {
       console.error("Error borrowing item:", error);
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  const handleReturnConfirm = async () => {
+    if (isSubmitting) return;
+
+    setIsSubmitting(true);
+    try {
+      const formData = new FormData();
+      formData.append("id", inventory.id);
+      formData.append("isLent", "false");
+      formData.append("borrower", "");
+      formData.append("borrowed_date", "");
+      formData.append("comments", "");
+
+      await onEdit(inventory.id, formData);
+      setIsReturning(false);
+    } catch (error) {
+      console.error("Error returning item:", error);
     } finally {
       setIsSubmitting(false);
     }
@@ -362,7 +384,7 @@ const AdminInventoryCard: React.FC<AdminInventoryCardProps> = ({
                 checked={editedInventory.isLent || false}
                 onChange={(e) => updateEditedInventory("isLent", e.target.checked)}
                 className="w-4 h-4 accent-white"
-                disabled={isSubmitting}
+                disabled={true} // Read-only in edit mode
               />
               <label htmlFor={`isLent-${inventory.id}`} className="text-white text-xs font-bold uppercase cursor-pointer">
                 Item is currently lent out
@@ -380,9 +402,9 @@ const AdminInventoryCard: React.FC<AdminInventoryCardProps> = ({
                       type="text"
                       value={editedInventory.borrower || ""}
                       onChange={(e) => updateEditedInventory("borrower", e.target.value)}
-                      className="w-full bg-background border-2 border-white p-2 text-white font-medium text-sm transition-all duration-200 focus:scale-[1.02] focus:ring-2 focus:ring-white uppercase"
+                      className="w-full bg-background border-2 border-white p-2 text-white font-medium text-sm transition-all duration-200 focus:scale-[1.02] focus:ring-2 focus:ring-white disabled:opacity-50 disabled:cursor-not-allowed"
                       placeholder="Borrower Name"
-                      disabled={isSubmitting}
+                      disabled={true}
                       required={editedInventory.isLent}
                     />
                   </div>
@@ -394,8 +416,8 @@ const AdminInventoryCard: React.FC<AdminInventoryCardProps> = ({
                       type="date"
                       value={editedInventory.borrowed_date || ""}
                       onChange={(e) => updateEditedInventory("borrowed_date", e.target.value)}
-                      className="w-full bg-background border-2 border-white p-2 text-white font-medium text-sm transition-all duration-200 focus:scale-[1.02] focus:ring-2 focus:ring-white"
-                      disabled={isSubmitting}
+                      className="w-full bg-background border-2 border-white p-2 text-white font-medium text-sm transition-all duration-200 focus:scale-[1.02] focus:ring-2 focus:ring-white disabled:opacity-50 disabled:cursor-not-allowed"
+                      disabled={true}
                       required={editedInventory.isLent}
                     />
                   </div>
@@ -407,10 +429,10 @@ const AdminInventoryCard: React.FC<AdminInventoryCardProps> = ({
                   <textarea
                     value={editedInventory.comments || ""}
                     onChange={(e) => updateEditedInventory("comments", e.target.value)}
-                    className="w-full bg-background border-2 border-white p-2 text-white font-medium text-sm transition-all duration-200 focus:scale-[1.02] focus:ring-2 focus:ring-white resize-none"
+                    className="w-full bg-background border-2 border-white p-2 text-white font-medium text-sm transition-all duration-200 focus:scale-[1.02] focus:ring-2 focus:ring-white resize-none disabled:opacity-50 disabled:cursor-not-allowed"
                     placeholder="Comments..."
                     rows={2}
-                    disabled={isSubmitting}
+                    disabled={true}
                     required={editedInventory.isLent}
                   />
                 </div>
@@ -577,6 +599,17 @@ const AdminInventoryCard: React.FC<AdminInventoryCardProps> = ({
                   BORROW
                 </motion.button>
               )}
+              {inventory.isLent && inventory.borrower === session?.user?.email && (
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  onClick={() => setIsReturning(true)}
+                  className="flex-1 px-2 py-1.5 border-2 border-white bg-green-600 text-white font-bold text-xs uppercase transition-all duration-200 hover:bg-green-700"
+                >
+                  <Check className="inline mr-1" size={12} />
+                  RETURN
+                </motion.button>
+              )}
             </div>
           </div>
         )}
@@ -615,6 +648,17 @@ const AdminInventoryCard: React.FC<AdminInventoryCardProps> = ({
           </div>
         </div>
       </CustomConfirm>
+
+      <CustomConfirm
+        isOpen={isReturning}
+        title="Return Item"
+        message="Are you sure you want to return this item?"
+        confirmText="RETURN"
+        cancelText="CANCEL"
+        type="info"
+        onConfirm={handleReturnConfirm}
+        onCancel={() => setIsReturning(false)}
+      />
     </motion.div>
   );
 };
