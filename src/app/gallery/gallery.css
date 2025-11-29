@@ -109,12 +109,8 @@
     rgba(0, 0, 0, 0.5) 20%,
     transparent 50%
   );
-  opacity: 0;
-  transition: opacity 0.3s ease;
-}
-
-.gallery-card:hover .gallery-overlay {
   opacity: 1;
+  transition: opacity 0.3s ease;
 }
 
 /* Content Styles */
@@ -124,16 +120,11 @@
   left: 0;
   right: 0;
   padding: 1.5rem;
-  opacity: 0;
-  transform: translateY(10px);
+  opacity: 1;
+  transform: translateY(0);
   transition: all 0.3s ease;
   pointer-events: none;
   z-index: 20;
-}
-
-.gallery-card:hover .gallery-content {
-  opacity: 1;
-  transform: translateY(0);
 }
 
 .gallery-category {
