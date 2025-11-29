@@ -6,17 +6,6 @@ import {validStatusTypes, validCategoryTypes} from "@/types/inventory-item";
 import { Logger } from "@/lib/logger";
 import { requireAdmin } from "@/lib/auth";
 // import { withStoragePath, generateLabel } from "@/components/common/HelperFunction";
-
-const requiredFields = [
-    "id",
-    "name",
-    "category",
-    "description",
-    "image",
-    "year_purchase",
-    "borrowed", 
-    "status",
-];
     
 
 // GET - List all inventory items for admin management
@@ -55,6 +44,16 @@ export async function POST(request: NextRequest) {
     const inventoryData = await request.json();
 
     // Validate required fields
+    const requiredFields = [
+        "id",
+        "name",
+        "category",
+        "description",
+        "image",
+        "year_purchase",
+        "borrowed", 
+        "status",
+    ];
     for (const field of requiredFields) {
       if (!inventoryData[field]) {
         return NextResponse.json(
@@ -78,6 +77,30 @@ export async function POST(request: NextRequest) {
         { error: "Invalid status" },
         { status: 400 }
       );
+    }
+
+    // If borrowed is true then some related fields can't be emoty
+    if (inventoryData.borrowed){
+      if (inventoryData.borrower === ""){
+        return NextResponse.json(
+          { error: "Borrower can't be empty" },
+          { status: 400 }
+        );
+      }
+
+      if (inventoryData.borrowed_date === ""){
+        return NextResponse.json(
+          { error: "Empty Borrow date" },
+          { status: 400 }
+        );
+      }
+
+      if (inventoryData.comments === ""){
+        return NextResponse.json(
+          { error: "Specify the purpose in the comments" },
+          { status: 400 }
+        );
+      }
     }
 
     // Check if invnetory ID already exists

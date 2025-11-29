@@ -8,6 +8,7 @@ export interface Inventory {
   status: "working" | "needs repair" | "completely broken";
   borrowed: boolean;
   borrower?: string;
+  borrowed_date?: string;
   comments?: string;
 };
 

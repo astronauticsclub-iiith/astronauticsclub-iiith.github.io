@@ -89,6 +89,7 @@ export default function AdminDashboard() {
     status: "working" as const,
     borrowed: false as boolean,
     borrower: "",
+    borrowed_date: "",
     comments: "",
   });
 
@@ -607,7 +608,57 @@ export default function AdminDashboard() {
 
   const addInventoryItem = async (e: React.FormEvent) => {
     e.preventDefault();
+    try {
+      const inventoryData = {
+        id: newInventoryItem.id,
+        name: newInventoryItem.name,
+        image: newInventoryItem.image,
+        description: newInventoryItem.description,
+        year_of_purchase: newInventoryItem.year_of_purchase,
+        category: newInventoryItem.category,
+        status: newInventoryItem.status,
+        borrowed: newInventoryItem.borrowed,
+        ...(newInventoryItem.borrowed && { borrower: newInventoryItem.borrower }),
+        ...(newInventoryItem.borrowed && { borrowed_date: newInventoryItem.borrowed_date }),
+        ...(newInventoryItem.borrowed && { comments: newInventoryItem.comments }),
+      };
+
+      const response = await fetch(withBasePath(`/api/inventory/admin`), {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(inventoryData),
+      });
+
+      if (response.ok) {
+        // TO DO - Make a default map for each Inventory, Events etc. (or make a function called resetInventoryItem)
+        setnewInventoryItem({
+          id: "",
+          name: "",
+          image: "",
+          category: "astronomy" as const,
+          description: "",
+          year_of_purchase: 2025 as number,
+          status: "working" as const,
+          borrowed: false as boolean,
+          borrower: "",
+          borrowed_date: "",
+          comments: "",
+        });
+        fetchInventory();
+        showSuccess("Inventory Item added successfully");
+      } 
+      else {
+        const error = await response.json();
+        showError(error.error || "Failed to add inventory item");
+      }
+    } 
+    
+    catch (error) {
+      console.error("Error adding inventory item:", error);
+      showError("Failed to add inventory item");
+    }
   }
+
   const updateInventory = async (inventoryId: string, inventoryData: Partial<Inventory>) => {
     console.log(inventoryId);
     console.log(inventoryData);

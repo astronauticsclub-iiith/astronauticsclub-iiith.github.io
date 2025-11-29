@@ -36,6 +36,7 @@ const InventorySchema = new Schema<InventoryDocument>(
     year_of_purchase: {type: Number, required: true},
     borrowed: { type: Boolean, required: true },
     borrower: { type: String },
+    borrowed_date: { type: String },
     comments: { type: String },
   },
   {
