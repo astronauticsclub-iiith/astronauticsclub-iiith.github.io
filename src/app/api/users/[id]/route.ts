@@ -6,20 +6,6 @@ import Logger from "@/lib/logger";
 import fs from "fs";
 import path from "path";
 
-type Star = {
-  ra: number;
-  dec: number;
-  magnitude: number;
-  clickable: boolean;
-  email?: string;
-};
-
-type Constellation = {
-  stars: Record<string, Star>;
-  lines: [string, string][];
-  team: string;
-};
-
 const FILE_DIRECTORY = process.env.FILE_DIRECTORY || path.join(process.cwd(), "public/")
 
 export async function PUT(
@@ -64,34 +50,6 @@ export async function PUT(
     if (!user) {
       return NextResponse.json({ error: "User not found" }, { status: 404 });
     }
-
-    // Add in constellation.json
-    const jsonPath = path.join("/var/data/astronautics", "constellation.json");
-    const jsonData = JSON.parse(fs.readFileSync(jsonPath, "utf-8"));
-
-    let starName: string, starObj;
-    for (const constellationName in jsonData) 
-    {
-      const constellation = jsonData[constellationName] as Constellation;
-      if (!user.designations.includes(constellation.team)) continue;
-      
-      for (const starName in constellation.stars) {
-          const star = constellation.stars[starName];
-          if (star.email == user.email) break;
-      }
-
-      // Star with highest magnitude and which is not clickable
-      const starEntries = Object.entries(constellation.stars).filter(([_, star]) => !star.clickable);
-      [starName, starObj] = starEntries.reduce((max, curr) =>
-        curr[1].magnitude > max[1].magnitude ? curr : max
-      );
-      constellation.stars[starName] = {
-        ...starObj,        
-        clickable: true,    
-        email: user.email,
-      };
-    }
-    fs.writeFileSync(jsonPath, JSON.stringify(jsonData, null, 2));
 
     // Log the action
     Logger.logWriteOperation(
@@ -138,7 +96,7 @@ export async function DELETE(
     await User.findByIdAndDelete(id);
 
     // Delete from constellation.json
-    const jsonPath = path.join("/var/data/astronautics", "constellation.json");
+    const jsonPath = path.join(FILE_DIRECTORY, "constellation.json");
     const jsonData = JSON.parse(fs.readFileSync(jsonPath, "utf-8"));
 
     for (const constellationName in jsonData) 

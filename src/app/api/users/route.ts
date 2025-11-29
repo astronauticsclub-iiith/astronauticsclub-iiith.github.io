@@ -6,6 +6,8 @@ import Logger from "@/lib/logger";
 import fs from "fs";
 import path from "path";
 
+const FILE_DIRECTORY = process.env.FILE_DIRECTORY || path.join(process.cwd(), "public/")
+
 export async function GET() {
   try {
     await requireAdmin();
@@ -61,7 +63,7 @@ export async function POST(request: NextRequest) {
     });
 
     // Add the user to constellation.json
-    const jsonPath = path.join("/var/data/astronautics", "constellation.json");
+    const jsonPath = path.join(FILE_DIRECTORY, "constellation.json");
     const jsonData = JSON.parse(fs.readFileSync(jsonPath, "utf-8"));
 
     let starName : string = "", constellationName : string = "", magnitude : number = 10;
