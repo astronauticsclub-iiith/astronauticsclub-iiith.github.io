@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { requireAdmin } from '@/lib/auth';
 import fs from 'fs/promises';
-import path from 'path';
+import {withStoragePath} from '@/components/common/HelperFunction'
 
 export async function GET(request: NextRequest) {
   try {
@@ -11,7 +11,7 @@ export async function GET(request: NextRequest) {
     const limit = parseInt(searchParams.get('limit') || '100');
     const offset = parseInt(searchParams.get('offset') || '0');
 
-    const logsPath = path.join(process.cwd(), 'logs/persistent_log.json');
+    const logsPath = withStoragePath('logs/persistent_log.json');
     
     try {
       const logsData = await fs.readFile(logsPath, 'utf-8');
