@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import Image from "next/image";
 import {
   Edit2,
   Trash2,
@@ -10,7 +11,6 @@ import {
   ChevronDown,
   Calendar,
   MapPin,
-  Image as ImageIcon,
 } from "lucide-react";
 import { Inventory, validCategoryTypes, validStatusTypes } from "@/types/inventory-item";
 
@@ -341,6 +341,54 @@ const AdminInventoryCard: React.FC<AdminInventoryCardProps> = ({
               </label>
             </div>
 
+            {editedInventory.isLent && (
+              <div className="space-y-3 pl-4 border-l-2 border-white/30">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  <div>
+                    <label className="block text-white text-xs font-bold mb-1 uppercase">
+                      Borrower
+                    </label>
+                    <input
+                      type="text"
+                      value={editedInventory.borrower || ""}
+                      onChange={(e) => updateEditedInventory("borrower", e.target.value)}
+                      className="w-full bg-background border-2 border-white p-2 text-white font-medium text-sm transition-all duration-200 focus:scale-[1.02] focus:ring-2 focus:ring-white uppercase"
+                      placeholder="Borrower Name"
+                      disabled={isSubmitting}
+                      required={editedInventory.isLent}
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-white text-xs font-bold mb-1 uppercase">
+                      Borrowed Date
+                    </label>
+                    <input
+                      type="date"
+                      value={editedInventory.borrowed_date || ""}
+                      onChange={(e) => updateEditedInventory("borrowed_date", e.target.value)}
+                      className="w-full bg-background border-2 border-white p-2 text-white font-medium text-sm transition-all duration-200 focus:scale-[1.02] focus:ring-2 focus:ring-white"
+                      disabled={isSubmitting}
+                      required={editedInventory.isLent}
+                    />
+                  </div>
+                </div>
+                <div>
+                  <label className="block text-white text-xs font-bold mb-1 uppercase">
+                    Comments / Purpose
+                  </label>
+                  <textarea
+                    value={editedInventory.comments || ""}
+                    onChange={(e) => updateEditedInventory("comments", e.target.value)}
+                    className="w-full bg-background border-2 border-white p-2 text-white font-medium text-sm transition-all duration-200 focus:scale-[1.02] focus:ring-2 focus:ring-white resize-none"
+                    placeholder="Comments..."
+                    rows={2}
+                    disabled={isSubmitting}
+                    required={editedInventory.isLent}
+                  />
+                </div>
+              </div>
+            )}
+
             {/* Image Upload */}
             <div>
               <label className="block text-white text-xs font-bold mb-1 uppercase">
@@ -453,9 +501,13 @@ const AdminInventoryCard: React.FC<AdminInventoryCardProps> = ({
               )}
 
               {inventory.image && (
-                <div className="flex items-center gap-2 text-[#e0e0e0] text-xs sm:text-sm">
-                  <ImageIcon size={14} />
-                  <span>Has image</span>
+                <div className="mt-2 mb-2 relative h-48 w-full">
+                  <Image
+                    src={inventory.image}
+                    alt={inventory.name}
+                    fill
+                    className="object-cover rounded-md border border-white/20"
+                  />
                 </div>
               )}
             </div>
