@@ -119,26 +119,24 @@ const AdminPhotoCard: React.FC<AdminPhotoCardProps> = ({
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ delay: 0.1 * index, duration: 0.4 }}
-      className="border-2 border-white backdrop-blur-sm hover:shadow-lg hover:shadow-white/5 transition-all duration-200 hover:scale-[1.02] bg-background"
+      transition={{ delay: (index % 10) * 0.05, duration: 0.4 }}
+      className="border-2 border-white hover:shadow-lg hover:shadow-white/5 transition-all duration-200 hover:scale-[1.02] bg-background"
     >
       {/* Image */}
       <div className="aspect-video relative overflow-hidden border-b-2 border-white">
         <Image
           src={withUploadPath(image.src)}
           alt={image.alt}
-          unoptimized
           fill
           className="object-cover transition-transform duration-300 hover:scale-110"
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
         />
         <div className="absolute top-2 right-2">
           <span
-            className={`px-2 py-1 text-xs font-bold uppercase border-2 ${
-              image.category === "astrophotography"
-                ? "bg-blue-600 text-white border-blue-600"
-                : "bg-green-600 text-white border-green-600"
-            }`}
+            className={`px-2 py-1 text-xs font-bold uppercase border-2 ${image.category === "astrophotography"
+              ? "bg-blue-600 text-white border-blue-600"
+              : "bg-green-600 text-white border-green-600"
+              }`}
           >
             {image.category}
           </span>
@@ -181,9 +179,8 @@ const AdminPhotoCard: React.FC<AdminPhotoCardProps> = ({
                   </div>
                   <ChevronDown
                     size={16}
-                    className={`transition-transform ${
-                      showCategoryDropdown ? "rotate-180" : ""
-                    }`}
+                    className={`transition-transform ${showCategoryDropdown ? "rotate-180" : ""
+                      }`}
                   />
                 </button>
                 <AnimatePresence>
@@ -202,11 +199,10 @@ const AdminPhotoCard: React.FC<AdminPhotoCardProps> = ({
                           setShowCategoryDropdown(false);
                         }}
                         disabled={isSubmitting}
-                        className={`w-full flex items-center gap-2 px-3 py-2 text-left font-medium hover:bg-white hover:text-background transition-colors disabled:opacity-50 disabled:cursor-not-allowed ${
-                          editedCategory === "astrophotography"
-                            ? "bg-white text-background"
-                            : "text-white"
-                        }`}
+                        className={`w-full flex items-center gap-2 px-3 py-2 text-left font-medium hover:bg-white hover:text-background transition-colors disabled:opacity-50 disabled:cursor-not-allowed ${editedCategory === "astrophotography"
+                          ? "bg-white text-background"
+                          : "text-white"
+                          }`}
                       >
                         <Camera size={16} />
                         <span className="uppercase">ASTROPHOTOGRAPHY</span>
@@ -218,11 +214,10 @@ const AdminPhotoCard: React.FC<AdminPhotoCardProps> = ({
                           setShowCategoryDropdown(false);
                         }}
                         disabled={isSubmitting}
-                        className={`w-full flex items-center gap-2 px-3 py-2 text-left font-medium hover:bg-white hover:text-background transition-colors disabled:opacity-50 disabled:cursor-not-allowed ${
-                          editedCategory === "events"
-                            ? "bg-white text-background"
-                            : "text-white"
-                        }`}
+                        className={`w-full flex items-center gap-2 px-3 py-2 text-left font-medium hover:bg-white hover:text-background transition-colors disabled:opacity-50 disabled:cursor-not-allowed ${editedCategory === "events"
+                          ? "bg-white text-background"
+                          : "text-white"
+                          }`}
                       >
                         <Calendar size={16} />
                         <span className="uppercase">EVENTS</span>
@@ -234,11 +229,10 @@ const AdminPhotoCard: React.FC<AdminPhotoCardProps> = ({
                           setShowCategoryDropdown(false);
                         }}
                         disabled={isSubmitting}
-                        className={`w-full flex items-center gap-2 px-3 py-2 text-left font-medium hover:bg-white hover:text-background transition-colors disabled:opacity-50 disabled:cursor-not-allowed ${
-                          editedCategory === "others"
-                            ? "bg-white text-background"
-                            : "text-white"
-                        }`}
+                        className={`w-full flex items-center gap-2 px-3 py-2 text-left font-medium hover:bg-white hover:text-background transition-colors disabled:opacity-50 disabled:cursor-not-allowed ${editedCategory === "others"
+                          ? "bg-white text-background"
+                          : "text-white"
+                          }`}
                       >
                         <Calendar size={16} />
                         <span className="uppercase">OTHERS</span>

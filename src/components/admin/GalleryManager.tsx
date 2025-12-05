@@ -301,7 +301,7 @@ export default function GalleryManager({
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ delay: 0.6, duration: 0.4 }}
-                className="border-2 sm:border-4 border-white p-4 sm:p-6 backdrop-blur-sm hover:shadow-lg hover:shadow-white/10 transition-all duration-300"
+                className="border-2 sm:border-4 border-white p-4 sm:p-6 hover:shadow-lg hover:shadow-white/10 transition-all duration-300"
             >
                 <h2 className="text-xl sm:text-2xl font-bold mb-6 text-white uppercase flex items-center gap-2">
                     <ImageIcon size={24} />

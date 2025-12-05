@@ -25,8 +25,9 @@ export async function GET() {
       ".avif",
     ];
     const categories = ["astrophotography", "events", "others"];
+    const allImages = [];
 
-    const categoryPromises = categories.map(async (category) => {
+    for (const category of categories) {
       const categoryDir = path.join(galleryDir, category);
 
       try {
@@ -38,11 +39,11 @@ export async function GET() {
           return imageExtensions.includes(ext);
         });
 
-        const filePromises = imageFiles.map(async (file) => {
+        for (const file of imageFiles) {
           const filePath = path.join(categoryDir, file);
           const stats = await fs.stat(filePath);
 
-          return {
+          allImages.push({
             id: `${category}-${file}`,
             src: `/gallery/${category}/${file}`,
             alt: generateLabel(file),
@@ -52,18 +53,13 @@ export async function GET() {
             size: stats.size,
             modified: stats.mtime.toISOString(),
             created: stats.birthtime.toISOString(),
-          };
-        });
-
-        return await Promise.all(filePromises);
+          });
+        }
       } catch (error) {
         console.warn(`Could not read ${category} directory:`, error);
-        return [];
+        continue;
       }
-    });
-
-    const results = await Promise.all(categoryPromises);
-    const allImages = results.flat();
+    }
 
     // Sort by modified date (newest first)
     allImages.sort(
