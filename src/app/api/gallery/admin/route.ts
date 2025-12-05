@@ -25,9 +25,8 @@ export async function GET() {
       ".avif",
     ];
     const categories = ["astrophotography", "events", "others"];
-    const allImages = [];
 
-    for (const category of categories) {
+    const categoryPromises = categories.map(async (category) => {
       const categoryDir = path.join(galleryDir, category);
 
       try {
@@ -39,11 +38,11 @@ export async function GET() {
           return imageExtensions.includes(ext);
         });
 
-        for (const file of imageFiles) {
+        const filePromises = imageFiles.map(async (file) => {
           const filePath = path.join(categoryDir, file);
           const stats = await fs.stat(filePath);
 
-          allImages.push({
+          return {
             id: `${category}-${file}`,
             src: `/gallery/${category}/${file}`,
             alt: generateLabel(file),
@@ -53,13 +52,18 @@ export async function GET() {
             size: stats.size,
             modified: stats.mtime.toISOString(),
             created: stats.birthtime.toISOString(),
-          });
-        }
+          };
+        });
+
+        return await Promise.all(filePromises);
       } catch (error) {
         console.warn(`Could not read ${category} directory:`, error);
-        continue;
+        return [];
       }
-    }
+    });
+
+    const results = await Promise.all(categoryPromises);
+    const allImages = results.flat();
 
     // Sort by modified date (newest first)
     allImages.sort(
@@ -244,11 +248,11 @@ export async function PUT(request: NextRequest) {
     try {
       await connectToDatabase();
       await Event.updateMany(
-        {image: path.join("/gallery", currentCategory, currentFilename)},
-        {$set: { image: path.join("/gallery", newCategory, newFilename) }},
+        { image: path.join("/gallery", currentCategory, currentFilename) },
+        { $set: { image: path.join("/gallery", newCategory, newFilename) } },
       );
     } catch {
-      return  NextResponse.json({ error: "Failed to update the corresponding linked events" }, { status: 404 });
+      return NextResponse.json({ error: "Failed to update the corresponding linked events" }, { status: 404 });
     }
 
     // Move/rename the file
@@ -330,11 +334,11 @@ export async function DELETE(request: NextRequest) {
     try {
       await connectToDatabase();
       await Event.updateMany(
-        {image: path.join("/gallery", category, filename)},
-        {$set: { image: "" }},
+        { image: path.join("/gallery", category, filename) },
+        { $set: { image: "" } },
       );
     } catch {
-      return  NextResponse.json({ error: "Failed to update the corresponding linked events" }, { status: 404 });
+      return NextResponse.json({ error: "Failed to update the corresponding linked events" }, { status: 404 });
     }
 
     // Delete the file
