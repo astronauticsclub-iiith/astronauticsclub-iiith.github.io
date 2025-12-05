@@ -6,8 +6,15 @@ import { Plus, Users } from "lucide-react";
 import Image from "next/image";
 import { User } from "@/types/user";
 import DesignationCombobox from "@/components/admin/DesignationCombobox";
-import { withBasePath, withUploadPath } from "@/components/common/HelperFunction";
+import { withUploadPath } from "@/components/common/HelperFunction";
 import { useSession } from "next-auth/react";
+import {
+    fetchAllUsers,
+    createUser,
+    updateUserRole,
+    updateUserDesignations,
+    deleteUser,
+} from "@/lib/admin_api";
 
 interface UserManagementProps {
     showSuccess: (message: string) => void;
@@ -40,15 +47,12 @@ export default function UserManagement({
 
     const fetchUsers = async () => {
         try {
-            const response = await fetch(withBasePath(`/api/users`));
-            if (response.ok) {
-                const data = await response.json();
-                setUsers(data);
-                const designations = Array.from(
-                    new Set(data.flatMap((u: User) => u.designations || []))
-                ) as string[];
-                setAllDesignations(designations);
-            }
+            const data = await fetchAllUsers();
+            setUsers(data);
+            const designations = Array.from(
+                new Set(data.flatMap((u: User) => u.designations || []))
+            ) as string[];
+            setAllDesignations(designations);
         } catch (error) {
             console.error("Error fetching users:", error);
         }
@@ -61,69 +65,27 @@ export default function UserManagement({
     const addUser = async (e: React.FormEvent) => {
         e.preventDefault();
         try {
-            const response = await fetch(withBasePath(`/api/users`), {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(newUser),
-            });
-
-            if (response.ok) {
-                setNewUser({ email: "", name: "", role: "writer" });
-                fetchUsers();
-                showSuccess("User added successfully");
-            } else {
-                const error = await response.json();
-                showError(error.error || "Failed to add user");
-            }
-        } catch (error) {
+            await createUser(newUser);
+            setNewUser({ email: "", name: "", role: "writer" });
+            fetchUsers();
+            showSuccess("User added successfully");
+        } catch (error: unknown) {
             console.error("Error adding user:", error);
-            showError("Failed to add user");
+            showError((error as Error).message || "Failed to add user");
         }
     };
 
-    const updateUserDesignations = async (
-        userId: string,
-        designations: string[]
-    ) => {
-        try {
-            const response = await fetch(withBasePath(`/api/users/${userId}`), {
-                method: "PUT",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ designations }),
-            });
-
-            if (response.ok) {
-                fetchUsers();
-                showSuccess("User designations updated successfully");
-            } else {
-                showError("Failed to update user designations");
-            }
-        } catch (error) {
-            console.error("Error updating user designations:", error);
-            showError("Failed to update user designations");
-        }
-    };
-
-    const updateUserRole = async (
+    const handleUpdateUserRole = async (
         userId: string,
         role: "admin" | "writer" | "none"
     ) => {
         try {
-            const response = await fetch(withBasePath(`/api/users/${userId}`), {
-                method: "PUT",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ role }),
-            });
-
-            if (response.ok) {
-                fetchUsers();
-                showSuccess("User role updated successfully");
-            } else {
-                showError("Failed to update user role");
-            }
-        } catch (error) {
+            await updateUserRole(userId, role);
+            fetchUsers();
+            showSuccess("User role updated successfully");
+        } catch (error: unknown) {
             console.error("Error updating user role:", error);
-            showError("Failed to update user role");
+            showError((error as Error).message || "Failed to update user role");
         }
     };
 
@@ -148,25 +110,28 @@ export default function UserManagement({
             return;
         }
 
-        updateUserRole(userId, newRole);
+        handleUpdateUserRole(userId, newRole);
     };
 
-    const deleteUser = async (userId: string) => {
+    const handleDeleteUser = async (userId: string) => {
         try {
-            const response = await fetch(withBasePath(`/api/users/${userId}`), {
-                method: "DELETE",
-                headers: { "Content-Type": "application/json" },
-            });
+            await deleteUser(userId);
+            fetchUsers();
+            showSuccess("User removed successfully");
+        } catch (error: unknown) {
+            console.error("Error deleting user:", error);
+            showError((error as Error).message || "Failed to delete user");
+        }
+    };
 
-            if (response.ok) {
-                fetchUsers();
-                showSuccess("User removed successfully");
-            } else {
-                showError("Failed to remove user");
-            }
-        } catch (error) {
-            console.error("Error removing user:", error);
-            showError("Failed to remove user");
+    const handleUpdateDesignations = async (userId: string, designations: string[]) => {
+        try {
+            await updateUserDesignations(userId, designations);
+            fetchUsers();
+            showSuccess("User designations updated successfully");
+        } catch (error: unknown) {
+            console.error("Error updating user designations:", error);
+            showError((error as Error).message || "Failed to update user designations");
         }
     };
 
@@ -174,7 +139,7 @@ export default function UserManagement({
         showConfirm(
             "REMOVE MEMBER",
             "Are you sure you want to remove this member? This action cannot be undone.",
-            () => deleteUser(userId),
+            () => handleDeleteUser(userId),
             { type: "danger", confirmText: "REMOVE MEMBER" }
         );
     };
@@ -322,7 +287,7 @@ export default function UserManagement({
                                     <DesignationCombobox
                                         selectedDesignations={user.designations || []}
                                         onChange={(designations) =>
-                                            updateUserDesignations(user._id, designations)
+                                            handleUpdateDesignations(user._id, designations)
                                         }
                                         allDesignations={allDesignations}
                                         disabled={user.email === session?.user?.email}

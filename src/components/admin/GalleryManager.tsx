@@ -4,14 +4,20 @@ import { useState, useEffect, useRef, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
     Upload,
-    ImageIcon,
-    ChevronDown,
-    Camera,
+    Image as ImageIcon,
+    Filter,
     Calendar,
+    ChevronDown,
+    Loader2,
 } from "lucide-react";
 import { GalleryImage } from "@/types/gallery-image";
 import AdminPhotoCard from "@/components/admin/AdminPhotoCard";
-import { withBasePath } from "@/components/common/HelperFunction";
+import {
+    fetchAdminGalleryImages,
+    uploadGalleryImage,
+    updateGalleryImage,
+    deleteGalleryImage,
+} from "@/lib/admin_api";
 
 interface GalleryManagerProps {
     showSuccess: (message: string) => void;
@@ -23,32 +29,27 @@ export default function GalleryManager({
     showError,
 }: GalleryManagerProps) {
     const [galleryImages, setGalleryImages] = useState<GalleryImage[]>([]);
-    const [galleryLoading, setGalleryLoading] = useState(false);
+    const [loading, setLoading] = useState(true);
     const [uploadFile, setUploadFile] = useState<File | null>(null);
-    const [uploadCategory, setUploadCategory] = useState<
-        "astrophotography" | "events" | "others"
-    >("astrophotography");
-    const [uploadFilename, setUploadFilename] = useState("");
+    const [uploadCategory, setUploadCategory] = useState("all");
+    const [customFilename, setCustomFilename] = useState("");
+    const [editingImage, setEditingImage] = useState<string | null>(null);
     const [showUploadCategoryDropdown, setShowUploadCategoryDropdown] =
         useState(false);
+    const [uploading, setUploading] = useState(false);
+    const fileInputRef = useRef<HTMLInputElement>(null);
     const uploadDropdownRef = useRef<HTMLDivElement>(null);
-    const [editingImage, setEditingImage] = useState<string | null>(null);
 
     const fetchGalleryImages = useCallback(async () => {
-        setGalleryLoading(true);
+        setLoading(true);
         try {
-            const response = await fetch(withBasePath(`/api/gallery/admin`));
-            if (response.ok) {
-                const data = await response.json();
-                setGalleryImages(data.images || []);
-            } else {
-                showError("Failed to fetch gallery images");
-            }
-        } catch (error) {
+            const data = await fetchAdminGalleryImages();
+            setGalleryImages(data.images || []);
+        } catch (error: unknown) {
             console.error("Error fetching gallery images:", error);
-            showError("Failed to fetch gallery images");
+            showError((error as Error).message || "Failed to fetch images");
         } finally {
-            setGalleryLoading(false);
+            setLoading(false);
         }
     }, [showError]);
 
@@ -76,255 +77,238 @@ export default function GalleryManager({
         };
     }, [showUploadCategoryDropdown]);
 
-    const getUploadCategoryIcon = (
-        category: "astrophotography" | "events" | "others"
-    ) => {
+    const getUploadCategoryIcon = (category: string) => {
         switch (category) {
             case "astrophotography":
-                return <Camera size={18} />;
+                return <ImageIcon size={18} />;
             case "events":
                 return <Calendar size={18} />;
             case "others":
-                return <Calendar size={18} />;
+                return <Filter size={18} />;
             default:
-                return <Camera size={18} />;
+                return <Filter size={18} />;
         }
     };
 
-    const uploadImage = async (e: React.FormEvent) => {
+    const handleUpload = async (e: React.FormEvent) => {
         e.preventDefault();
         if (!uploadFile) {
             showError("Please select a file to upload");
             return;
         }
 
+        setUploading(true);
+        const formData = new FormData();
+        formData.append("file", uploadFile);
+        formData.append("category", uploadCategory);
+        if (customFilename) {
+            formData.append("customFilename", customFilename);
+        }
+
         try {
-            const formData = new FormData();
-            formData.append("file", uploadFile);
-            formData.append("category", uploadCategory);
-            if (uploadFilename) {
-                formData.append("filename", uploadFilename);
+            await uploadGalleryImage(formData);
+            setUploadFile(null);
+            setCustomFilename("");
+            if (fileInputRef.current) {
+                fileInputRef.current.value = "";
             }
-
-            const response = await fetch(withBasePath(`/api/gallery/admin`), {
-                method: "POST",
-                body: formData,
-            });
-
-            if (response.ok) {
-                setUploadFile(null);
-                setUploadFilename("");
-                fetchGalleryImages();
-                showSuccess("Image uploaded successfully");
-                // Reset file input
-                const fileInput = document.querySelector(
-                    'input[type="file"]'
-                ) as HTMLInputElement;
-                if (fileInput) fileInput.value = "";
-            } else {
-                const error = await response.json();
-                showError(error.error || "Failed to upload image");
-            }
-        } catch (error) {
+            fetchGalleryImages();
+            showSuccess("Image uploaded successfully");
+        } catch (error: unknown) {
             console.error("Error uploading image:", error);
-            showError("Failed to upload image");
+            showError((error as Error).message || "Failed to upload image");
+        } finally {
+            setUploading(false);
         }
     };
 
-    const deleteImage = async (image: GalleryImage) => {
+    const handleDelete = async (image: GalleryImage) => {
         try {
-            const response = await fetch(
-                withBasePath(
-                    `/api/gallery/admin?filename=${encodeURIComponent(
-                        image.filename
-                    )}&category=${image.category}`
-                ),
-                { method: "DELETE" }
-            );
-
-            if (response.ok) {
-                fetchGalleryImages();
-                showSuccess("Image deleted successfully");
-            } else {
-                const error = await response.json();
-                showError(error.error || "Failed to delete image");
-            }
-        } catch (error) {
+            await deleteGalleryImage(image.filename, image.category);
+            fetchGalleryImages();
+            showSuccess("Image deleted successfully");
+        } catch (error: unknown) {
             console.error("Error deleting image:", error);
-            showError("Failed to delete image");
+            showError((error as Error).message || "Failed to delete image");
         }
     };
 
-    const updateImage = async (
+    const handleUpdate = async (
         image: GalleryImage,
         newFilename?: string,
         newCategory?: "astrophotography" | "events" | "others"
     ) => {
         try {
-            const response = await fetch(withBasePath(`/api/gallery/admin`), {
-                method: "PUT",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({
-                    currentFilename: image.filename,
-                    currentCategory: image.category,
-                    newFilename,
-                    newCategory,
-                }),
+            await updateGalleryImage({
+                currentFilename: image.filename,
+                currentCategory: image.category,
+                newFilename,
+                newCategory,
             });
 
-            if (response.ok) {
-                setEditingImage(null);
-                fetchGalleryImages();
-                showSuccess("Image updated successfully");
-            } else {
-                const error = await response.json();
-                showError(error.error || "Failed to update image");
-            }
-        } catch (error) {
+            setEditingImage(null);
+            fetchGalleryImages();
+            showSuccess("Image updated successfully");
+        } catch (error: unknown) {
             console.error("Error updating image:", error);
-            showError("Failed to update image");
+            showError((error as Error).message || "Failed to update image");
             throw error;
         }
     };
 
     return (
-        <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.4, duration: 0.5 }}
-            className="space-y-6 sm:space-y-8"
-        >
-            {/* Upload Form */}
+        <div className="space-y-8">
+            {/* Upload Section */}
             <motion.div
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: 0.5, duration: 0.4 }}
-                className="border-2 sm:border-4 border-white p-3 sm:p-4 lg:p-6 backdrop-blur-sm hover:shadow-lg hover:shadow-white/10 transition-all duration-300"
+                transition={{ delay: 0.4, duration: 0.4 }}
+                className="mb-8 border-2 sm:border-4 border-white p-4 sm:p-6 backdrop-blur-sm hover:shadow-lg hover:shadow-white/10 transition-all duration-300"
             >
-                <h2 className="text-lg sm:text-xl lg:text-2xl font-bold mb-4 sm:mb-6 text-white uppercase flex items-center gap-2">
-                    <Upload size={18} className="sm:w-6 sm:h-6" />
+                <h2 className="text-xl sm:text-2xl font-bold mb-6 text-white uppercase flex items-center gap-2">
+                    <Upload size={24} />
                     UPLOAD NEW IMAGE
                 </h2>
-                <form
-                    onSubmit={uploadImage}
-                    className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4"
-                >
-                    <div className="lg:col-span-2">
+
+                <form onSubmit={handleUpload} className="space-y-4">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <label className="block text-white text-xs font-bold mb-1 uppercase">
+                                Category
+                            </label>
+                            <div className="relative" ref={uploadDropdownRef}>
+                                <button
+                                    type="button"
+                                    onClick={() =>
+                                        setShowUploadCategoryDropdown(!showUploadCategoryDropdown)
+                                    }
+                                    className="w-full flex items-center justify-between gap-2 bg-background border-2 border-white p-3 sm:p-4 text-white font-medium text-sm sm:text-base transition-all duration-200 hover:bg-white hover:text-background focus:scale-[1.02] focus:ring-2 focus:ring-white"
+                                >
+                                    <div className="flex items-center gap-2">
+                                        {getUploadCategoryIcon(uploadCategory)}
+                                        <span className="uppercase">{uploadCategory}</span>
+                                    </div>
+                                    <ChevronDown
+                                        size={16}
+                                        className={`transition-transform ${showUploadCategoryDropdown ? "rotate-180" : ""
+                                            }`}
+                                    />
+                                </button>
+                                <AnimatePresence>
+                                    {showUploadCategoryDropdown && (
+                                        <motion.div
+                                            initial={{ opacity: 0, y: -10 }}
+                                            animate={{ opacity: 1, y: 0 }}
+                                            exit={{ opacity: 0, y: -10 }}
+                                            className="absolute z-10 w-full mt-2 bg-background border-2 border-white shadow-xl"
+                                        >
+                                            <button
+                                                type="button"
+                                                onClick={() => {
+                                                    setUploadCategory("astrophotography");
+                                                    setShowUploadCategoryDropdown(false);
+                                                }}
+                                                className={`w-full flex items-center gap-2 px-3 py-2 text-left font-medium hover:bg-white hover:text-background transition-colors ${uploadCategory === "astrophotography"
+                                                    ? "bg-white text-background"
+                                                    : "text-white"
+                                                    }`}
+                                            >
+                                                <ImageIcon size={16} />
+                                                <span className="uppercase">ASTROPHOTOGRAPHY</span>
+                                            </button>
+                                            <button
+                                                type="button"
+                                                onClick={() => {
+                                                    setUploadCategory("events");
+                                                    setShowUploadCategoryDropdown(false);
+                                                }}
+                                                className={`w-full flex items-center gap-2 px-3 py-2 text-left font-medium hover:bg-white hover:text-background transition-colors ${uploadCategory === "events"
+                                                    ? "bg-white text-background"
+                                                    : "text-white"
+                                                    }`}
+                                            >
+                                                <Calendar size={16} />
+                                                <span className="uppercase">EVENTS</span>
+                                            </button>
+                                            <button
+                                                type="button"
+                                                onClick={() => {
+                                                    setUploadCategory("others");
+                                                    setShowUploadCategoryDropdown(false);
+                                                }}
+                                                className={`w-full flex items-center gap-2 px-3 py-2 text-left font-medium hover:bg-white hover:text-background transition-colors ${uploadCategory === "others"
+                                                    ? "bg-white text-background"
+                                                    : "text-white"
+                                                    }`}
+                                            >
+                                                <Filter size={16} />
+                                                <span className="uppercase">OTHERS</span>
+                                            </button>
+                                        </motion.div>
+                                    )}
+                                </AnimatePresence>
+                            </div>
+                        </div>
+                        <div>
+                            <label className="block text-white text-xs font-bold mb-1 uppercase">
+                                Custom Filename (Optional)
+                            </label>
+                            <input
+                                type="text"
+                                value={customFilename}
+                                onChange={(e) => setCustomFilename(e.target.value)}
+                                placeholder="LEAVE EMPTY FOR ORIGINAL"
+                                className="w-full bg-background border-2 border-white p-3 sm:p-4 text-white font-medium placeholder-[#666] text-sm sm:text-base transition-all duration-200 focus:scale-[1.02] hover:border-opacity-80 focus:ring-2 focus:ring-white focus:border-white"
+                            />
+                        </div>
+                    </div>
+
+                    <div className="mb-4">
+                        <label className="block text-white text-xs font-bold mb-1 uppercase">
+                            Image File
+                        </label>
                         <input
                             type="file"
                             accept="image/*"
+                            ref={fileInputRef}
                             onChange={(e) => setUploadFile(e.target.files?.[0] || null)}
-                            className="w-full bg-background border-2 border-white p-3 sm:p-4 text-white font-medium text-sm sm:text-base transition-all duration-200 focus:scale-[1.02] hover:border-opacity-80 focus:ring-2 focus:ring-white focus:border-white file:mr-4 file:py-2 file:px-4 file:border-0 file:text-sm file:font-bold file:bg-white file:text-background hover:file:bg-[#e0e0e0]"
-                            required
+                            className="w-full bg-background border-2 border-white p-2 text-white font-medium text-sm transition-all duration-200 focus:scale-[1.02] focus:ring-2 focus:ring-white file:mr-4 file:py-1 file:px-2 file:border-0 file:text-xs file:font-bold file:bg-white file:text-background hover:file:bg-[#e0e0e0]"
                         />
                     </div>
-                    <div>
-                        <div className="relative" ref={uploadDropdownRef}>
-                            <button
-                                type="button"
-                                onClick={() =>
-                                    setShowUploadCategoryDropdown(!showUploadCategoryDropdown)
-                                }
-                                className="w-full flex items-center justify-between gap-2 bg-background border-2 border-white p-3 sm:p-4 text-white font-medium text-sm sm:text-base transition-all duration-200 hover:bg-white hover:text-background focus:scale-[1.02] focus:ring-2 focus:ring-white"
-                            >
-                                <div className="flex items-center gap-2">
-                                    {getUploadCategoryIcon(uploadCategory)}
-                                    <span className="uppercase">{uploadCategory}</span>
-                                </div>
-                                <ChevronDown
-                                    size={16}
-                                    className={`transition-transform ${showUploadCategoryDropdown ? "rotate-180" : ""
-                                        }`}
-                                />
-                            </button>
-                            <AnimatePresence>
-                                {showUploadCategoryDropdown && (
-                                    <motion.div
-                                        initial={{ opacity: 0, y: -10 }}
-                                        animate={{ opacity: 1, y: 0 }}
-                                        exit={{ opacity: 0, y: -10 }}
-                                        transition={{ duration: 0.2 }}
-                                        className="absolute z-10 left-0 mt-1 w-full border-2 border-white bg-background shadow-[4px_4px_0px_0px_rgba(128,128,128,0.5)]"
-                                    >
-                                        <button
-                                            type="button"
-                                            onClick={() => {
-                                                setUploadCategory("astrophotography");
-                                                setShowUploadCategoryDropdown(false);
-                                            }}
-                                            className={`w-full flex items-center gap-2 px-3 py-2 text-left font-medium hover:bg-white hover:text-background transition-colors ${uploadCategory === "astrophotography"
-                                                    ? "bg-white text-background"
-                                                    : "text-white"
-                                                }`}
-                                        >
-                                            <Camera size={16} />
-                                            <span className="uppercase">ASTROPHOTOGRAPHY</span>
-                                        </button>
-                                        <button
-                                            type="button"
-                                            onClick={() => {
-                                                setUploadCategory("events");
-                                                setShowUploadCategoryDropdown(false);
-                                            }}
-                                            className={`w-full flex items-center gap-2 px-3 py-2 text-left font-medium hover:bg-white hover:text-background transition-colors ${uploadCategory === "events"
-                                                    ? "bg-white text-background"
-                                                    : "text-white"
-                                                }`}
-                                        >
-                                            <Calendar size={16} />
-                                            <span className="uppercase">EVENTS</span>
-                                        </button>
-                                        <button
-                                            type="button"
-                                            onClick={() => {
-                                                setUploadCategory("others");
-                                                setShowUploadCategoryDropdown(false);
-                                            }}
-                                            className={`w-full flex items-center gap-2 px-3 py-2 text-left font-medium hover:bg-white hover:text-background transition-colors ${uploadCategory === "others"
-                                                    ? "bg-white text-background"
-                                                    : "text-white"
-                                                }`}
-                                        >
-                                            <Calendar size={16} />
-                                            <span className="uppercase">OTHERS</span>
-                                        </button>
-                                    </motion.div>
-                                )}
-                            </AnimatePresence>
-                        </div>
-                    </div>
-                    <div>
-                        <input
-                            type="text"
-                            placeholder="CUSTOM FILENAME (OPTIONAL)"
-                            value={uploadFilename}
-                            onChange={(e) => setUploadFilename(e.target.value)}
-                            className="w-full bg-background border-2 border-white p-3 sm:p-4 text-white font-medium placeholder-[#666] uppercase text-sm sm:text-base transition-all duration-200 focus:scale-[1.02] hover:border-opacity-80 focus:ring-2 focus:ring-white focus:border-white"
-                        />
-                    </div>
+
                     <button
                         type="submit"
-                        className="px-3 sm:px-4 py-3 sm:py-4 border-2 border-white bg-white text-background font-bold hover:bg-[#e0e0e0] transition-all duration-200 uppercase text-sm sm:text-base hover:scale-105 active:scale-95"
+                        disabled={uploading}
+                        className="w-full sm:w-auto px-6 py-3 border-2 border-white bg-white text-background font-bold hover:bg-[#e0e0e0] transition-all duration-200 uppercase text-sm hover:scale-105 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed"
                     >
-                        <Upload className="inline mr-2" size={14} />
-                        UPLOAD
+                        {uploading ? (
+                            <>
+                                <Loader2 className="inline mr-2 animate-spin" size={14} />
+                                UPLOADING...
+                            </>
+                        ) : (
+                            <>
+                                <Upload className="inline mr-2" size={14} />
+                                UPLOAD IMAGE
+                            </>
+                        )}
                     </button>
                 </form>
             </motion.div>
 
-            {/* Gallery Images List */}
+            {/* Gallery Grid */}
             <motion.div
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ delay: 0.6, duration: 0.4 }}
-                className="border-2 sm:border-4 border-white p-3 sm:p-4 lg:p-6 backdrop-blur-sm hover:shadow-lg hover:shadow-white/10 transition-all duration-300"
+                className="border-2 sm:border-4 border-white p-4 sm:p-6 backdrop-blur-sm hover:shadow-lg hover:shadow-white/10 transition-all duration-300"
             >
-                <h2 className="text-lg sm:text-xl lg:text-2xl font-bold mb-4 sm:mb-6 text-white uppercase flex items-center gap-2">
-                    <ImageIcon size={18} className="sm:w-6 sm:h-6" />
+                <h2 className="text-xl sm:text-2xl font-bold mb-6 text-white uppercase flex items-center gap-2">
+                    <ImageIcon size={24} />
                     GALLERY IMAGES ({galleryImages.length})
                 </h2>
 
-                {galleryLoading ? (
+                {loading ? (
                     <div className="flex items-center justify-center py-8">
                         <motion.div
                             animate={{ rotate: 360 }}
@@ -336,7 +320,7 @@ export default function GalleryManager({
                             className="w-6 h-6 border-2 border-white border-t-transparent rounded-full"
                         />
                         <span className="ml-3 text-white font-bold uppercase">
-                            Loading gallery...
+                            Loading images...
                         </span>
                     </div>
                 ) : galleryImages.length === 0 ? (
@@ -344,22 +328,22 @@ export default function GalleryManager({
                         <p className="text-white font-bold uppercase">No images found</p>
                     </div>
                 ) : (
-                    <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-4 sm:gap-6">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                         {galleryImages.map((image, index) => (
                             <AdminPhotoCard
-                                key={image.id}
+                                key={image.filename}
                                 image={image}
                                 index={index}
-                                onEdit={updateImage}
-                                onDelete={deleteImage}
-                                isEditing={editingImage === image.id}
-                                onStartEdit={() => setEditingImage(image.id)}
+                                onEdit={handleUpdate}
+                                onDelete={handleDelete}
+                                isEditing={editingImage === image.filename}
+                                onStartEdit={() => setEditingImage(image.filename)}
                                 onCancelEdit={() => setEditingImage(null)}
                             />
                         ))}
                     </div>
                 )}
             </motion.div>
-        </motion.div>
+        </div>
     );
 }

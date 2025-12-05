@@ -5,7 +5,12 @@ import { motion } from "framer-motion";
 import { Plus, CalendarDays } from "lucide-react";
 import { Inventory, validCategoryTypes, validStatusTypes } from "@/types/inventory-item";
 import AdminInventoryCard from "@/components/admin/AdminInventoryCard";
-import { withBasePath } from "@/components/common/HelperFunction";
+import {
+    fetchAdminInventory,
+    addInventoryItem,
+    updateInventoryItem,
+    deleteInventoryItem,
+} from "@/lib/admin_api";
 
 interface InventoryManagerProps {
     showSuccess: (message: string) => void;
@@ -33,16 +38,11 @@ export default function InventoryManager({
     const fetchInventory = useCallback(async () => {
         setInventoryLoading(true);
         try {
-            const response = await fetch(withBasePath(`/api/inventory/admin`));
-            if (response.ok) {
-                const data = await response.json();
-                setInventory(data.inventory || []);
-            } else {
-                showError("Failed to fetch inventory");
-            }
-        } catch (error) {
+            const data = await fetchAdminInventory();
+            setInventory(data.inventory || []);
+        } catch (error: unknown) {
             console.error("Error fetching inventory:", error);
-            showError("Failed to fetch inventory");
+            showError((error as Error).message || "Failed to fetch inventory");
         } finally {
             setInventoryLoading(false);
         }
@@ -52,7 +52,7 @@ export default function InventoryManager({
         fetchInventory();
     }, [fetchInventory]);
 
-    const addInventoryItem = async (e: React.FormEvent) => {
+    const handleAddInventoryItem = async (e: React.FormEvent) => {
         e.preventDefault();
         try {
             // Generate ID: name-randomString
@@ -77,77 +77,47 @@ export default function InventoryManager({
                 formData.append("file", newInventoryItem.imageFile);
             }
 
-            const response = await fetch(withBasePath(`/api/inventory/admin`), {
-                method: "POST",
-                body: formData,
+            await addInventoryItem(formData);
+            setnewInventoryItem({
+                id: "",
+                name: "",
+                image: "",
+                imageFile: null,
+                category: "astronomy",
+                description: "",
+                year_of_purchase: 2025,
+                status: "working",
             });
-
-            if (response.ok) {
-                setnewInventoryItem({
-                    id: "",
-                    name: "",
-                    image: "",
-                    imageFile: null,
-                    category: "astronomy",
-                    description: "",
-                    year_of_purchase: 2025,
-                    status: "working",
-                });
-                fetchInventory();
-                showSuccess("Inventory Item added successfully");
-            } else {
-                const error = await response.json();
-                showError(error.error || "Failed to add inventory item");
-            }
-        } catch (error) {
-            console.error("Error adding inventory item:", error);
-            showError("Failed to add inventory item");
+            fetchInventory();
+            showSuccess("Inventory Item added successfully");
+        } catch (error: unknown) {
+            console.error("Error adding item:", error);
+            showError((error as Error).message || "Failed to add item");
         }
     };
 
-    const updateInventory = async (inventoryId: string, formData: FormData) => {
+    const handleUpdateInventory = async (inventoryId: string, formData: FormData) => {
         try {
             formData.append("id", inventoryId);
-
-            const response = await fetch(withBasePath(`/api/inventory/admin`), {
-                method: "PUT",
-                body: formData,
-            });
-
-            if (response.ok) {
-                setEditingInventory(null);
-                fetchInventory();
-                showSuccess("Inventory item updated successfully");
-            } else {
-                const error = await response.json();
-                showError(error.error || "Failed to update inventory item");
-            }
-        } catch (error) {
-            console.error("Error updating inventory item:", error);
-            showError("Failed to update inventory item");
+            await updateInventoryItem(formData);
+            setEditingInventory(null);
+            fetchInventory();
+            showSuccess("Inventory item updated successfully");
+        } catch (error: unknown) {
+            console.error("Error updating item:", error);
+            showError((error as Error).message || "Failed to update item");
             throw error;
         }
     };
 
-    const deleteInventory = async (inventoryId: string) => {
+    const handleDeleteInventory = async (inventoryId: string) => {
         try {
-            const response = await fetch(
-                withBasePath(
-                    `/api/inventory/admin?id=${encodeURIComponent(inventoryId)}`
-                ),
-                { method: "DELETE" }
-            );
-
-            if (response.ok) {
-                fetchInventory();
-                showSuccess("Inventory item deleted successfully");
-            } else {
-                const error = await response.json();
-                showError(error.error || "Failed to delete inventory item");
-            }
-        } catch (error) {
-            console.error("Error deleting inventory item:", error);
-            showError("Failed to delete inventory item");
+            await deleteInventoryItem(inventoryId);
+            fetchInventory();
+            showSuccess("Inventory item deleted successfully");
+        } catch (error: unknown) {
+            console.error("Error deleting item:", error);
+            showError((error as Error).message || "Failed to delete item");
         }
     };
 
@@ -170,7 +140,7 @@ export default function InventoryManager({
                     ADD NEW INVENTORY ITEM
                 </h2>
 
-                <form onSubmit={addInventoryItem} className="space-y-4">
+                <form onSubmit={handleAddInventoryItem} className="space-y-4">
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                         {/* Name */}
                         <input
@@ -340,8 +310,8 @@ export default function InventoryManager({
                                 key={inventory_item.id}
                                 inventory={inventory_item}
                                 index={index}
-                                onEdit={updateInventory}
-                                onDelete={deleteInventory}
+                                onEdit={handleUpdateInventory}
+                                onDelete={handleDeleteInventory}
                                 isEditing={editingInventory === inventory_item.id}
                                 onStartEdit={() => setEditingInventory(inventory_item.id)}
                                 onCancelEdit={() => setEditingInventory(null)}
