@@ -174,7 +174,7 @@ export async function PUT(
 
     // Log the action
     Logger.logWriteOperation(
-      "UPDATE_USER",
+      `Update user: ${user.email}`,
       adminUser.email!,
       "user",
       user._id.toString(),
@@ -234,7 +234,7 @@ export async function DELETE(
 
     // Log the action
     Logger.logWriteOperation(
-      "DELETE_USER",
+      `Delete user: ${user.email}`,
       adminUser.email!,
       "user",
       user._id.toString(),

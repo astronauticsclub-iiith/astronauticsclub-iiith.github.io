@@ -18,7 +18,7 @@ export async function GET(request: NextRequest) {
     const page = parseInt(searchParams.get("page") || "1");
 
     // Build query
-    const query: Record<string, unknown> = {approved: true};
+    const query: Record<string, unknown> = { approved: true };
 
     if (search) {
       query.$or = [
@@ -160,7 +160,7 @@ export async function POST(request: NextRequest) {
 
     // Log the action
     Logger.logWriteOperation(
-      "CREATE_BLOG",
+      `Create blog: ${blog.title}`,
       user.email,
       "blog",
       blog._id.toString(),

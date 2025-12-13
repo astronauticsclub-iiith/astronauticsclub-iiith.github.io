@@ -62,7 +62,7 @@ export async function POST(request: NextRequest) {
 
     // Log the action
     Logger.logWriteOperation(
-      "CREATE_USER",
+      `Create user: ${email} (Role: ${role})`,
       adminUser.email!,
       "user",
       user._id.toString(),
