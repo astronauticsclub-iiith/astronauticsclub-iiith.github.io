@@ -40,8 +40,8 @@ const Footer: React.FC = () => {
               <h2 className="text-3xl font-bold">Astronautics Club</h2>
             </div>
             <p className="text-gray-300 leading-relaxed max-w-sm mx-auto px-8 md:px-0 md:mx-0">
-              Confining our attention to terrestrial matters would be to limit
-              the human spirit. Join us to look beyond the horizon.
+              Confining our attention to terrestrial matters would be to limit the human spirit.
+              Join us to look beyond the horizon.
             </p>
           </div>
 
@@ -50,30 +50,18 @@ const Footer: React.FC = () => {
             <h3 className="text-xl font-semibold mb-4 accent">Links</h3>
             <div className="grid grid-cols-2 gap-x-8">
               <nav className="flex flex-col space-y-2 items-end">
-                {navigationLinks
-                  .slice(0, Math.ceil(navigationLinks.length / 2))
-                  .map((link) => (
-                    <CustomLink
-                      key={link.href}
-                      href={link.href}
-                      className="w-auto"
-                    >
-                      {link.label}
-                    </CustomLink>
-                  ))}
+                {navigationLinks.slice(0, Math.ceil(navigationLinks.length / 2)).map((link) => (
+                  <CustomLink key={link.href} href={link.href} className="w-auto">
+                    {link.label}
+                  </CustomLink>
+                ))}
               </nav>
               <nav className="flex flex-col space-y-2 items-start">
-                {navigationLinks
-                  .slice(Math.ceil(navigationLinks.length / 2))
-                  .map((link) => (
-                    <CustomLink
-                      key={link.href}
-                      href={link.href}
-                      className="inline-block"
-                    >
-                      {link.label}
-                    </CustomLink>
-                  ))}
+                {navigationLinks.slice(Math.ceil(navigationLinks.length / 2)).map((link) => (
+                  <CustomLink key={link.href} href={link.href} className="inline-block">
+                    {link.label}
+                  </CustomLink>
+                ))}
               </nav>
             </div>
           </div>
@@ -91,9 +79,7 @@ const Footer: React.FC = () => {
                 rel="noopener noreferrer"
               >
                 <Mail className="w-4 h-4 group-hover:scale-110 transition-transform duration-300" />
-                <span className="break-all">
-                  astronauticsclub@students.iiit.ac.in
-                </span>
+                <span className="break-all">astronauticsclub@students.iiit.ac.in</span>
               </a>
 
               {/* Social Media Links */}
@@ -153,11 +139,7 @@ const Footer: React.FC = () => {
                 </a>
 
                 {/* Discord icon */}
-                <a
-                  href="https://discord.gg/3aYA9yMRUM"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
+                <a href="https://discord.gg/3aYA9yMRUM" target="_blank" rel="noopener noreferrer">
                   <svg
                     className="footer-social-media-icon discord"
                     xmlns="http://www.w3.org/2000/svg"

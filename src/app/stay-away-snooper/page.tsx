@@ -1,7 +1,7 @@
-'use client';
+"use client";
 
-import Link from 'next/link';
-import { ShieldX } from 'lucide-react';
+import Link from "next/link";
+import { ShieldX } from "lucide-react";
 
 export default function UnauthorizedPage() {
   return (
@@ -10,19 +10,18 @@ export default function UnauthorizedPage() {
         <div className="mb-4">
           <ShieldX size={96} className="mx-auto text-red-500" />
         </div>
-        
-        <h1 className="text-2xl sm:text-4xl font-bold text-red-500 mb-4">
-          Access Denied
-        </h1>
-        
+
+        <h1 className="text-2xl sm:text-4xl font-bold text-red-500 mb-4">Access Denied</h1>
+
         <p className="text-lg sm:text-xl text-gray-300 mb-6">
           You don&apos;t have permission to access this area.
         </p>
-        
+
         <p className="text-gray-500 mb-8">
-          This section is restricted to authorized personnel only. If you believe you should have access, please contact the administrator.
+          This section is restricted to authorized personnel only. If you believe you should have
+          access, please contact the administrator.
         </p>
-        
+
         <div className="space-y-4">
           <Link
             href="/"
@@ -31,10 +30,8 @@ export default function UnauthorizedPage() {
             Return to Homepage
           </Link>
         </div>
-        
-        <div className="text-xs text-gray-600 mt-8">
-          Error Code: 403 - Forbidden
-        </div>
+
+        <div className="text-xs text-gray-600 mt-8">Error Code: 403 - Forbidden</div>
       </div>
     </div>
   );

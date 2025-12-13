@@ -15,7 +15,7 @@ import { useAlert } from "@/hooks/useAlert";
 import "@/components/ui/bg-patterns.css";
 import ProfileInfo from "@/components/features/mod/ProfileInfo";
 import { withBasePath, withUploadPath } from "@/components/common/HelperFunction";
-import {User} from "@/types/user"
+import { User } from "@/types/user";
 import { Blog, BlogStats } from "@/types/blog";
 
 interface NewBlog {
@@ -36,16 +36,16 @@ export default function BlogAuthorDashboard() {
     totalViews: 0,
     totalLikes: 0,
   });
-  const [activeTab, setActiveTab] = useState<"dashboard" | "write" | "edit">(
-    "dashboard"
-  );
+  const [activeTab, setActiveTab] = useState<"dashboard" | "write" | "edit">("dashboard");
   const [loading, setLoading] = useState(true);
   const [editingBlog, setEditingBlog] = useState<Blog | null>(null);
   const [isPreview, setIsPreview] = useState(false);
   const [showProfileEditor, setShowProfileEditor] = useState(false);
   const [showImageUploader, setShowImageUploader] = useState(false);
   const [userProfile, setUserProfile] = useState<User | null>(null);
-  const [currentUserRole, setCurrentUserRole] = useState<'admin' | 'writer' | 'none' | undefined>(undefined);
+  const [currentUserRole, setCurrentUserRole] = useState<"admin" | "writer" | "none" | undefined>(
+    undefined
+  );
   const [newBlog, setNewBlog] = useState<NewBlog>({
     title: "",
     excerpt: "",
@@ -82,7 +82,7 @@ export default function BlogAuthorDashboard() {
 
   const fetchMyBlogs = async (role: string) => {
     try {
-      const url = role === 'admin' ? `/api/admin-blogs` : `/api/my-blogs`;
+      const url = role === "admin" ? `/api/admin-blogs` : `/api/my-blogs`;
       const response = await fetch(withBasePath(url));
       if (response.ok) {
         const data = await response.json();
@@ -132,7 +132,6 @@ export default function BlogAuthorDashboard() {
     const words = text.trim().split(/\s+/).length;
     return Math.max(1, Math.ceil(words / wpm));
   }
-
 
   const publishBlog = async () => {
     if (!newBlog.title || !newBlog.content || !newBlog.excerpt) {
@@ -213,7 +212,7 @@ export default function BlogAuthorDashboard() {
       () => performApproveBlog(slug),
       { type: "danger", confirmText: "APPROVE BLOG" }
     );
-  }
+  };
 
   const performDeleteBlog = async (slug: string) => {
     try {
@@ -240,10 +239,10 @@ export default function BlogAuthorDashboard() {
       const response = await fetch(withBasePath(`/api/blogs/${slug}`), {
         method: "PATCH",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          action: 'approve',
+          action: "approve",
         }),
       });
 
@@ -262,12 +261,7 @@ export default function BlogAuthorDashboard() {
   };
 
   const updateBlog = async () => {
-    if (
-      !editingBlog ||
-      !editingBlog.title ||
-      !editingBlog.content ||
-      !editingBlog.excerpt
-    ) {
+    if (!editingBlog || !editingBlog.title || !editingBlog.content || !editingBlog.excerpt) {
       showError("Please fill in all required fields");
       return;
     }
@@ -333,57 +327,68 @@ export default function BlogAuthorDashboard() {
     setShowImageUploader(false);
   };
 
-  const insertImageReference = useCallback((imagePath: string) => {
-    const imageMarkdown = `\n![Image](${imagePath})\n`;
-    if (activeTab === "write") {
-      setNewBlog((prev) => ({
-        ...prev,
-        content: prev.content + imageMarkdown,
-      }));
-    } else {
-      setEditingBlog((prev) =>
-        prev ? { ...prev, content: prev.content + imageMarkdown } : null
-      );
-    }
-  }, [activeTab]);
-
-  const copyImageUrl = useCallback((imagePath: string) => {
-    navigator.clipboard.writeText(imagePath);
-    showSuccess("Image URL copied to clipboard!");
-  }, [showSuccess]);
-
-  const removeImageFromBlog = useCallback(async (imagePath: string) => {
-    try {
-      const response = await fetch(withBasePath(`/api/upload?filename=${encodeURIComponent(imagePath)}`), {
-        method: "DELETE",
-      });
-
-      if (response.ok) {
-        if (activeTab === "write") {
-          setNewBlog((prev) => ({
-            ...prev,
-            images: prev.images?.filter((img) => img !== imagePath) || [],
-          }));
-        } else {
-          setEditingBlog((prev) =>
-            prev
-              ? {
-                  ...prev,
-                  images: prev.images?.filter((img) => img !== imagePath) || [],
-                }
-              : null
-          );
-        }
+  const insertImageReference = useCallback(
+    (imagePath: string) => {
+      const imageMarkdown = `\n![Image](${imagePath})\n`;
+      if (activeTab === "write") {
+        setNewBlog((prev) => ({
+          ...prev,
+          content: prev.content + imageMarkdown,
+        }));
+      } else {
+        setEditingBlog((prev) =>
+          prev ? { ...prev, content: prev.content + imageMarkdown } : null
+        );
       }
-    } catch (err) {
-      console.error(err);
-      showError("Failed to delete image");
-    }
-  }, [activeTab, showError]); // Depends on activeTab and showError
+    },
+    [activeTab]
+  );
+
+  const copyImageUrl = useCallback(
+    (imagePath: string) => {
+      navigator.clipboard.writeText(imagePath);
+      showSuccess("Image URL copied to clipboard!");
+    },
+    [showSuccess]
+  );
+
+  const removeImageFromBlog = useCallback(
+    async (imagePath: string) => {
+      try {
+        const response = await fetch(
+          withBasePath(`/api/upload?filename=${encodeURIComponent(imagePath)}`),
+          {
+            method: "DELETE",
+          }
+        );
+
+        if (response.ok) {
+          if (activeTab === "write") {
+            setNewBlog((prev) => ({
+              ...prev,
+              images: prev.images?.filter((img) => img !== imagePath) || [],
+            }));
+          } else {
+            setEditingBlog((prev) =>
+              prev
+                ? {
+                    ...prev,
+                    images: prev.images?.filter((img) => img !== imagePath) || [],
+                  }
+                : null
+            );
+          }
+        }
+      } catch (err) {
+        console.error(err);
+        showError("Failed to delete image");
+      }
+    },
+    [activeTab, showError]
+  ); // Depends on activeTab and showError
 
   const UploadedImagesPanel = useCallback(() => {
-    const currentImages =
-      activeTab === "write" ? newBlog.images || [] : editingBlog?.images || [];
+    const currentImages = activeTab === "write" ? newBlog.images || [] : editingBlog?.images || [];
 
     return (
       <motion.div
@@ -410,10 +415,7 @@ export default function BlogAuthorDashboard() {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5, delay: 0.3 }}
           >
-            <Upload
-              size={16}
-              className="transition-transform duration-300 group-hover:scale-110"
-            />
+            <Upload size={16} className="transition-transform duration-300 group-hover:scale-110" />
             ADD IMAGE
           </motion.button>
         </div>
@@ -440,7 +442,7 @@ export default function BlogAuthorDashboard() {
             transition={{ duration: 0.6, delay: 0.4 }}
             className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-4 lg:gap-6"
           >
-            {currentImages.map((imagePath : string, index) => (
+            {currentImages.map((imagePath: string, index) => (
               <motion.div
                 key={index}
                 initial={{ opacity: 0, scale: 0.8, y: 20 }}
@@ -733,9 +735,7 @@ export default function BlogAuthorDashboard() {
                       className="group border-2 border-white p-4 sm:p-6 backdrop-blur-sm flex flex-col lg:flex-row justify-between items-start bg-background/30 hover:bg-background/50 transition-all duration-300"
                     >
                       <div className="flex-1 w-full lg:w-auto">
-                        <h3
-                          className="text-lg sm:text-xl lg:text-2xl font-bold uppercase mb-2 sm:mb-3 duration-300"
-                        >
+                        <h3 className="text-lg sm:text-xl lg:text-2xl font-bold uppercase mb-2 sm:mb-3 duration-300">
                           {blog.title}
                         </h3>
                         <p className="text-[#e0e0e0] font-medium mb-3 text-sm sm:text-base leading-relaxed">
@@ -814,7 +814,7 @@ export default function BlogAuthorDashboard() {
                           />
                           DELETE
                         </motion.button>
-                        {session?.user?.role=="admin" && blog.approved==false? 
+                        {session?.user?.role == "admin" && blog.approved == false ? (
                           <motion.button
                             onClick={() => approveBlog(blog.slug)}
                             className="group/btn flex-1 lg:flex-none px-3 sm:px-4 py-2 sm:py-3 border-2 border-white bg-[#1bbb1b] text-white font-bold hover:bg-white hover:text-[#d2042d] transition-all duration-300 uppercase text-xs sm:text-sm flex items-center justify-center gap-2"
@@ -827,7 +827,9 @@ export default function BlogAuthorDashboard() {
                             />
                             APPROVE
                           </motion.button>
-                        : ""}
+                        ) : (
+                          ""
+                        )}
                       </div>
                     </motion.div>
                   ))}
@@ -899,18 +901,12 @@ export default function BlogAuthorDashboard() {
                     transition={{ duration: 0.5, delay: 0.4 }}
                     type="text"
                     placeholder="BLOG TITLE"
-                    value={
-                      activeTab === "write"
-                        ? newBlog.title
-                        : editingBlog?.title || ""
-                    }
+                    value={activeTab === "write" ? newBlog.title : editingBlog?.title || ""}
                     onChange={(e) =>
                       activeTab === "write"
                         ? setNewBlog({ ...newBlog, title: e.target.value })
                         : setEditingBlog(
-                            editingBlog
-                              ? { ...editingBlog, title: e.target.value }
-                              : null
+                            editingBlog ? { ...editingBlog, title: e.target.value } : null
                           )
                     }
                     className="w-full bg-background border-2 border-white p-3 sm:p-4 text-white text-lg sm:text-xl font-bold placeholder-[#666] uppercase focus:border-yellow-300 focus:outline-none transition-all duration-300 focus:shadow-lg"
@@ -921,18 +917,12 @@ export default function BlogAuthorDashboard() {
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ duration: 0.5, delay: 0.5 }}
                     placeholder="BLOG EXCERPT"
-                    value={
-                      activeTab === "write"
-                        ? newBlog.excerpt
-                        : editingBlog?.excerpt || ""
-                    }
+                    value={activeTab === "write" ? newBlog.excerpt : editingBlog?.excerpt || ""}
                     onChange={(e) =>
                       activeTab === "write"
                         ? setNewBlog({ ...newBlog, excerpt: e.target.value })
                         : setEditingBlog(
-                            editingBlog
-                              ? { ...editingBlog, excerpt: e.target.value }
-                              : null
+                            editingBlog ? { ...editingBlog, excerpt: e.target.value } : null
                           )
                     }
                     className="w-full bg-background border-2 border-white p-3 sm:p-4 text-white h-20 sm:h-24 font-medium placeholder-[#666] focus:border-yellow-300 focus:outline-none transition-all duration-300 focus:shadow-lg resize-none"
@@ -948,9 +938,7 @@ export default function BlogAuthorDashboard() {
                       type="text"
                       placeholder="TAGS (COMMA SEPARATED)"
                       value={
-                        activeTab === "write"
-                          ? newBlog.tags
-                          : editingBlog?.tags.join(", ") || ""
+                        activeTab === "write" ? newBlog.tags : editingBlog?.tags.join(", ") || ""
                       }
                       onChange={(e) =>
                         activeTab === "write"
@@ -959,9 +947,7 @@ export default function BlogAuthorDashboard() {
                               editingBlog
                                 ? {
                                     ...editingBlog,
-                                    tags: e.target.value
-                                      .split(",")
-                                      .map((t) => t.trim()),
+                                    tags: e.target.value.split(",").map((t) => t.trim()),
                                   }
                                 : null
                             )
@@ -983,18 +969,12 @@ export default function BlogAuthorDashboard() {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.5, delay: 0.8 }}
                     placeholder="WRITE YOUR BLOG CONTENT IN MARKDOWN..."
-                    value={
-                      activeTab === "write"
-                        ? newBlog.content
-                        : editingBlog?.content || ""
-                    }
+                    value={activeTab === "write" ? newBlog.content : editingBlog?.content || ""}
                     onChange={(e) =>
                       activeTab === "write"
                         ? setNewBlog({ ...newBlog, content: e.target.value })
                         : setEditingBlog(
-                            editingBlog
-                              ? { ...editingBlog, content: e.target.value }
-                              : null
+                            editingBlog ? { ...editingBlog, content: e.target.value } : null
                           )
                     }
                     className="w-full bg-background border-2 border-white p-3 sm:p-4 text-white h-96 sm:h-80 lg:h-96 font-mono placeholder-[#666] focus:outline-none transition-all duration-300 focus:shadow-lg resize-none"
@@ -1007,21 +987,9 @@ export default function BlogAuthorDashboard() {
                   transition={{ duration: 0.6, delay: 0.3 }}
                 >
                   <BlogPreview
-                    title={
-                      activeTab === "write"
-                        ? newBlog.title
-                        : editingBlog?.title || ""
-                    }
-                    excerpt={
-                      activeTab === "write"
-                        ? newBlog.excerpt
-                        : editingBlog?.excerpt || ""
-                    }
-                    content={
-                      activeTab === "write"
-                        ? newBlog.content
-                        : editingBlog?.content || ""
-                    }
+                    title={activeTab === "write" ? newBlog.title : editingBlog?.title || ""}
+                    excerpt={activeTab === "write" ? newBlog.excerpt : editingBlog?.excerpt || ""}
+                    content={activeTab === "write" ? newBlog.content : editingBlog?.content || ""}
                     tags={
                       activeTab === "write"
                         ? newBlog.tags
@@ -1030,23 +998,14 @@ export default function BlogAuthorDashboard() {
                             .filter((tag) => tag)
                         : editingBlog?.tags || []
                     }
-                    readTime={
-                      activeTab === "write"
-                        ? newBlog.readTime
-                        : editingBlog?.readTime || 1
-                    }
+                    readTime={activeTab === "write" ? newBlog.readTime : editingBlog?.readTime || 1}
                     author={{
-                      name:
-                        userProfile?.name || session?.user?.name || "Anonymous",
+                      name: userProfile?.name || session?.user?.name || "Anonymous",
                       email: session?.user?.email || "",
                       avatar: userProfile?.avatar,
                       bio: userProfile?.bio || "Blog Author",
                     }}
-                    images={
-                      activeTab === "write"
-                        ? newBlog.images
-                        : editingBlog?.images || []
-                    }
+                    images={activeTab === "write" ? newBlog.images : editingBlog?.images || []}
                   />
                 </motion.div>
               )}

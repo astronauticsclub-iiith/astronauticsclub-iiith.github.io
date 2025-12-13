@@ -1,12 +1,12 @@
 import { NextRequest, NextResponse } from "next/server";
-import { requireWriter } from '@/lib/auth';
-import { connectToDatabase } from '@/lib/mongodb';
-import User from '@/models/User';
+import { requireWriter } from "@/lib/auth";
+import { connectToDatabase } from "@/lib/mongodb";
+import User from "@/models/User";
 
 export async function GET() {
   try {
     const { user } = await requireWriter();
-    
+
     return NextResponse.json({
       id: user._id,
       email: user.email,
@@ -21,10 +21,7 @@ export async function GET() {
     });
   } catch (error) {
     console.error("Error fetching user profile:", error);
-    return NextResponse.json(
-      { error: "Unauthorized" },
-      { status: 401 }
-    );
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 }
 
@@ -32,48 +29,37 @@ export async function PUT(request: NextRequest) {
   try {
     const { user } = await requireWriter();
     const body = await request.json();
-    
+
     const { name, bio, linkedin } = body;
-    
+
     // Validate input
-    if (name !== undefined && typeof name !== 'string') {
-      return NextResponse.json(
-        { error: "Name must be a string" },
-        { status: 400 }
-      );
+    if (name !== undefined && typeof name !== "string") {
+      return NextResponse.json({ error: "Name must be a string" }, { status: 400 });
     }
-    
-    if (bio !== undefined && typeof bio !== 'string') {
-      return NextResponse.json(
-        { error: "Bio must be a string" },
-        { status: 400 }
-      );
+
+    if (bio !== undefined && typeof bio !== "string") {
+      return NextResponse.json({ error: "Bio must be a string" }, { status: 400 });
     }
-    
-    if (linkedin !== undefined && typeof linkedin !== 'string') { // Add better string checking
-      return NextResponse.json(
-        { error: "Linkedin must be a string" },
-        { status: 400 }
-      );
+
+    if (linkedin !== undefined && typeof linkedin !== "string") {
+      // Add better string checking
+      return NextResponse.json({ error: "Linkedin must be a string" }, { status: 400 });
     }
 
     // Update user profile
     await connectToDatabase();
     const updatedUser = await User.findByIdAndUpdate(
       user._id,
-      { 
+      {
         ...(name !== undefined && { name: name.trim() }),
         ...(bio !== undefined && { bio: bio.trim() }),
-        ...(linkedin !== undefined && { linkedin: linkedin.trim() })
+        ...(linkedin !== undefined && { linkedin: linkedin.trim() }),
       },
       { new: true, runValidators: true }
     );
-    
+
     if (!updatedUser) {
-      return NextResponse.json(
-        { error: "User not found" },
-        { status: 404 }
-      );
+      return NextResponse.json({ error: "User not found" }, { status: 404 });
     }
 
     return NextResponse.json({
@@ -89,9 +75,6 @@ export async function PUT(request: NextRequest) {
     });
   } catch (error) {
     console.error("Error updating user profile:", error);
-    return NextResponse.json(
-      { error: "Internal server error" },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: "Internal server error" }, { status: 500 });
   }
 }

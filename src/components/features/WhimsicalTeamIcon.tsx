@@ -60,30 +60,22 @@ const WhimsicalTeamIcon: React.FC<WhimsicalTeamIconProps> = ({
       const maxOffset = 0.5;
 
       circles.forEach(({ x, y, key }) => {
-        const distance = Math.sqrt(
-          Math.pow(normalizedX - x, 2) + Math.pow(normalizedY - y, 2)
-        );
+        const distance = Math.sqrt(Math.pow(normalizedX - x, 2) + Math.pow(normalizedY - y, 2));
 
         if (key === "circle1") {
           if (!isHovered1 && distance < hoverEnterDistance) setIsHovered1(true);
-          else if (isHovered1 && distance > hoverExitDistance)
-            setIsHovered1(false);
+          else if (isHovered1 && distance > hoverExitDistance) setIsHovered1(false);
         } else if (key === "circle2") {
           if (!isHovered2 && distance < hoverEnterDistance) setIsHovered2(true);
-          else if (isHovered2 && distance > hoverExitDistance)
-            setIsHovered2(false);
+          else if (isHovered2 && distance > hoverExitDistance) setIsHovered2(false);
         } else if (key === "circle3") {
           if (!isHovered3 && distance < hoverEnterDistance) setIsHovered3(true);
-          else if (isHovered3 && distance > hoverExitDistance)
-            setIsHovered3(false);
+          else if (isHovered3 && distance > hoverExitDistance) setIsHovered3(false);
         }
 
         if (distance < avoidanceDistance && distance > 0) {
           const angle = Math.atan2(y - normalizedY, x - normalizedX);
-          const avoidanceStrength = Math.max(
-            0,
-            (avoidanceDistance - distance) / avoidanceDistance
-          );
+          const avoidanceStrength = Math.max(0, (avoidanceDistance - distance) / avoidanceDistance);
           newPositions[key as keyof typeof positions] = {
             x: Math.cos(angle) * maxOffset * avoidanceStrength,
             y: Math.sin(angle) * maxOffset * avoidanceStrength,
@@ -104,11 +96,7 @@ const WhimsicalTeamIcon: React.FC<WhimsicalTeamIconProps> = ({
     (circleIndex: 1 | 2 | 3) => {
       if (!whimsyMode) return;
       const setBlinker =
-        circleIndex === 1
-          ? setIsBlinking1
-          : circleIndex === 2
-          ? setIsBlinking2
-          : setIsBlinking3;
+        circleIndex === 1 ? setIsBlinking1 : circleIndex === 2 ? setIsBlinking2 : setIsBlinking3;
       const blinkDuration = 150; // How long the eye stays closed
       setBlinker(true);
       setTimeout(() => {
@@ -131,10 +119,7 @@ const WhimsicalTeamIcon: React.FC<WhimsicalTeamIconProps> = ({
       const run = () => {
         blinker(circleIndex);
         const randomDelay = 3000 + Math.random() * 2000; // Blink every 3-5 seconds
-        blinkIntervalRefs.current[`circle${circleIndex}`] = setTimeout(
-          run,
-          randomDelay
-        );
+        blinkIntervalRefs.current[`circle${circleIndex}`] = setTimeout(run, randomDelay);
       };
       run();
     };
@@ -159,23 +144,12 @@ const WhimsicalTeamIcon: React.FC<WhimsicalTeamIconProps> = ({
     const circleKey = `circle${circleIndex}` as keyof typeof positions;
     const position = positions[circleKey];
     const isBlinking =
-      circleIndex === 1
-        ? isBlinking1
-        : circleIndex === 2
-        ? isBlinking2
-        : isBlinking3;
-    const isHovered =
-      circleIndex === 1
-        ? isHovered1
-        : circleIndex === 2
-        ? isHovered2
-        : isHovered3;
+      circleIndex === 1 ? isBlinking1 : circleIndex === 2 ? isBlinking2 : isBlinking3;
+    const isHovered = circleIndex === 1 ? isHovered1 : circleIndex === 2 ? isHovered2 : isHovered3;
 
     const translatePart = `translate(${position.x}px, ${position.y}px)`;
-    const scaleX =
-      isHovered || isBlinking ? (circleIndex === 1 ? 0.05 : 1.25) : 1.05;
-    const scaleY =
-      isHovered || isBlinking ? (circleIndex !== 1 ? 0.05 : 1.25) : 1.05;
+    const scaleX = isHovered || isBlinking ? (circleIndex === 1 ? 0.05 : 1.25) : 1.05;
+    const scaleY = isHovered || isBlinking ? (circleIndex !== 1 ? 0.05 : 1.25) : 1.05;
     const scalePart = `scaleX(${scaleX}) scaleY(${scaleY})`;
 
     return `${translatePart} ${scalePart}`;

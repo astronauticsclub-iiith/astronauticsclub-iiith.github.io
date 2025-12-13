@@ -7,4 +7,4 @@ export interface GalleryImage {
   filename: string;
   size: number;
   modified: string;
-};
+}

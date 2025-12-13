@@ -5,10 +5,7 @@ import dynamic from "next/dynamic";
 import { usePathname } from "next/navigation";
 
 // Import WhimsyMouse with no SSR to avoid hydration errors
-const WhimsyMouse = dynamic(
-  () => import("@/components/features/WhimsyMouse"),
-  { ssr: false }
-);
+const WhimsyMouse = dynamic(() => import("@/components/features/WhimsyMouse"), { ssr: false });
 
 // Define the context type
 type WhimsyContextType = {
@@ -34,15 +31,13 @@ const getInitialWhimsyMode = (): boolean => {
 };
 
 // Create a provider component
-export const WhimsyProvider: React.FC<{ children: React.ReactNode }> = ({
-  children,
-}) => {
+export const WhimsyProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   // Initialize state from localStorage synchronously
   const [whimsyMode, setWhimsyMode] = useState<boolean>(getInitialWhimsyMode);
   const [isLoaded, setIsLoaded] = useState<boolean>(false);
 
   const pathname = usePathname();
-  const isAboutPage = pathname.startsWith("/about"); 
+  const isAboutPage = pathname.startsWith("/about");
   const isWhimsyActive = whimsyMode && !isAboutPage;
 
   // Mark as loaded after hydration

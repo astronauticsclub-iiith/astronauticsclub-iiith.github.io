@@ -2,7 +2,9 @@
 .whimsical-events-icon {
   display: inline-block;
   cursor: pointer;
-  transition: transform 0.3s ease-out, filter 0.3s ease-out;
+  transition:
+    transform 0.3s ease-out,
+    filter 0.3s ease-out;
   animation: icon-wiggle 1s infinite ease-in-out;
 }
 
@@ -121,12 +123,14 @@
 
 /* Hover effects when whimsy mode is on */
 .whimsical-events-icon:hover .antenna-left {
-  animation: antenna-vibrate-left 0.2s infinite,
+  animation:
+    antenna-vibrate-left 0.2s infinite,
     antenna-hover-left 0.3s ease-in-out infinite alternate;
 }
 
 .whimsical-events-icon:hover .antenna-right {
-  animation: antenna-vibrate-right 0.2s infinite,
+  animation:
+    antenna-vibrate-right 0.2s infinite,
     antenna-hover-right 0.3s ease-in-out infinite alternate;
 }
 

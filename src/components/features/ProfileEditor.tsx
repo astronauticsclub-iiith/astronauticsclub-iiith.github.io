@@ -171,10 +171,7 @@ export default function ProfileEditor({
 
           {/* Form Fields */}
           <div className="space-y-2 sm:space-y-3 lg:space-y-4">
-            <div
-              className="animate-slide-in-from-left"
-              style={{ animationDelay: "0.1s" }}
-            >
+            <div className="animate-slide-in-from-left" style={{ animationDelay: "0.1s" }}>
               <label className="block text-xs sm:text-sm font-bold text-white mb-1 sm:mb-2 uppercase tracking-wide">
                 EMAIL
               </label>
@@ -186,55 +183,40 @@ export default function ProfileEditor({
               />
             </div>
 
-            <div
-              className="animate-slide-in-from-left"
-              style={{ animationDelay: "0.2s" }}
-            >
+            <div className="animate-slide-in-from-left" style={{ animationDelay: "0.2s" }}>
               <label className="block text-xs sm:text-sm font-bold text-white mb-1 sm:mb-2 uppercase tracking-wide">
                 NAME
               </label>
               <input
                 type="text"
                 value={formData.name}
-                onChange={(e) =>
-                  setFormData({ ...formData, name: e.target.value })
-                }
+                onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                 placeholder="ENTER YOUR NAME"
                 className="w-full bg-background border-2 border-white px-2 sm:px-3 md:px-4 py-1 sm:py-2 md:py-3 text-white font-medium placeholder-[#666] focus:ring-2 focus:ring-white focus:border-white text-xs sm:text-sm md:text-base transition-all duration-200 focus:scale-[1.01] sm:focus:scale-[1.02] hover:border-opacity-80"
               />
             </div>
 
-            <div
-              className="animate-slide-in-from-left"
-              style={{ animationDelay: "0.3s" }}
-            >
+            <div className="animate-slide-in-from-left" style={{ animationDelay: "0.3s" }}>
               <label className="block text-xs sm:text-sm font-bold text-white mb-1 sm:mb-2 uppercase tracking-wide">
                 BIO
               </label>
               <textarea
                 value={formData.bio}
-                onChange={(e) =>
-                  setFormData({ ...formData, bio: e.target.value })
-                }
+                onChange={(e) => setFormData({ ...formData, bio: e.target.value })}
                 placeholder="TELL US ABOUT YOURSELF"
                 rows={2}
                 className="w-full bg-background border-2 border-white px-2 sm:px-3 md:px-4 py-1 sm:py-2 md:py-3 text-white font-medium placeholder-[#666] focus:ring-2 focus:ring-white focus:border-white resize-none text-xs sm:text-sm md:text-base transition-all duration-200 focus:scale-[1.01] sm:focus:scale-[1.02] hover:border-opacity-80 sm:rows-3"
               />
             </div>
 
-            <div
-              className="animate-slide-in-from-left"
-              style={{ animationDelay: "0.3s" }}
-            >
+            <div className="animate-slide-in-from-left" style={{ animationDelay: "0.3s" }}>
               <label className="block text-xs sm:text-sm font-bold text-white mb-1 sm:mb-2 uppercase tracking-wide">
                 LINKEDIN
               </label>
               <input
                 type="text"
                 value={formData.linkedin}
-                onChange={(e) =>
-                  setFormData({ ...formData, linkedin: e.target.value })
-                }
+                onChange={(e) => setFormData({ ...formData, linkedin: e.target.value })}
                 placeholder=""
                 className="w-full bg-background border-2 border-white px-2 sm:px-3 md:px-4 py-1 sm:py-2 md:py-3 text-white font-medium placeholder-[#666] focus:ring-2 focus:ring-white focus:border-white text-xs sm:text-sm md:text-base transition-all duration-200 focus:scale-[1.01] sm:focus:scale-[1.02] hover:border-opacity-80"
               />
@@ -242,10 +224,7 @@ export default function ProfileEditor({
 
             {!isSelfEdit && (
               <>
-                <div
-                  className="animate-slide-in-from-left"
-                  style={{ animationDelay: "0.4s" }}
-                >
+                <div className="animate-slide-in-from-left" style={{ animationDelay: "0.4s" }}>
                   <label className="block text-xs sm:text-sm font-bold text-white mb-1 sm:mb-2 uppercase tracking-wide">
                     ROLE
                   </label>
@@ -253,16 +232,18 @@ export default function ProfileEditor({
                     {user.role.toUpperCase()}
                   </div>
                 </div>
-                <div
-                  className="animate-slide-in-from-left"
-                  style={{ animationDelay: "0.5s" }}
-                >
+                <div className="animate-slide-in-from-left" style={{ animationDelay: "0.5s" }}>
                   <label className="block text-xs sm:text-sm font-bold text-white mb-1 sm:mb-2 uppercase tracking-wide">
                     DESIGNATIONS
                   </label>
                   <div className="w-full bg-background border-2 border-white px-2 sm:px-3 md:px-4 py-1 sm:py-2 md:py-3 text-[#666] font-bold uppercase text-xs sm:text-sm md:text-base transition-colors duration-200 min-h-[2rem] sm:min-h-[2.5rem] flex items-center flex-wrap gap-2">
                     {user.designations?.map((d) => (
-                      <span key={d} className="bg-white text-background px-2 py-1 text-xs font-bold uppercase">{d}</span>
+                      <span
+                        key={d}
+                        className="bg-white text-background px-2 py-1 text-xs font-bold uppercase"
+                      >
+                        {d}
+                      </span>
                     ))}
                   </div>
                 </div>

@@ -1,9 +1,7 @@
 import mongoose, { Schema, Document } from "mongoose";
 import { Event as EventInterface } from "../types/event";
 
-export interface EventDocument
-  extends Omit<EventInterface, "_id" | "id">,
-    Document {
+export interface EventDocument extends Omit<EventInterface, "_id" | "id">, Document {
   _id: mongoose.Types.ObjectId;
   id: string;
 }
@@ -53,7 +51,6 @@ EventSchema.index({ status: 1 });
 EventSchema.index({ title: "text", description: "text" });
 
 // Prevent recompilation during development
-const Event =
-  mongoose.models.Event || mongoose.model<EventDocument>("Event", EventSchema);
+const Event = mongoose.models.Event || mongoose.model<EventDocument>("Event", EventSchema);
 
 export default Event;

@@ -62,9 +62,7 @@ export async function GET(request: NextRequest) {
     ]);
 
     // Populate author details
-    const blogsWithAuthors = await populateAuthorDetails(
-      blogs as Array<Record<string, unknown>>
-    );
+    const blogsWithAuthors = await populateAuthorDetails(blogs as Array<Record<string, unknown>>);
 
     // Calculate stats
     const totalViews = await Blog.aggregate([
@@ -93,9 +91,6 @@ export async function GET(request: NextRequest) {
     });
   } catch (error) {
     console.error("Error fetching blogs:", error);
-    return NextResponse.json(
-      { error: "Failed to fetch blogs" },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: "Failed to fetch blogs" }, { status: 500 });
   }
 }

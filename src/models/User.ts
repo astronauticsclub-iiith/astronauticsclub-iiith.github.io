@@ -1,9 +1,9 @@
-import mongoose, { Document, Schema } from 'mongoose';
+import mongoose, { Document, Schema } from "mongoose";
 
 export interface IUser extends Document {
   email: string;
   name?: string;
-  role: 'admin' | 'writer' | 'none';
+  role: "admin" | "writer" | "none";
   designations?: string[];
   avatar?: string;
   bio?: string;
@@ -27,9 +27,9 @@ const UserSchema: Schema = new Schema(
     },
     role: {
       type: String,
-      enum: ['admin', 'writer', 'none'],
+      enum: ["admin", "writer", "none"],
       required: true,
-      default: 'none',
+      default: "none",
     },
     designations: {
       type: [String],
@@ -42,7 +42,7 @@ const UserSchema: Schema = new Schema(
     bio: {
       type: String,
       trim: true,
-      default: '',
+      default: "",
     },
     linkedin: {
       type: String,
@@ -54,4 +54,4 @@ const UserSchema: Schema = new Schema(
   }
 );
 
-export default mongoose.models.User || mongoose.model<IUser>('User', UserSchema);
+export default mongoose.models.User || mongoose.model<IUser>("User", UserSchema);

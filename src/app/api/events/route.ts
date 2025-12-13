@@ -77,10 +77,7 @@ export async function GET(request: NextRequest) {
     });
   } catch (error) {
     console.error("Error fetching events:", error);
-    return NextResponse.json(
-      { error: "Failed to fetch events" },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: "Failed to fetch events" }, { status: 500 });
   }
 }
 
@@ -89,17 +86,13 @@ export async function POST(request: NextRequest) {
     const { user } = await requireWriter();
     await connectToDatabase();
 
-    const eventData: Omit<EventInterface, "_id" | "createdAt" | "updatedAt"> =
-      await request.json();
+    const eventData: Omit<EventInterface, "_id" | "createdAt" | "updatedAt"> = await request.json();
 
     // Validate required fields
     const requiredFields = ["id", "title", "description", "date", "type"];
     for (const field of requiredFields) {
       if (!eventData[field as keyof typeof eventData]) {
-        return NextResponse.json(
-          { error: `Missing required field: ${field}` },
-          { status: 400 }
-        );
+        return NextResponse.json({ error: `Missing required field: ${field}` }, { status: 400 });
       }
     }
 
@@ -107,10 +100,7 @@ export async function POST(request: NextRequest) {
     const existingEvent = await Event.findOne({ id: eventData.id });
 
     if (existingEvent) {
-      return NextResponse.json(
-        { error: "Event with this ID already exists" },
-        { status: 409 }
-      );
+      return NextResponse.json({ error: "Event with this ID already exists" }, { status: 409 });
     }
 
     const event = new Event({
@@ -122,26 +112,17 @@ export async function POST(request: NextRequest) {
     await event.save();
 
     // Log the action
-    Logger.logWriteOperation(
-      "CREATE_EVENT",
-      user.email,
-      "event",
-      event._id.toString(),
-      { title: event.title, date: event.date }
-    );
+    Logger.logWriteOperation("CREATE_EVENT", user.email, "event", event._id.toString(), {
+      title: event.title,
+      date: event.date,
+    });
 
     return NextResponse.json(event.toObject(), { status: 201 });
   } catch (error) {
     console.error("Error creating event:", error);
     if (error instanceof Error && error.message.includes("Unauthorized")) {
-      return NextResponse.json(
-        { error: "Authentication required" },
-        { status: 401 }
-      );
+      return NextResponse.json({ error: "Authentication required" }, { status: 401 });
     }
-    return NextResponse.json(
-      { error: "Failed to create event" },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: "Failed to create event" }, { status: 500 });
   }
 }

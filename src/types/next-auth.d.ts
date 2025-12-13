@@ -7,7 +7,7 @@ declare module "next-auth" {
       name?: string | null;
       email?: string | null;
       image?: string | null;
-      role?: 'admin' | 'writer' | 'none';
+      role?: "admin" | "writer" | "none";
     };
   }
 
@@ -15,12 +15,12 @@ declare module "next-auth" {
     id?: string;
     email?: string;
     name?: string;
-    role?: 'admin' | 'writer' | 'none';
+    role?: "admin" | "writer" | "none";
   }
 }
 
 declare module "next-auth/jwt" {
   interface JWT {
-    role?: 'admin' | 'writer' | 'none';
+    role?: "admin" | "writer" | "none";
   }
 }

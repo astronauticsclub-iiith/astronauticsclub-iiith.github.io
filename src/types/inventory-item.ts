@@ -10,17 +10,8 @@ export interface Inventory {
   borrower?: string;
   borrowed_date?: string;
   comments?: string;
-};
+}
 
-export const validCategoryTypes = [
-  "astronomy",
-  "electronics",
-  "event",
-  "others",
-];
-    
-export const validStatusTypes = [
-  "working",
-  "repair",
-  "broken",
-];
+export const validCategoryTypes = ["astronomy", "electronics", "event", "others"];
+
+export const validStatusTypes = ["working", "repair", "broken"];

@@ -4,9 +4,9 @@ const nextConfig = {
   images: {
     remotePatterns: [
       {
-        protocol: 'https',
-        hostname: 'clubs.iiit.ac.in',
-        pathname: '/astronautics/uploads/**',
+        protocol: "https",
+        hostname: "clubs.iiit.ac.in",
+        pathname: "/astronautics/uploads/**",
       },
     ],
   },

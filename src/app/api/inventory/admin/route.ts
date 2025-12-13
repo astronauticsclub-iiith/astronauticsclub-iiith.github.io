@@ -8,7 +8,6 @@ import { Logger } from "@/lib/logger";
 import { requireAdmin } from "@/lib/auth";
 import { withStoragePath } from "@/components/common/HelperFunction";
 
-
 // GET - List all inventory items for admin management
 export async function GET() {
   try {
@@ -17,22 +16,14 @@ export async function GET() {
 
     const inventory = await Inventory.find({}).sort({ year_of_purchase: -1 }).lean();
     return NextResponse.json({ inventory });
-  }
-
-  catch (error) {
+  } catch (error) {
     console.error("Error fetching admin inventory:", error);
 
     if (error instanceof Error && error.message.includes("access required")) {
-      return NextResponse.json(
-        { error: "Admin access required" },
-        { status: 403 }
-      );
+      return NextResponse.json({ error: "Admin access required" }, { status: 403 });
     }
 
-    return NextResponse.json(
-      { error: "Failed to fetch inventory" },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: "Failed to fetch inventory" }, { status: 500 });
   }
 }
 
@@ -55,35 +46,23 @@ export async function POST(request: NextRequest) {
 
     // Validate required fields
     if (!id || !name || !category || !description || !year_of_purchase || !status) {
-      return NextResponse.json(
-        { error: "Missing required fields" },
-        { status: 400 }
-      );
+      return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
     }
 
     // Validate category type
     if (!validCategoryTypes.includes(category)) {
-      return NextResponse.json(
-        { error: "Invalid category" },
-        { status: 400 }
-      );
+      return NextResponse.json({ error: "Invalid category" }, { status: 400 });
     }
 
     // Validate status
     if (!validStatusTypes.includes(status)) {
-      return NextResponse.json(
-        { error: "Invalid status" },
-        { status: 400 }
-      );
+      return NextResponse.json({ error: "Invalid status" }, { status: 400 });
     }
 
     // Check if invnetory ID already exists
     const existingInventory = await Inventory.findOne({ id });
     if (existingInventory) {
-      return NextResponse.json(
-        { error: "Inventory with this ID already exists" },
-        { status: 409 }
-      );
+      return NextResponse.json({ error: "Inventory with this ID already exists" }, { status: 409 });
     }
 
     let imagePath = "";
@@ -150,22 +129,14 @@ export async function POST(request: NextRequest) {
       message: "Inventory created successfully",
       Inventory: newInventory,
     });
-  }
-
-  catch (error) {
+  } catch (error) {
     console.error("Error adding inventory:", error);
 
     if (error instanceof Error && error.message.includes("access required")) {
-      return NextResponse.json(
-        { error: "Admin access required" },
-        { status: 403 }
-      );
+      return NextResponse.json({ error: "Admin access required" }, { status: 403 });
     }
 
-    return NextResponse.json(
-      { error: "Failed to add inventory" },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: "Failed to add inventory" }, { status: 500 });
   }
 }
 
@@ -180,18 +151,12 @@ export async function PUT(request: NextRequest) {
     const file = formData.get("file") as File;
 
     if (!id) {
-      return NextResponse.json(
-        { error: "Inventory ID is required" },
-        { status: 400 }
-      );
+      return NextResponse.json({ error: "Inventory ID is required" }, { status: 400 });
     }
 
     const existingInventory = await Inventory.findOne({ id });
     if (!existingInventory) {
-      return NextResponse.json(
-        { error: "Inventory item not found" },
-        { status: 404 }
-      );
+      return NextResponse.json({ error: "Inventory item not found" }, { status: 404 });
     }
 
     // Extract fields to update
@@ -223,41 +188,26 @@ export async function PUT(request: NextRequest) {
 
     // Validate category type if provided
     if (updateData.category && !validCategoryTypes.includes(updateData.category as string)) {
-      return NextResponse.json(
-        { error: "Invalid category" },
-        { status: 400 }
-      );
+      return NextResponse.json({ error: "Invalid category" }, { status: 400 });
     }
 
     // Validate status if provided
     if (updateData.status && !validStatusTypes.includes(updateData.status as string)) {
-      return NextResponse.json(
-        { error: "Invalid status" },
-        { status: 400 }
-      );
+      return NextResponse.json({ error: "Invalid status" }, { status: 400 });
     }
 
     // If isLent is true then some related fields can't be empty
     if (updateData.isLent === true) {
       if (!updateData.borrower && !existingInventory.borrower) {
-        return NextResponse.json(
-          { error: "Borrower can't be empty" },
-          { status: 400 }
-        );
+        return NextResponse.json({ error: "Borrower can't be empty" }, { status: 400 });
       }
 
       if (!updateData.borrowed_date && !existingInventory.borrowed_date) {
-        return NextResponse.json(
-          { error: "Empty Borrow date" },
-          { status: 400 }
-        );
+        return NextResponse.json({ error: "Empty Borrow date" }, { status: 400 });
       }
 
       if (!updateData.comments && !existingInventory.comments) {
-        return NextResponse.json(
-          { error: "Specify the purpose in the comments" },
-          { status: 400 }
-        );
+        return NextResponse.json({ error: "Specify the purpose in the comments" }, { status: 400 });
       }
     } else if (updateData.isLent === false) {
       // If isLent is explicitly set to false, clear borrower-related fields
@@ -303,10 +253,7 @@ export async function PUT(request: NextRequest) {
       { new: true }
     );
 
-    console.log(
-      "API PUT: Inventory updated successfully:",
-      updatedInventory?.toObject()
-    );
+    console.log("API PUT: Inventory updated successfully:", updatedInventory?.toObject());
 
     // Log the action
     Logger.info("Inventory updated", {
@@ -326,10 +273,7 @@ export async function PUT(request: NextRequest) {
     });
   } catch (error) {
     console.error("Error updating inventory:", error);
-    return NextResponse.json(
-      { error: "Failed to update inventory" },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: "Failed to update inventory" }, { status: 500 });
   }
 }
 
@@ -343,10 +287,7 @@ export async function DELETE(request: NextRequest) {
     const id = searchParams.get("id");
 
     if (!id) {
-      return NextResponse.json(
-        { error: "Inventory ID is required" },
-        { status: 400 }
-      );
+      return NextResponse.json({ error: "Inventory ID is required" }, { status: 400 });
     }
 
     // Find the Inventory first to get details for logging
@@ -392,15 +333,9 @@ export async function DELETE(request: NextRequest) {
     console.error("Error deleting Inventory:", error);
 
     if (error instanceof Error && error.message.includes("access required")) {
-      return NextResponse.json(
-        { error: "Admin access required" },
-        { status: 403 }
-      );
+      return NextResponse.json({ error: "Admin access required" }, { status: 403 });
     }
 
-    return NextResponse.json(
-      { error: "Failed to delete Inventory" },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: "Failed to delete Inventory" }, { status: 500 });
   }
 }

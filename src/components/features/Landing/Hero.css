@@ -53,7 +53,9 @@
   font-size: 2rem;
   opacity: 0;
   /* fadeIn and bounce */
-  animation: fadeIn 2s 1.5s forwards, bounce 2s 1.5s infinite;
+  animation:
+    fadeIn 2s 1.5s forwards,
+    bounce 2s 1.5s infinite;
 }
 
 @keyframes bounce {
@@ -87,8 +89,10 @@
   height: 4px;
   background: #fff;
   border-radius: 50%;
-  box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.1),
-    0 0 0 8px rgba(255, 255, 255, 0.1), 0 0 20px rgba(255, 255, 255, 0.1);
+  box-shadow:
+    0 0 0 4px rgba(255, 255, 255, 0.1),
+    0 0 0 8px rgba(255, 255, 255, 0.1),
+    0 0 20px rgba(255, 255, 255, 0.1);
   opacity: 0;
   animation: stars-animate 3s linear infinite;
   z-index: -1;
@@ -294,40 +298,46 @@
 .s-sparkle.tiny {
   width: 2px;
   height: 2px;
-  box-shadow: 0 0 4px 1px rgba(255, 255, 255, 0.8),
+  box-shadow:
+    0 0 4px 1px rgba(255, 255, 255, 0.8),
     0 0 8px 2px rgba(161, 203, 255, 0.6);
 }
 
 .s-sparkle.small {
   width: 3px;
   height: 3px;
-  box-shadow: 0 0 6px 1px rgba(255, 255, 255, 0.9),
+  box-shadow:
+    0 0 6px 1px rgba(255, 255, 255, 0.9),
     0 0 10px 2px rgba(161, 203, 255, 0.7);
 }
 
 .s-sparkle.medium {
   width: 4px;
   height: 4px;
-  box-shadow: 0 0 8px 2px rgba(255, 255, 255, 1),
+  box-shadow:
+    0 0 8px 2px rgba(255, 255, 255, 1),
     0 0 12px 3px rgba(161, 203, 255, 0.8);
 }
 
 /* Color variations */
 .s-sparkle.blue {
   background: #76a6c9;
-  box-shadow: 0 0 6px 1px rgba(118, 166, 201, 0.9),
+  box-shadow:
+    0 0 6px 1px rgba(118, 166, 201, 0.9),
     0 0 10px 2px rgba(118, 166, 201, 0.7);
 }
 
 .s-sparkle.purple {
   background: #9370db;
-  box-shadow: 0 0 6px 1px rgba(147, 112, 219, 0.9),
+  box-shadow:
+    0 0 6px 1px rgba(147, 112, 219, 0.9),
     0 0 10px 2px rgba(147, 112, 219, 0.7);
 }
 
 .s-sparkle.gold {
   background: #ffd700;
-  box-shadow: 0 0 6px 1px rgba(255, 215, 0, 0.9),
+  box-shadow:
+    0 0 6px 1px rgba(255, 215, 0, 0.9),
     0 0 10px 2px rgba(255, 215, 0, 0.7);
 }
 
@@ -355,8 +365,7 @@
     transform: translate(0, 0) rotate(0deg);
   }
   100% {
-    transform: translate(var(--drift-x), var(--drift-y))
-      rotate(var(--drift-rotate));
+    transform: translate(var(--drift-x), var(--drift-y)) rotate(var(--drift-rotate));
   }
 }
 

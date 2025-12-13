@@ -17,20 +17,28 @@
 .neumorphic-modal {
   border-radius: 15px;
   background: #e0e0e0;
-  box-shadow: 10px 10px 20px #bebebe, -10px -10px 20px #ffffff;
+  box-shadow:
+    10px 10px 20px #bebebe,
+    -10px -10px 20px #ffffff;
 }
 
 .neumorphic-button {
   border-radius: 50%;
   background: #e0e0e0;
-  box-shadow: 3px 3px 6px #bebebe, -3px -3px 6px #ffffff;
+  box-shadow:
+    3px 3px 6px #bebebe,
+    -3px -3px 6px #ffffff;
   transition: all 0.2s ease;
 }
 
 .neumorphic-button:hover {
-  box-shadow: 4px 4px 8px #bebebe, -4px -4px 8px #ffffff;
+  box-shadow:
+    4px 4px 8px #bebebe,
+    -4px -4px 8px #ffffff;
 }
 
 .neumorphic-button:active {
-  box-shadow: inset 3px 3px 6px #bebebe, inset -3px -3px 6px #ffffff;
+  box-shadow:
+    inset 3px 3px 6px #bebebe,
+    inset -3px -3px 6px #ffffff;
 }

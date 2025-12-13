@@ -89,9 +89,7 @@ const ImageSelector: React.FC<ImageSelectorProps> = ({
       {/* Selected Image Display */}
       {selectedImage && (
         <div className="space-y-2">
-          <label className="block text-white text-xs font-bold uppercase">
-            Selected Image
-          </label>
+          <label className="block text-white text-xs font-bold uppercase">Selected Image</label>
           <div className="w-32 h-32">
             <motion.div
               initial={{ opacity: 0, scale: 0.8 }}
@@ -145,10 +143,7 @@ const ImageSelector: React.FC<ImageSelectorProps> = ({
               {selectedImage && " (1 selected)"}
             </span>
           </div>
-          <ChevronDown
-            size={16}
-            className={`transition-transform ${isOpen ? "rotate-180" : ""}`}
-          />
+          <ChevronDown size={16} className={`transition-transform ${isOpen ? "rotate-180" : ""}`} />
         </button>
       </div>
 
@@ -173,9 +168,7 @@ const ImageSelector: React.FC<ImageSelectorProps> = ({
                   }}
                   className="w-6 h-6 border-2 border-white border-t-transparent rounded-full"
                 />
-                <span className="ml-3 text-white font-medium">
-                  Loading images...
-                </span>
+                <span className="ml-3 text-white font-medium">Loading images...</span>
               </div>
             ) : error ? (
               <div className="text-center py-8">
@@ -190,9 +183,7 @@ const ImageSelector: React.FC<ImageSelectorProps> = ({
               </div>
             ) : galleryImages.length === 0 ? (
               <div className="text-center py-8">
-                <p className="text-white font-medium">
-                  No images found in gallery
-                </p>
+                <p className="text-white font-medium">No images found in gallery</p>
               </div>
             ) : (
               <div className="space-y-4">
@@ -243,11 +234,7 @@ const ImageSelector: React.FC<ImageSelectorProps> = ({
                               : "bg-background border-white text-white hover:bg-white hover:text-background"
                           }`}
                         >
-                          {isSelected ? (
-                            <Check size={12} />
-                          ) : (
-                            <Plus size={12} />
-                          )}
+                          {isSelected ? <Check size={12} /> : <Plus size={12} />}
                         </div>
 
                         {/* Category badge */}
@@ -257,12 +244,8 @@ const ImageSelector: React.FC<ImageSelectorProps> = ({
 
                         {/* Image info overlay */}
                         <div className="absolute inset-0 bg-black/75 text-white p-2 opacity-0 hover:opacity-100 transition-opacity flex flex-col justify-end">
-                          <p className="text-xs font-medium truncate">
-                            {image.label}
-                          </p>
-                          <p className="text-xs text-gray-300 truncate">
-                            {image.filename}
-                          </p>
+                          <p className="text-xs font-medium truncate">{image.label}</p>
+                          <p className="text-xs text-gray-300 truncate">{image.filename}</p>
                         </div>
                       </motion.div>
                     );

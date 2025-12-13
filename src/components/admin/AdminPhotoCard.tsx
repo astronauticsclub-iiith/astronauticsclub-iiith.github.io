@@ -2,15 +2,7 @@
 
 import React, { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import {
-  Edit2,
-  Trash2,
-  Check,
-  X,
-  ChevronDown,
-  Camera,
-  Calendar,
-} from "lucide-react";
+import { Edit2, Trash2, Check, X, ChevronDown, Camera, Calendar } from "lucide-react";
 import Image from "next/image";
 import { withUploadPath } from "../common/HelperFunction";
 import { GalleryImage } from "@/types/gallery-image";
@@ -39,9 +31,9 @@ const AdminPhotoCard: React.FC<AdminPhotoCardProps> = ({
   onCancelEdit,
 }) => {
   const [editedFilename, setEditedFilename] = useState("");
-  const [editedCategory, setEditedCategory] = useState<
-    "astrophotography" | "events" | "others"
-  >(image.category);
+  const [editedCategory, setEditedCategory] = useState<"astrophotography" | "events" | "others">(
+    image.category
+  );
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showCategoryDropdown, setShowCategoryDropdown] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -49,10 +41,7 @@ const AdminPhotoCard: React.FC<AdminPhotoCardProps> = ({
   // Close dropdown when clicking outside
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (
-        dropdownRef.current &&
-        !dropdownRef.current.contains(event.target as Node)
-      ) {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
         setShowCategoryDropdown(false);
       }
     };
@@ -92,11 +81,8 @@ const AdminPhotoCard: React.FC<AdminPhotoCardProps> = ({
     setIsSubmitting(true);
     try {
       const extension = image.filename.match(/\.[^/.]+$/)?.[0] || "";
-      const newFilename = editedFilename.trim()
-        ? editedFilename.trim() + extension
-        : undefined;
-      const newCategory =
-        editedCategory !== image.category ? editedCategory : undefined;
+      const newFilename = editedFilename.trim() ? editedFilename.trim() + extension : undefined;
+      const newCategory = editedCategory !== image.category ? editedCategory : undefined;
 
       if (newFilename || newCategory) {
         await onEdit(image, newFilename, newCategory);
@@ -133,10 +119,11 @@ const AdminPhotoCard: React.FC<AdminPhotoCardProps> = ({
         />
         <div className="absolute top-2 right-2">
           <span
-            className={`px-2 py-1 text-xs font-bold uppercase border-2 ${image.category === "astrophotography"
-              ? "bg-blue-600 text-white border-blue-600"
-              : "bg-green-600 text-white border-green-600"
-              }`}
+            className={`px-2 py-1 text-xs font-bold uppercase border-2 ${
+              image.category === "astrophotography"
+                ? "bg-blue-600 text-white border-blue-600"
+                : "bg-green-600 text-white border-green-600"
+            }`}
           >
             {image.category}
           </span>
@@ -163,9 +150,7 @@ const AdminPhotoCard: React.FC<AdminPhotoCardProps> = ({
             </div>
 
             <div>
-              <label className="block text-white text-xs font-bold mb-1 uppercase">
-                Category
-              </label>
+              <label className="block text-white text-xs font-bold mb-1 uppercase">Category</label>
               <div className="relative" ref={dropdownRef}>
                 <button
                   type="button"
@@ -179,8 +164,7 @@ const AdminPhotoCard: React.FC<AdminPhotoCardProps> = ({
                   </div>
                   <ChevronDown
                     size={16}
-                    className={`transition-transform ${showCategoryDropdown ? "rotate-180" : ""
-                      }`}
+                    className={`transition-transform ${showCategoryDropdown ? "rotate-180" : ""}`}
                   />
                 </button>
                 <AnimatePresence>
@@ -199,10 +183,11 @@ const AdminPhotoCard: React.FC<AdminPhotoCardProps> = ({
                           setShowCategoryDropdown(false);
                         }}
                         disabled={isSubmitting}
-                        className={`w-full flex items-center gap-2 px-3 py-2 text-left font-medium hover:bg-white hover:text-background transition-colors disabled:opacity-50 disabled:cursor-not-allowed ${editedCategory === "astrophotography"
-                          ? "bg-white text-background"
-                          : "text-white"
-                          }`}
+                        className={`w-full flex items-center gap-2 px-3 py-2 text-left font-medium hover:bg-white hover:text-background transition-colors disabled:opacity-50 disabled:cursor-not-allowed ${
+                          editedCategory === "astrophotography"
+                            ? "bg-white text-background"
+                            : "text-white"
+                        }`}
                       >
                         <Camera size={16} />
                         <span className="uppercase">ASTROPHOTOGRAPHY</span>
@@ -214,10 +199,9 @@ const AdminPhotoCard: React.FC<AdminPhotoCardProps> = ({
                           setShowCategoryDropdown(false);
                         }}
                         disabled={isSubmitting}
-                        className={`w-full flex items-center gap-2 px-3 py-2 text-left font-medium hover:bg-white hover:text-background transition-colors disabled:opacity-50 disabled:cursor-not-allowed ${editedCategory === "events"
-                          ? "bg-white text-background"
-                          : "text-white"
-                          }`}
+                        className={`w-full flex items-center gap-2 px-3 py-2 text-left font-medium hover:bg-white hover:text-background transition-colors disabled:opacity-50 disabled:cursor-not-allowed ${
+                          editedCategory === "events" ? "bg-white text-background" : "text-white"
+                        }`}
                       >
                         <Calendar size={16} />
                         <span className="uppercase">EVENTS</span>
@@ -229,10 +213,9 @@ const AdminPhotoCard: React.FC<AdminPhotoCardProps> = ({
                           setShowCategoryDropdown(false);
                         }}
                         disabled={isSubmitting}
-                        className={`w-full flex items-center gap-2 px-3 py-2 text-left font-medium hover:bg-white hover:text-background transition-colors disabled:opacity-50 disabled:cursor-not-allowed ${editedCategory === "others"
-                          ? "bg-white text-background"
-                          : "text-white"
-                          }`}
+                        className={`w-full flex items-center gap-2 px-3 py-2 text-left font-medium hover:bg-white hover:text-background transition-colors disabled:opacity-50 disabled:cursor-not-allowed ${
+                          editedCategory === "others" ? "bg-white text-background" : "text-white"
+                        }`}
                       >
                         <Calendar size={16} />
                         <span className="uppercase">OTHERS</span>
@@ -286,8 +269,7 @@ const AdminPhotoCard: React.FC<AdminPhotoCardProps> = ({
               <span className="font-bold">File:</span> {image.filename}
             </p>
             <p className="text-[#e0e0e0] text-xs sm:text-sm font-medium mb-1">
-              <span className="font-bold">Size:</span>{" "}
-              {(image.size / 1024 / 1024).toFixed(2)} MB
+              <span className="font-bold">Size:</span> {(image.size / 1024 / 1024).toFixed(2)} MB
             </p>
             <p className="text-[#e0e0e0] text-xs sm:text-sm font-medium mb-3">
               <span className="font-bold">Modified:</span>{" "}

@@ -16,8 +16,9 @@
   outline: none;
   font-size: 7em;
   color: #e0e0e0;
-  text-shadow: 3px 3px 5px rgba(228, 223, 223, 0.599),
-  -3px -3px 5px rgba(228, 223, 223, 0.599);
+  text-shadow:
+    3px 3px 5px rgba(228, 223, 223, 0.599),
+    -3px -3px 5px rgba(228, 223, 223, 0.599);
   font-weight: 500;
   text-align: center;
   margin-bottom: 2.5rem;
@@ -45,7 +46,9 @@
 /* Image Frame Styles */
 .image-frame {
   border-radius: 15px;
-  box-shadow: inset 4px 4px 6px #00000080, inset -4px -4px 6px #2c2c2c70;
+  box-shadow:
+    inset 4px 4px 6px #00000080,
+    inset -4px -4px 6px #2c2c2c70;
   position: relative;
   overflow: hidden;
   width: 100%;
@@ -152,10 +155,9 @@
   }
 
   .image-collage {
-    gap: 0.75rem; 
+    gap: 0.75rem;
   }
 
-  
   /* Ensure text is legible in tight space */
   .text-content-inner {
     padding: 1.5rem;

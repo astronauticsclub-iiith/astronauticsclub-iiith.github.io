@@ -25,8 +25,7 @@ const getInitialFirstVisit = (): boolean => {
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(true);
-  const [isFirstVisit, setIsFirstVisit] =
-    useState<boolean>(getInitialFirstVisit);
+  const [isFirstVisit, setIsFirstVisit] = useState<boolean>(getInitialFirstVisit);
   const [isHydrated, setIsHydrated] = useState(false);
   const pathname = usePathname();
   const menuRef = useRef<HTMLDivElement>(null);
@@ -56,11 +55,7 @@ const Navbar = () => {
       const currentTime = new Date().getTime();
 
       // If no last visit or last visit was more than an hour ago, or whimsy mode is enabled
-      if (
-        !lastVisit ||
-        currentTime - parseInt(lastVisit) > 60 * 60 * 1000 ||
-        whimsyMode
-      ) {
+      if (!lastVisit || currentTime - parseInt(lastVisit) > 60 * 60 * 1000 || whimsyMode) {
         setIsFirstVisit(true);
         localStorage.setItem("lastVisitTime", currentTime.toString());
       } else {
@@ -108,9 +103,8 @@ const Navbar = () => {
   const delayCounter = useMemo(() => {
     if (!isHydrated) return 0;
     return (
-      (typeof window !== "undefined" && window.innerWidth < 768
-        ? 0
-        : navLinks.length) + (pathname === "/" ? 11 : 0)
+      (typeof window !== "undefined" && window.innerWidth < 768 ? 0 : navLinks.length) +
+      (pathname === "/" ? 11 : 0)
     );
   }, [pathname, isHydrated, navLinks.length]);
 
@@ -147,9 +141,7 @@ const Navbar = () => {
               height={90}
               className="w-auto h-12 opacity-0 animate-fade-in z-50"
               style={{
-                animationDelay: isFirstVisit
-                  ? `${(delayCounter + 1) * 150}ms`
-                  : "10ms",
+                animationDelay: isFirstVisit ? `${(delayCounter + 1) * 150}ms` : "10ms",
               }}
               unoptimized={whimsyMode}
               priority
@@ -158,9 +150,7 @@ const Navbar = () => {
               <span
                 className="opacity-0 animate-slide-in-from-left z-20 font-bold"
                 style={{
-                  animationDelay: isFirstVisit
-                    ? `${(delayCounter + 3) * 150}ms`
-                    : "10ms",
+                  animationDelay: isFirstVisit ? `${(delayCounter + 3) * 150}ms` : "10ms",
                 }}
               >
                 Astronautics Club | IIITH
@@ -169,9 +159,7 @@ const Navbar = () => {
                 <span
                   className="text-white/50 text-sm opacity-0 animate-slide-in-from-top"
                   style={{
-                    animationDelay: isFirstVisit
-                      ? `${(delayCounter + 4) * 150}ms`
-                      : "10ms",
+                    animationDelay: isFirstVisit ? `${(delayCounter + 4) * 150}ms` : "10ms",
                   }}
                 >
                   Whimsy Mode
@@ -188,9 +176,7 @@ const Navbar = () => {
                   key={link.href}
                   className="opacity-0 animate-fade-in"
                   style={{
-                    animationDelay: isFirstVisit
-                      ? `${(delayCounter - index) * 150}ms`
-                      : "10ms",
+                    animationDelay: isFirstVisit ? `${(delayCounter - index) * 150}ms` : "10ms",
                   }}
                 >
                   <Link

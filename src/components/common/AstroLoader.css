@@ -105,25 +105,29 @@
 /* Color variations for whimsy mode */
 .star.blue {
   background: #76a6c9;
-  box-shadow: 0 0 6px 1px rgba(118, 166, 201, 0.9),
+  box-shadow:
+    0 0 6px 1px rgba(118, 166, 201, 0.9),
     0 0 10px 2px rgba(118, 166, 201, 0.7);
 }
 
 .star.purple {
   background: #9370db;
-  box-shadow: 0 0 6px 1px rgba(147, 112, 219, 0.9),
+  box-shadow:
+    0 0 6px 1px rgba(147, 112, 219, 0.9),
     0 0 10px 2px rgba(147, 112, 219, 0.7);
 }
 
 .star.gold {
   background: #ffd700;
-  box-shadow: 0 0 6px 1px rgba(255, 215, 0, 0.9),
+  box-shadow:
+    0 0 6px 1px rgba(255, 215, 0, 0.9),
     0 0 10px 2px rgba(255, 215, 0, 0.7);
 }
 
 .star.red {
   background: #ff4040;
-  box-shadow: 0 0 6px 1px rgba(255, 64, 64, 0.9),
+  box-shadow:
+    0 0 6px 1px rgba(255, 64, 64, 0.9),
     0 0 10px 2px rgba(255, 64, 64, 0.7);
 }
 
@@ -192,22 +196,27 @@
 
 /* Whimsy mode astronaut styles */
 .astronaut-whimsy {
-  filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.7)) 
-         drop-shadow(0 0 25px rgba(100, 200, 255, 0.6))
-         drop-shadow(0 0 35px rgba(150, 100, 255, 0.4));
-  animation: pulse-glow 3s infinite alternate ease-in-out, 
-            astronaut 5s linear infinite;
+  filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.7))
+    drop-shadow(0 0 25px rgba(100, 200, 255, 0.6)) drop-shadow(0 0 35px rgba(150, 100, 255, 0.4));
+  animation:
+    pulse-glow 3s infinite alternate ease-in-out,
+    astronaut 5s linear infinite;
   transform-origin: center;
 }
 
 @keyframes pulse-glow {
-  0% { filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.7)) 
-                drop-shadow(0 0 25px rgba(100, 200, 255, 0.6)); }
-  50% { filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.9)) 
-                drop-shadow(0 0 30px rgba(100, 200, 255, 0.8))
-                drop-shadow(0 0 40px rgba(255, 180, 50, 0.6)); }
-  100% { filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.7))
-                 drop-shadow(0 0 25px rgba(150, 100, 255, 0.6)); }
+  0% {
+    filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.7))
+      drop-shadow(0 0 25px rgba(100, 200, 255, 0.6));
+  }
+  50% {
+    filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.9))
+      drop-shadow(0 0 30px rgba(100, 200, 255, 0.8)) drop-shadow(0 0 40px rgba(255, 180, 50, 0.6));
+  }
+  100% {
+    filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.7))
+      drop-shadow(0 0 25px rgba(150, 100, 255, 0.6));
+  }
 }
 
 .schoolbag {
@@ -226,13 +235,7 @@
   height: 80px;
   position: absolute;
   z-index: 3;
-  background: -webkit-linear-gradient(
-    left,
-    #e3e8eb 0%,
-    #e3e8eb 50%,
-    #fbfdfa 50%,
-    #fbfdfa 100%
-  );
+  background: -webkit-linear-gradient(left, #e3e8eb 0%, #e3e8eb 50%, #fbfdfa 50%, #fbfdfa 100%);
   border-radius: 50%;
   top: 34px;
   left: calc(50% - 47.5px);
@@ -245,13 +248,7 @@
   position: absolute;
   top: calc(50% - 25px);
   left: calc(50% - 30px);
-  background: -webkit-linear-gradient(
-    top,
-    #15aece 0%,
-    #15aece 50%,
-    #0391bf 50%,
-    #0391bf 100%
-  );
+  background: -webkit-linear-gradient(top, #15aece 0%, #15aece 50%, #0391bf 50%, #0391bf 100%);
   border-radius: 15px;
 }
 
@@ -276,13 +273,7 @@
   border-radius: 40px / 20px;
   top: 105px;
   left: calc(50% - 41px);
-  background: -webkit-linear-gradient(
-    left,
-    #e3e8eb 0%,
-    #e3e8eb 50%,
-    #fbfdfa 50%,
-    #fbfdfa 100%
-  );
+  background: -webkit-linear-gradient(left, #e3e8eb 0%, #e3e8eb 50%, #fbfdfa 50%, #fbfdfa 100%);
 }
 
 .panel {
@@ -302,7 +293,9 @@
   top: 9px;
   left: 7px;
   background-color: #fbfdfa;
-  box-shadow: 0px 9px 0px #fbfdfa, 0px 18px 0px #fbfdfa;
+  box-shadow:
+    0px 9px 0px #fbfdfa,
+    0px 18px 0px #fbfdfa;
 }
 
 .panel:after {

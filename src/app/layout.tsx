@@ -86,16 +86,11 @@ export default function RootLayout({
           name="viewport"
           content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover"
         />
-        <link
-          rel="canonical"
-          href="https://clubs.iiit.ac.in/astronautics"
-        />
+        <link rel="canonical" href="https://clubs.iiit.ac.in/astronautics" />
         <link rel="manifest" href={withBasePath(`site.webmanifest`)} />
         <meta name="theme-color" content="#020001" />
       </head>
-      <body
-        className={`bg-background text-foreground antialiased ${exo2.variable}`}
-      >
+      <body className={`bg-background text-foreground antialiased ${exo2.variable}`}>
         <AuthProvider>
           <WhimsyProvider>
             <ImagePreviewProvider>

@@ -18,10 +18,7 @@ const ensureUploadDirectory = async () => {
   }
 };
 
-const generateUniqueFilename = (
-  originalFilename: string,
-  userId: string
-): string => {
+const generateUniqueFilename = (originalFilename: string, userId: string): string => {
   const timestamp = Date.now();
   const extension = path.extname(originalFilename);
   return `avatar-${userId}-${timestamp}${extension}`;
@@ -42,9 +39,7 @@ export async function POST(request: NextRequest) {
     if (file.size > MAX_FILE_SIZE) {
       return NextResponse.json(
         {
-          error: `File too large. Maximum size is ${
-            MAX_FILE_SIZE / 1024 / 1024
-          }MB`,
+          error: `File too large. Maximum size is ${MAX_FILE_SIZE / 1024 / 1024}MB`,
         },
         { status: 400 }
       );
@@ -53,9 +48,7 @@ export async function POST(request: NextRequest) {
     if (!ALLOWED_FILE_TYPES.includes(file.type)) {
       return NextResponse.json(
         {
-          error: `File type not allowed. Allowed types: ${ALLOWED_FILE_TYPES.join(
-            ", "
-          )}`,
+          error: `File type not allowed. Allowed types: ${ALLOWED_FILE_TYPES.join(", ")}`,
         },
         { status: 400 }
       );

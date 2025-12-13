@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import { Shield, Settings, FileText, LogOut } from "lucide-react";
 import Image from "next/image";
 import { withUploadPath } from "../../common/HelperFunction";
-import {User} from "../../../types/user";
+import { User } from "../../../types/user";
 
 interface ProfileInfoProps {
   userProfile: User;
@@ -52,9 +52,7 @@ export default function ProfileInfo({
             <h3 className="font-bold text-lg sm:text-xl text-white uppercase leading-tight">
               {userProfile.name || defaultName}
             </h3>
-            <p className="text-[#e0e0e0] font-medium text-sm sm:text-base">
-              {userProfile.email}
-            </p>
+            <p className="text-[#e0e0e0] font-medium text-sm sm:text-base">{userProfile.email}</p>
             <p className="text-[#e0e0e0] font-bold uppercase text-xs sm:text-sm">
               ROLE: {userProfile.role.toUpperCase()}
             </p>

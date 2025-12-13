@@ -1,11 +1,11 @@
-import fs from 'fs';
-import path from 'path';
+import fs from "fs";
+import path from "path";
 
-const LOG_FILE = path.join(process.env.FILE_DIRECTORY!, 'logs', 'persistent_log.json');
+const LOG_FILE = path.join(process.env.FILE_DIRECTORY!, "logs", "persistent_log.json");
 
 interface LogEntry {
   timestamp: string;
-  level: 'info' | 'warn' | 'error';
+  level: "info" | "warn" | "error";
   message: string;
   source?: string;
   userId?: string;
@@ -19,7 +19,7 @@ export class Logger {
     const logDir = path.dirname(LOG_FILE);
     if (!fs.existsSync(logDir)) {
       fs.mkdirSync(logDir, { recursive: true });
-      console.log('Logger: Created log directory:', logDir);
+      console.log("Logger: Created log directory:", logDir);
     }
   }
 
@@ -30,9 +30,9 @@ export class Logger {
         this.writeLogs([]);
         return [];
       }
-      const data = fs.readFileSync(LOG_FILE, 'utf8');
+      const data = fs.readFileSync(LOG_FILE, "utf8");
       const parsedData = JSON.parse(data);
-      
+
       // Handle both array format and object format with logs property
       if (Array.isArray(parsedData)) {
         return parsedData;
@@ -44,7 +44,7 @@ export class Logger {
         return [];
       }
     } catch (error) {
-      console.error('Error reading logs:', error);
+      console.error("Error reading logs:", error);
       return [];
     }
   }
@@ -56,22 +56,26 @@ export class Logger {
       const recentLogs = logs.slice(-1000);
       fs.writeFileSync(LOG_FILE, JSON.stringify(recentLogs, null, 2));
     } catch (error) {
-      console.error('Error writing logs:', error);
+      console.error("Error writing logs:", error);
     }
   }
 
-  static log(level: 'info' | 'warn' | 'error', message: string, options?: {
-    source?: string;
-    userId?: string;
-    userEmail?: string;
-    action?: string;
-    details?: Record<string, unknown>;
-  }) {
+  static log(
+    level: "info" | "warn" | "error",
+    message: string,
+    options?: {
+      source?: string;
+      userId?: string;
+      userEmail?: string;
+      action?: string;
+      details?: Record<string, unknown>;
+    }
+  ) {
     const entry: LogEntry = {
       timestamp: new Date().toISOString(),
       level,
       message,
-      ...options
+      ...options,
     };
 
     const logs = this.readLogs();
@@ -79,39 +83,48 @@ export class Logger {
     this.writeLogs(logs);
 
     // Also log to console in development
-    if (process.env.NODE_ENV === 'development') {
-      console.log(`[${level.toUpperCase()}] ${message}`, options || '');
+    if (process.env.NODE_ENV === "development") {
+      console.log(`[${level.toUpperCase()}] ${message}`, options || "");
     }
   }
 
-  static info(message: string, options?: {
-    source?: string;
-    userId?: string;
-    userEmail?: string;
-    action?: string;
-    details?: Record<string, unknown>;
-  }) {
-    this.log('info', message, options);
+  static info(
+    message: string,
+    options?: {
+      source?: string;
+      userId?: string;
+      userEmail?: string;
+      action?: string;
+      details?: Record<string, unknown>;
+    }
+  ) {
+    this.log("info", message, options);
   }
 
-  static warn(message: string, options?: {
-    source?: string;
-    userId?: string;
-    userEmail?: string;
-    action?: string;
-    details?: Record<string, unknown>;
-  }) {
-    this.log('warn', message, options);
+  static warn(
+    message: string,
+    options?: {
+      source?: string;
+      userId?: string;
+      userEmail?: string;
+      action?: string;
+      details?: Record<string, unknown>;
+    }
+  ) {
+    this.log("warn", message, options);
   }
 
-  static error(message: string, options?: {
-    source?: string;
-    userId?: string;
-    userEmail?: string;
-    action?: string;
-    details?: Record<string, unknown>;
-  }) {
-    this.log('error', message, options);
+  static error(
+    message: string,
+    options?: {
+      source?: string;
+      userId?: string;
+      userEmail?: string;
+      action?: string;
+      details?: Record<string, unknown>;
+    }
+  ) {
+    this.log("error", message, options);
   }
 
   static getLogs(limit = 50): LogEntry[] {
@@ -122,35 +135,40 @@ export class Logger {
   // Log specific actions
   static logUserAction(userEmail: string, action: string, details?: Record<string, unknown>) {
     this.info(`User action: ${action}`, {
-      source: 'user_action',
+      source: "user_action",
       userEmail,
       action,
-      details
+      details,
     });
   }
 
   static logAPICall(method: string, endpoint: string, userEmail?: string, status?: number) {
-    this.info(`API ${method} ${endpoint} - ${status || 'Unknown'}`, {
-      source: 'api',
+    this.info(`API ${method} ${endpoint} - ${status || "Unknown"}`, {
+      source: "api",
       userEmail,
       action: `${method} ${endpoint}`,
-      details: { status }
+      details: { status },
     });
   }
 
-  static logWriteOperation(operation: string, userEmail: string, resourceType: string, resourceId?: string, details?: Record<string, unknown>) {
+  static logWriteOperation(
+    operation: string,
+    userEmail: string,
+    resourceType: string,
+    resourceId?: string,
+    details?: Record<string, unknown>
+  ) {
     this.info(`Write operation: ${operation} ${resourceType}`, {
-      source: 'write_operation',
+      source: "write_operation",
       userEmail,
       action: operation,
       details: {
         resourceType,
         resourceId,
-        ...details
-      }
+        ...details,
+      },
     });
   }
-
 }
 
 export default Logger;

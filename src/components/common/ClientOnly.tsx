@@ -11,10 +11,7 @@ interface ClientOnlyProps {
  * Component that only renders children on the client side after hydration.
  * Prevents hydration mismatches for components that depend on browser APIs.
  */
-export const ClientOnly: React.FC<ClientOnlyProps> = ({
-  children,
-  fallback = null,
-}) => {
+export const ClientOnly: React.FC<ClientOnlyProps> = ({ children, fallback = null }) => {
   const [hasMounted, setHasMounted] = useState(false);
 
   useEffect(() => {

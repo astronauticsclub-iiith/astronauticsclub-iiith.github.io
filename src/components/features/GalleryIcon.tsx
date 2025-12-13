@@ -9,11 +9,7 @@ type GalleryIconProps = {
   className?: string;
 };
 
-const GalleryIcon: React.FC<GalleryIconProps> = ({
-  width = 64,
-  height = 64,
-  className = "",
-}) => {
+const GalleryIcon: React.FC<GalleryIconProps> = ({ width = 64, height = 64, className = "" }) => {
   const { whimsyMode } = useWhimsy();
   const svgRef = useRef<SVGSVGElement>(null);
   const eyeRef = useRef<SVGPathElement>(null);

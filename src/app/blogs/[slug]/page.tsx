@@ -7,27 +7,15 @@ import ReactMarkdown from "react-markdown";
 import remarkMath from "remark-math";
 import rehypeKatex from "rehype-katex";
 import remarkGfm from "remark-gfm";
-import rehypeRaw from 'rehype-raw';
+import rehypeRaw from "rehype-raw";
 import rehypeHighlight from "rehype-highlight";
 import { markDownComponents } from "@/components/MarkdownEditor";
-import {
-  ArrowLeft,
-  Calendar,
-  Clock,
-  Eye,
-  Heart,
-  Share2,
-} from "lucide-react";
+import { ArrowLeft, Calendar, Clock, Eye, Heart, Share2 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { Blog } from "@/types/blog";
 import { useImagePreview } from "@/context/ImagePreviewContext";
-import {
-  fetchBlogBySlug,
-  incrementBlogViews,
-  toggleBlogLike,
-  generateUserId,
-} from "@/lib/api";
+import { fetchBlogBySlug, incrementBlogViews, toggleBlogLike, generateUserId } from "@/lib/api";
 import Loader from "@/components/ui/Loader";
 import "@/components/ui/bg-patterns.css";
 import { withBasePath, withUploadPath } from "@/components/common/HelperFunction";
@@ -224,9 +212,7 @@ const BlogPostPage = () => {
               <button
                 onClick={handleLike}
                 className={`flex items-center gap-2 px-4 py-2 border-2 border-white font-bold transition-colors ${
-                  liked
-                    ? "bg-[#d2042d]"
-                    : "text-white hover:bg-white hover:text-background"
+                  liked ? "bg-[#d2042d]" : "text-white hover:bg-white hover:text-background"
                 }`}
               >
                 <Heart size={18} fill={liked ? "currentColor" : "none"} />
@@ -264,7 +250,11 @@ const BlogPostPage = () => {
           <div className="flex items-center gap-4">
             <div className="w-16 h-16 border-2 border-white overflow-hidden">
               <Image
-                src={blog.author.avatar ? withUploadPath(blog.author.avatar) : withBasePath(`/default-avatar.svg`)}
+                src={
+                  blog.author.avatar
+                    ? withUploadPath(blog.author.avatar)
+                    : withBasePath(`/default-avatar.svg`)
+                }
                 alt={blog.author.name || "Anonymous"}
                 width={64}
                 height={64}
@@ -272,16 +262,16 @@ const BlogPostPage = () => {
                 unoptimized={!!blog.author.avatar}
                 onClick={() =>
                   handleImageClick(
-                    blog.author.avatar? withUploadPath(blog.author.avatar) : withBasePath(`/default-avatar.svg`)
+                    blog.author.avatar
+                      ? withUploadPath(blog.author.avatar)
+                      : withBasePath(`/default-avatar.svg`)
                   )
                 }
               />
             </div>
 
             <div className="flex flex-col w-full h-full">
-              <h3 className="font-bold text-xl text-white">
-                {blog.author.name || "Anonymous"}
-              </h3>
+              <h3 className="font-bold text-xl text-white">{blog.author.name || "Anonymous"}</h3>
               <p className="text-[#e0e0e0] font-medium">{blog.author.bio}</p>
             </div>
           </div>

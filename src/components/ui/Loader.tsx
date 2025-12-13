@@ -9,11 +9,7 @@ interface LoaderProps {
   fullscreen?: boolean;
 }
 
-const Loader = ({
-  className = "",
-  overlay = false,
-  fullscreen = false,
-}: LoaderProps) => {
+const Loader = ({ className = "", overlay = false, fullscreen = false }: LoaderProps) => {
   const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
@@ -25,9 +21,9 @@ const Loader = ({
   // If this is an overlay loader
   if (overlay) {
     return (
-        <div className={`h-96 w-full max-w-md ${className}`}>
-          <AstroLoader />
-        </div>
+      <div className={`h-96 w-full max-w-md ${className}`}>
+        <AstroLoader />
+      </div>
     );
   }
 

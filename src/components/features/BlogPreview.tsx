@@ -1,25 +1,19 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import { motion } from 'framer-motion';
-import ReactMarkdown from 'react-markdown';
-import remarkGfm from 'remark-gfm';
+import { useState } from "react";
+import { motion } from "framer-motion";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 import remarkMath from "remark-math";
 import rehypeKatex from "rehype-katex";
-import rehypeRaw from 'rehype-raw';
-import rehypeHighlight from 'rehype-highlight';
+import rehypeRaw from "rehype-raw";
+import rehypeHighlight from "rehype-highlight";
 import { markDownComponents } from "@/components/MarkdownEditor";
-import {
-  Calendar,
-  Clock,
-  Eye,
-  Heart,
-  Share2,
-} from 'lucide-react';
-import Image from 'next/image';
-import { useImagePreview } from '@/context/ImagePreviewContext';
+import { Calendar, Clock, Eye, Heart, Share2 } from "lucide-react";
+import Image from "next/image";
+import { useImagePreview } from "@/context/ImagePreviewContext";
 import "@/components/ui/bg-patterns.css";
-import { withBasePath, withUploadPath } from '../common/HelperFunction';
+import { withBasePath, withUploadPath } from "../common/HelperFunction";
 
 interface BlogPreviewProps {
   title: string;
@@ -36,13 +30,7 @@ interface BlogPreviewProps {
   images?: string[];
 }
 
-export default function BlogPreview({
-  title,
-  content,
-  tags,
-  readTime,
-  author,
-}: BlogPreviewProps) {
+export default function BlogPreview({ title, content, tags, readTime, author }: BlogPreviewProps) {
   const { openPreview } = useImagePreview();
   const [likes] = useState(0);
   const [views] = useState(0);
@@ -70,7 +58,6 @@ export default function BlogPreview({
     return num.toString();
   };
 
-
   return (
     <div className="min-h-screen bg-background bg-pattern-topography pt-24 pb-16">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -95,7 +82,7 @@ export default function BlogPreview({
 
           {/* Title */}
           <h1 className="text-4xl md:text-5xl font-bold uppercase tracking-tight mb-4 text-white leading-tight">
-            {title || 'UNTITLED BLOG POST'}
+            {title || "UNTITLED BLOG POST"}
           </h1>
           <div className="h-1 bg-white w-32 mb-6"></div>
 
@@ -127,9 +114,9 @@ export default function BlogPreview({
             <ReactMarkdown
               remarkPlugins={[remarkGfm, remarkMath]}
               rehypePlugins={[rehypeRaw, rehypeHighlight, rehypeKatex]}
-              components={markDownComponents} 
+              components={markDownComponents}
             >
-              {content || '*No content yet...*'}
+              {content || "*No content yet...*"}
             </ReactMarkdown>
           </div>
         </motion.div>
@@ -172,21 +159,29 @@ export default function BlogPreview({
           <div className="flex items-center gap-4">
             <div className="w-16 h-16 border-2 border-white overflow-hidden">
               <Image
-                src={author.avatar ? withUploadPath(author.avatar) : withBasePath(`/default-avatar.svg`)}
+                src={
+                  author.avatar
+                    ? withUploadPath(author.avatar)
+                    : withBasePath(`/default-avatar.svg`)
+                }
                 alt={author.name}
                 width={64}
                 height={64}
                 unoptimized={!!author.avatar}
                 className="w-full h-full object-cover cursor-pointer cursor-open"
-                onClick={() => handleImageClick(author.avatar? withUploadPath(author.avatar) : withBasePath(`/default-avatar.svg`))}
+                onClick={() =>
+                  handleImageClick(
+                    author.avatar
+                      ? withUploadPath(author.avatar)
+                      : withBasePath(`/default-avatar.svg`)
+                  )
+                }
               />
             </div>
 
             <div>
-              <h3 className="font-bold text-xl text-white">
-                {author.name}
-              </h3>
-              <p className="text-[#e0e0e0] font-medium">{author.bio || 'Blog Author'}</p>
+              <h3 className="font-bold text-xl text-white">{author.name}</h3>
+              <p className="text-[#e0e0e0] font-medium">{author.bio || "Blog Author"}</p>
             </div>
           </div>
         </motion.div>

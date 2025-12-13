@@ -29,16 +29,11 @@ export default withAuth(
       });
 
       if (isAdminRoute && userRole !== "admin") {
-        console.log(
-          "Middleware - Redirecting to stay-away-snooper (no admin role)"
-        );
+        console.log("Middleware - Redirecting to stay-away-snooper (no admin role)");
         return NextResponse.redirect(new URL(withBasePath(`/stay-away-snooper`), req.url));
       }
 
-      if (
-        isBlogAuthorRoute &&
-        userRole !== "admin" && userRole !== "writer"
-      ) {
+      if (isBlogAuthorRoute && userRole !== "admin" && userRole !== "writer") {
         return NextResponse.redirect(new URL(withBasePath(`/stay-away-snooper`), req.url));
       }
 

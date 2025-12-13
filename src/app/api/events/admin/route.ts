@@ -17,16 +17,10 @@ export async function GET() {
     console.error("Error fetching admin events:", error);
 
     if (error instanceof Error && error.message.includes("access required")) {
-      return NextResponse.json(
-        { error: "Admin access required" },
-        { status: 403 }
-      );
+      return NextResponse.json({ error: "Admin access required" }, { status: 403 });
     }
 
-    return NextResponse.json(
-      { error: "Failed to fetch events" },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: "Failed to fetch events" }, { status: 500 });
   }
 }
 
@@ -45,10 +39,7 @@ export async function POST(request: NextRequest) {
     const requiredFields = ["id", "title", "description", "date", "type"];
     for (const field of requiredFields) {
       if (!eventData[field]) {
-        return NextResponse.json(
-          { error: `${field} is required` },
-          { status: 400 }
-        );
+        return NextResponse.json({ error: `${field} is required` }, { status: 400 });
       }
     }
 
@@ -64,30 +55,21 @@ export async function POST(request: NextRequest) {
       "other",
     ];
     if (!validTypes.includes(eventData.type)) {
-      return NextResponse.json(
-        { error: "Invalid event type" },
-        { status: 400 }
-      );
+      return NextResponse.json({ error: "Invalid event type" }, { status: 400 });
     }
 
     // Validate status if provided
     if (eventData.status) {
       const validStatuses = ["upcoming", "ongoing", "completed", "cancelled"];
       if (!validStatuses.includes(eventData.status)) {
-        return NextResponse.json(
-          { error: "Invalid event status" },
-          { status: 400 }
-        );
+        return NextResponse.json({ error: "Invalid event status" }, { status: 400 });
       }
     }
 
     // Check if event ID already exists
     const existingEvent = await Event.findOne({ id: eventData.id });
     if (existingEvent) {
-      return NextResponse.json(
-        { error: "Event with this ID already exists" },
-        { status: 409 }
-      );
+      return NextResponse.json({ error: "Event with this ID already exists" }, { status: 409 });
     }
 
     // Create new event
@@ -123,16 +105,10 @@ export async function POST(request: NextRequest) {
     console.error("Error creating event:", error);
 
     if (error instanceof Error && error.message.includes("access required")) {
-      return NextResponse.json(
-        { error: "Admin access required" },
-        { status: 403 }
-      );
+      return NextResponse.json({ error: "Admin access required" }, { status: 403 });
     }
 
-    return NextResponse.json(
-      { error: "Failed to create event" },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: "Failed to create event" }, { status: 500 });
   }
 }
 
@@ -146,10 +122,7 @@ export async function PUT(request: NextRequest) {
     const { id } = eventData;
 
     if (!id) {
-      return NextResponse.json(
-        { error: "Event ID is required" },
-        { status: 400 }
-      );
+      return NextResponse.json({ error: "Event ID is required" }, { status: 400 });
     }
 
     // Validate event type if provided
@@ -165,10 +138,7 @@ export async function PUT(request: NextRequest) {
         "other",
       ];
       if (!validTypes.includes(eventData.type)) {
-        return NextResponse.json(
-          { error: "Invalid event type" },
-          { status: 400 }
-        );
+        return NextResponse.json({ error: "Invalid event type" }, { status: 400 });
       }
     }
 
@@ -176,10 +146,7 @@ export async function PUT(request: NextRequest) {
     if (eventData.status) {
       const validStatuses = ["upcoming", "ongoing", "completed", "cancelled"];
       if (!validStatuses.includes(eventData.status)) {
-        return NextResponse.json(
-          { error: "Invalid event status" },
-          { status: 400 }
-        );
+        return NextResponse.json({ error: "Invalid event status" }, { status: 400 });
       }
     }
 
@@ -197,10 +164,7 @@ export async function PUT(request: NextRequest) {
 
     console.log("API PUT: Received event data:", eventData);
 
-    console.log(
-      "API PUT: Event updated successfully:",
-      updatedEvent?.toObject()
-    );
+    console.log("API PUT: Event updated successfully:", updatedEvent?.toObject());
 
     // Log the action
     Logger.info("Event updated", {
@@ -222,16 +186,10 @@ export async function PUT(request: NextRequest) {
     console.error("Error updating event:", error);
 
     if (error instanceof Error && error.message.includes("access required")) {
-      return NextResponse.json(
-        { error: "Admin access required" },
-        { status: 403 }
-      );
+      return NextResponse.json({ error: "Admin access required" }, { status: 403 });
     }
 
-    return NextResponse.json(
-      { error: "Failed to update event" },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: "Failed to update event" }, { status: 500 });
   }
 }
 
@@ -245,10 +203,7 @@ export async function DELETE(request: NextRequest) {
     const id = searchParams.get("id");
 
     if (!id) {
-      return NextResponse.json(
-        { error: "Event ID is required" },
-        { status: 400 }
-      );
+      return NextResponse.json({ error: "Event ID is required" }, { status: 400 });
     }
 
     // Find the event first to get details for logging
@@ -280,15 +235,9 @@ export async function DELETE(request: NextRequest) {
     console.error("Error deleting event:", error);
 
     if (error instanceof Error && error.message.includes("access required")) {
-      return NextResponse.json(
-        { error: "Admin access required" },
-        { status: 403 }
-      );
+      return NextResponse.json({ error: "Admin access required" }, { status: 403 });
     }
 
-    return NextResponse.json(
-      { error: "Failed to delete event" },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: "Failed to delete event" }, { status: 500 });
   }
 }

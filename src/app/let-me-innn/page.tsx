@@ -39,7 +39,7 @@ function LoginContent() {
             name?: string | null;
             email?: string | null;
             image?: string | null;
-            role?: 'admin' | 'writer' | 'none';
+            role?: "admin" | "writer" | "none";
           }
 
           const user = session?.user as ExtendedUser;
@@ -103,8 +103,7 @@ function LoginContent() {
         </h1>
 
         <p className="text-lg sm:text-xl text-gray-300 mb-6">
-          Please sign in with your IIIT credentials to access the maintenance
-          panels
+          Please sign in with your IIIT credentials to access the maintenance panels
         </p>
 
         {error && (

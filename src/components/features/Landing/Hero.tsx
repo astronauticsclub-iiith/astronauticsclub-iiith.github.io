@@ -80,13 +80,11 @@ const Hero = () => {
 
       // Random size class
       const sizeClasses = ["tiny", "small", "medium"];
-      const sizeClass =
-        sizeClasses[Math.floor(Math.random() * sizeClasses.length)];
+      const sizeClass = sizeClasses[Math.floor(Math.random() * sizeClasses.length)];
 
       // Random color class
       const colorClasses = ["", "blue", "purple", "gold"];
-      const colorClass =
-        colorClasses[Math.floor(Math.random() * colorClasses.length)];
+      const colorClass = colorClasses[Math.floor(Math.random() * colorClasses.length)];
 
       sparkle.classList.add("s-sparkle", sizeClass);
       if (colorClass) sparkle.classList.add(colorClass); // Random position around the center
@@ -132,17 +130,20 @@ const Hero = () => {
       }
 
       // Create a new sparkle every 150-300ms
-      sparkleIntervalRef.current = setInterval(() => {
-        if (!whimsyMode) {
-          createSparkle();
-        } else {
-          // If whimsy mode turned on, stop the sparkles
-          if (sparkleIntervalRef.current) {
-            clearInterval(sparkleIntervalRef.current);
-            sparkleIntervalRef.current = null;
+      sparkleIntervalRef.current = setInterval(
+        () => {
+          if (!whimsyMode) {
+            createSparkle();
+          } else {
+            // If whimsy mode turned on, stop the sparkles
+            if (sparkleIntervalRef.current) {
+              clearInterval(sparkleIntervalRef.current);
+              sparkleIntervalRef.current = null;
+            }
           }
-        }
-      }, 150 + Math.random() * 150);
+        },
+        150 + Math.random() * 150
+      );
     };
 
     // Start creating sparkles

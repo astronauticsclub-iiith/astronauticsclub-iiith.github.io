@@ -154,9 +154,7 @@ const WhimsicalEventsIcon: React.FC<WhimsicalEventsIconProps> = ({
         filter: `brightness(${1 + hoverIntensity * 0.5}) drop-shadow(0 0 ${
           hoverIntensity * 10
         }px rgba(118, 166, 201, ${hoverIntensity * 0.8}))`,
-        transition: isHovering
-          ? "none"
-          : "transform 0.3s ease-out, filter 0.3s ease-out",
+        transition: isHovering ? "none" : "transform 0.3s ease-out, filter 0.3s ease-out",
       }}
     >
       <svg

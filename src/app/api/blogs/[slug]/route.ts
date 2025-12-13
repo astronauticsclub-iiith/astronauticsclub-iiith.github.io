@@ -5,10 +5,7 @@ import { requireAdmin, requireWriter } from "@/lib/auth";
 import Logger from "@/lib/logger";
 import { populateAuthorDetails } from "@/app/blogs/helper";
 
-export async function GET(
-  request: NextRequest,
-  { params }: { params: Promise<{ slug: string }> }
-) {
+export async function GET(request: NextRequest, { params }: { params: Promise<{ slug: string }> }) {
   try {
     await connectToDatabase();
 
@@ -20,17 +17,12 @@ export async function GET(
     }
 
     // Populate author details
-    const blogWithAuthor = await populateAuthorDetails([
-      blog as Record<string, unknown>,
-    ]);
+    const blogWithAuthor = await populateAuthorDetails([blog as Record<string, unknown>]);
 
     return NextResponse.json(blogWithAuthor[0]);
   } catch (error) {
     console.error("Error fetching blog:", error);
-    return NextResponse.json(
-      { error: "Failed to fetch blog" },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: "Failed to fetch blog" }, { status: 500 });
   }
 }
 
@@ -53,17 +45,13 @@ export async function PATCH(
 
     switch (action) {
       case "approve":
-        try{
+        try {
           await requireAdmin();
           blog.approved = true;
           await blog.save();
-          return NextResponse.json({approved: blog.approved})
-        } 
-        catch {
-          return NextResponse.json(
-            { error: "Unauthorized: admin only" },
-            { status: 401 }
-          );
+          return NextResponse.json({ approved: blog.approved });
+        } catch {
+          return NextResponse.json({ error: "Unauthorized: admin only" }, { status: 401 });
         }
 
       case "increment_view":
@@ -73,10 +61,7 @@ export async function PATCH(
 
       case "toggle_like":
         if (!userId) {
-          return NextResponse.json(
-            { error: "User ID required for like action" },
-            { status: 400 }
-          );
+          return NextResponse.json({ error: "User ID required for like action" }, { status: 400 });
         }
 
         const likedBy = blog.likedBy || [];
@@ -104,17 +89,11 @@ export async function PATCH(
     }
   } catch (error) {
     console.error("Error updating blog:", error);
-    return NextResponse.json(
-      { error: "Failed to update blog" },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: "Failed to update blog" }, { status: 500 });
   }
 }
 
-export async function PUT(
-  request: NextRequest,
-  { params }: { params: Promise<{ slug: string }> }
-) {
+export async function PUT(request: NextRequest, { params }: { params: Promise<{ slug: string }> }) {
   try {
     const { user } = await requireWriter();
     await connectToDatabase();
@@ -130,14 +109,8 @@ export async function PUT(
     }
 
     // Check if user owns this blog or is admin
-    if (
-      user.role !== "admin" &&
-      (existingBlog.author as { email: string }).email !== user.email
-    ) {
-      return NextResponse.json(
-        { error: "Not authorized to edit this blog" },
-        { status: 403 }
-      );
+    if (user.role !== "admin" && (existingBlog.author as { email: string }).email !== user.email) {
+      return NextResponse.json({ error: "Not authorized to edit this blog" }, { status: 403 });
     }
 
     const blog = await Blog.findOneAndUpdate(
@@ -147,16 +120,11 @@ export async function PUT(
     ).lean();
 
     if (!blog) {
-      return NextResponse.json(
-        { error: "Blog not found after update" },
-        { status: 404 }
-      );
+      return NextResponse.json({ error: "Blog not found after update" }, { status: 404 });
     }
 
     // Populate author details
-    const blogWithAuthor = await populateAuthorDetails([
-      blog as Record<string, unknown>,
-    ]);
+    const blogWithAuthor = await populateAuthorDetails([blog as Record<string, unknown>]);
 
     // Log the action
     const blogRecord = blog as Record<string, unknown>;
@@ -175,10 +143,7 @@ export async function PUT(
     return NextResponse.json(blogWithAuthor[0]);
   } catch (error) {
     console.error("Error updating blog:", error);
-    return NextResponse.json(
-      { error: "Failed to update blog" },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: "Failed to update blog" }, { status: 500 });
   }
 }
 
@@ -199,14 +164,8 @@ export async function DELETE(
     }
 
     // Check if user owns this blog or is admin
-    if (
-      user.role !== "admin" &&
-      (existingBlog.author as { email: string }).email !== user.email
-    ) {
-      return NextResponse.json(
-        { error: "Not authorized to delete this blog" },
-        { status: 403 }
-      );
+    if (user.role !== "admin" && (existingBlog.author as { email: string }).email !== user.email) {
+      return NextResponse.json({ error: "Not authorized to delete this blog" }, { status: 403 });
     }
 
     await Blog.findOneAndDelete({ slug });
@@ -224,9 +183,6 @@ export async function DELETE(
     return NextResponse.json({ message: "Blog deleted successfully" });
   } catch (error) {
     console.error("Error deleting blog:", error);
-    return NextResponse.json(
-      { error: "Failed to delete blog" },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: "Failed to delete blog" }, { status: 500 });
   }
 }

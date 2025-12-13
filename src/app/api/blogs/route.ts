@@ -18,7 +18,7 @@ export async function GET(request: NextRequest) {
     const page = parseInt(searchParams.get("page") || "1");
 
     // Build query
-    const query: Record<string, unknown> = {approved: true};
+    const query: Record<string, unknown> = { approved: true };
 
     if (search) {
       query.$or = [
@@ -63,9 +63,7 @@ export async function GET(request: NextRequest) {
     ]);
 
     // Populate author details
-    const blogsWithAuthors = await populateAuthorDetails(
-      blogs as Array<Record<string, unknown>>
-    );
+    const blogsWithAuthors = await populateAuthorDetails(blogs as Array<Record<string, unknown>>);
 
     // Calculate stats
     const totalViews = await Blog.aggregate([
@@ -94,10 +92,7 @@ export async function GET(request: NextRequest) {
     });
   } catch (error) {
     console.error("Error fetching blogs:", error);
-    return NextResponse.json(
-      { error: "Failed to fetch blogs" },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: "Failed to fetch blogs" }, { status: 500 });
   }
 }
 
@@ -106,8 +101,7 @@ export async function POST(request: NextRequest) {
     const { user } = await requireWriter();
     await connectToDatabase();
 
-    const blogData: Omit<BlogInterface, "_id" | "createdAt" | "updatedAt"> =
-      await request.json();
+    const blogData: Omit<BlogInterface, "_id" | "createdAt" | "updatedAt"> = await request.json();
 
     // Validate required fields
     const requiredFields = [
@@ -123,10 +117,7 @@ export async function POST(request: NextRequest) {
     ];
     for (const field of requiredFields) {
       if (!blogData[field as keyof typeof blogData]) {
-        return NextResponse.json(
-          { error: `Missing required field: ${field}` },
-          { status: 400 }
-        );
+        return NextResponse.json({ error: `Missing required field: ${field}` }, { status: 400 });
       }
     }
 
@@ -159,26 +150,17 @@ export async function POST(request: NextRequest) {
     const savedBlog = await populateAuthorDetails([blog.toObject()]);
 
     // Log the action
-    Logger.logWriteOperation(
-      "CREATE_BLOG",
-      user.email,
-      "blog",
-      blog._id.toString(),
-      { title: blog.title, slug: blog.slug }
-    );
+    Logger.logWriteOperation("CREATE_BLOG", user.email, "blog", blog._id.toString(), {
+      title: blog.title,
+      slug: blog.slug,
+    });
 
     return NextResponse.json(savedBlog[0], { status: 201 });
   } catch (error) {
     console.error("Error creating blog:", error);
     if (error instanceof Error && error.message.includes("Unauthorized")) {
-      return NextResponse.json(
-        { error: "Authentication required" },
-        { status: 401 }
-      );
+      return NextResponse.json({ error: "Authentication required" }, { status: 401 });
     }
-    return NextResponse.json(
-      { error: "Failed to create blog" },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: "Failed to create blog" }, { status: 500 });
   }
 }
