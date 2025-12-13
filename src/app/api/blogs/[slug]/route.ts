@@ -53,12 +53,12 @@ export async function PATCH(
 
     switch (action) {
       case "approve":
-        try{
+        try {
           await requireAdmin();
           blog.approved = true;
           await blog.save();
-          return NextResponse.json({approved: blog.approved})
-        } 
+          return NextResponse.json({ approved: blog.approved })
+        }
         catch {
           return NextResponse.json(
             { error: "Unauthorized: admin only" },
@@ -161,7 +161,7 @@ export async function PUT(
     // Log the action
     const blogRecord = blog as Record<string, unknown>;
     Logger.logWriteOperation(
-      "UPDATE_BLOG",
+      `Update blog: ${blogRecord.title}`,
       user.email,
       "blog",
       (blogRecord._id as { toString: () => string }).toString(),
@@ -214,7 +214,7 @@ export async function DELETE(
     // Log the action
     const existingBlogRecord = existingBlog as Record<string, unknown>;
     Logger.logWriteOperation(
-      "DELETE_BLOG",
+      `Delete blog: ${existingBlogRecord.title}`,
       user.email,
       "blog",
       (existingBlogRecord._id as { toString: () => string }).toString(),

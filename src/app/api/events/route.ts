@@ -123,7 +123,7 @@ export async function POST(request: NextRequest) {
 
     // Log the action
     Logger.logWriteOperation(
-      "CREATE_EVENT",
+      `Create event: ${event.title} (Date: ${event.date})`,
       user.email,
       "event",
       event._id.toString(),
