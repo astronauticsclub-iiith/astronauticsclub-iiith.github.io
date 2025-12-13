@@ -35,6 +35,13 @@ export default function InventoryManager({
         status: "working",
     });
 
+    // Filter and Sort states
+    const [filterCategory, setFilterCategory] = useState<string>("all");
+    const [filterStatus, setFilterStatus] = useState<string>("all");
+    const [filterIsLent, setFilterIsLent] = useState<string>("all");
+    const [sortBy, setSortBy] = useState<string>("name");
+    const [sortOrder, setSortOrder] = useState<"asc" | "desc">("asc");
+
     const fetchInventory = useCallback(async () => {
         setInventoryLoading(true);
         try {
@@ -119,6 +126,43 @@ export default function InventoryManager({
             console.error("Error deleting item:", error);
             showError((error as Error).message || "Failed to delete item");
         }
+    };
+
+    // Filter and sort inventory
+    const getFilteredAndSortedInventory = () => {
+        let filtered = [...inventory];
+
+        // Apply category filter
+        if (filterCategory !== "all") {
+            filtered = filtered.filter(item => item.category === filterCategory);
+        }
+
+        // Apply status filter
+        if (filterStatus !== "all") {
+            filtered = filtered.filter(item => item.status === filterStatus);
+        }
+
+        // Apply isLent filter
+        if (filterIsLent === "lent") {
+            filtered = filtered.filter(item => item.isLent === true);
+        } else if (filterIsLent === "available") {
+            filtered = filtered.filter(item => item.isLent === false);
+        }
+
+        // Apply sorting
+        filtered.sort((a, b) => {
+            let compareValue = 0;
+
+            if (sortBy === "name") {
+                compareValue = a.name.localeCompare(b.name);
+            } else if (sortBy === "year") {
+                compareValue = a.year_of_purchase - b.year_of_purchase;
+            }
+
+            return sortOrder === "asc" ? compareValue : -compareValue;
+        });
+
+        return filtered;
     };
 
     return (
@@ -279,47 +323,136 @@ export default function InventoryManager({
             >
                 <h2 className="text-lg sm:text-xl lg:text-2xl font-bold mb-4 sm:mb-6 text-white uppercase flex items-center gap-2">
                     <CalendarDays size={18} className="sm:w-6 sm:h-6" />
-                    INVENTORY LIST ({inventory.length})
+                    INVENTORY LIST ({getFilteredAndSortedInventory().length} of {inventory.length})
                 </h2>
 
-                {inventoryLoading ? (
-                    <div className="flex items-center justify-center py-8">
-                        <motion.div
-                            animate={{ rotate: 360 }}
-                            transition={{
-                                duration: 2,
-                                repeat: Infinity,
-                                ease: "linear",
-                            }}
-                            className="w-6 h-6 border-2 border-white border-t-transparent rounded-full"
+                {/* Filter and Sort Controls */}
+                <div className="mb-4 sm:mb-6 space-y-3 sm:space-y-4">
+                    {/* Filters Row */}
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4">
+                        {/* Category Filter */}
+                        <div>
+                            <label className="block text-white text-xs font-bold mb-1 uppercase">
+                                Filter by Category
+                            </label>
+                            <select
+                                value={filterCategory}
+                                onChange={(e) => setFilterCategory(e.target.value)}
+                                className="w-full bg-background border-2 border-white p-2 sm:p-3 text-white font-medium text-sm uppercase transition-all duration-200 focus:scale-[1.02] hover:border-opacity-80 focus:ring-2 focus:ring-white focus:border-white"
+                            >
+                                <option value="all">ALL CATEGORIES</option>
+                                {validCategoryTypes.map((cat) => (
+                                    <option key={cat} value={cat}>{cat.toUpperCase()}</option>
+                                ))}
+                            </select>
+                        </div>
+
+                        {/* Status Filter */}
+                        <div>
+                            <label className="block text-white text-xs font-bold mb-1 uppercase">
+                                Filter by Condition
+                            </label>
+                            <select
+                                value={filterStatus}
+                                onChange={(e) => setFilterStatus(e.target.value)}
+                                className="w-full bg-background border-2 border-white p-2 sm:p-3 text-white font-medium text-sm uppercase transition-all duration-200 focus:scale-[1.02] hover:border-opacity-80 focus:ring-2 focus:ring-white focus:border-white"
+                            >
+                                <option value="all">ALL CONDITIONS</option>
+                                {validStatusTypes.map((status) => (
+                                    <option key={status} value={status}>{status.toUpperCase()}</option>
+                                ))}
+                            </select>
+                        </div>
+
+                        {/* isLent Filter */}
+                        <div>
+                            <label className="block text-white text-xs font-bold mb-1 uppercase">
+                                Filter by Lent Status
+                            </label>
+                            <select
+                                value={filterIsLent}
+                                onChange={(e) => setFilterIsLent(e.target.value)}
+                            className="w-full bg-background border-2 border-white p-2 sm:p-3 text-white font-medium text-sm uppercase transition-all duration-200 focus:scale-[1.02] hover:border-opacity-80 focus:ring-2 focus:ring-white focus:border-white"
+                            >
+                            <option value="all">ALL ITEMS</option>
+                            <option value="lent">LENT ITEMS</option>
+                            <option value="available">AVAILABLE ITEMS</option>
+                        </select>
+                    </div>
+                </div>
+
+                {/* Sorting Row */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
+                    {/* Sort By */}
+                    <div>
+                        <label className="block text-white text-xs font-bold mb-1 uppercase">
+                            Sort By
+                        </label>
+                        <select
+                            value={sortBy}
+                            onChange={(e) => setSortBy(e.target.value)}
+                            className="w-full bg-background border-2 border-white p-2 sm:p-3 text-white font-medium text-sm uppercase transition-all duration-200 focus:scale-[1.02] hover:border-opacity-80 focus:ring-2 focus:ring-white focus:border-white"
+                        >
+                            <option value="name">NAME</option>
+                            <option value="year">YEAR OF PURCHASE</option>
+                        </select>
+                    </div>
+
+                    {/* Sort Order */}
+                    <div>
+                        <label className="block text-white text-xs font-bold mb-1 uppercase">
+                            Sort Order
+                        </label>
+                        <select
+                            value={sortOrder}
+                            onChange={(e) => setSortOrder(e.target.value as "asc" | "desc")}
+                            className="w-full bg-background border-2 border-white p-2 sm:p-3 text-white font-medium text-sm uppercase transition-all duration-200 focus:scale-[1.02] hover:border-opacity-80 focus:ring-2 focus:ring-white focus:border-white"
+                        >
+                            <option value="asc">ASCENDING ↑</option>
+                            <option value="desc">DESCENDING ↓</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            {inventoryLoading ? (
+                <div className="flex items-center justify-center py-8">
+                    <motion.div
+                        animate={{ rotate: 360 }}
+                        transition={{
+                            duration: 2,
+                            repeat: Infinity,
+                            ease: "linear",
+                        }}
+                        className="w-6 h-6 border-2 border-white border-t-transparent rounded-full"
+                    />
+                    <span className="ml-3 text-white font-bold uppercase">
+                        Loading inventory items...
+                    </span>
+                </div>
+            ) : inventory.length === 0 ? (
+                <div className="text-center py-8">
+                    <p className="text-white font-bold uppercase">
+                        No inventory items found
+                    </p>
+                </div>
+            ) : (
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
+                    {getFilteredAndSortedInventory().map((inventory_item, index) => (
+                        <AdminInventoryCard
+                            key={inventory_item.id}
+                            inventory={inventory_item}
+                            index={index}
+                            onEdit={handleUpdateInventory}
+                            onDelete={handleDeleteInventory}
+                            isEditing={editingInventory === inventory_item.id}
+                            onStartEdit={() => setEditingInventory(inventory_item.id)}
+                            onCancelEdit={() => setEditingInventory(null)}
                         />
-                        <span className="ml-3 text-white font-bold uppercase">
-                            Loading inventory items...
-                        </span>
-                    </div>
-                ) : inventory.length === 0 ? (
-                    <div className="text-center py-8">
-                        <p className="text-white font-bold uppercase">
-                            No inventory items found
-                        </p>
-                    </div>
-                ) : (
-                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
-                        {inventory.map((inventory_item, index) => (
-                            <AdminInventoryCard
-                                key={inventory_item.id}
-                                inventory={inventory_item}
-                                index={index}
-                                onEdit={handleUpdateInventory}
-                                onDelete={handleDeleteInventory}
-                                isEditing={editingInventory === inventory_item.id}
-                                onStartEdit={() => setEditingInventory(inventory_item.id)}
-                                onCancelEdit={() => setEditingInventory(null)}
-                            />
-                        ))}
-                    </div>
-                )}
-            </motion.div>
+                    ))}
+                </div>
+            )}
+        </motion.div>
         </motion.div>
     );
 }
