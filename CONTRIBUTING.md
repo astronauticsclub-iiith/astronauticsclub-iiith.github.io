@@ -516,14 +516,24 @@ make download-uploads
 # Downloads uploads as ZIP file
 ```
 
-### Code Style Guidelines
+### Code Style & Quality
+
+We use **ESLint** for linting, **Prettier** for code formatting, and **TypeScript** for static type checking.
 
 - **TypeScript**: Use TypeScript for all new code
 - **Components**: Use functional components with hooks
 - **Naming**: Use PascalCase for components, camelCase for functions/variables
 - **Imports**: Group imports (external, internal, relative)
-- **Formatting**: Use Prettier (if configured) or follow existing style
+- **Formatting**: Run `npm run format` to automatically format your code
 - **Comments**: Add JSDoc comments for complex functions
+
+#### Commands
+- **Format Code**: `npm run format`
+- **Check Format**: `npm run check-format`
+- **Lint Code**: `npm run lint`
+- **Type Check**: `npm run type-check`
+
+Please ensure all checks pass before submitting a Pull Request.
 
 
 ### Testing Checklist
