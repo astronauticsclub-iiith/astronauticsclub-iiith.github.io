@@ -120,26 +120,48 @@ export class Logger {
   }
 
   // Log specific actions
-  static logUserAction(userEmail: string, action: string, details?: Record<string, unknown>) {
-    this.info(`User action: ${action}`, {
-      source: 'user_action',
-      userEmail,
-      action,
-      details
-    });
-  }
+  static logUserAction(
+  userEmail: string,
+  action: string,
+  details?: Record<string, unknown>
+) {
+  this.info(`Admin ${userEmail} performed action: ${action}`, {
+    source: 'user_action',
+    userEmail,
+    action,
+    details
+  });
+}
 
-  static logAPICall(method: string, endpoint: string, userEmail?: string, status?: number) {
-    this.info(`API ${method} ${endpoint} - ${status || 'Unknown'}`, {
+
+  static logAPICall(
+  method: string,
+  endpoint: string,
+  userEmail?: string,
+  status?: number
+) {
+  this.info(
+    `API request ${method} ${endpoint} completed with status ${status ?? 'unknown'}`,
+    {
       source: 'api',
       userEmail,
       action: `${method} ${endpoint}`,
       details: { status }
-    });
-  }
+    }
+  );
+}
 
-  static logWriteOperation(operation: string, userEmail: string, resourceType: string, resourceId?: string, details?: Record<string, unknown>) {
-    this.info(`Write operation: ${operation} ${resourceType}`, {
+
+  static logWriteOperation(
+  operation: string,
+  userEmail: string,
+  resourceType: string,
+  resourceId?: string,
+  details?: Record<string, unknown>
+) {
+  this.info(
+    `Admin ${userEmail} ${operation} ${resourceType}${resourceId ? ` (ID: ${resourceId})` : ''}`,
+    {
       source: 'write_operation',
       userEmail,
       action: operation,
@@ -148,8 +170,10 @@ export class Logger {
         resourceId,
         ...details
       }
-    });
-  }
+    }
+  );
+}
+
 
 }
 
