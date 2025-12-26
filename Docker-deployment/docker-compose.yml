@@ -1,12 +1,12 @@
 services:
   nextjs:
     build:
-      context: .
-      dockerfile: Dockerfile
+      context: ..
+      dockerfile: Docker-deployment/Dockerfile
     container_name: astronautics-nextjs
     restart: unless-stopped
     env_file:
-      - .env.local
+      - ../.env.local
     volumes:
       - uploads_data:/app/public/uploads
       - logs_data:/app/logs

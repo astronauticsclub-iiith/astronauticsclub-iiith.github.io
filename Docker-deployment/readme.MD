@@ -14,10 +14,24 @@ This is a [Next.js](https://nextjs.org) project for the Astronautics Club websit
 ### Prerequisites
 
 - Docker and Docker Compose installed on your system
+- `.env.local` file in the root directory with required environment variables:
+  ```
+  MONGODB_URI=your_mongodb_connection_string
+  NEXTAUTH_SECRET=your_nextauth_secret
+  NEXTAUTH_URL=http://localhost
+  FILE_DIRECTORY=/app/public
+  # Add other required environment variables
+  ```
 
 ### Setup and Running
 
-1. Build and start the containers:
+1. Navigate to the Docker-deployment directory:
+
+   ```bash
+   cd Docker-deployment
+   ```
+
+2. Build and start the containers:
 
    ```bash
    docker-compose up -d
@@ -29,9 +43,31 @@ This is a [Next.js](https://nextjs.org) project for the Astronautics Club websit
    make start
    ```
 
-2. Access the application:
+3. Access the application:
    - Website: [http://localhost](http://localhost)
    - API endpoints: [http://localhost/api/...](http://localhost/api/)
+
+### Testing the Deployment
+
+After starting the containers, verify the deployment:
+
+```bash
+# Check if containers are running
+docker ps
+
+# View logs
+docker-compose logs -f
+
+# Test the application
+curl http://localhost
+```
+
+### Troubleshooting
+
+- If the Next.js container fails to start, check logs: `docker-compose logs nextjs`
+- Ensure `.env.local` file exists in the root directory
+- Verify MongoDB connection string is correct
+- Make sure ports 80 and 443 are not already in use
 
 ### Data Persistence
 
