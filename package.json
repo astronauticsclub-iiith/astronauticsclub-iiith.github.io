@@ -6,7 +6,7 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
+    "lint": "eslint .",
     "format": "prettier --write .",
     "check-format": "prettier --check .",
     "type-check": "tsc --noEmit"
@@ -33,7 +33,6 @@
     "xml2js": "^0.6.2"
   },
   "devDependencies": {
-    "@eslint/eslintrc": "^3",
     "@types/node": "20.17.50",
     "@types/react": "19.1.5",
     "@types/react-dom": "^19",
