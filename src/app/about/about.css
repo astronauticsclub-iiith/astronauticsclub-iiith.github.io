@@ -2,409 +2,409 @@
 
 /* Club Introduction Section */
 .club-intro {
-  max-width: 1280px;
-  margin: 0 auto 0 auto;
-  padding: 4rem 0;
-  position: relative;
-  z-index: 2;
+    max-width: 1280px;
+    margin: 0 auto 0 auto;
+    padding: 4rem 0;
+    position: relative;
+    z-index: 2;
 }
 
 .about-us-heading {
-  font-size: 1.5rem;
-  font-weight: 900;
-  color: white;
-  margin-bottom: 0;
-  text-transform: uppercase;
-  letter-spacing: -0.025em;
-  text-shadow: 4px 4px 0px rgba(128, 128, 128, 0.5);
-  text-align: left;
-  line-height: 1.1;
+    font-size: 1.5rem;
+    font-weight: 900;
+    color: white;
+    margin-bottom: 0;
+    text-transform: uppercase;
+    letter-spacing: -0.025em;
+    text-shadow: 4px 4px 0px rgba(128, 128, 128, 0.5);
+    text-align: left;
+    line-height: 1.1;
 }
 
 @media (min-width: 768px) {
-  .about-us-heading {
-    font-size: 1.875rem;
-  }
+    .about-us-heading {
+        font-size: 1.875rem;
+    }
 }
 
 @media (min-width: 1024px) {
-  .about-us-heading {
-    font-size: 3.75rem;
-  }
+    .about-us-heading {
+        font-size: 3.75rem;
+    }
 }
 
 .about-us-content {
-  font-size: 1rem;
-  line-height: 1.7;
-  color: #e0e0e0;
-  margin-bottom: 1.5rem;
-  text-align: justify;
-  font-weight: 400;
+    font-size: 1rem;
+    line-height: 1.7;
+    color: #e0e0e0;
+    margin-bottom: 1.5rem;
+    text-align: justify;
+    font-weight: 400;
 }
 
 @media (min-width: 768px) {
-  .about-us-content {
-    font-size: 1.125rem;
-  }
+    .about-us-content {
+        font-size: 1.125rem;
+    }
 }
 
 /* Brutalist FAQ Section */
 .brutalist-faq-container {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 4rem 2rem;
-  position: relative;
-  z-index: 2;
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 4rem 2rem;
+    position: relative;
+    z-index: 2;
 }
 
 .brutalist-faq-header {
-  margin-bottom: 4rem;
+    margin-bottom: 4rem;
 }
 
 .brutalist-faq-heading {
-  font-size: 2rem;
-  font-weight: 900;
-  color: white;
-  margin-bottom: 1rem;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  text-shadow: 6px 6px 0px rgba(128, 128, 128, 0.8);
-  text-align: left;
-  line-height: 1.1;
-  position: relative;
+    font-size: 2rem;
+    font-weight: 900;
+    color: white;
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    text-shadow: 6px 6px 0px rgba(128, 128, 128, 0.8);
+    text-align: left;
+    line-height: 1.1;
+    position: relative;
 }
 
 @media (min-width: 768px) {
-  .brutalist-faq-heading {
-    font-size: 2.5rem;
-  }
+    .brutalist-faq-heading {
+        font-size: 2.5rem;
+    }
 }
 
 @media (min-width: 1024px) {
-  .brutalist-faq-heading {
-    font-size: 4rem;
-  }
+    .brutalist-faq-heading {
+        font-size: 4rem;
+    }
 }
 
 .brutalist-faq-underline {
-  height: 8px;
-  background: linear-gradient(90deg, white 0%, var(--accent) 100%);
-  margin-bottom: 2rem;
-  box-shadow: 4px 4px 0px 0px rgba(128, 128, 128, 0.5);
-  max-width: 200px;
+    height: 8px;
+    background: linear-gradient(90deg, white 0%, var(--accent) 100%);
+    margin-bottom: 2rem;
+    box-shadow: 4px 4px 0px 0px rgba(128, 128, 128, 0.5);
+    max-width: 200px;
 }
 
 .brutalist-faq-subheading {
-  font-size: 1.1rem;
-  color: #e0e0e0;
-  text-align: left;
-  margin-bottom: 0;
-  font-weight: 500;
-  line-height: 1.6;
-  max-width: 40rem;
+    font-size: 1.1rem;
+    color: #e0e0e0;
+    text-align: left;
+    margin-bottom: 0;
+    font-weight: 500;
+    line-height: 1.6;
+    max-width: 40rem;
 }
 
 @media (min-width: 768px) {
-  .brutalist-faq-subheading {
-    font-size: 1.25rem;
-  }
+    .brutalist-faq-subheading {
+        font-size: 1.25rem;
+    }
 }
 
 /* Brutalist Accordion */
 .brutalist-accordion {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
 }
 
 .brutalist-accordion-item {
-  border: 4px solid white;
-  background: var(--background);
-  box-shadow: 8px 8px 0px 0px rgba(128, 128, 128, 0.6);
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  position: relative;
-  overflow: hidden;
+    border: 4px solid white;
+    background: var(--background);
+    box-shadow: 8px 8px 0px 0px rgba(128, 128, 128, 0.6);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
 }
 
 .brutalist-accordion-item:hover {
-  box-shadow: 12px 12px 0px 0px rgba(128, 128, 128, 0.8);
+    box-shadow: 12px 12px 0px 0px rgba(128, 128, 128, 0.8);
 }
 
 .brutalist-accordion-item.active {
-  box-shadow: 12px 12px 0px 0px rgba(118, 166, 201, 0.8);
-  border-color: var(--accent);
-  background: linear-gradient(135deg, var(--background) 0%, rgba(118, 166, 201, 0.05) 100%);
+    box-shadow: 12px 12px 0px 0px rgba(118, 166, 201, 0.8);
+    border-color: var(--accent);
+    background: linear-gradient(135deg, var(--background) 0%, rgba(118, 166, 201, 0.05) 100%);
 }
 
 .brutalist-accordion-trigger {
-  width: 100%;
-  padding: 2rem;
-  background: transparent;
-  border: none;
-  text-align: left;
-  cursor: pointer;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  color: white;
-  font-family: inherit;
-  transition: all 0.2s ease;
-  position: relative;
-  overflow: hidden;
+    width: 100%;
+    padding: 2rem;
+    background: transparent;
+    border: none;
+    text-align: left;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: white;
+    font-family: inherit;
+    transition: all 0.2s ease;
+    position: relative;
+    overflow: hidden;
 }
 
 .brutalist-accordion-trigger::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
-  transition: left 0.5s ease;
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+    transition: left 0.5s ease;
 }
 
 .brutalist-accordion-trigger:hover::before {
-  left: 100%;
+    left: 100%;
 }
 
 .brutalist-accordion-trigger:focus {
-  outline: 3px solid var(--accent);
-  outline-offset: -3px;
+    outline: 3px solid var(--accent);
+    outline-offset: -3px;
 }
 
 .brutalist-accordion-question {
-  font-size: 1.2rem;
-  font-weight: 700;
-  line-height: 1.4;
-  text-transform: uppercase;
-  letter-spacing: 0.02em;
-  flex: 1;
-  padding-right: 2rem;
+    font-size: 1.2rem;
+    font-weight: 700;
+    line-height: 1.4;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    flex: 1;
+    padding-right: 2rem;
 }
 
 @media (min-width: 768px) {
-  .brutalist-accordion-question {
-    font-size: 1.4rem;
-  }
+    .brutalist-accordion-question {
+        font-size: 1.4rem;
+    }
 }
 
 .brutalist-accordion-icon {
-  font-size: 1.5rem;
-  color: var(--accent);
-  font-weight: 900;
-  flex-shrink: 0;
-  text-shadow: 2px 2px 0px rgba(128, 128, 128, 0.5);
+    font-size: 1.5rem;
+    color: var(--accent);
+    font-weight: 900;
+    flex-shrink: 0;
+    text-shadow: 2px 2px 0px rgba(128, 128, 128, 0.5);
 }
 
 .brutalist-accordion-content {
-  border-top: 2px solid rgba(255, 255, 255, 0.2);
-  background: rgba(0, 0, 0, 0.3);
+    border-top: 2px solid rgba(255, 255, 255, 0.2);
+    background: rgba(0, 0, 0, 0.3);
 }
 
 .brutalist-accordion-answer {
-  padding: 0 2rem;
-  color: var(--foreground);
-  font-size: 1rem;
-  line-height: 1.7;
-  text-align: justify;
+    padding: 0 2rem;
+    color: var(--foreground);
+    font-size: 1rem;
+    line-height: 1.7;
+    text-align: justify;
 }
 
 @media (min-width: 768px) {
-  .brutalist-accordion-answer {
-    font-size: 1.1rem;
-  }
+    .brutalist-accordion-answer {
+        font-size: 1.1rem;
+    }
 }
 
 .brutalist-accordion-answer p {
-  margin-bottom: 1.2rem;
+    margin-bottom: 1.2rem;
 }
 
 .brutalist-accordion-answer p:last-child {
-  margin-bottom: 0;
+    margin-bottom: 0;
 }
 
 .brutalist-list {
-  margin: 1.5rem 0;
-  padding-left: 0;
-  list-style: none;
+    margin: 1.5rem 0;
+    padding-left: 0;
+    list-style: none;
 }
 
 .brutalist-list li {
-  position: relative;
-  padding-left: 2rem;
-  margin-bottom: 0.8rem;
-  color: var(--foreground);
-  font-weight: 500;
+    position: relative;
+    padding-left: 2rem;
+    margin-bottom: 0.8rem;
+    color: var(--foreground);
+    font-weight: 500;
 }
 
 .brutalist-list li::before {
-  content: "▶";
-  position: absolute;
-  left: 0;
-  color: var(--accent);
-  font-weight: 900;
-  font-size: 0.8rem;
+    content: "▶";
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+    font-weight: 900;
+    font-size: 0.8rem;
 }
 
 /* Whimsy Mode Text Effects */
 body.whimsy-mode .about-us-heading span,
 body.whimsy-mode .about-us-content span {
-  display: inline-block;
-  transition: transform 0.2s ease;
-  cursor: default;
+    display: inline-block;
+    transition: transform 0.2s ease;
+    cursor: default;
 }
 
 body.whimsy-mode .about-us-heading span:hover,
 body.whimsy-mode .about-us-content span:hover {
-  transform: scale(1.2) translateY(-4px);
-  color: var(--accent);
-  text-shadow: 2px 2px 0px rgba(128, 128, 128, 0.8);
+    transform: scale(1.2) translateY(-4px);
+    color: var(--accent);
+    text-shadow: 2px 2px 0px rgba(128, 128, 128, 0.8);
 }
 
 /* Responsive Design for Brutalist FAQ */
 @media (max-width: 1024px) {
-  .brutalist-faq-container {
-    padding: 3rem 1.5rem;
-  }
+    .brutalist-faq-container {
+        padding: 3rem 1.5rem;
+    }
 
-  .brutalist-faq-heading {
-    font-size: 2.5rem;
-  }
+    .brutalist-faq-heading {
+        font-size: 2.5rem;
+    }
 
-  .brutalist-accordion-question {
-    font-size: 1.1rem;
-  }
+    .brutalist-accordion-question {
+        font-size: 1.1rem;
+    }
 
-  .brutalist-accordion-answer {
-    font-size: 1rem;
-  }
+    .brutalist-accordion-answer {
+        font-size: 1rem;
+    }
 }
 
 @media (max-width: 768px) {
-  .brutalist-faq-container {
-    padding: 2rem 1rem;
-  }
+    .brutalist-faq-container {
+        padding: 2rem 1rem;
+    }
 
-  .brutalist-faq-heading {
-    font-size: 2rem;
-  }
+    .brutalist-faq-heading {
+        font-size: 2rem;
+    }
 
-  .brutalist-faq-subheading {
-    font-size: 1rem;
-    margin-bottom: 0;
-  }
+    .brutalist-faq-subheading {
+        font-size: 1rem;
+        margin-bottom: 0;
+    }
 
-  .brutalist-faq-header {
-    margin-bottom: 3rem;
-  }
+    .brutalist-faq-header {
+        margin-bottom: 3rem;
+    }
 
-  .brutalist-accordion {
-    gap: 1rem;
-  }
+    .brutalist-accordion {
+        gap: 1rem;
+    }
 
-  .brutalist-accordion-trigger {
-    padding: 1.5rem;
-  }
+    .brutalist-accordion-trigger {
+        padding: 1.5rem;
+    }
 
-  .brutalist-accordion-question {
-    font-size: 1rem;
-    padding-right: 1rem;
-  }
+    .brutalist-accordion-question {
+        font-size: 1rem;
+        padding-right: 1rem;
+    }
 
-  .brutalist-accordion-icon {
-    font-size: 1.3rem;
-  }
+    .brutalist-accordion-icon {
+        font-size: 1.3rem;
+    }
 
-  .brutalist-accordion-answer {
-    padding: 0 1.5rem;
-    font-size: 0.95rem;
-  }
+    .brutalist-accordion-answer {
+        padding: 0 1.5rem;
+        font-size: 0.95rem;
+    }
 }
 
 @media (max-width: 640px) {
-  .brutalist-faq-container {
-    padding: 1.5rem 0.75rem;
-  }
+    .brutalist-faq-container {
+        padding: 1.5rem 0.75rem;
+    }
 
-  .brutalist-faq-heading {
-    font-size: 1.8rem;
-  }
+    .brutalist-faq-heading {
+        font-size: 1.8rem;
+    }
 
-  .brutalist-faq-underline {
-    max-width: 150px;
-    height: 6px;
-  }
+    .brutalist-faq-underline {
+        max-width: 150px;
+        height: 6px;
+    }
 
-  .brutalist-accordion-trigger {
-    padding: 1.25rem;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 1rem;
-  }
+    .brutalist-accordion-trigger {
+        padding: 1.25rem;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+    }
 
-  .brutalist-accordion-question {
-    padding-right: 0;
-  }
+    .brutalist-accordion-question {
+        padding-right: 0;
+    }
 
-  .brutalist-accordion-icon {
-    align-self: flex-end;
-  }
+    .brutalist-accordion-icon {
+        align-self: flex-end;
+    }
 
-  .brutalist-accordion-answer {
-    padding: 0 1.25rem;
-  }
+    .brutalist-accordion-answer {
+        padding: 0 1.25rem;
+    }
 }
 
 /* Enhanced Animations */
 .brutalist-accordion-item {
-  animation: brutalistSlideUp 0.6s cubic-bezier(0.4, 0, 0.2, 1) both;
+    animation: brutalistSlideUp 0.6s cubic-bezier(0.4, 0, 0.2, 1) both;
 }
 
 .brutalist-accordion-item:nth-child(1) {
-  animation-delay: 0.1s;
+    animation-delay: 0.1s;
 }
 .brutalist-accordion-item:nth-child(2) {
-  animation-delay: 0.2s;
+    animation-delay: 0.2s;
 }
 .brutalist-accordion-item:nth-child(3) {
-  animation-delay: 0.3s;
+    animation-delay: 0.3s;
 }
 .brutalist-accordion-item:nth-child(4) {
-  animation-delay: 0.4s;
+    animation-delay: 0.4s;
 }
 .brutalist-accordion-item:nth-child(5) {
-  animation-delay: 0.5s;
+    animation-delay: 0.5s;
 }
 .brutalist-accordion-item:nth-child(6) {
-  animation-delay: 0.6s;
+    animation-delay: 0.6s;
 }
 .brutalist-accordion-item:nth-child(7) {
-  animation-delay: 0.7s;
+    animation-delay: 0.7s;
 }
 .brutalist-accordion-item:nth-child(8) {
-  animation-delay: 0.8s;
+    animation-delay: 0.8s;
 }
 
 @keyframes brutalistSlideUp {
-  from {
-    opacity: 0;
-    transform: translateY(40px) scale(0.95);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
+    from {
+        opacity: 0;
+        transform: translateY(40px) scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
 }
 
 /* Focus and accessibility */
 .brutalist-accordion-trigger:focus-visible {
-  outline: 3px solid var(--accent);
-  outline-offset: -3px;
+    outline: 3px solid var(--accent);
+    outline-offset: -3px;
 }
 
 /* Active state enhancements */
 .brutalist-accordion-item.active .brutalist-accordion-icon {
-  color: white;
-  text-shadow: 2px 2px 0px var(--accent);
+    color: white;
+    text-shadow: 2px 2px 0px var(--accent);
 }

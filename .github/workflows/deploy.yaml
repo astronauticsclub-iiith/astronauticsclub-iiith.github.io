@@ -1,28 +1,28 @@
 name: Deploy to Server
 
 on:
-  push:
-    branches: ["main"]
+    push:
+        branches: ["main"]
 
 jobs:
-  deploy:
-    runs-on: self-hosted
+    deploy:
+        runs-on: self-hosted
 
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v4
 
-      - name: Sync project to deployment directory
-        run: |
-          rsync -av --exclude=".env.local" --exclude="node_modules" ./ ~/astronauticsclub-iiith.github.io/
+            - name: Sync project to deployment directory
+              run: |
+                  rsync -av --exclude=".env.local" --exclude="node_modules" ./ ~/astronauticsclub-iiith.github.io/
 
-      - name: Install and build
-        run: |
-          cd ~/astronauticsclub-iiith.github.io
-          npm install --production
-          npm run build
+            - name: Install and build
+              run: |
+                  cd ~/astronauticsclub-iiith.github.io
+                  npm install --production
+                  npm run build
 
-      - name: Restart server
-        run: |
-          pm2 restart astronautics || pm2 start ecosystem.config.js
-          pm2 save
+            - name: Restart server
+              run: |
+                  pm2 restart astronautics || pm2 start ecosystem.config.js
+                  pm2 save

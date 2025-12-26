@@ -1,190 +1,190 @@
 /* Gallery Container */
 .gallery-container {
-  max-width: 1600px;
-  margin: 0 auto;
-  padding-left: 1rem;
-  padding-right: 1rem;
+    max-width: 1600px;
+    margin: 0 auto;
+    padding-left: 1rem;
+    padding-right: 1rem;
 }
 
 @media (min-width: 640px) {
-  .gallery-container {
-    padding-left: 1.5rem;
-    padding-right: 1.5rem;
-  }
+    .gallery-container {
+        padding-left: 1.5rem;
+        padding-right: 1.5rem;
+    }
 }
 
 @media (min-width: 1024px) {
-  .gallery-container {
-    padding-left: 2rem;
-    padding-right: 2rem;
-  }
+    .gallery-container {
+        padding-left: 2rem;
+        padding-right: 2rem;
+    }
 }
 
 /* Gallery Header */
 .gallery-header {
-  text-align: center;
-  margin-bottom: 3rem;
+    text-align: center;
+    margin-bottom: 3rem;
 }
 
 .gallery-title {
-  font-size: 2rem;
-  font-weight: 900;
-  color: white;
-  margin-bottom: 2rem;
-  text-transform: uppercase;
-  letter-spacing: -0.025em;
-  text-shadow: 4px 4px 0px rgba(128, 128, 128, 0.5);
+    font-size: 2rem;
+    font-weight: 900;
+    color: white;
+    margin-bottom: 2rem;
+    text-transform: uppercase;
+    letter-spacing: -0.025em;
+    text-shadow: 4px 4px 0px rgba(128, 128, 128, 0.5);
 }
 
 /* Filter Buttons */
 .gallery-filters {
-  display: flex;
-  justify-content: center;
-  gap: 1rem;
-  flex-wrap: wrap;
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
 }
 
 .gallery-filter-btn {
-  padding: 0.75rem 1.5rem;
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  background: rgba(0, 0, 0, 0.3);
-  color: white;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  text-transform: uppercase;
-  font-size: 0.85rem;
-  letter-spacing: 1px;
-  backdrop-filter: blur(4px);
+    padding: 0.75rem 1.5rem;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    background: rgba(0, 0, 0, 0.3);
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    letter-spacing: 1px;
+    backdrop-filter: blur(4px);
 }
 
 .gallery-filter-btn:hover,
 .gallery-filter-btn.active {
-  background: white;
-  color: black;
-  border-color: white;
-  font-weight: 800;
+    background: white;
+    color: black;
+    border-color: white;
+    font-weight: 800;
 }
 
 /* --- MASONRY LAYOUT (Distributed Flex) --- */
 .gallery-masonry {
-  display: flex;
-  gap: 1.5rem;
-  width: 100%;
-  align-items: flex-start;
+    display: flex;
+    gap: 1.5rem;
+    width: 100%;
+    align-items: flex-start;
 }
 
 .masonry-column {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-  flex: 1;
-  min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    flex: 1;
+    min-width: 0;
 }
 
 /* Photo Cards */
 .gallery-card {
-  position: relative;
-  background: #111;
-  width: 100%;
-  overflow: hidden;
+    position: relative;
+    background: #111;
+    width: 100%;
+    overflow: hidden;
 }
 
 .gallery-card-image {
-  width: 100%;
-  position: relative;
-  display: block;
-  /* CRITICAL FIX: Min-height prevents layout collapse */
-  min-height: 200px;
-  background-color: #1a1a1a;
+    width: 100%;
+    position: relative;
+    display: block;
+    /* CRITICAL FIX: Min-height prevents layout collapse */
+    min-height: 200px;
+    background-color: #1a1a1a;
 }
 
 /* Overlay Gradient */
 .gallery-overlay {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    to top,
-    rgba(0, 0, 0, 0.9) 0%,
-    rgba(0, 0, 0, 0.5) 20%,
-    transparent 50%
-  );
-  opacity: 1;
-  transition: opacity 0.3s ease;
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        to top,
+        rgba(0, 0, 0, 0.9) 0%,
+        rgba(0, 0, 0, 0.5) 20%,
+        transparent 50%
+    );
+    opacity: 1;
+    transition: opacity 0.3s ease;
 }
 
 /* Content Styles */
 .gallery-content {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  padding: 1.5rem;
-  opacity: 1;
-  transform: translateY(0);
-  transition: all 0.3s ease;
-  pointer-events: none;
-  z-index: 20;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 1.5rem;
+    opacity: 1;
+    transform: translateY(0);
+    transition: all 0.3s ease;
+    pointer-events: none;
+    z-index: 20;
 }
 
 .gallery-category {
-  display: inline-block;
-  font-size: 0.7rem;
-  font-weight: 800;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  color: #4facfe;
-  margin-bottom: 0.5rem;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+    display: inline-block;
+    font-size: 0.7rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #4facfe;
+    margin-bottom: 0.5rem;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
 }
 
 .gallery-heading {
-  font-size: 1.1rem;
-  font-weight: 700;
-  color: white;
-  line-height: 1.3;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: white;
+    line-height: 1.3;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
 }
 
 /* Load More Button */
 .gallery-load-more-btn {
-  padding: 1rem 2.5rem;
-  background: white;
-  color: black;
-  font-weight: 800;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  border: none;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 20px rgba(255, 255, 255, 0.2);
+    padding: 1rem 2.5rem;
+    background: white;
+    color: black;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 20px rgba(255, 255, 255, 0.2);
 }
 
 .gallery-load-more-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 25px rgba(255, 255, 255, 0.4);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 25px rgba(255, 255, 255, 0.4);
 }
 
 /* Empty State */
 .gallery-empty {
-  text-align: center;
-  padding: 5rem 2rem;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  background: rgba(0, 0, 0, 0.2);
+    text-align: center;
+    padding: 5rem 2rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(0, 0, 0, 0.2);
 }
 
 .gallery-empty p {
-  margin-bottom: 1rem;
-  font-size: 1.1rem;
-  color: white;
+    margin-bottom: 1rem;
+    font-size: 1.1rem;
+    color: white;
 }
 
 .gallery-empty-hint {
-  font-size: 0.9rem;
-  color: #aaa;
-  font-family: monospace;
-  background: rgba(255, 255, 255, 0.05);
-  padding: 0.5rem 1rem;
-  border-radius: 4px;
-  display: inline-block;
+    font-size: 0.9rem;
+    color: #aaa;
+    font-family: monospace;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    display: inline-block;
 }

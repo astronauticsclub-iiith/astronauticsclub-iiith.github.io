@@ -5,9 +5,9 @@ import { ReactNode } from "react";
 import { withBasePath } from "./common/HelperFunction";
 
 interface AuthProviderProps {
-  children: ReactNode;
+    children: ReactNode;
 }
 
 export default function AuthProvider({ children }: AuthProviderProps) {
-  return <SessionProvider basePath={withBasePath(`/api/auth`)}>{children}</SessionProvider>;
+    return <SessionProvider basePath={withBasePath(`/api/auth`)}>{children}</SessionProvider>;
 }

@@ -3,132 +3,132 @@
 @tailwind utilities;
 
 :root {
-  --background: #020001;
-  --foreground: #ededed;
-  --accent: #76a6c9;
-  --accent-medium: #5283a5;
-  --accent-dark: #355a70;
-  --accent-really-dark: #1e293bcc;
+    --background: #020001;
+    --foreground: #ededed;
+    --accent: #76a6c9;
+    --accent-medium: #5283a5;
+    --accent-dark: #355a70;
+    --accent-really-dark: #1e293bcc;
 }
 
 ::selection {
-  background-color: var(--accent-dark);
-  color: var(--foreground);
+    background-color: var(--accent-dark);
+    color: var(--foreground);
 }
 
 /* For images in the blog */
 .align-center,
 div[style*="text-align: center"] img {
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .align-right,
 div[style*="text-align: right"] img {
-  display: block;
-  margin-left: auto;
-  margin-right: 0;
+    display: block;
+    margin-left: auto;
+    margin-right: 0;
 }
 
 .text-body {
-  text-align: justify;
+    text-align: justify;
 }
 
 body {
-  color: var(--foreground);
-  background: var(--background);
-  overflow-x: hidden;
-  font-display: swap;
-  text-rendering: optimizeSpeed;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  font-family: "Exo 2", sans-serif;
+    color: var(--foreground);
+    background: var(--background);
+    overflow-x: hidden;
+    font-display: swap;
+    text-rendering: optimizeSpeed;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-family: "Exo 2", sans-serif;
 }
 
 img {
-  user-select: none;
+    user-select: none;
 }
 
 .accent {
-  color: var(--accent);
+    color: var(--accent);
 }
 .accent-medium {
-  color: var(--accent-medium);
+    color: var(--accent-medium);
 }
 
 .bg-accent-really-dark {
-  background-color: var(--accent-really-dark);
+    background-color: var(--accent-really-dark);
 }
 
 .border-accent {
-  border-color: var(--accent);
+    border-color: var(--accent);
 }
 
 .footer-social-media-handles-section {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 1.5rem;
-  margin-top: 0.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1.5rem;
+    margin-top: 0.5rem;
 }
 
 @media (min-width: 768px) {
-  .footer-social-media-handles-section {
-    justify-content: flex-start;
-  }
+    .footer-social-media-handles-section {
+        justify-content: flex-start;
+    }
 }
 
 .footer-social-media-handles-section a {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  background-color: var(--accent-really-dark);
-  text-decoration: none;
-  transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: var(--accent-really-dark);
+    text-decoration: none;
+    transition: all 0.3s ease;
 }
 
 .footer-social-media-handles-section a:hover {
-  transform: translateY(-3px);
+    transform: translateY(-3px);
 }
 
 .footer-social-media-icon {
-  width: 20px;
-  height: 20px;
-  transition: all 0.3s ease;
+    width: 20px;
+    height: 20px;
+    transition: all 0.3s ease;
 }
 
 .footer-social-media-icon {
-  color: var(--accent);
-  transition: color 0.3s ease;
+    color: var(--accent);
+    transition: color 0.3s ease;
 }
 
 /* Social media icon specific colors */
 .footer-social-media-handles-section a:hover .footer-social-media-icon.whatsapp {
-  color: #25d366;
+    color: #25d366;
 }
 
 .footer-social-media-handles-section a:hover .footer-social-media-icon.linkedin {
-  color: #0274b3;
+    color: #0274b3;
 }
 
 .footer-social-media-handles-section a:hover .footer-social-media-icon.instagram {
-  color: #e1306c;
+    color: #e1306c;
 }
 
 .footer-social-media-handles-section a:hover .footer-social-media-icon.discord {
-  color: #5865f2;
+    color: #5865f2;
 }
 
 /* Code highlighting styles */
 .hljs {
-  background: var(--accent-really-dark) !important;
-  color: var(--foreground) !important;
-  border-radius: 0.5rem;
-  padding: 1rem !important;
+    background: var(--accent-really-dark) !important;
+    color: var(--foreground) !important;
+    border-radius: 0.5rem;
+    padding: 1rem !important;
 }
 
 .hljs-keyword,
@@ -138,7 +138,7 @@ img {
 .hljs-doctag,
 .hljs-name,
 .hljs-strong {
-  color: var(--accent) !important;
+    color: var(--accent) !important;
 }
 
 .hljs-string,
@@ -148,43 +148,43 @@ img {
 .hljs-symbol,
 .hljs-bullet,
 .hljs-addition {
-  color: var(--accent-medium) !important;
+    color: var(--accent-medium) !important;
 }
 
 .hljs-comment,
 .hljs-quote,
 .hljs-meta {
-  color: var(--foreground);
-  opacity: 0.6;
+    color: var(--foreground);
+    opacity: 0.6;
 }
 
 /* Custom Link Component Styles */
 .custom-link {
-  position: relative;
-  text-decoration: underline;
-  text-decoration-thickness: 1px;
-  text-underline-offset: 5px;
-  text-decoration-color: var(--accent-medium);
-  transition: all 0.3s ease-in-out;
-  color: inherit;
-  cursor: pointer;
+    position: relative;
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 5px;
+    text-decoration-color: var(--accent-medium);
+    transition: all 0.3s ease-in-out;
+    color: inherit;
+    cursor: pointer;
 }
 
 .custom-link:hover {
-  text-underline-offset: 3px;
-  text-decoration-color: var(--accent);
+    text-underline-offset: 3px;
+    text-decoration-color: var(--accent);
 }
 
 .custom-link-disabled {
-  text-decoration-color: rgba(120, 120, 120, 0.5);
-  opacity: 0.7;
-  cursor: not-allowed;
-  pointer-events: none;
+    text-decoration-color: rgba(120, 120, 120, 0.5);
+    opacity: 0.7;
+    cursor: not-allowed;
+    pointer-events: none;
 }
 
 .custom-link-disabled:hover {
-  text-decoration-color: rgba(120, 120, 120, 0.5);
-  text-underline-offset: 5px;
+    text-decoration-color: rgba(120, 120, 120, 0.5);
+    text-underline-offset: 5px;
 }
 
 /* Brutalist Form Inputs */
@@ -195,13 +195,13 @@ input[type="url"],
 input[type="number"],
 textarea,
 select {
-  background: var(--background) !important;
-  border: 4px solid white !important;
-  font-weight: bold !important;
-  font-family: inherit !important;
-  outline: none !important;
-  box-shadow: none !important;
-  transition: all 0.2s ease !important;
+    background: var(--background) !important;
+    border: 4px solid white !important;
+    font-weight: bold !important;
+    font-family: inherit !important;
+    outline: none !important;
+    box-shadow: none !important;
+    transition: all 0.2s ease !important;
 }
 
 input[type="text"]:focus,
@@ -211,10 +211,10 @@ input[type="url"]:focus,
 input[type="number"]:focus,
 textarea:focus,
 select:focus {
-  border-color: white !important;
-  background: var(--background) !important;
-  box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.2) !important;
-  outline: none !important;
+    border-color: white !important;
+    background: var(--background) !important;
+    box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.2) !important;
+    outline: none !important;
 }
 
 input[type="text"]::placeholder,
@@ -223,76 +223,76 @@ input[type="password"]::placeholder,
 input[type="url"]::placeholder,
 input[type="number"]::placeholder,
 textarea::placeholder {
-  color: #666 !important;
-  font-weight: bold !important;
-  opacity: 1 !important;
+    color: #666 !important;
+    font-weight: bold !important;
+    opacity: 1 !important;
 }
 
 /* Brutalist Checkboxes */
 input[type="checkbox"] {
-  appearance: none !important;
-  -webkit-appearance: none !important;
-  width: 20px !important;
-  height: 20px !important;
-  border: 3px solid white !important;
-  background: var(--background) !important;
-  cursor: pointer;
-  position: relative !important;
-  margin: 0 !important;
+    appearance: none !important;
+    -webkit-appearance: none !important;
+    width: 20px !important;
+    height: 20px !important;
+    border: 3px solid white !important;
+    background: var(--background) !important;
+    cursor: pointer;
+    position: relative !important;
+    margin: 0 !important;
 }
 
 input[type="checkbox"]:checked {
-  background: white !important;
+    background: white !important;
 }
 
 input[type="checkbox"]:checked::after {
-  content: "/" !important;
-  position: absolute !important;
-  top: 50% !important;
-  left: 50% !important;
-  transform: translate(-50%, -50%) !important;
-  color: var(--background) !important;
-  font-weight: bold !important;
-  font-size: 14px !important;
-  line-height: 1 !important;
+    content: "/" !important;
+    position: absolute !important;
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%) !important;
+    color: var(--background) !important;
+    font-weight: bold !important;
+    font-size: 14px !important;
+    line-height: 1 !important;
 }
 
 input[type="checkbox"]:focus {
-  outline: none !important;
-  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.3) !important;
+    outline: none !important;
+    box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.3) !important;
 }
 
 /* Radio buttons */
 input[type="radio"] {
-  appearance: none !important;
-  -webkit-appearance: none !important;
-  width: 20px !important;
-  height: 20px !important;
-  border: 3px solid white !important;
-  border-radius: 50% !important;
-  background: var(--background) !important;
-  cursor: pointer !important;
-  position: relative !important;
-  margin: 0 !important;
+    appearance: none !important;
+    -webkit-appearance: none !important;
+    width: 20px !important;
+    height: 20px !important;
+    border: 3px solid white !important;
+    border-radius: 50% !important;
+    background: var(--background) !important;
+    cursor: pointer !important;
+    position: relative !important;
+    margin: 0 !important;
 }
 
 input[type="radio"]:checked {
-  background: white !important;
+    background: white !important;
 }
 
 input[type="radio"]:checked::after {
-  content: "" !important;
-  position: absolute !important;
-  top: 50% !important;
-  left: 50% !important;
-  transform: translate(-50%, -50%) !important;
-  width: 8px !important;
-  height: 8px !important;
-  border-radius: 50% !important;
-  background: var(--background) !important;
+    content: "" !important;
+    position: absolute !important;
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%) !important;
+    width: 8px !important;
+    height: 8px !important;
+    border-radius: 50% !important;
+    background: var(--background) !important;
 }
 
 input[type="radio"]:focus {
-  outline: none !important;
-  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.3) !important;
+    outline: none !important;
+    box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.3) !important;
 }

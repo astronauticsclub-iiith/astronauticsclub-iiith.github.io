@@ -1,44 +1,44 @@
 services:
-  nextjs-dev:
-    build:
-      context: .
-      dockerfile: Dockerfile.dev
-    container_name: astronautics-nextjs-dev
-    restart: unless-stopped
-    env_file:
-      - .env.local
-    volumes:
-      - .:/app
-      - /app/node_modules
-      - uploads_data:/app/public/uploads
-      - logs_data:/app/logs
-    ports:
-      - "3000:3000"
-    command: npm run dev
-    networks:
-      - astronautics-network
+    nextjs-dev:
+        build:
+            context: .
+            dockerfile: Dockerfile.dev
+        container_name: astronautics-nextjs-dev
+        restart: unless-stopped
+        env_file:
+            - .env.local
+        volumes:
+            - .:/app
+            - /app/node_modules
+            - uploads_data:/app/public/uploads
+            - logs_data:/app/logs
+        ports:
+            - "3000:3000"
+        command: npm run dev
+        networks:
+            - astronautics-network
 
-  nginx-dev:
-    image: nginx:alpine
-    container_name: astronautics-nginx-dev
-    restart: unless-stopped
-    ports:
-      - "80:80"
-    volumes:
-      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
-      - ./nginx/conf.d/default.dev.conf:/etc/nginx/conf.d/default.conf
-      - uploads_data:/usr/share/nginx/html/uploads
-    depends_on:
-      - nextjs-dev
-    networks:
-      - astronautics-network
+    nginx-dev:
+        image: nginx:alpine
+        container_name: astronautics-nginx-dev
+        restart: unless-stopped
+        ports:
+            - "80:80"
+        volumes:
+            - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+            - ./nginx/conf.d/default.dev.conf:/etc/nginx/conf.d/default.conf
+            - uploads_data:/usr/share/nginx/html/uploads
+        depends_on:
+            - nextjs-dev
+        networks:
+            - astronautics-network
 
 volumes:
-  uploads_data:
-    driver: local
-  logs_data:
-    driver: local
+    uploads_data:
+        driver: local
+    logs_data:
+        driver: local
 
 networks:
-  astronautics-network:
-    driver: bridge
+    astronautics-network:
+        driver: bridge
