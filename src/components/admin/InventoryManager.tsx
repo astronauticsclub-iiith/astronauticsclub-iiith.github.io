@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useMemo } from "react";
 import { motion } from "framer-motion";
 import { Plus, CalendarDays } from "lucide-react";
 import { Inventory, validCategoryTypes, validStatusTypes } from "@/types/inventory-item";
@@ -37,10 +37,49 @@ export default function InventoryManager({
 
     // Filter and Sort states
     const [filterCategory, setFilterCategory] = useState<string>("all");
-    const [filterStatus, setFilterStatus] = useState<string>("all");
+    const [filterCondition, setFilterCondition] = useState<string>("all");
     const [filterIsLent, setFilterIsLent] = useState<string>("all");
     const [sortBy, setSortBy] = useState<string>("name");
     const [sortOrder, setSortOrder] = useState<"asc" | "desc">("asc");
+
+    // Memoized filtering and sorting function
+    const getFilteredAndSortedInventory = useMemo(() => {
+        return () => {
+            let filtered = [...inventory];
+
+            // Apply category filter
+            if (filterCategory !== "all") {
+                filtered = filtered.filter(item => item.category === filterCategory);
+            }
+
+            // Apply condition filter
+            if (filterCondition !== "all") {
+                filtered = filtered.filter(item => item.status === filterCondition);
+            }
+
+            // Apply isLent filter
+            if (filterIsLent === "lent") {
+                filtered = filtered.filter(item => item.isLent === true);
+            } else if (filterIsLent === "available") {
+                filtered = filtered.filter(item => item.isLent === false);
+            }
+
+            // Apply sorting
+            filtered.sort((a, b) => {
+                let compareValue = 0;
+
+                if (sortBy === "name") {
+                    compareValue = a.name.localeCompare(b.name);
+                } else if (sortBy === "year") {
+                    compareValue = a.year_of_purchase - b.year_of_purchase;
+                }
+
+                return sortOrder === "asc" ? compareValue : -compareValue;
+            });
+
+            return filtered;
+        };
+    }, [inventory, filterCategory, filterCondition, filterIsLent, sortBy, sortOrder]);
 
     const fetchInventory = useCallback(async () => {
         setInventoryLoading(true);
@@ -323,7 +362,7 @@ export default function InventoryManager({
             >
                 <h2 className="text-lg sm:text-xl lg:text-2xl font-bold mb-4 sm:mb-6 text-white uppercase flex items-center gap-2">
                     <CalendarDays size={18} className="sm:w-6 sm:h-6" />
-                    INVENTORY LIST ({getFilteredAndSortedInventory().length} of {inventory.length})
+                    INVENTORY LIST ({inventory.length})
                 </h2>
 
                 {/* Filter and Sort Controls */}
@@ -353,8 +392,8 @@ export default function InventoryManager({
                                 Filter by Condition
                             </label>
                             <select
-                                value={filterStatus}
-                                onChange={(e) => setFilterStatus(e.target.value)}
+                                value={filterCondition}
+                                onChange={(e) => setFilterCondition(e.target.value)}
                                 className="w-full bg-background border-2 border-white p-2 sm:p-3 text-white font-medium text-sm uppercase transition-all duration-200 focus:scale-[1.02] hover:border-opacity-80 focus:ring-2 focus:ring-white focus:border-white"
                             >
                                 <option value="all">ALL CONDITIONS</option>
@@ -434,6 +473,12 @@ export default function InventoryManager({
                 <div className="text-center py-8">
                     <p className="text-white font-bold uppercase">
                         No inventory items found
+                    </p>
+                </div>
+            ) : getFilteredAndSortedInventory().length === 0 ? (
+                <div className="text-center py-8">
+                    <p className="text-white font-bold uppercase">
+                        No items match your filters
                     </p>
                 </div>
             ) : (
