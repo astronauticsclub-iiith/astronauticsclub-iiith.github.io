@@ -173,13 +173,12 @@ export async function PUT(
     }
 
     // Log the action
-    Logger.logWriteOperation(
-      `Update user: ${user.email}`,
-      adminUser.email!,
-      "user",
-      user._id.toString(),
-      { email: user.email, updatedFields: updateData }
-    );
+    Logger.info("Update user", {
+      source: "admin/users",
+      userEmail: adminUser.email!,
+      action: "update_user",
+      details: { email: user.email, updatedFields: updateData }
+    });
 
     return NextResponse.json(user);
   } catch (error) {
@@ -233,13 +232,12 @@ export async function DELETE(
     fs.writeFileSync(jsonPath, JSON.stringify(jsonData, null, 2));
 
     // Log the action
-    Logger.logWriteOperation(
-      `Delete user: ${user.email}`,
-      adminUser.email!,
-      "user",
-      user._id.toString(),
-      { email: user.email }
-    );
+    Logger.info("Delete user", {
+      source: "admin/users",
+      userEmail: adminUser.email!,
+      action: "delete_user",
+      details: { email: user.email }
+    });
 
     return NextResponse.json({ message: "User deleted successfully" });
   } catch (error) {

@@ -145,7 +145,7 @@ export async function POST(request: NextRequest) {
     await fs.writeFile(filePath, buffer);
 
     // Log the action
-    Logger.info(`Uploaded image '${filename}' to ${category} category (Size: ${file.size} bytes)`, {
+    Logger.info("Upload image", {
       source: "admin/gallery",
       userEmail: user?.email || undefined,
       action: "upload_image",
@@ -255,7 +255,7 @@ export async function PUT(request: NextRequest) {
     await fs.rename(oldPath, newPath);
 
     // Log the action
-    Logger.info(`Updated image: renamed '${currentFilename}' to '${targetFilename}' and moved from ${currentCategory} to ${targetCategory} category`, {
+    Logger.info("Update image", {
       source: "admin/gallery",
       userEmail: user?.email || undefined,
       action: "update_image",
@@ -341,7 +341,7 @@ export async function DELETE(request: NextRequest) {
     await fs.unlink(filePath);
 
     // Log the action
-    Logger.info(`Deleted image '${filename}' from ${category} category`, {
+    Logger.info("Delete image", {
       source: "admin/gallery",
       userEmail: user?.email || undefined,
       action: "delete_image",

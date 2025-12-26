@@ -160,17 +160,16 @@ export async function PUT(
 
     // Log the action
     const blogRecord = blog as Record<string, unknown>;
-    Logger.logWriteOperation(
-      `Update blog: ${blogRecord.title}`,
-      user.email,
-      "blog",
-      (blogRecord._id as { toString: () => string }).toString(),
-      {
+    Logger.info("Update blog", {
+      source: "admin/blogs",
+      userEmail: user.email,
+      action: "update_blog",
+      details: {
         title: blogRecord.title,
         slug: blogRecord.slug,
         updatedFields: Object.keys(blogData),
       }
-    );
+    });
 
     return NextResponse.json(blogWithAuthor[0]);
   } catch (error) {
@@ -213,13 +212,12 @@ export async function DELETE(
 
     // Log the action
     const existingBlogRecord = existingBlog as Record<string, unknown>;
-    Logger.logWriteOperation(
-      `Delete blog: ${existingBlogRecord.title}`,
-      user.email,
-      "blog",
-      (existingBlogRecord._id as { toString: () => string }).toString(),
-      { title: existingBlogRecord.title, slug: existingBlogRecord.slug }
-    );
+    Logger.info("Delete blog", {
+      source: "admin/blogs",
+      userEmail: user.email,
+      action: "delete_blog",
+      details: { title: existingBlogRecord.title, slug: existingBlogRecord.slug }
+    });
 
     return NextResponse.json({ message: "Blog deleted successfully" });
   } catch (error) {

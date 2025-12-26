@@ -103,7 +103,7 @@ export async function POST(request: NextRequest) {
     console.log("API: Event saved successfully:", newEvent.toObject());
 
     // Log the action
-    Logger.info(`Created event: ${newEvent.title} (ID: ${newEvent.id}, Type: ${newEvent.type}, Date: ${newEvent.date})`, {
+    Logger.info("Create event", {
       source: "admin/events",
       userEmail: user?.email || undefined,
       action: "create_event",
@@ -203,7 +203,7 @@ export async function PUT(request: NextRequest) {
     );
 
     // Log the action
-    Logger.info(`Updated event: ${updatedEvent?.title} (ID: ${id})`, {
+    Logger.info("Update event", {
       source: "admin/events",
       userEmail: user?.email || undefined,
       action: "update_event",
@@ -261,7 +261,7 @@ export async function DELETE(request: NextRequest) {
     await Event.deleteOne({ id });
 
     // Log the action
-    Logger.info(`Deleted event: ${event.title} (ID: ${id}, Type: ${event.type})`, {
+    Logger.info("Delete event", {
       source: "admin/events",
       userEmail: user?.email || undefined,
       action: "delete_event",

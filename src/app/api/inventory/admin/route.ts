@@ -134,7 +134,7 @@ export async function POST(request: NextRequest) {
     console.log("API: Inventory saved successfully:", newInventory.toObject());
 
     // Log the action
-    Logger.info(`Created inventory item: ${newInventory.name} (ID: ${newInventory.id}, Category: ${newInventory.category}, Year: ${newInventory.year_of_purchase})`, {
+    Logger.info("Create inventory item", {
       source: "admin/inventory",
       userEmail: user?.email || undefined,
       action: "add_inventory_item",
@@ -309,7 +309,7 @@ export async function PUT(request: NextRequest) {
     );
 
     // Log the action
-    Logger.info(`Updated inventory item: ${updatedInventory?.name} (ID: ${id})`, {
+    Logger.info("Update inventory item", {
       source: "admin/inventory",
       userEmail: user?.email || undefined,
       action: "update_inventory_item",
@@ -373,7 +373,7 @@ export async function DELETE(request: NextRequest) {
     }
 
     // Log the action
-    Logger.info(`Deleted inventory item: ${inventoryData.name} (ID: ${id}, Category: ${inventoryData.category})`, {
+    Logger.info("Delete inventory item", {
       source: "admin/inventory",
       userEmail: user?.email || undefined,
       action: "delete_inventory",

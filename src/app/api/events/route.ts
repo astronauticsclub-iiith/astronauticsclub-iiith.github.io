@@ -122,13 +122,12 @@ export async function POST(request: NextRequest) {
     await event.save();
 
     // Log the action
-    Logger.logWriteOperation(
-      `Create event: ${event.title} (Date: ${event.date})`,
-      user.email,
-      "event",
-      event._id.toString(),
-      { title: event.title, date: event.date }
-    );
+    Logger.info("Create event", {
+      source: "admin/events",
+      userEmail: user.email,
+      action: "create_event",
+      details: { title: event.title, date: event.date }
+    });
 
     return NextResponse.json(event.toObject(), { status: 201 });
   } catch (error) {

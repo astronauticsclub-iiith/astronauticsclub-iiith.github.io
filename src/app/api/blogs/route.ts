@@ -159,13 +159,12 @@ export async function POST(request: NextRequest) {
     const savedBlog = await populateAuthorDetails([blog.toObject()]);
 
     // Log the action
-    Logger.logWriteOperation(
-      `Create blog: ${blog.title}`,
-      user.email,
-      "blog",
-      blog._id.toString(),
-      { title: blog.title, slug: blog.slug }
-    );
+    Logger.info("Create blog", {
+      source: "admin/blogs",
+      userEmail: user.email,
+      action: "create_blog",
+      details: { title: blog.title, slug: blog.slug }
+    });
 
     return NextResponse.json(savedBlog[0], { status: 201 });
   } catch (error) {

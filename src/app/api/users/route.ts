@@ -61,13 +61,12 @@ export async function POST(request: NextRequest) {
     await user.save();
 
     // Log the action
-    Logger.logWriteOperation(
-      `Create user: ${email} (Role: ${role})`,
-      adminUser.email!,
-      "user",
-      user._id.toString(),
-      { email, role }
-    );
+    Logger.info("Create user", {
+      source: "admin/users",
+      userEmail: adminUser.email!,
+      action: "create_user",
+      details: { email, role }
+    });
 
     return NextResponse.json(user, { status: 201 });
   } catch (error) {
