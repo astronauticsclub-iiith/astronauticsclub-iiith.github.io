@@ -83,9 +83,7 @@ const CloudSeparator: React.FC<CloudSeparatorProps> = ({
   // State to track loaded state for entrance animations
   const [isLoaded, setIsLoaded] = useState(false);
   // State to control separator height (in vh) for responsive cloud band
-  const [separatorHeightVh, setSeparatorHeightVh] = useState<number>(
-    height / 15
-  );
+  const [separatorHeightVh, setSeparatorHeightVh] = useState<number>(height / 15);
   // Reference to the separator container
   const separatorRef = useRef<HTMLDivElement>(null);
 
@@ -189,16 +187,12 @@ const CloudSeparator: React.FC<CloudSeparatorProps> = ({
   return (
     <div
       ref={separatorRef}
-      className={`cloud-separator w-full absolute ${isLoaded ? "loaded" : ""
-        } ${className}`}
+      className={`cloud-separator w-full absolute ${isLoaded ? "loaded" : ""} ${className}`}
       style={{ height: `${separatorHeightVh}` }}
       suppressHydrationWarning
     >
       {/* Cloud container */}
-      <div
-        className="cloud-background-wrap relative z-10 w-full"
-        suppressHydrationWarning
-      >
+      <div className="cloud-background-wrap relative z-10 w-full" suppressHydrationWarning>
         {isClient && clouds}
       </div>
     </div>

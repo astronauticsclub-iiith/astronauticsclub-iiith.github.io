@@ -12,14 +12,10 @@ type ImagePreviewContextType = {
 };
 
 // Create the context with a default value
-const ImagePreviewContext = createContext<ImagePreviewContextType | undefined>(
-  undefined
-);
+const ImagePreviewContext = createContext<ImagePreviewContextType | undefined>(undefined);
 
 // Create a provider component
-export const ImagePreviewProvider: React.FC<{ children: React.ReactNode }> = ({
-  children,
-}) => {
+export const ImagePreviewProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [isPreviewOpen, setIsPreviewOpen] = useState<boolean>(false);
   const [previewImage, setPreviewImage] = useState<{
     src: string;
@@ -62,9 +58,7 @@ export const ImagePreviewProvider: React.FC<{ children: React.ReactNode }> = ({
 export const useImagePreview = (): ImagePreviewContextType => {
   const context = useContext(ImagePreviewContext);
   if (context === undefined) {
-    throw new Error(
-      "useImagePreview must be used within an ImagePreviewProvider"
-    );
+    throw new Error("useImagePreview must be used within an ImagePreviewProvider");
   }
   return context;
 };

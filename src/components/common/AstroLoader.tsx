@@ -21,8 +21,7 @@ const AstroLoader = ({ className = "" }: AstroLoaderProps) => {
 
       return starPositions.map((position) => {
         // Random color for each star in whimsy mode
-        const colorClass =
-          colorClasses[Math.floor(Math.random() * colorClasses.length)];
+        const colorClass = colorClasses[Math.floor(Math.random() * colorClasses.length)];
         // 30% chance for star shape in whimsy mode
         const isStarShaped = Math.random() < 0.3;
 

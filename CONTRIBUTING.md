@@ -6,7 +6,6 @@
 - **MongoDB** database (local or cloud instance like MongoDB Atlas)
 - **Git** for version control
 
-
 ## 🤝 Contributing
 
 We welcome contributions! Here's how you can help:
@@ -21,11 +20,13 @@ We welcome contributions! Here's how you can help:
    git clone <your-fork-url>
    cd astronauticsclub-iiith.github.io
    ```
+
 2. **Do local build**
 
    ```bash
    make build
    ```
+
    Navigate to [http://localhost:3000](http://localhost:3000) to view the website and ensure it's working.
 
 3. **Create a feature branch**
@@ -35,12 +36,13 @@ We welcome contributions! Here's how you can help:
    # or
    git checkout -b your-bug-fix
    ```
-4. **Make your changes**
 
+4. **Make your changes**
    - Write clean, readable code
    - Follow existing code style
    - Add comments for complex logic
    - Update documentation if needed
+
 5. **Test your changes**
 
    ```bash
@@ -48,6 +50,7 @@ We welcome contributions! Here's how you can help:
    npm run build       # Ensure build succeeds
    npm run dev         # Test locally
    ```
+
 6. **Commit your changes**
 
    ```bash
@@ -58,7 +61,6 @@ We welcome contributions! Here's how you can help:
    ```
 
    Use conventional commit messages:
-
    - `feat:` for new features
    - `fix:` for bug fixes
    - `docs:` for documentation
@@ -66,6 +68,7 @@ We welcome contributions! Here's how you can help:
    - `refactor:` for code refactoring
    - `test:` for tests
    - `chore:` for maintenance
+
 7. **Push to your fork**
 
    ```bash
@@ -73,14 +76,13 @@ We welcome contributions! Here's how you can help:
    # or
    git push -u origin your-bug-fix
    ```
-8. **Create a Pull Request**
 
+8. **Create a Pull Request**
    - Go to the original repository on GitHub
    - Click "New Pull Request"
    - Select your branch
    - Fill out the PR template
    - Submit for review
-
 
 Note: CAS is not available in local/dev setup.
 
@@ -218,7 +220,6 @@ astronauticsclub-iiith.github.io/
 └── CONTRIBUTING.md             # This file
 ```
 
-
 ## 🔐 Authentication & Authorization
 
 The application uses **NextAuth.js** for authentication with role-based access control.
@@ -314,7 +315,7 @@ Or manually insert into MongoDB:
   date: string;               // ISO date string
   time?: string;              // Optional time (e.g., "19:00")
   location?: string;
-  type: 'stargazing' | 'starparty' | 'astrophotography' | 
+  type: 'stargazing' | 'starparty' | 'astrophotography' |
         'theory' | 'competition' | 'workshop' | 'project' | 'other';
   image?: string;             // URL to event image
   participants?: number;
@@ -325,7 +326,6 @@ Or manually insert into MongoDB:
   updatedAt: Date;
 }
 ```
-
 
 ## 🔌 API Endpoints
 
@@ -383,7 +383,6 @@ Or manually insert into MongoDB:
 
 - `GET /api/logs` - Get application logs (admin)
 
-
 ## 🎨 Key Components
 
 ### Landing Page Components
@@ -419,7 +418,6 @@ Or manually insert into MongoDB:
 - **CustomConfirm**: Custom confirmation dialog
 - **Separator**: Visual separators (Wave, Cloud)
 
-
 ## 🚢 Deployment
 
 ### Docker Production Deployment
@@ -429,6 +427,7 @@ Or manually insert into MongoDB:
    ```bash
    cd Docker-deployment
    ```
+
 2. **Configure environment**
 
    Create `.env.local` with production values:
@@ -439,6 +438,7 @@ Or manually insert into MongoDB:
    NEXTAUTH_URL=https://your-domain.com/astronautics
    NEXT_PUBLIC_BASE_PATH=/astronautics
    ```
+
 3. **Build and start**
 
    ```bash
@@ -451,6 +451,7 @@ Or manually insert into MongoDB:
    make build
    make start
    ```
+
 4. **View logs**
 
    ```bash
@@ -458,6 +459,7 @@ Or manually insert into MongoDB:
    # or
    make logs
    ```
+
 5. **Stop services**
 
    ```bash
@@ -473,11 +475,13 @@ Or manually insert into MongoDB:
    ```bash
    npm run build
    ```
+
 2. **Start with PM2**
 
    ```bash
    pm2 start ecosystem.config.js
    ```
+
 3. **Manage PM2**
 
    ```bash
@@ -516,15 +520,25 @@ make download-uploads
 # Downloads uploads as ZIP file
 ```
 
-### Code Style Guidelines
+### Code Style & Quality
+
+We use **ESLint** for linting, **Prettier** for code formatting, and **TypeScript** for static type checking.
 
 - **TypeScript**: Use TypeScript for all new code
 - **Components**: Use functional components with hooks
 - **Naming**: Use PascalCase for components, camelCase for functions/variables
 - **Imports**: Group imports (external, internal, relative)
-- **Formatting**: Use Prettier (if configured) or follow existing style
+- **Formatting**: Run `npm run format` to automatically format your code
 - **Comments**: Add JSDoc comments for complex functions
 
+#### Commands
+
+- **Format Code**: `npm run format`
+- **Check Format**: `npm run check-format`
+- **Lint Code**: `npm run lint`
+- **Type Check**: `npm run type-check`
+
+Please ensure all checks pass before submitting a Pull Request.
 
 ### Testing Checklist
 
@@ -554,8 +568,6 @@ Before submitting a PR, ensure:
 - [IIIT Hyderabad](https://www.iiit.ac.in)
 - [Astronautics Club](https://clubs.iiit.ac.in/astronautics)
 
-
-
 ### Docker Development Setup
 
 1. **Navigate to Docker directory**
@@ -563,6 +575,7 @@ Before submitting a PR, ensure:
    ```bash
    cd Docker-deployment
    ```
+
 2. **Create `.env.local` file** (same as above)
 3. **Build and start containers**
 
@@ -576,11 +589,13 @@ Before submitting a PR, ensure:
    make build-dev
    make start-dev
    ```
+
 4. **View logs**
 
    ```bash
    make logs-dev
    ```
+
 5. **Stop containers**
 
    ```bash

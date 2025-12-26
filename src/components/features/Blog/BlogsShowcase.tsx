@@ -63,19 +63,13 @@ const BlogsShowcase = ({ className = "" }: BlogsShowcaseProps) => {
       const newIndex = Math.round(scrollPosition / (cardWidth + gap));
 
       // Update the current index if it's different
-      if (
-        newIndex !== currentIndex &&
-        newIndex >= 0 &&
-        newIndex < blogs.length
-      ) {
+      if (newIndex !== currentIndex && newIndex >= 0 && newIndex < blogs.length) {
         setCurrentIndex(newIndex);
       }
 
       // Update scroll button states
       setCanScrollLeft(container.scrollLeft > 0);
-      setCanScrollRight(
-        container.scrollLeft < container.scrollWidth - container.clientWidth
-      );
+      setCanScrollRight(container.scrollLeft < container.scrollWidth - container.clientWidth);
     };
 
     container.addEventListener("scroll", handleScroll);
@@ -100,9 +94,7 @@ const BlogsShowcase = ({ className = "" }: BlogsShowcaseProps) => {
     // Update button states
     setTimeout(() => {
       setCanScrollLeft(container.scrollLeft > 0);
-      setCanScrollRight(
-        container.scrollLeft < container.scrollWidth - container.clientWidth
-      );
+      setCanScrollRight(container.scrollLeft < container.scrollWidth - container.clientWidth);
     }, 300);
   };
 
@@ -225,9 +217,7 @@ const BlogsShowcase = ({ className = "" }: BlogsShowcaseProps) => {
                   ref={telescopeRef}
                   onLoad={() => setTelescopeLoaded(true)}
                   style={{
-                    transform: whimsyMode
-                      ? `rotate(${telescopeRotation}deg)`
-                      : "none",
+                    transform: whimsyMode ? `rotate(${telescopeRotation}deg)` : "none",
                     transition: whimsyMode ? "transform 0.2s ease-out" : "none",
                   }}
                 />
@@ -334,9 +324,7 @@ const BlogsShowcase = ({ className = "" }: BlogsShowcaseProps) => {
               <button
                 key={index}
                 onClick={() => {
-                  const container = document.getElementById(
-                    "blogs-showcase-container"
-                  );
+                  const container = document.getElementById("blogs-showcase-container");
                   if (container) {
                     const cardWidth = 320;
                     const scrollAmount = index * (cardWidth + 24);

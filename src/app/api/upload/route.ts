@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import fs from "fs";
 import path from "path";
 import { writeFile, mkdir } from "fs/promises";
-import { requireWriter } from '@/lib/auth';
+import { requireWriter } from "@/lib/auth";
 
 // Function to generate a unique filename
 const generateUniqueFilename = (originalFilename: string): string => {
@@ -20,8 +20,7 @@ const generateUniqueFilename = (originalFilename: string): string => {
 // Load environment variables
 const MAX_FILE_SIZE = parseInt(process.env.MAX_FILE_SIZE || "10485760", 10); // Default 10MB
 const ALLOWED_FILE_TYPES = (
-  process.env.ALLOWED_FILE_TYPES ||
-  "image/jpeg,image/png,image/gif,application/pdf,application/jpg"
+  process.env.ALLOWED_FILE_TYPES || "image/jpeg,image/png,image/gif,application/pdf,application/jpg"
 ).split(",");
 const FILE_DIRECTORY = process.env.FILE_DIRECTORY || path.join(process.cwd(), "public/uploads");
 
@@ -66,9 +65,7 @@ export async function GET(request: NextRequest) {
     // Otherwise, list all files in the uploads directory
     const files = fs
       .readdirSync(FILE_DIRECTORY)
-      .filter(
-        (file) => !fs.statSync(path.join(FILE_DIRECTORY, file)).isDirectory()
-      )
+      .filter((file) => !fs.statSync(path.join(FILE_DIRECTORY, file)).isDirectory())
       .map((filename) => {
         const stats = fs.statSync(path.join(FILE_DIRECTORY, filename));
         return {
@@ -112,9 +109,7 @@ export async function POST(request: NextRequest) {
     if (file.size > MAX_FILE_SIZE) {
       return NextResponse.json(
         {
-          error: `File too large. Maximum size is ${
-            MAX_FILE_SIZE / 1024 / 1024
-          }MB`,
+          error: `File too large. Maximum size is ${MAX_FILE_SIZE / 1024 / 1024}MB`,
         },
         { status: 400 }
       );
@@ -124,9 +119,7 @@ export async function POST(request: NextRequest) {
     if (!ALLOWED_FILE_TYPES.includes(file.type)) {
       return NextResponse.json(
         {
-          error: `File type not allowed. Allowed types: ${ALLOWED_FILE_TYPES.join(
-            ", "
-          )}`,
+          error: `File type not allowed. Allowed types: ${ALLOWED_FILE_TYPES.join(", ")}`,
         },
         { status: 400 }
       );
@@ -182,7 +175,7 @@ export async function DELETE(request: NextRequest) {
 
       // Delete the file
       fs.unlinkSync(filePath);
-      return NextResponse.json({success: true}, {status: 201 });
+      return NextResponse.json({ success: true }, { status: 201 });
     }
   } catch (error) {
     console.error("Error deleting image:", error);

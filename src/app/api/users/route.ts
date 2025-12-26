@@ -14,10 +14,7 @@ export async function GET() {
     return NextResponse.json(users);
   } catch (error) {
     console.error("Error fetching users:", error);
-    return NextResponse.json(
-      { error: "Failed to fetch users" },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: "Failed to fetch users" }, { status: 500 });
   }
 }
 
@@ -30,26 +27,17 @@ export async function POST(request: NextRequest) {
     const { email, name, role } = userData;
 
     if (!email || !role || !name) {
-      return NextResponse.json(
-        { error: "Name, email and role are required" },
-        { status: 400 }
-      );
+      return NextResponse.json({ error: "Name, email and role are required" }, { status: 400 });
     }
 
     if (!["admin", "writer", "none"].includes(role)) {
-      return NextResponse.json(
-        { error: "Invalid role specified" },
-        { status: 400 }
-      );
+      return NextResponse.json({ error: "Invalid role specified" }, { status: 400 });
     }
 
     // Check if user already exists
     const existingUser = await User.findOne({ email });
     if (existingUser) {
-      return NextResponse.json(
-        { error: "User with this email already exists" },
-        { status: 409 }
-      );
+      return NextResponse.json({ error: "User with this email already exists" }, { status: 409 });
     }
 
     const user = new User({
@@ -61,20 +49,14 @@ export async function POST(request: NextRequest) {
     await user.save();
 
     // Log the action
-    Logger.logWriteOperation(
-      "CREATE_USER",
-      adminUser.email!,
-      "user",
-      user._id.toString(),
-      { email, role }
-    );
+    Logger.logWriteOperation("CREATE_USER", adminUser.email!, "user", user._id.toString(), {
+      email,
+      role,
+    });
 
     return NextResponse.json(user, { status: 201 });
   } catch (error) {
     console.error("Error creating user:", error);
-    return NextResponse.json(
-      { error: "Failed to create user" },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: "Failed to create user" }, { status: 500 });
   }
 }

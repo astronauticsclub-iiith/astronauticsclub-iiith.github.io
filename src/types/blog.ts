@@ -1,7 +1,7 @@
 export interface Blog {
   _id?: string;
   id: string;
-  title: string; 
+  title: string;
   slug: string;
   excerpt: string;
   content: string;
@@ -26,7 +26,7 @@ export interface Blog {
 export interface BlogFilters {
   search: string;
   tags: string[];
-  sortBy: 'latest' | 'oldest' | 'popular' | 'most-liked';
+  sortBy: "latest" | "oldest" | "popular" | "most-liked";
 }
 
 export interface BlogStats {

@@ -16,8 +16,8 @@ const faqData: FAQItem[] = [
     question: "History behind the club",
     answer: (
       <div>
-        The idea of starting an Astronomy club struck one of the founders on
-        Himalaya block terrace where{" "}
+        The idea of starting an Astronomy club struck one of the founders on Himalaya block terrace
+        where{" "}
         <a
           className="custom-link"
           href="https://sites.google.com/view/praveen-paruchuri/"
@@ -26,8 +26,8 @@ const faqData: FAQItem[] = [
         >
           Prof. Praveen Paruchuri
         </a>{" "}
-        had invited everyone to witness the &quot;Super Blue Blood Moon&quot; -
-        the lunar eclipse on 31st January 2018. Six freshmen:{" "}
+        had invited everyone to witness the &quot;Super Blue Blood Moon&quot; - the lunar eclipse on
+        31st January 2018. Six freshmen:{" "}
         <a
           className="custom-link"
           href="https://www.linkedin.com/in/yash~chaurasia/"
@@ -90,8 +90,8 @@ const faqData: FAQItem[] = [
         >
           Prof. Subhadip Mitra
         </a>{" "}
-        for support/mentorship. His reply? He was waiting for someone in the
-        college to take interest in this field. <br />
+        for support/mentorship. His reply? He was waiting for someone in the college to take
+        interest in this field. <br />
         <br />
         With a lot of efforts and support from{" "}
         <a
@@ -102,10 +102,11 @@ const faqData: FAQItem[] = [
         >
           Prof. Radhika Mamidi
         </a>
-        , then the SLC chair, an 8 inch Dobosonian reflector telescope was
-        procured in our first year. We formally started our Club by holding a total lunar eclipse viewing session on 27<sup>th</sup> July 2018 – the start of the new academic year and our club as well!
-        Further equipments like binoculars, different eyepieces, tripods etc. were procured in the following year
-        enhancing observational capabilities. A special mention goes to{" "}
+        , then the SLC chair, an 8 inch Dobosonian reflector telescope was procured in our first
+        year. We formally started our Club by holding a total lunar eclipse viewing session on 27
+        <sup>th</sup> July 2018 – the start of the new academic year and our club as well! Further
+        equipments like binoculars, different eyepieces, tripods etc. were procured in the following
+        year enhancing observational capabilities. A special mention goes to{" "}
         <a
           className="custom-link"
           href="https://www.linkedin.com/in/ansh-puvvada-9071a2191/"
@@ -123,15 +124,14 @@ const faqData: FAQItem[] = [
         >
           Shreyas Badami
         </a>
-        , who were critical in managing the club in the following years, despite
-        the halt in the club&apos;s expansion due to COVID-19. <br />
+        , who were critical in managing the club in the following years, despite the halt in the
+        club&apos;s expansion due to COVID-19. <br />
         <br />
-        The club expanded its focus to include SpaceTech, leading to notable
-        achievements in 2021 and 2024, when our teams reached the World Finals
-        of the prestigious CanSat Competition—a miniature satellite design
-        competition organized by the American Astronautical Society and NASA. In
-        July 2024, the club was officially renamed as <i>Astronautics Club</i>,
-        reflecting our expanded vision and aspirations.
+        The club expanded its focus to include SpaceTech, leading to notable achievements in 2021
+        and 2024, when our teams reached the World Finals of the prestigious CanSat Competition—a
+        miniature satellite design competition organized by the American Astronautical Society and
+        NASA. In July 2024, the club was officially renamed as <i>Astronautics Club</i>, reflecting
+        our expanded vision and aspirations.
       </div>
     ),
   },
@@ -146,8 +146,8 @@ const faqData: FAQItem[] = [
     question: "What kind of activities does the club organize?",
     answer: (
       <div>
-        We organize a mix of Astronomy and Aeronautics themed events. Some of
-        our regular activities include:
+        We organize a mix of Astronomy and Aeronautics themed events. Some of our regular activities
+        include:
         <ul className="list-disc list-inside pl-4 mt-2 text-white/80">
           <li>Stargazing sessions</li>
           <li>Starparty trips at the city outskirts</li>
@@ -165,8 +165,8 @@ const faqData: FAQItem[] = [
     question: "How can I stay updated about club events?",
     answer: (
       <div>
-        We maintain an active presence on social media, making it easy to stay
-        connected with us. For instant updates, join our{" "}
+        We maintain an active presence on social media, making it easy to stay connected with us.
+        For instant updates, join our{" "}
         <a
           className="custom-link"
           href="https://chat.whatsapp.com/DlOZnHdUTRO3PGmfrahozG"
@@ -186,8 +186,8 @@ const faqData: FAQItem[] = [
         >
           LinkedIn
         </a>
-        , we run a monthly Space Stories series, covering the latest developments
-        in Space Science and Technology.
+        , we run a monthly Space Stories series, covering the latest developments in Space Science
+        and Technology.
         <br />
         🌌 On{" "}
         <a
@@ -198,8 +198,8 @@ const faqData: FAQItem[] = [
         >
           Instagram
         </a>
-        , dive into fun trivia quizzes and look at breathtaking astrophotography
-        captures from our community.
+        , dive into fun trivia quizzes and look at breathtaking astrophotography captures from our
+        community.
       </div>
     ),
   },
@@ -215,13 +215,16 @@ const faqData: FAQItem[] = [
       "I'm interested in learning about Astronomy and Astrophysics. Where do I start learning from?",
     answer: (
       <div>
-        A good beginning point is the <b>Cosmic Distance Ladder</b> which is about how various lengths like Earth&apos;s radius, distances between Earth and sun, alpha-centuri etc. were measured. 
-        We wrote an article for the same{" "}
-        <a className="custom-link"
+        A good beginning point is the <b>Cosmic Distance Ladder</b> which is about how various
+        lengths like Earth&apos;s radius, distances between Earth and sun, alpha-centuri etc. were
+        measured. We wrote an article for the same{" "}
+        <a
+          className="custom-link"
           href="https://clubs.iiit.ac.in/astronautics/blogs/cosmic-distance-ladder"
           target="_blank"
-          rel="noopener noreferrer">
-        here.
+          rel="noopener noreferrer"
+        >
+          here.
         </a>
       </div>
     ),
@@ -265,8 +268,8 @@ export default function FAQSection() {
             transition={{ delay: 0.6, duration: 0.6 }}
           ></motion.div>
           <p className="mt-6 text-lg text-white/80 max-w-3xl mx-auto">
-            Curious about our past, what kind of events do we organize and how
-            you can join Astronautics Club? Find all your answers here!
+            Curious about our past, what kind of events do we organize and how you can join
+            Astronautics Club? Find all your answers here!
           </p>
         </motion.div>
 
@@ -291,9 +294,7 @@ export default function FAQSection() {
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
               >
-                <span className="text-xl font-semibold text-white">
-                  {item.question}
-                </span>
+                <span className="text-xl font-semibold text-white">{item.question}</span>
                 <motion.div
                   animate={{
                     rotate: openItem === item.id ? 180 : 0,
@@ -323,11 +324,7 @@ export default function FAQSection() {
                     }}
                   >
                     <div className="p-6 pt-0 text-white/80">
-                      {typeof item.answer === "string" ? (
-                        <p>{item.answer}</p>
-                      ) : (
-                        item.answer
-                      )}
+                      {typeof item.answer === "string" ? <p>{item.answer}</p> : item.answer}
                     </div>
                   </motion.div>
                 )}

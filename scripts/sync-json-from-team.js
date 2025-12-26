@@ -72,10 +72,7 @@ export async function syncJsonFromTeam() {
     console.log(`✅ Found ${allUsers.length} users in the database.`);
 
     // 3. Read the JSON file
-    const jsonPath = path.join(
-      "/var/data/astronautics",
-      "constellation.json"
-    );
+    const jsonPath = path.join("/var/data/astronautics", "constellation.json");
     const jsonData = JSON.parse(fs.readFileSync(jsonPath, "utf-8"));
     console.log("✅ Successfully read constellation.json");
 
@@ -114,13 +111,13 @@ export async function syncJsonFromTeam() {
             star.photo = dbAvatarFile;
             updated = true;
           }
-          
-          if(updated) {
+
+          if (updated) {
             console.log(`  - Updated: ${dbUser.name} (${email}) in JSON.`);
             updatedEntries++;
           }
-        } 
-        
+        }
+
         // Remove the userdata if no matching email
         else {
           keysToRemove.forEach((key) => {

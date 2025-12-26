@@ -110,10 +110,7 @@ export default function CustomAlert({
                 }}
                 className="flex-shrink-0"
               >
-                <styles.icon
-                  size={20}
-                  className={`${styles.text} sm:w-6 sm:h-6`}
-                />
+                <styles.icon size={20} className={`${styles.text} sm:w-6 sm:h-6`} />
               </motion.div>
               <motion.div
                 initial={{ opacity: 0, y: 10 }}

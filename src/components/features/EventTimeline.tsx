@@ -75,10 +75,7 @@ const formatDate = (dateString: string) => {
   };
 };
 
-const EventTimelineItem: React.FC<{ event: Event; index: number }> = ({
-  event,
-  index,
-}) => {
+const EventTimelineItem: React.FC<{ event: Event; index: number }> = ({ event, index }) => {
   const { openPreview } = useImagePreview();
   const formattedDate = formatDate(event.date);
   const typeColor = getEventTypeColor(event.type);
@@ -88,9 +85,7 @@ const EventTimelineItem: React.FC<{ event: Event; index: number }> = ({
       initial={{ opacity: 0, x: -50 }}
       animate={{ opacity: 1, x: 0 }}
       transition={{ delay: 0.1 * index, duration: 0.6 }}
-      className={`relative flex ${
-        index % 2 === 0 ? "md:justify-end" : "md:justify-start"
-      }`}
+      className={`relative flex ${index % 2 === 0 ? "md:justify-end" : "md:justify-start"}`}
     >
       {/* Timeline connector line - Mobile: left side, Desktop: center */}
       <div className="absolute left-6 sm:left-7 md:left-1/2 top-0 w-0.5 sm:w-1 h-full bg-white transform md:-translate-x-1/2 z-0"></div>
@@ -115,9 +110,7 @@ const EventTimelineItem: React.FC<{ event: Event; index: number }> = ({
             typeColor.split(" ")[0]
           } bg-background border-3 md:border-4 p-5 md:p-7 text-center shadow-[8px_8px_0px_0px_rgba(128,128,128,0.7)] min-w-[120px] md:min-w-[140px] transform hover:scale-105 transition-transform duration-200`}
         >
-          <div className="text-3xl md:text-4xl font-black text-white mb-1">
-            {formattedDate.day}
-          </div>
+          <div className="text-3xl md:text-4xl font-black text-white mb-1">{formattedDate.day}</div>
           <div className="text-base md:text-lg font-bold text-white uppercase tracking-wider">
             {formattedDate.month}
           </div>
@@ -165,10 +158,7 @@ const EventTimelineItem: React.FC<{ event: Event; index: number }> = ({
                 priority={index < 3} // this will load first 3 images immediately
                 sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
                 className="transition-transform duration-300 hover:scale-105 cursor-pointer object-cover"
-                onClick={() =>
-                  event.image &&
-                  openPreview(withUploadPath(event.image), event.title)
-                }
+                onClick={() => event.image && openPreview(withUploadPath(event.image), event.title)}
               />
             </div>
           )}
@@ -198,10 +188,10 @@ const EventTimelineItem: React.FC<{ event: Event; index: number }> = ({
                   event.status === "completed"
                     ? "text-green-400 border-green-400 bg-green-400/10"
                     : event.status === "upcoming"
-                    ? "text-blue-400 border-blue-400 bg-blue-400/10"
-                    : event.status === "ongoing"
-                    ? "text-yellow-400 border-yellow-400 bg-yellow-400/10"
-                    : "text-red-400 border-red-400 bg-red-400/10"
+                      ? "text-blue-400 border-blue-400 bg-blue-400/10"
+                      : event.status === "ongoing"
+                        ? "text-yellow-400 border-yellow-400 bg-yellow-400/10"
+                        : "text-red-400 border-red-400 bg-red-400/10"
                 }`}
               >
                 {event.status}
@@ -229,17 +219,13 @@ const EventTimelineItem: React.FC<{ event: Event; index: number }> = ({
               {event.location && (
                 <div className="flex items-start gap-2 text-[#e0e0e0]">
                   <MapPin size={16} className="mt-0.5 flex-shrink-0" />
-                  <span className="font-medium break-words">
-                    {event.location}
-                  </span>
+                  <span className="font-medium break-words">{event.location}</span>
                 </div>
               )}
               {event.participants && event.participants > 0 ? (
                 <div className="flex items-start gap-2 text-[#e0e0e0]">
                   <Users size={16} className="mt-0.5 flex-shrink-0" />
-                  <span className="font-medium">
-                    {event.participants} participants
-                  </span>
+                  <span className="font-medium">{event.participants} participants</span>
                 </div>
               ) : (
                 ""
@@ -289,18 +275,14 @@ const EventTimeline: React.FC<EventTimelineProps> = ({ events }) => {
       >
         <div className="mb-6 sm:mb-8">
           <div className="w-16 h-16 sm:w-18 sm:h-18 md:w-20 md:h-20 border-2 sm:border-3 md:border-4 border-white flex items-center justify-center mx-auto transform rotate-12 shadow-[2px_2px_0px_0px_rgba(128,128,128,0.5)] sm:shadow-[3px_3px_0px_0px_rgba(128,128,128,0.5)] md:shadow-[4px_4px_0px_0px_rgba(128,128,128,0.5)]">
-            <Calendar
-              size={28}
-              className="sm:text-32 md:text-36 text-white -rotate-12"
-            />
+            <Calendar size={28} className="sm:text-32 md:text-36 text-white -rotate-12" />
           </div>
         </div>
         <h3 className="text-2xl sm:text-2xl md:text-3xl font-black mb-3 sm:mb-4 uppercase tracking-wide text-white px-4">
           No Events Found
         </h3>
         <p className="text-[#e0e0e0] max-w-xs sm:max-w-sm md:max-w-md mx-auto font-medium mb-6 sm:mb-8 border-l-2 border-r-2 sm:border-l-3 sm:border-r-3 md:border-l-4 md:border-r-4 border-white px-4 sm:px-5 md:px-6 py-2 text-sm sm:text-base">
-          No events match your current filters. Try adjusting your search
-          criteria.
+          No events match your current filters. Try adjusting your search criteria.
         </p>
       </motion.div>
     );

@@ -14,16 +14,7 @@ export async function GET() {
       return NextResponse.json({ images: [] });
     }
 
-    const imageExtensions = [
-      ".jpg",
-      ".jpeg",
-      ".png",
-      ".webp",
-      ".gif",
-      ".bmp",
-      ".svg",
-      ".avif",
-    ];
+    const imageExtensions = [".jpg", ".jpeg", ".png", ".webp", ".gif", ".bmp", ".svg", ".avif"];
     const categories = ["astrophotography", "events", "others"];
     const allImages = [];
 
@@ -76,9 +67,6 @@ export async function GET() {
     return NextResponse.json({ images: allImages });
   } catch (error) {
     console.error("Error fetching gallery images:", error);
-    return NextResponse.json(
-      { error: "Failed to fetch gallery images" },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: "Failed to fetch gallery images" }, { status: 500 });
   }
 }

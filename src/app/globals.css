@@ -17,13 +17,15 @@
 }
 
 /* For images in the blog */
-.align-center, div[style*="text-align: center"] img {
+.align-center,
+div[style*="text-align: center"] img {
   display: block;
   margin-left: auto;
   margin-right: auto;
 }
 
-.align-right, div[style*="text-align: right"] img {
+.align-right,
+div[style*="text-align: right"] img {
   display: block;
   margin-left: auto;
   margin-right: 0;
@@ -105,21 +107,15 @@ img {
 }
 
 /* Social media icon specific colors */
-.footer-social-media-handles-section
-  a:hover
-  .footer-social-media-icon.whatsapp {
+.footer-social-media-handles-section a:hover .footer-social-media-icon.whatsapp {
   color: #25d366;
 }
 
-.footer-social-media-handles-section
-  a:hover
-  .footer-social-media-icon.linkedin {
+.footer-social-media-handles-section a:hover .footer-social-media-icon.linkedin {
   color: #0274b3;
 }
 
-.footer-social-media-handles-section
-  a:hover
-  .footer-social-media-icon.instagram {
+.footer-social-media-handles-section a:hover .footer-social-media-icon.instagram {
   color: #e1306c;
 }
 

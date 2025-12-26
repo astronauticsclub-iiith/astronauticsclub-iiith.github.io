@@ -4,21 +4,22 @@ The website is hosted at [https://clubs.iiit.ac.in/astronautics](https://clubs.i
 
 We track all issues and feature requests using GitHub Issues. If you have any suggestions, feel free to open issues or submit pull requests.
 
-## 🛠️ *Tech Stack*
+## 🛠️ _Tech Stack_
 
-### *Development*
+### _Development_
+
 - **NextJs** - React framework which allows to write Frontend and Backend together.
 - **TypeScript** - JavaScript with type safety
 - **Tailwind CSS** - CSS framework
 - **MongoDB & Moongose** - For storing data and interfacing with the database
 
-### *Deployment*
+### _Deployment_
+
 - **Nginx** - Reverse proxy and file aliasing
 - **PM2** - Process manager for Node.js applications
 - **Docker** - Containerization
 
 We support both local deployment (PM2) and Docker-based deployment for ease of use. While Docker is not used in the current website hosting setup due to limited server configuration, it is provided for convenience.
-
 
 ## 🌟 Pages
 
@@ -33,6 +34,7 @@ We support both local deployment (PM2) and Docker-based deployment for ease of u
 - **Blogs writer (Internal)**: Markdown-based blog system with syntax highlighting, LaTeX support, and approval workflow.
 
 ## Contribution Guidelines
+
 If you are interested in contributing to this project, please read our [🤝-contributing](CONTRIBUTING.md) for setup guide, details on our codebase, and the process for submitting pull requests.
 
 ## 👥 Contributors

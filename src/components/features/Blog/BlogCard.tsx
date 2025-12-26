@@ -5,7 +5,7 @@ import { Heart, Eye, Calendar, ArrowUpRight, Clock } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { Blog } from "@/types/blog";
-import { withUploadPath } from "../../common/HelperFunction"
+import { withUploadPath } from "../../common/HelperFunction";
 
 interface BlogCardProps {
   blog: Blog;
@@ -14,12 +14,7 @@ interface BlogCardProps {
   className?: string;
 }
 
-const BlogCard = ({
-  blog,
-  index,
-  variant = "default",
-  className = "",
-}: BlogCardProps) => {
+const BlogCard = ({ blog, index, variant = "default", className = "" }: BlogCardProps) => {
   const likes = blog.likes;
 
   const formatDate = (dateString: string) => {
@@ -65,7 +60,7 @@ const BlogCard = ({
                 alt={blog.title}
                 unoptimized
                 loading="lazy"
-                priority={index<4}
+                priority={index < 4}
                 width={320}
                 height={192}
                 className="w-full h-full object-cover"
@@ -87,9 +82,7 @@ const BlogCard = ({
             </h3>
             <div className="h-1 bg-white w-16 mb-4"></div>
 
-            <p className="text-[#e0e0e0] text-sm mb-6 line-clamp-2 font-medium">
-              {blog.excerpt}
-            </p>
+            <p className="text-[#e0e0e0] text-sm mb-6 line-clamp-2 font-medium">{blog.excerpt}</p>
 
             {/* Stats */}
             <div className="flex items-center justify-between text-sm font-medium">
@@ -176,9 +169,7 @@ const BlogCard = ({
             </h2>
             <div className="h-1 bg-white w-24 mb-4"></div>
 
-            <p className="text-[#e0e0e0] mb-6 line-clamp-3 font-medium">
-              {blog.excerpt}
-            </p>
+            <p className="text-[#e0e0e0] mb-6 line-clamp-3 font-medium">{blog.excerpt}</p>
 
             {/* Author & Date */}
             <div className="flex items-center gap-3 mb-4 border-t-2 border-white pt-4">
@@ -202,9 +193,7 @@ const BlogCard = ({
               </div>
 
               <div>
-                <p className="font-bold text-white">
-                  {blog.author.name || "Anonymous"}
-                </p>
+                <p className="font-bold text-white">{blog.author.name || "Anonymous"}</p>
                 <div className="flex items-center gap-1 text-sm text-[#e0e0e0] font-medium">
                   <Calendar size={12} />
                   {formatDate(blog.publishedAt)}

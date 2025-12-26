@@ -19,9 +19,7 @@ const WhimsyMouse = () => {
 
     // Detect if device is mobile
     const checkIfMobile = () => {
-      setIsMobile(
-        window.matchMedia("(hover: none) and (pointer: coarse)").matches
-      );
+      setIsMobile(window.matchMedia("(hover: none) and (pointer: coarse)").matches);
     };
 
     checkIfMobile();
@@ -54,12 +52,10 @@ const WhimsyMouse = () => {
 
       // Check for custom cursor states
       const hasCursorOpen =
-        target.classList.contains("cursor-open") ||
-        !!target.closest(".cursor-open");
+        target.classList.contains("cursor-open") || !!target.closest(".cursor-open");
 
       const hasCursorClose =
-        target.classList.contains("cursor-close") ||
-        !!target.closest(".cursor-close");
+        target.classList.contains("cursor-close") || !!target.closest(".cursor-close");
 
       // Check if target is normal selectable text
       const isText =
@@ -115,23 +111,18 @@ const WhimsyMouse = () => {
     let lastMoveTimestamp = Date.now();
 
     // Create a sparkle element with random properties
-    const createMouseSparkle = (
-      x = mousePositionRef.current.x,
-      y = mousePositionRef.current.y
-    ) => {
+    const createMouseSparkle = (x = mousePositionRef.current.x, y = mousePositionRef.current.y) => {
       if (!whimsyMode) return;
 
       const sparkle = document.createElement("div");
 
       // Random size class
       const sizeClasses = ["tiny", "small", "medium"];
-      const sizeClass =
-        sizeClasses[Math.floor(Math.random() * sizeClasses.length)];
+      const sizeClass = sizeClasses[Math.floor(Math.random() * sizeClasses.length)];
 
       // Random color class
       const colorClasses = ["", "blue", "purple", "gold", "red"];
-      const colorClass =
-        colorClasses[Math.floor(Math.random() * colorClasses.length)];
+      const colorClass = colorClasses[Math.floor(Math.random() * colorClasses.length)];
 
       // Occasionally create a star-shaped sparkle
       const isStarShaped = Math.random() < 0.3; // 30% chance
@@ -186,14 +177,17 @@ const WhimsyMouse = () => {
 
       if (whimsyMode) {
         // Create a new sparkle every 40-90ms when mouse moves
-        mouseSparkleIntervalRef.current = setInterval(() => {
-          // Only create sparkles if the mouse has moved recently
-          const timeSinceLastMove = Date.now() - lastMoveTimestamp;
-          if (timeSinceLastMove < 500) {
-            // If mouse moved in the last 500ms
-            createMouseSparkle();
-          }
-        }, 40 + Math.random() * 50);
+        mouseSparkleIntervalRef.current = setInterval(
+          () => {
+            // Only create sparkles if the mouse has moved recently
+            const timeSinceLastMove = Date.now() - lastMoveTimestamp;
+            if (timeSinceLastMove < 500) {
+              // If mouse moved in the last 500ms
+              createMouseSparkle();
+            }
+          },
+          40 + Math.random() * 50
+        );
       }
     };
 
@@ -281,16 +275,8 @@ const WhimsyMouse = () => {
 
   return (
     <>
-      <div
-        ref={mouseSparkleContainerRef}
-        className="mouse-sparkle-container"
-      ></div>
-      {!isMobile && (
-        <div
-          ref={mouseCursorRef}
-          className={`mouse-cursor-dot ${hoverState}`}
-        ></div>
-      )}
+      <div ref={mouseSparkleContainerRef} className="mouse-sparkle-container"></div>
+      {!isMobile && <div ref={mouseCursorRef} className={`mouse-cursor-dot ${hoverState}`}></div>}
     </>
   );
 };

@@ -35,10 +35,7 @@ const ImagePreview = ({ src, alt, isOpen, onClose }: ImagePreviewProps) => {
 
     const setViewportHeight = () => {
       // Set CSS variables for viewport dimensions
-      document.documentElement.style.setProperty(
-        "--vh",
-        `${window.innerHeight * 0.01}px`
-      );
+      document.documentElement.style.setProperty("--vh", `${window.innerHeight * 0.01}px`);
     };
 
     // Handle body scroll locking

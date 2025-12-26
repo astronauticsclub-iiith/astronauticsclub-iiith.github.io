@@ -39,11 +39,7 @@ const TeamCard: React.FC<{
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (
-        isTouchDevice &&
-        cardRef.current &&
-        !cardRef.current.contains(event.target as Node)
-      ) {
+      if (isTouchDevice && cardRef.current && !cardRef.current.contains(event.target as Node)) {
         setOverlayVisible(false);
       }
     };
@@ -86,9 +82,7 @@ const TeamCard: React.FC<{
 
       {/* Default visible content */}
       <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black via-black/80 to-transparent">
-        <h3 className="text-xl font-bold text-white">
-          {member.name || "Unnamed Member"}
-        </h3>
+        <h3 className="text-xl font-bold text-white">{member.name || "Unnamed Member"}</h3>
         {member.designations && member.designations.length > 0 && (
           <div className="flex flex-wrap gap-2 mt-2">
             {member.designations.map((d) => (

@@ -404,7 +404,9 @@
   width: 220px;
   display: inline-block;
   margin-bottom: 20px;
-  transition: opacity 0.6s ease-in-out, transform 0.3s ease-out;
+  transition:
+    opacity 0.6s ease-in-out,
+    transform 0.3s ease-out;
   will-change: transform, opacity;
 }
 

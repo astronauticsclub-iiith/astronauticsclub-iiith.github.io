@@ -8,10 +8,7 @@ import Image from "next/image";
 import GalleryIcon from "@/components/features/GalleryIcon";
 import "@/components/ui/bg-patterns.css";
 import "./gallery.css";
-import {
-  withBasePath,
-  withUploadPath,
-} from "@/components/common/HelperFunction";
+import { withBasePath, withUploadPath } from "@/components/common/HelperFunction";
 import { GalleryImage } from "@/types/gallery-image";
 
 type FilterType = "all" | "astrophotography" | "events" | "others";
@@ -72,7 +69,7 @@ const Gallery: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [visibleCount, setVisibleCount] = useState(BATCH_SIZE); // Track how many are shown
   const { openPreview } = useImagePreview();
-  
+
   const [columns, setColumns] = useState(1);
 
   useEffect(() => {
@@ -115,9 +112,7 @@ const Gallery: React.FC = () => {
     return () => window.removeEventListener("resize", updateColumns);
   }, []);
 
-  const filteredImages = images.filter(
-    (image) => filter === "all" || image.category === filter
-  );
+  const filteredImages = images.filter((image) => filter === "all" || image.category === filter);
 
   // Get only the currently visible slice to prevent massive requests
   const visibleImages = filteredImages.slice(0, visibleCount);
@@ -177,21 +172,12 @@ const Gallery: React.FC = () => {
             transition={{ delay: 0.2 }}
             className="gallery-filters"
           >
-            {(
-              [
-                "all",
-                "astrophotography",
-                "events",
-                "others",
-              ] as FilterType[]
-            ).map((f) => (
+            {(["all", "astrophotography", "events", "others"] as FilterType[]).map((f) => (
               <motion.button
                 key={f}
                 whileHover={{ scale: 1.05, y: -2 }}
                 whileTap={{ scale: 0.95 }}
-                className={`gallery-filter-btn ${
-                  filter === f ? "active" : ""
-                }`}
+                className={`gallery-filter-btn ${filter === f ? "active" : ""}`}
                 onClick={() => setFilter(f)}
               >
                 {f.charAt(0).toUpperCase() + f.slice(1)}
@@ -209,10 +195,8 @@ const Gallery: React.FC = () => {
         >
           <p className="text-[#e0e0e0] font-medium md:pl-4 py-2 text-center md:text-left">
             Showing{" "}
-            <span className="font-bold accent bg-background px-1">
-              {visibleImages.length}
-            </span>{" "}
-            of {filteredImages.length} {filteredImages.length === 1 ? "image" : "images"}
+            <span className="font-bold accent bg-background px-1">{visibleImages.length}</span> of{" "}
+            {filteredImages.length} {filteredImages.length === 1 ? "image" : "images"}
             {filter !== "all" ? ` in ${filter}` : ""}
           </p>
         </motion.div>
@@ -229,9 +213,7 @@ const Gallery: React.FC = () => {
                 ? "No images found in the gallery."
                 : `No images found in ${filter}.`}
             </p>
-            <p className="gallery-empty-hint">
-              Check back later for more images.
-            </p>
+            <p className="gallery-empty-hint">Check back later for more images.</p>
           </motion.div>
         ) : (
           <>

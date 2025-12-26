@@ -69,8 +69,7 @@ export default function AboutUsSection() {
 
         if (distance < letterRadius) {
           const d = distance / letterRadius;
-          const smootherstep = (t: number) =>
-            1 / Math.exp(-6 * t + 3) - Math.exp(-3);
+          const smootherstep = (t: number) => 1 / Math.exp(-6 * t + 3) - Math.exp(-3);
           const scale = 0.2 * (1 - smootherstep(1 - d));
           const offsetX = dx * scale * 0.1;
           const offsetY = dy * scale * 0.1;
@@ -134,12 +133,11 @@ export default function AboutUsSection() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4, duration: 0.6 }}
           >
-            Who hasn&apos;t been captivated by the serene vastness of the
-            midnight sky, mesmerized by the gentle glow of the moon or awestruck
-            at the sight of a shooting star? The universe beckons with its
-            mysteries and wonders, inviting us to explore and connect with its
-            infinite beauty. If you&apos;ve ever yearned to deepen this
-            connection, look no further into your childhood dream.
+            Who hasn&apos;t been captivated by the serene vastness of the midnight sky, mesmerized
+            by the gentle glow of the moon or awestruck at the sight of a shooting star? The
+            universe beckons with its mysteries and wonders, inviting us to explore and connect with
+            its infinite beauty. If you&apos;ve ever yearned to deepen this connection, look no
+            further into your childhood dream.
           </motion.p>
           <motion.p
             className="about-us-content"
@@ -147,16 +145,14 @@ export default function AboutUsSection() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.6, duration: 0.6 }}
           >
-            Astronautics Club at IIIT Hyderabad is a vibrant student-run
-            community united by our shared passion for space. The word
-            Astronautics is a fusion of Astronomy and Aeronautics, perfectly
-            encapsulating our dual passion for Astronomy and SpaceTech. From
-            captivating stargazing sessions with our telescope to mesmerizing
-            star parties on the serene outskirts of the city, we bring the
-            cosmos closer to you. Our journey doesn&apos;t stop at observation.
-            We work on ambitious projects and have participated in several
-            national and international competitions, gaining invaluable
-            experience and recognition along the way.
+            Astronautics Club at IIIT Hyderabad is a vibrant student-run community united by our
+            shared passion for space. The word Astronautics is a fusion of Astronomy and
+            Aeronautics, perfectly encapsulating our dual passion for Astronomy and SpaceTech. From
+            captivating stargazing sessions with our telescope to mesmerizing star parties on the
+            serene outskirts of the city, we bring the cosmos closer to you. Our journey
+            doesn&apos;t stop at observation. We work on ambitious projects and have participated in
+            several national and international competitions, gaining invaluable experience and
+            recognition along the way.
           </motion.p>
           <motion.p
             className="about-us-content"
@@ -164,9 +160,8 @@ export default function AboutUsSection() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.8, duration: 0.6 }}
           >
-            Whether you are a seasoned stargazer or a curious beginner, we
-            welcome everyone to embark along into the journey of discovery,
-            innovation, and exploration!
+            Whether you are a seasoned stargazer or a curious beginner, we welcome everyone to
+            embark along into the journey of discovery, innovation, and exploration!
           </motion.p>
         </div>
       </motion.section>
@@ -176,12 +171,7 @@ export default function AboutUsSection() {
   // Render container with gravitational lensing for whimsy mode (will be populated by useEffect)
   return (
     <div className="relative">
-      {isDesktop && (
-        <GravitationalLensing
-          mouseX={mousePosition.x}
-          mouseY={mousePosition.y}
-        />
-      )}
+      {isDesktop && <GravitationalLensing mouseX={mousePosition.x} mouseY={mousePosition.y} />}
       <motion.section
         id="aboutUs"
         className="relative club-intro z-50"
@@ -213,12 +203,11 @@ export default function AboutUsSection() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4, duration: 0.6 }}
           >
-            Who hasn&apos;t been captivated by the serene vastness of the
-            midnight sky, mesmerized by the gentle glow of the moon or awestruck
-            at the sight of a shooting star? The universe beckons with its
-            mysteries and wonders, inviting us to explore and connect with its
-            infinite beauty. If you&apos;ve ever yearned to deepen this
-            connection, look no further into your childhood dream.
+            Who hasn&apos;t been captivated by the serene vastness of the midnight sky, mesmerized
+            by the gentle glow of the moon or awestruck at the sight of a shooting star? The
+            universe beckons with its mysteries and wonders, inviting us to explore and connect with
+            its infinite beauty. If you&apos;ve ever yearned to deepen this connection, look no
+            further into your childhood dream.
           </motion.p>
           <motion.p
             className="about-us-content"
@@ -226,16 +215,14 @@ export default function AboutUsSection() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.6, duration: 0.6 }}
           >
-            Astronautics Club at IIIT Hyderabad is a vibrant student-run
-            community united by our shared passion for space. The word
-            Astronautics is a fusion of Astronomy and Aeronautics, perfectly
-            encapsulating our dual passion for Astronomy and SpaceTech. From
-            captivating stargazing sessions with our telescope to mesmerizing
-            star parties on the serene outskirts of the city, we bring the
-            cosmos closer to you. Our journey doesn&apos;t stop at observation.
-            We work on ambitious projects and have participated in several
-            national and international competitions, gaining invaluable
-            experience and recognition along the way.
+            Astronautics Club at IIIT Hyderabad is a vibrant student-run community united by our
+            shared passion for space. The word Astronautics is a fusion of Astronomy and
+            Aeronautics, perfectly encapsulating our dual passion for Astronomy and SpaceTech. From
+            captivating stargazing sessions with our telescope to mesmerizing star parties on the
+            serene outskirts of the city, we bring the cosmos closer to you. Our journey
+            doesn&apos;t stop at observation. We work on ambitious projects and have participated in
+            several national and international competitions, gaining invaluable experience and
+            recognition along the way.
           </motion.p>
           <motion.p
             className="about-us-content"
@@ -243,9 +230,8 @@ export default function AboutUsSection() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.8, duration: 0.6 }}
           >
-            Whether you are a seasoned stargazer or a curious beginner, we
-            welcome everyone to embark along into the journey of discovery,
-            innovation, and exploration!
+            Whether you are a seasoned stargazer or a curious beginner, we welcome everyone to
+            embark along into the journey of discovery, innovation, and exploration!
           </motion.p>
         </div>
       </motion.section>

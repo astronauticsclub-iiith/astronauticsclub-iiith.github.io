@@ -3,17 +3,9 @@
 import React, { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
-import {
-  Edit2,
-  Trash2,
-  Check,
-  X,
-  ChevronDown,
-  Calendar,
-  BadgeInfo,
-} from "lucide-react";
+import { Edit2, Trash2, Check, X, ChevronDown, Calendar, BadgeInfo } from "lucide-react";
 import { Inventory, validCategoryTypes, validStatusTypes } from "@/types/inventory-item";
-import { withUploadPath } from "@/components/common/HelperFunction"
+import { withUploadPath } from "@/components/common/HelperFunction";
 import { useSession } from "next-auth/react";
 import CustomConfirm from "@/components/ui/CustomConfirm";
 
@@ -51,10 +43,7 @@ const AdminInventoryCard: React.FC<AdminInventoryCardProps> = ({
   // Close dropdowns when clicking outside
   useEffect(() => {
     const handleClickOutside = (inventory: MouseEvent) => {
-      if (
-        typeDropdownRef.current &&
-        !typeDropdownRef.current.contains(inventory.target as Node)
-      ) {
+      if (typeDropdownRef.current && !typeDropdownRef.current.contains(inventory.target as Node)) {
         setShowTypeDropdown(false);
       }
       if (
@@ -142,8 +131,7 @@ const AdminInventoryCard: React.FC<AdminInventoryCardProps> = ({
 
       await onEdit(inventory.id, formData);
       onCancelEdit();
-    }
-    catch (error) {
+    } catch (error) {
       console.error("Error updating inventory item:", error);
     } finally {
       setIsSubmitting(false);
@@ -219,9 +207,7 @@ const AdminInventoryCard: React.FC<AdminInventoryCardProps> = ({
           <div className="space-y-3">
             {/* Name */}
             <div>
-              <label className="block text-white text-xs font-bold mb-1 uppercase">
-                Name
-              </label>
+              <label className="block text-white text-xs font-bold mb-1 uppercase">Name</label>
               <input
                 type="text"
                 value={editedInventory.name || ""}
@@ -240,9 +226,7 @@ const AdminInventoryCard: React.FC<AdminInventoryCardProps> = ({
               </label>
               <textarea
                 value={editedInventory.description || ""}
-                onChange={(e) =>
-                  updateEditedInventory("description", e.target.value)
-                }
+                onChange={(e) => updateEditedInventory("description", e.target.value)}
                 className="w-full bg-background border-2 border-white p-2 text-white font-medium text-sm transition-all duration-200 focus:scale-[1.02] focus:ring-2 focus:ring-white resize-none"
                 placeholder="Inventory Item description..."
                 rows={3}
@@ -287,8 +271,7 @@ const AdminInventoryCard: React.FC<AdminInventoryCardProps> = ({
                     </div>
                     <ChevronDown
                       size={16}
-                      className={`transition-transform ${showTypeDropdown ? "rotate-180" : ""
-                        }`}
+                      className={`transition-transform ${showTypeDropdown ? "rotate-180" : ""}`}
                     />
                   </button>
                   <AnimatePresence>
@@ -309,10 +292,11 @@ const AdminInventoryCard: React.FC<AdminInventoryCardProps> = ({
                               setShowTypeDropdown(false);
                             }}
                             disabled={isSubmitting}
-                            className={`w-full flex items-center gap-2 px-3 py-2 text-left font-medium hover:bg-white hover:text-background transition-colors disabled:opacity-50 disabled:cursor-not-allowed ${(editedInventory.category || inventory.category) === category
-                              ? "bg-white text-background"
-                              : "text-white"
-                              }`}
+                            className={`w-full flex items-center gap-2 px-3 py-2 text-left font-medium hover:bg-white hover:text-background transition-colors disabled:opacity-50 disabled:cursor-not-allowed ${
+                              (editedInventory.category || inventory.category) === category
+                                ? "bg-white text-background"
+                                : "text-white"
+                            }`}
                           >
                             <span className="uppercase">{category}</span>
                           </button>
@@ -324,9 +308,7 @@ const AdminInventoryCard: React.FC<AdminInventoryCardProps> = ({
               </div>
 
               <div>
-                <label className="block text-white text-xs font-bold mb-1 uppercase">
-                  Status
-                </label>
+                <label className="block text-white text-xs font-bold mb-1 uppercase">Status</label>
                 <div className="relative" ref={statusDropdownRef}>
                   <button
                     type="button"
@@ -334,13 +316,10 @@ const AdminInventoryCard: React.FC<AdminInventoryCardProps> = ({
                     disabled={isSubmitting}
                     className="w-full flex items-center justify-between gap-2 bg-background border-2 border-white p-2 text-white font-medium text-sm transition-all duration-200 hover:bg-white hover:text-background focus:scale-[1.02] focus:ring-2 focus:ring-white disabled:opacity-50 disabled:cursor-not-allowed"
                   >
-                    <span className="uppercase">
-                      {editedInventory.status || inventory.status}
-                    </span>
+                    <span className="uppercase">{editedInventory.status || inventory.status}</span>
                     <ChevronDown
                       size={16}
-                      className={`transition-transform ${showStatusDropdown ? "rotate-180" : ""
-                        }`}
+                      className={`transition-transform ${showStatusDropdown ? "rotate-180" : ""}`}
                     />
                   </button>
                   <AnimatePresence>
@@ -361,10 +340,11 @@ const AdminInventoryCard: React.FC<AdminInventoryCardProps> = ({
                               setShowStatusDropdown(false);
                             }}
                             disabled={isSubmitting}
-                            className={`w-full flex items-center gap-2 px-3 py-2 text-left font-medium hover:bg-white hover:text-background transition-colors disabled:opacity-50 disabled:cursor-not-allowed ${(editedInventory.status || inventory.status) === status
-                              ? "bg-white text-background"
-                              : "text-white"
-                              }`}
+                            className={`w-full flex items-center gap-2 px-3 py-2 text-left font-medium hover:bg-white hover:text-background transition-colors disabled:opacity-50 disabled:cursor-not-allowed ${
+                              (editedInventory.status || inventory.status) === status
+                                ? "bg-white text-background"
+                                : "text-white"
+                            }`}
                           >
                             <span className="uppercase">{status}</span>
                           </button>
@@ -435,9 +415,7 @@ const AdminInventoryCard: React.FC<AdminInventoryCardProps> = ({
 
             {/* Image Upload */}
             <div>
-              <label className="block text-white text-xs font-bold mb-1 uppercase">
-                Image
-              </label>
+              <label className="block text-white text-xs font-bold mb-1 uppercase">Image</label>
               <input
                 type="file"
                 accept="image/*"
@@ -532,15 +510,13 @@ const AdminInventoryCard: React.FC<AdminInventoryCardProps> = ({
 
               {inventory.borrower && (
                 <div className="text-[#e0e0e0] text-xs sm:text-sm">
-                  <span className="font-bold">Borrower:</span>{" "}
-                  {inventory.borrower}
+                  <span className="font-bold">Borrower:</span> {inventory.borrower}
                 </div>
               )}
 
               {inventory.comments && (
                 <div className="text-[#e0e0e0] text-xs sm:text-sm">
-                  <span className="font-bold">Comments:</span>{" "}
-                  {inventory.comments}
+                  <span className="font-bold">Comments:</span> {inventory.comments}
                 </div>
               )}
 
@@ -558,9 +534,7 @@ const AdminInventoryCard: React.FC<AdminInventoryCardProps> = ({
             </div>
 
             {/* inventory ID */}
-            <div className="text-[#999] text-xs font-mono mb-3">
-              ID: {inventory.id}
-            </div>
+            <div className="text-[#999] text-xs font-mono mb-3">ID: {inventory.id}</div>
 
             {/* Action Buttons */}
             <div className="flex gap-2">
@@ -625,8 +599,7 @@ const AdminInventoryCard: React.FC<AdminInventoryCardProps> = ({
             {session?.user?.name || "Admin"}
           </div>
           <div className="text-sm">
-            <span className="font-bold text-blue-300">Date:</span>{" "}
-            {new Date().toLocaleDateString()}
+            <span className="font-bold text-blue-300">Date:</span> {new Date().toLocaleDateString()}
           </div>
           <div>
             <label className="block text-xs font-bold mb-1 uppercase text-blue-300">

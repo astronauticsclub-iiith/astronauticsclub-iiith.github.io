@@ -4,13 +4,7 @@ import { useEffect, useState } from "react";
 import { useSession, signOut } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
-import {
-  Users,
-  FileText,
-  FolderOpen,
-  CalendarDays,
-  Package,
-} from "lucide-react";
+import { Users, FileText, FolderOpen, CalendarDays, Package } from "lucide-react";
 import ProfileEditor from "@/components/features/ProfileEditor";
 import ProfileInfo from "@/components/features/mod/ProfileInfo";
 import CustomAlert from "@/components/ui/CustomAlert";
@@ -30,9 +24,9 @@ import InventoryManager from "@/components/admin/InventoryManager";
 export default function AdminDashboard() {
   const { data: session, status } = useSession();
   const router = useRouter();
-  const [activeTab, setActiveTab] = useState<
-    "users" | "logs" | "gallery" | "events" | "inventory"
-  >("logs");
+  const [activeTab, setActiveTab] = useState<"users" | "logs" | "gallery" | "events" | "inventory">(
+    "logs"
+  );
 
   const [loading, setLoading] = useState(true);
   const [showProfileEditor, setShowProfileEditor] = useState(false);
@@ -141,10 +135,11 @@ export default function AdminDashboard() {
           <div className="flex flex-col sm:flex-row gap-2 sm:gap-4">
             <button
               onClick={() => setActiveTab("logs")}
-              className={`w-full sm:w-auto px-3 sm:px-4 lg:px-6 py-2 sm:py-3 border-2 border-white font-bold transition-all duration-200 uppercase text-sm sm:text-base hover:scale-105 active:scale-95 ${activeTab === "logs"
-                ? "bg-white text-background"
-                : "text-white hover:bg-white hover:text-background"
-                }`}
+              className={`w-full sm:w-auto px-3 sm:px-4 lg:px-6 py-2 sm:py-3 border-2 border-white font-bold transition-all duration-200 uppercase text-sm sm:text-base hover:scale-105 active:scale-95 ${
+                activeTab === "logs"
+                  ? "bg-white text-background"
+                  : "text-white hover:bg-white hover:text-background"
+              }`}
             >
               <FileText className="inline mr-2" size={14} />
               <span className="hidden sm:inline">SYSTEM LOGS</span>
@@ -152,10 +147,11 @@ export default function AdminDashboard() {
             </button>
             <button
               onClick={() => setActiveTab("users")}
-              className={`w-full sm:w-auto px-3 sm:px-4 lg:px-6 py-2 sm:py-3 border-2 border-white font-bold transition-all duration-200 uppercase text-sm sm:text-base hover:scale-105 active:scale-95 ${activeTab === "users"
-                ? "bg-white text-background"
-                : "text-white hover:bg-white hover:text-background"
-                }`}
+              className={`w-full sm:w-auto px-3 sm:px-4 lg:px-6 py-2 sm:py-3 border-2 border-white font-bold transition-all duration-200 uppercase text-sm sm:text-base hover:scale-105 active:scale-95 ${
+                activeTab === "users"
+                  ? "bg-white text-background"
+                  : "text-white hover:bg-white hover:text-background"
+              }`}
             >
               <Users className="inline mr-2" size={14} />
               <span className="hidden sm:inline">USER MANAGEMENT</span>
@@ -163,10 +159,11 @@ export default function AdminDashboard() {
             </button>
             <button
               onClick={() => setActiveTab("gallery")}
-              className={`w-full sm:w-auto px-3 sm:px-4 lg:px-6 py-2 sm:py-3 border-2 border-white font-bold transition-all duration-200 uppercase text-sm sm:text-base hover:scale-105 active:scale-95 ${activeTab === "gallery"
-                ? "bg-white text-background"
-                : "text-white hover:bg-white hover:text-background"
-                }`}
+              className={`w-full sm:w-auto px-3 sm:px-4 lg:px-6 py-2 sm:py-3 border-2 border-white font-bold transition-all duration-200 uppercase text-sm sm:text-base hover:scale-105 active:scale-95 ${
+                activeTab === "gallery"
+                  ? "bg-white text-background"
+                  : "text-white hover:bg-white hover:text-background"
+              }`}
             >
               <FolderOpen className="inline mr-2" size={14} />
               <span className="hidden sm:inline">GALLERY MANAGER</span>
@@ -174,10 +171,11 @@ export default function AdminDashboard() {
             </button>
             <button
               onClick={() => setActiveTab("events")}
-              className={`w-full sm:w-auto px-3 sm:px-4 lg:px-6 py-2 sm:py-3 border-2 border-white font-bold transition-all duration-200 uppercase text-sm sm:text-base hover:scale-105 active:scale-95 ${activeTab === "events"
-                ? "bg-white text-background"
-                : "text-white hover:bg-white hover:text-background"
-                }`}
+              className={`w-full sm:w-auto px-3 sm:px-4 lg:px-6 py-2 sm:py-3 border-2 border-white font-bold transition-all duration-200 uppercase text-sm sm:text-base hover:scale-105 active:scale-95 ${
+                activeTab === "events"
+                  ? "bg-white text-background"
+                  : "text-white hover:bg-white hover:text-background"
+              }`}
             >
               <CalendarDays className="inline mr-2" size={14} />
               <span className="hidden sm:inline">EVENTS MANAGER</span>
@@ -185,10 +183,11 @@ export default function AdminDashboard() {
             </button>
             <button
               onClick={() => setActiveTab("inventory")}
-              className={`w-full sm:w-auto px-3 sm:px-4 lg:px-6 py-2 sm:py-3 border-2 border-white font-bold transition-all duration-200 uppercase text-sm sm:text-base hover:scale-105 active:scale-95 ${activeTab === "inventory"
-                ? "bg-white text-background"
-                : "text-white hover:bg-white hover:text-background"
-                }`}
+              className={`w-full sm:w-auto px-3 sm:px-4 lg:px-6 py-2 sm:py-3 border-2 border-white font-bold transition-all duration-200 uppercase text-sm sm:text-base hover:scale-105 active:scale-95 ${
+                activeTab === "inventory"
+                  ? "bg-white text-background"
+                  : "text-white hover:bg-white hover:text-background"
+              }`}
             >
               <Package className="inline mr-2" size={14} />
               <span className="hidden sm:inline">INVENTORY MANAGER</span>
@@ -212,9 +211,7 @@ export default function AdminDashboard() {
           <GalleryManager showSuccess={showSuccess} showError={showError} />
         )}
 
-        {activeTab === "events" && (
-          <EventManager showSuccess={showSuccess} showError={showError} />
-        )}
+        {activeTab === "events" && <EventManager showSuccess={showSuccess} showError={showError} />}
 
         {activeTab === "inventory" && (
           <InventoryManager showSuccess={showSuccess} showError={showError} />

@@ -31,22 +31,19 @@ export default function CustomConfirm({
       case "danger":
         return {
           titleColor: "text-red-400",
-          confirmBg:
-            "bg-red-600 border-red-600 hover:bg-red-700 hover:border-red-700",
+          confirmBg: "bg-red-600 border-red-600 hover:bg-red-700 hover:border-red-700",
           icon: AlertTriangle,
         };
       case "warning":
         return {
           titleColor: "text-yellow-400",
-          confirmBg:
-            "bg-yellow-600 border-yellow-600 hover:bg-yellow-700 hover:border-yellow-700",
+          confirmBg: "bg-yellow-600 border-yellow-600 hover:bg-yellow-700 hover:border-yellow-700",
           icon: AlertTriangle,
         };
       case "info":
         return {
           titleColor: "text-blue-400",
-          confirmBg:
-            "bg-blue-600 border-blue-600 hover:bg-blue-700 hover:border-blue-700",
+          confirmBg: "bg-blue-600 border-blue-600 hover:bg-blue-700 hover:border-blue-700",
           icon: Info,
         };
       default:
@@ -95,10 +92,7 @@ export default function CustomConfirm({
                 transition={{ delay: 0.3, duration: 0.3 }}
                 className="flex-shrink-0"
               >
-                <styles.icon
-                  size={24}
-                  className={`${styles.titleColor} sm:w-7 sm:h-7`}
-                />
+                <styles.icon size={24} className={`${styles.titleColor} sm:w-7 sm:h-7`} />
               </motion.div>
               <div className="flex-1 min-w-0">
                 <motion.h3

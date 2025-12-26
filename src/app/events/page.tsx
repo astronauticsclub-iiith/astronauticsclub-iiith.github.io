@@ -86,13 +86,10 @@ const EventsPage = () => {
   ];
 
   const currentYear = new Date().getFullYear();
-  const yearTypes = Array.from(
-    { length: currentYear - 2019 + 1 },
-    (_, i) => {
-      const year = currentYear - i;
-      return { value: year.toString(), label: year.toString() };
-    }
-  );
+  const yearTypes = Array.from({ length: currentYear - 2019 + 1 }, (_, i) => {
+    const year = currentYear - i;
+    return { value: year.toString(), label: year.toString() };
+  });
 
   useEffect(() => {
     const loadEvents = async () => {
@@ -131,29 +128,21 @@ const EventsPage = () => {
 
     // Year filter
     if (filters.year.length > 0) {
-      filtered = filtered.filter((event) =>
-        filters.year.includes(event.date.substring(0, 4))
-      );
+      filtered = filtered.filter((event) => filters.year.includes(event.date.substring(0, 4)));
     }
 
     // Status filter
     if (filters.status.length > 0) {
-      filtered = filtered.filter((event) =>
-        filters.status.includes(event.status)
-      );
+      filtered = filtered.filter((event) => filters.status.includes(event.status));
     }
 
     // Sort
     switch (filters.sortBy) {
       case "latest":
-        filtered.sort(
-          (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
-        );
+        filtered.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
         break;
       case "oldest":
-        filtered.sort(
-          (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()
-        );
+        filtered.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
         break;
       case "alphabetical":
         filtered.sort((a, b) => a.title.localeCompare(b.title));
@@ -170,18 +159,14 @@ const EventsPage = () => {
   const handleTypeToggle = (type: string) => {
     setFilters((prev) => ({
       ...prev,
-      type: prev.type.includes(type)
-        ? prev.type.filter((t) => t !== type)
-        : [...prev.type, type],
+      type: prev.type.includes(type) ? prev.type.filter((t) => t !== type) : [...prev.type, type],
     }));
   };
 
   const handleYearToggle = (year: string) => {
     setFilters((prev) => ({
       ...prev,
-      year: prev.year.includes(year)
-        ? prev.year.filter((s) => s !== year)
-        : [...prev.year, year],
+      year: prev.year.includes(year) ? prev.year.filter((s) => s !== year) : [...prev.year, year],
     }));
   };
 
@@ -295,9 +280,7 @@ const EventsPage = () => {
               Filters
               <ChevronDown
                 size={16}
-                className={`transition-transform ${
-                  showFilters ? "rotate-180" : ""
-                }`}
+                className={`transition-transform ${showFilters ? "rotate-180" : ""}`}
               />
             </button>
 
@@ -309,14 +292,11 @@ const EventsPage = () => {
               >
                 {getSortIcon(filters.sortBy)}
                 <span className="flex-grow text-left">
-                  {filters.sortBy.charAt(0).toUpperCase() +
-                    filters.sortBy.slice(1)}
+                  {filters.sortBy.charAt(0).toUpperCase() + filters.sortBy.slice(1)}
                 </span>
                 <ChevronDown
                   size={16}
-                  className={`transition-transform ${
-                    showSortDropdown ? "rotate-180" : ""
-                  }`}
+                  className={`transition-transform ${showSortDropdown ? "rotate-180" : ""}`}
                 />
               </button>
               <AnimatePresence>
@@ -336,9 +316,7 @@ const EventsPage = () => {
                           setShowSortDropdown(false);
                         }}
                         className={`w-full flex items-center gap-2 px-4 py-3 text-left font-medium hover:bg-white hover:text-background transition-colors ${
-                          filters.sortBy === option
-                            ? "bg-white text-background"
-                            : "text-white"
+                          filters.sortBy === option ? "bg-white text-background" : "text-white"
                         }`}
                       >
                         {getSortIcon(option)}
@@ -455,9 +433,7 @@ const EventsPage = () => {
                   key={type}
                   className="flex items-center gap-2 px-3 py-1 bg-white text-background font-medium text-sm border-2 border-background shadow-[2px_2px_0px_0px_rgba(128,128,128,0.5)]"
                 >
-                  <span>
-                    {eventTypes.find((t) => t.value === type)?.label || type}
-                  </span>
+                  <span>{eventTypes.find((t) => t.value === type)?.label || type}</span>
                   <button
                     onClick={() => handleTypeToggle(type)}
                     className="text-background hover:opacity-70 ml-1"
@@ -471,10 +447,7 @@ const EventsPage = () => {
                   key={year}
                   className="flex items-center gap-2 px-3 py-1 bg-white text-background font-medium text-sm border-2 border-background shadow-[2px_2px_0px_0px_rgba(128,128,128,0.5)]"
                 >
-                  <span>
-                    {yearTypes.find((s) => s.value === year)?.label ||
-                      year}
-                  </span>
+                  <span>{yearTypes.find((s) => s.value === year)?.label || year}</span>
                   <button
                     onClick={() => handleYearToggle(year)}
                     className="text-background hover:opacity-70 ml-1"
@@ -488,10 +461,7 @@ const EventsPage = () => {
                   key={status}
                   className="flex items-center gap-2 px-3 py-1 bg-white text-background font-medium text-sm border-2 border-background shadow-[2px_2px_0px_0px_rgba(128,128,128,0.5)]"
                 >
-                  <span>
-                    {statusTypes.find((s) => s.value === status)?.label ||
-                      status}
-                  </span>
+                  <span>{statusTypes.find((s) => s.value === status)?.label || status}</span>
                   <button
                     onClick={() => handleStatusToggle(status)}
                     className="text-background hover:opacity-70 ml-1"
@@ -504,9 +474,7 @@ const EventsPage = () => {
                 <div className="flex items-center gap-2 px-3 py-1 bg-white text-background font-medium text-sm border-2 border-background shadow-[2px_2px_0px_0px_rgba(128,128,128,0.5)]">
                   <span className="flex items-center gap-1">
                     {getSortIcon(filters.sortBy)}
-                    Sort:{" "}
-                    {filters.sortBy.charAt(0).toUpperCase() +
-                      filters.sortBy.slice(1)}
+                    Sort: {filters.sortBy.charAt(0).toUpperCase() + filters.sortBy.slice(1)}
                   </span>
                   <button
                     onClick={() => handleSortChange("latest")}

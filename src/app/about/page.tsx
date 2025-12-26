@@ -26,9 +26,7 @@ export default function AboutPage() {
       : "bg-pattern-four-point-stars";
 
   return (
-    <main
-      className={`min-h-screen bg-background pt-24 pb-8 md:pb-16 px-8 ${backgroundPattern}`}
-    >
+    <main className={`min-h-screen bg-background pt-24 pb-8 md:pb-16 px-8 ${backgroundPattern}`}>
       <div className="max-w-7xl mx-auto">
         <AboutUsSection />
         <FAQSection />

@@ -12,7 +12,7 @@ import AstronautBriefing from "@/components/features/AstronautBriefing";
 import { useWhimsy } from "@/context/WhimsyContext";
 import Image from "next/image";
 import { withBasePath } from "@/components/common/HelperFunction";
-import {User} from "../../types/user"
+import { User } from "../../types/user";
 
 type FilterType = "all" | string;
 
@@ -65,12 +65,10 @@ const TeamPage: React.FC = () => {
   }, []);
 
   const filteredMembers = members.filter(
-    (member) =>
-      filter === "all" ||
-      (member.designations && member.designations.includes(filter))
+    (member) => filter === "all" || (member.designations && member.designations.includes(filter))
   );
 
-    // Desktop whimsy mode astronaut briefing view
+  // Desktop whimsy mode astronaut briefing view
   if (whimsyMode && isDesktop) {
     return (
       <div className="min-h-screen bg-background pt-24">
@@ -98,11 +96,7 @@ const TeamPage: React.FC = () => {
           <div className="flex items-center gap-6 mb-6">
             <div className="w-16 h-16 flex items-center justify-center">
               {whimsyMode ? (
-                <WhimsicalTeamIcon
-                  width={64}
-                  height={64}
-                  className="w-16 h-16 object-contain"
-                />
+                <WhimsicalTeamIcon width={64} height={64} className="w-16 h-16 object-contain" />
               ) : (
                 <Image
                   src={withBasePath(`/icons/team.svg`)}
@@ -140,9 +134,7 @@ const TeamPage: React.FC = () => {
               Filters
               <ChevronDown
                 size={16}
-                className={`transition-transform ${
-                  showFilters ? "rotate-180" : ""
-                }`}
+                className={`transition-transform ${showFilters ? "rotate-180" : ""}`}
               />
             </motion.button>
           </motion.div>
@@ -159,9 +151,7 @@ const TeamPage: React.FC = () => {
                   <motion.button
                     whileHover={{ scale: 1.05, y: -2 }}
                     whileTap={{ scale: 0.95 }}
-                    className={`team-filter-btn ${
-                      filter === "all" ? "active" : ""
-                    }`}
+                    className={`team-filter-btn ${filter === "all" ? "active" : ""}`}
                     onClick={() => setFilter("all")}
                   >
                     All
@@ -171,9 +161,7 @@ const TeamPage: React.FC = () => {
                       key={designation}
                       whileHover={{ scale: 1.05, y: -2 }}
                       whileTap={{ scale: 0.95 }}
-                      className={`team-filter-btn ${
-                        filter === designation ? "active" : ""
-                      }`}
+                      className={`team-filter-btn ${filter === designation ? "active" : ""}`}
                       onClick={() => setFilter(designation)}
                     >
                       {designation}
@@ -214,9 +202,7 @@ const TeamPage: React.FC = () => {
           <div className="flex items-center flex-wrap gap-1 md:gap-4 justify-center md:justify-between">
             <p className="text-[#e0e0e0] font-medium md:pl-4 py-2 text-center md:text-left">
               Showing{" "}
-              <span className="font-bold accent bg-background px-1">
-                {filteredMembers.length}
-              </span>{" "}
+              <span className="font-bold accent bg-background px-1">{filteredMembers.length}</span>{" "}
               {filteredMembers.length === 1 ? "member" : "members"}
               {filter !== "all" ? ` in ${filter}` : ""}
             </p>
@@ -230,11 +216,7 @@ const TeamPage: React.FC = () => {
             transition={{ delay: 0.6 }}
             className="team-empty"
           >
-            <motion.p
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.8 }}
-            >
+            <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.8 }}>
               {filter === "all"
                 ? "No members found."
                 : `No members found with designation: ${filter}.`}

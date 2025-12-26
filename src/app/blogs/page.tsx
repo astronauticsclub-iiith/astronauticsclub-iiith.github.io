@@ -2,16 +2,7 @@
 
 import { useState, useEffect, useMemo, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import {
-  Search,
-  Filter,
-  X,
-  ChevronDown,
-  Zap,
-  ArrowUpAZ,
-  ThumbsUp,
-  Eye,
-} from "lucide-react";
+import { Search, Filter, X, ChevronDown, Zap, ArrowUpAZ, ThumbsUp, Eye } from "lucide-react";
 import BlogCard from "@/components/features/Blog/BlogCard";
 import Loader from "@/components/ui/Loader";
 import { Blog, BlogFilters } from "@/types/blog";
@@ -125,25 +116,19 @@ const BlogsPage = () => {
 
     // Tags filter
     if (filters.tags.length > 0) {
-      filtered = filtered.filter((blog) =>
-        filters.tags.some((tag) => blog.tags.includes(tag))
-      );
+      filtered = filtered.filter((blog) => filters.tags.some((tag) => blog.tags.includes(tag)));
     }
 
     // Sort
     switch (filters.sortBy) {
       case "latest":
         filtered.sort(
-          (a, b) =>
-            new Date(b.publishedAt).getTime() -
-            new Date(a.publishedAt).getTime()
+          (a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime()
         );
         break;
       case "oldest":
         filtered.sort(
-          (a, b) =>
-            new Date(a.publishedAt).getTime() -
-            new Date(b.publishedAt).getTime()
+          (a, b) => new Date(a.publishedAt).getTime() - new Date(b.publishedAt).getTime()
         );
         break;
       case "popular":
@@ -164,9 +149,7 @@ const BlogsPage = () => {
   const handleTagToggle = (tag: string) => {
     setFilters((prev) => ({
       ...prev,
-      tags: prev.tags.includes(tag)
-        ? prev.tags.filter((t) => t !== tag)
-        : [...prev.tags, tag],
+      tags: prev.tags.includes(tag) ? prev.tags.filter((t) => t !== tag) : [...prev.tags, tag],
     }));
   };
 
@@ -182,8 +165,7 @@ const BlogsPage = () => {
     });
   };
 
-  const hasActiveFilters =
-    filters.search || filters.tags.length > 0 || filters.sortBy !== "latest";
+  const hasActiveFilters = filters.search || filters.tags.length > 0 || filters.sortBy !== "latest";
 
   const [showSortDropdown, setShowSortDropdown] = useState(false);
 
@@ -238,9 +220,7 @@ const BlogsPage = () => {
                 ref={telescopeRef}
                 onLoad={() => setTelescopeLoaded(true)}
                 style={{
-                  transform: whimsyMode
-                    ? `rotate(${telescopeRotation}deg)`
-                    : "none",
+                  transform: whimsyMode ? `rotate(${telescopeRotation}deg)` : "none",
                   transition: whimsyMode ? "transform 0.2s ease-out" : "none",
                 }}
               />
@@ -289,9 +269,7 @@ const BlogsPage = () => {
               Filters
               <ChevronDown
                 size={16}
-                className={`transition-transform ${
-                  showFilters ? "rotate-180" : ""
-                }`}
+                className={`transition-transform ${showFilters ? "rotate-180" : ""}`}
               />
             </button>
 
@@ -308,9 +286,7 @@ const BlogsPage = () => {
                 </span>
                 <ChevronDown
                   size={16}
-                  className={`transition-transform ${
-                    showSortDropdown ? "rotate-180" : ""
-                  }`}
+                  className={`transition-transform ${showSortDropdown ? "rotate-180" : ""}`}
                 />
               </button>
               <AnimatePresence>
@@ -328,9 +304,7 @@ const BlogsPage = () => {
                         setShowSortDropdown(false);
                       }}
                       className={`w-full flex items-center gap-2 px-4 py-3 text-left font-medium hover:bg-white hover:text-background transition-colors ${
-                        filters.sortBy === "latest"
-                          ? "bg-white text-background"
-                          : "text-white"
+                        filters.sortBy === "latest" ? "bg-white text-background" : "text-white"
                       }`}
                     >
                       <Zap size={18} /> Latest
@@ -341,9 +315,7 @@ const BlogsPage = () => {
                         setShowSortDropdown(false);
                       }}
                       className={`w-full flex items-center gap-2 px-4 py-3 text-left font-medium hover:bg-white hover:text-background transition-colors ${
-                        filters.sortBy === "oldest"
-                          ? "bg-white text-background"
-                          : "text-white"
+                        filters.sortBy === "oldest" ? "bg-white text-background" : "text-white"
                       }`}
                     >
                       <ArrowUpAZ size={18} /> Oldest
@@ -354,9 +326,7 @@ const BlogsPage = () => {
                         setShowSortDropdown(false);
                       }}
                       className={`w-full flex items-center gap-2 px-4 py-3 text-left font-medium hover:bg-white hover:text-background transition-colors ${
-                        filters.sortBy === "popular"
-                          ? "bg-white text-background"
-                          : "text-white"
+                        filters.sortBy === "popular" ? "bg-white text-background" : "text-white"
                       }`}
                     >
                       <Eye size={18} /> Most Popular
@@ -367,9 +337,7 @@ const BlogsPage = () => {
                         setShowSortDropdown(false);
                       }}
                       className={`w-full flex items-center gap-2 px-4 py-3 text-left font-medium hover:bg-white hover:text-background transition-colors ${
-                        filters.sortBy === "most-liked"
-                          ? "bg-white text-background"
-                          : "text-white"
+                        filters.sortBy === "most-liked" ? "bg-white text-background" : "text-white"
                       }`}
                     >
                       <ThumbsUp size={18} /> Most Liked
@@ -515,7 +483,7 @@ const BlogsPage = () => {
                 whileHover={{ y: -8, transition: { duration: 0.2 } }}
                 className="transform transition-transform"
               >
-                <BlogCard blog={blog} index={index}/>
+                <BlogCard blog={blog} index={index} />
               </motion.div>
             ))}
           </motion.div>
@@ -535,8 +503,8 @@ const BlogsPage = () => {
               No Articles Found
             </h3>
             <p className="text-[#e0e0e0] max-w-md mx-auto font-medium mb-8 border-l-4 border-r-4 border-white px-6 py-2">
-              We couldn&apos;t find any articles matching your filters. Try
-              adjusting your search criteria.
+              We couldn&apos;t find any articles matching your filters. Try adjusting your search
+              criteria.
             </p>
             <motion.button
               whileHover={{ scale: 1.05, y: -5 }}

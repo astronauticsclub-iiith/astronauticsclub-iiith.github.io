@@ -59,16 +59,10 @@ const AdminEventCard: React.FC<AdminEventCardProps> = ({
   // Close dropdowns when clicking outside
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (
-        typeDropdownRef.current &&
-        !typeDropdownRef.current.contains(event.target as Node)
-      ) {
+      if (typeDropdownRef.current && !typeDropdownRef.current.contains(event.target as Node)) {
         setShowTypeDropdown(false);
       }
-      if (
-        statusDropdownRef.current &&
-        !statusDropdownRef.current.contains(event.target as Node)
-      ) {
+      if (statusDropdownRef.current && !statusDropdownRef.current.contains(event.target as Node)) {
         setShowStatusDropdown(false);
       }
     };
@@ -161,10 +155,7 @@ const AdminEventCard: React.FC<AdminEventCardProps> = ({
     onCancelEdit();
   };
 
-  const updateEditedEvent = (
-    field: keyof Event,
-    value: string | number | undefined | string[]
-  ) => {
+  const updateEditedEvent = (field: keyof Event, value: string | number | undefined | string[]) => {
     setEditedEvent((prev) => ({ ...prev, [field]: value }));
   };
 
@@ -181,9 +172,7 @@ const AdminEventCard: React.FC<AdminEventCardProps> = ({
           <div className="space-y-3">
             {/* Title */}
             <div>
-              <label className="block text-white text-xs font-bold mb-1 uppercase">
-                Title
-              </label>
+              <label className="block text-white text-xs font-bold mb-1 uppercase">Title</label>
               <input
                 type="text"
                 value={editedEvent.title || ""}
@@ -202,9 +191,7 @@ const AdminEventCard: React.FC<AdminEventCardProps> = ({
               </label>
               <textarea
                 value={editedEvent.description || ""}
-                onChange={(e) =>
-                  updateEditedEvent("description", e.target.value)
-                }
+                onChange={(e) => updateEditedEvent("description", e.target.value)}
                 className="w-full bg-background border-2 border-white p-2 text-white font-medium text-sm transition-all duration-200 focus:scale-[1.02] focus:ring-2 focus:ring-white resize-none"
                 placeholder="Event description..."
                 rows={3}
@@ -216,9 +203,7 @@ const AdminEventCard: React.FC<AdminEventCardProps> = ({
             {/* Date and Time */}
             <div className="grid grid-cols-2 gap-3">
               <div>
-                <label className="block text-white text-xs font-bold mb-1 uppercase">
-                  Date
-                </label>
+                <label className="block text-white text-xs font-bold mb-1 uppercase">Date</label>
                 <input
                   type="date"
                   value={editedEvent.date || ""}
@@ -260,9 +245,7 @@ const AdminEventCard: React.FC<AdminEventCardProps> = ({
             {/* Type and Status */}
             <div className="grid grid-cols-2 gap-3">
               <div>
-                <label className="block text-white text-xs font-bold mb-1 uppercase">
-                  Type
-                </label>
+                <label className="block text-white text-xs font-bold mb-1 uppercase">Type</label>
                 <div className="relative" ref={typeDropdownRef}>
                   <button
                     type="button"
@@ -272,14 +255,11 @@ const AdminEventCard: React.FC<AdminEventCardProps> = ({
                   >
                     <div className="flex items-center gap-2">
                       <span>{getTypeIcon()}</span>
-                      <span className="uppercase">
-                        {editedEvent.type || event.type}
-                      </span>
+                      <span className="uppercase">{editedEvent.type || event.type}</span>
                     </div>
                     <ChevronDown
                       size={16}
-                      className={`transition-transform ${showTypeDropdown ? "rotate-180" : ""
-                        }`}
+                      className={`transition-transform ${showTypeDropdown ? "rotate-180" : ""}`}
                     />
                   </button>
                   <AnimatePresence>
@@ -300,10 +280,11 @@ const AdminEventCard: React.FC<AdminEventCardProps> = ({
                               setShowTypeDropdown(false);
                             }}
                             disabled={isSubmitting}
-                            className={`w-full flex items-center gap-2 px-3 py-2 text-left font-medium hover:bg-white hover:text-background transition-colors disabled:opacity-50 disabled:cursor-not-allowed ${(editedEvent.type || event.type) === type
-                              ? "bg-white text-background"
-                              : "text-white"
-                              }`}
+                            className={`w-full flex items-center gap-2 px-3 py-2 text-left font-medium hover:bg-white hover:text-background transition-colors disabled:opacity-50 disabled:cursor-not-allowed ${
+                              (editedEvent.type || event.type) === type
+                                ? "bg-white text-background"
+                                : "text-white"
+                            }`}
                           >
                             <span className="uppercase">{type}</span>
                           </button>
@@ -315,9 +296,7 @@ const AdminEventCard: React.FC<AdminEventCardProps> = ({
               </div>
 
               <div>
-                <label className="block text-white text-xs font-bold mb-1 uppercase">
-                  Status
-                </label>
+                <label className="block text-white text-xs font-bold mb-1 uppercase">Status</label>
                 <div className="relative" ref={statusDropdownRef}>
                   <button
                     type="button"
@@ -325,13 +304,10 @@ const AdminEventCard: React.FC<AdminEventCardProps> = ({
                     disabled={isSubmitting}
                     className="w-full flex items-center justify-between gap-2 bg-background border-2 border-white p-2 text-white font-medium text-sm transition-all duration-200 hover:bg-white hover:text-background focus:scale-[1.02] focus:ring-2 focus:ring-white disabled:opacity-50 disabled:cursor-not-allowed"
                   >
-                    <span className="uppercase">
-                      {editedEvent.status || event.status}
-                    </span>
+                    <span className="uppercase">{editedEvent.status || event.status}</span>
                     <ChevronDown
                       size={16}
-                      className={`transition-transform ${showStatusDropdown ? "rotate-180" : ""
-                        }`}
+                      className={`transition-transform ${showStatusDropdown ? "rotate-180" : ""}`}
                     />
                   </button>
                   <AnimatePresence>
@@ -352,10 +328,11 @@ const AdminEventCard: React.FC<AdminEventCardProps> = ({
                               setShowStatusDropdown(false);
                             }}
                             disabled={isSubmitting}
-                            className={`w-full flex items-center gap-2 px-3 py-2 text-left font-medium hover:bg-white hover:text-background transition-colors disabled:opacity-50 disabled:cursor-not-allowed ${(editedEvent.status || event.status) === status
-                              ? "bg-white text-background"
-                              : "text-white"
-                              }`}
+                            className={`w-full flex items-center gap-2 px-3 py-2 text-left font-medium hover:bg-white hover:text-background transition-colors disabled:opacity-50 disabled:cursor-not-allowed ${
+                              (editedEvent.status || event.status) === status
+                                ? "bg-white text-background"
+                                : "text-white"
+                            }`}
                           >
                             <span className="uppercase">{status}</span>
                           </button>
@@ -395,9 +372,7 @@ const AdminEventCard: React.FC<AdminEventCardProps> = ({
                 <input
                   type="text"
                   value={editedEvent.organizer || ""}
-                  onChange={(e) =>
-                    updateEditedEvent("organizer", e.target.value)
-                  }
+                  onChange={(e) => updateEditedEvent("organizer", e.target.value)}
                   className="w-full bg-background border-2 border-white p-2 text-white font-medium text-sm transition-all duration-200 focus:scale-[1.02] focus:ring-2 focus:ring-white"
                   placeholder="Event organizer..."
                   disabled={isSubmitting}
@@ -413,9 +388,7 @@ const AdminEventCard: React.FC<AdminEventCardProps> = ({
               <input
                 type="url"
                 value={editedEvent.registrationLink || ""}
-                onChange={(e) =>
-                  updateEditedEvent("registrationLink", e.target.value)
-                }
+                onChange={(e) => updateEditedEvent("registrationLink", e.target.value)}
                 className="w-full bg-background border-2 border-white p-2 text-white font-medium text-sm transition-all duration-200 focus:scale-[1.02] focus:ring-2 focus:ring-white"
                 placeholder="https://example.com/register"
                 disabled={isSubmitting}
@@ -508,17 +481,18 @@ const AdminEventCard: React.FC<AdminEventCardProps> = ({
                 <span className="uppercase font-medium">{event.type}</span>
               </div>
 
-              {(event.participants && event.participants > 0) ? (
+              {event.participants && event.participants > 0 ? (
                 <div className="flex items-center gap-2 text-[#e0e0e0] text-xs sm:text-sm">
                   <Users size={14} />
                   <span>{event.participants} participants</span>
                 </div>
-              ) : ""}
+              ) : (
+                ""
+              )}
 
               {event.organizer && (
                 <div className="text-[#e0e0e0] text-xs sm:text-sm">
-                  <span className="font-bold">Organizer:</span>{" "}
-                  {event.organizer}
+                  <span className="font-bold">Organizer:</span> {event.organizer}
                 </div>
               )}
 
@@ -545,9 +519,7 @@ const AdminEventCard: React.FC<AdminEventCardProps> = ({
             </div>
 
             {/* Event ID */}
-            <div className="text-[#999] text-xs font-mono mb-3">
-              ID: {event.id}
-            </div>
+            <div className="text-[#999] text-xs font-mono mb-3">ID: {event.id}</div>
 
             {/* Action Buttons */}
             <div className="flex gap-2">

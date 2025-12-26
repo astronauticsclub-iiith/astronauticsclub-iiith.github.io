@@ -9,10 +9,7 @@ interface GravitationalLensingProps {
   mouseY: number;
 }
 
-export default function GravitationalLensing({
-  mouseX,
-  mouseY,
-}: GravitationalLensingProps) {
+export default function GravitationalLensing({ mouseX, mouseY }: GravitationalLensingProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const { whimsyMode } = useWhimsy();
   const animationRef = useRef<number>(0);
@@ -69,11 +66,7 @@ export default function GravitationalLensing({
       imageDataDstRef.current = ctx.getImageData(0, 0, w, h);
     };
 
-    const updateCanvas = (
-      canvas: HTMLCanvasElement,
-      px: number,
-      py: number
-    ) => {
+    const updateCanvas = (canvas: HTMLCanvasElement, px: number, py: number) => {
       const ctx = canvas.getContext("2d", { willReadFrequently: true });
       if (!ctx || !imageDataSrcRef.current || !imageDataDstRef.current) return;
 
@@ -94,14 +87,11 @@ export default function GravitationalLensing({
       for (let y = ymin; y < ymax; y++) {
         for (let x = xmin; x < xmax; x++) {
           let index = (x + y * w) << 2;
-          imageDataDstRef.current.data[index] =
-            imageDataSrcRef.current.data[index];
+          imageDataDstRef.current.data[index] = imageDataSrcRef.current.data[index];
           index++;
-          imageDataDstRef.current.data[index] =
-            imageDataSrcRef.current.data[index];
+          imageDataDstRef.current.data[index] = imageDataSrcRef.current.data[index];
           index++;
-          imageDataDstRef.current.data[index] =
-            imageDataSrcRef.current.data[index];
+          imageDataDstRef.current.data[index] = imageDataSrcRef.current.data[index];
           index++;
           imageDataDstRef.current.data[index] = 255;
         }
@@ -139,7 +129,7 @@ export default function GravitationalLensing({
             else if (sc < tol) sc = 0.1;
             else sc = 1;
 
-            const index2 = (xx + yy * w) % maxSize << 2;
+            const index2 = ((xx + yy * w) % maxSize) << 2;
             dstdata[index++] = sc * srcdata[index2 + 0];
             dstdata[index++] = sc * srcdata[index2 + 1];
             dstdata[index++] = sc * srcdata[index2 + 2];
@@ -228,14 +218,11 @@ export default function GravitationalLensing({
     for (let y = ymin; y < ymax; y++) {
       for (let x = xmin; x < xmax; x++) {
         let index = (x + y * w) << 2;
-        imageDataDstRef.current.data[index] =
-          imageDataSrcRef.current.data[index];
+        imageDataDstRef.current.data[index] = imageDataSrcRef.current.data[index];
         index++;
-        imageDataDstRef.current.data[index] =
-          imageDataSrcRef.current.data[index];
+        imageDataDstRef.current.data[index] = imageDataSrcRef.current.data[index];
         index++;
-        imageDataDstRef.current.data[index] =
-          imageDataSrcRef.current.data[index];
+        imageDataDstRef.current.data[index] = imageDataSrcRef.current.data[index];
         index++;
         imageDataDstRef.current.data[index] = 255;
       }
@@ -268,7 +255,7 @@ export default function GravitationalLensing({
           if (sc < tol * 0.9 && sc > tol * 1.1) sc = 0.9;
           else if (sc < tol) sc = 0.1;
           else sc = 1;
-          const index2 = (xx + yy * w) % maxSize << 2;
+          const index2 = ((xx + yy * w) % maxSize) << 2;
           dstdata[index++] = sc * srcdata[index2 + 0];
           dstdata[index++] = sc * srcdata[index2 + 1];
           dstdata[index++] = sc * srcdata[index2 + 2];

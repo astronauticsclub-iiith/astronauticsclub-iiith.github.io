@@ -6,7 +6,7 @@ export interface User {
   bio?: string;
   linkedin?: string;
   designations?: string[];
-  role: 'admin' | 'writer' | 'none';
+  role: "admin" | "writer" | "none";
   createdAt?: string | number | Date;
 }
 
@@ -21,7 +21,7 @@ export interface Star {
   designations?: string[];
   desc?: string;
   clickable: boolean;
-};
+}
 
 export interface Constellation {
   stars: { [key: string]: Star };

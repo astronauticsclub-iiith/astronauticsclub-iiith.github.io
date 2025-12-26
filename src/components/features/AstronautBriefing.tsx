@@ -7,7 +7,7 @@ import WhimsicalTeamIcon from "./WhimsicalTeamIcon";
 import { ChevronLeft } from "lucide-react";
 import GlitchText from "./GlitchText";
 import { withBasePath, withUploadPath, safeKey } from "../common/HelperFunction";
-import {User, Star, Constellations} from "../../types/user"
+import { User, Star, Constellations } from "../../types/user";
 import Loader from "@/components/ui/Loader";
 
 function mergeMemberIntoStar(star: Star, member: User): Star {
@@ -23,31 +23,29 @@ function mergeMemberIntoStar(star: Star, member: User): Star {
   };
 }
 
-function mergeJSON(constellations : Constellations, members : User[]): Constellations {
-    const memberMap = new Map<string, User>();
-    for (const m of members) {
-      memberMap.set(safeKey(m.email), m);
+function mergeJSON(constellations: Constellations, members: User[]): Constellations {
+  const memberMap = new Map<string, User>();
+  for (const m of members) {
+    memberMap.set(safeKey(m.email), m);
+  }
+
+  const merged: Constellations = {};
+  for (const [constellationName, constellation] of Object.entries(constellations)) {
+    const stars: Record<string, Star> = {};
+
+    for (const [starName, star] of Object.entries(constellation.stars)) {
+      const member = memberMap.get(safeKey(star.email));
+      stars[starName] = member ? mergeMemberIntoStar(star, member) : { ...star, clickable: false };
     }
 
-    const merged: Constellations = {};
-    for (const [constellationName, constellation] of Object.entries(constellations)) {
-      const stars: Record<string, Star> = {};
+    merged[constellationName] = {
+      ...constellation,
+      stars,
+    };
+  }
 
-      for (const [starName, star] of Object.entries(constellation.stars)) {
-        const member = memberMap.get(safeKey(star.email));
-        stars[starName] = member
-          ? mergeMemberIntoStar(star, member)
-          : { ...star, clickable: false };
-      }
-
-      merged[constellationName] = {
-        ...constellation,
-        stars,
-      };
-    }
-
-    return merged
-  };
+  return merged;
+}
 
 const AstronautBriefing: React.FC = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -70,7 +68,6 @@ const AstronautBriefing: React.FC = () => {
   const isRotatingRef = useRef(false);
   const dragStartRef = useRef({ x: 0, y: 0 });
   const lastRotationRef = useRef({ x: 0, y: 0 });
-
 
   // Fetching all the member info from the database
   useEffect(() => {
@@ -99,22 +96,21 @@ const AstronautBriefing: React.FC = () => {
 
   useEffect(() => {
     const loadConstellations = async () => {
-      try{
-        const response = await fetch(withUploadPath(`/constellation.json`))
+      try {
+        const response = await fetch(withUploadPath(`/constellation.json`));
         const data: Constellations = await response.json();
         setBaseConstellations(data);
-      } catch(error) {
+      } catch (error) {
         console.error("Error loading constellation data:", error);
-      };
-    }
-  
+      }
+    };
+
     loadConstellations();
   }, []);
 
   useEffect(() => {
     setConstellations(mergeJSON(baseConstellations, members));
   }, [baseConstellations, members]);
-
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -126,24 +122,21 @@ const AstronautBriefing: React.FC = () => {
     return () => clearInterval(interval);
   }, []);
 
-  const getCanvasMousePosition = useCallback(
-    (clientX: number, clientY: number) => {
-      const canvas = canvasRef.current;
-      if (!canvas) return { mouseX: 0, mouseY: 0 };
+  const getCanvasMousePosition = useCallback((clientX: number, clientY: number) => {
+    const canvas = canvasRef.current;
+    if (!canvas) return { mouseX: 0, mouseY: 0 };
 
-      const rect = canvas.getBoundingClientRect();
+    const rect = canvas.getBoundingClientRect();
 
-      // Handle CSS scaling (canvas drawing buffer vs display size)
-      const cssToCanvasX = canvas.width / rect.width;
-      const cssToCanvasY = canvas.height / rect.height;
+    // Handle CSS scaling (canvas drawing buffer vs display size)
+    const cssToCanvasX = canvas.width / rect.width;
+    const cssToCanvasY = canvas.height / rect.height;
 
-      // Account for scroll and navbar positioning
-      const mouseX = (clientX - rect.left) * cssToCanvasX;
-      const mouseY = (clientY - rect.top) * cssToCanvasY;
-      return { mouseX, mouseY };
-    },
-    []
-  );
+    // Account for scroll and navbar positioning
+    const mouseX = (clientX - rect.left) * cssToCanvasX;
+    const mouseY = (clientY - rect.top) * cssToCanvasY;
+    return { mouseX, mouseY };
+  }, []);
 
   const drawCelestialGrid = useCallback(() => {
     const canvas = canvasRef.current;
@@ -161,23 +154,15 @@ const AstronautBriefing: React.FC = () => {
     for (let dec = 0; dec <= 90; dec += 15) {
       const r = (radius * (90 - Math.abs(dec))) / 90;
       ctx.beginPath();
-      ctx.arc(
-        offsetXRef.current,
-        offsetYRef.current,
-        r * scaleRef.current,
-        0,
-        2 * Math.PI
-      );
+      ctx.arc(offsetXRef.current, offsetYRef.current, r * scaleRef.current, 0, 2 * Math.PI);
       ctx.stroke();
     }
 
     // Draw radial lines (right ascension lines)
     for (let ra = 0; ra < 360; ra += 15) {
       const radRA = (ra / 360) * 2 * Math.PI;
-      const x =
-        offsetXRef.current + radius * Math.cos(radRA) * scaleRef.current;
-      const y =
-        offsetYRef.current + radius * Math.sin(radRA) * scaleRef.current;
+      const x = offsetXRef.current + radius * Math.cos(radRA) * scaleRef.current;
+      const y = offsetYRef.current + radius * Math.sin(radRA) * scaleRef.current;
       ctx.beginPath();
       ctx.moveTo(offsetXRef.current, offsetYRef.current);
       ctx.lineTo(x, y);
@@ -247,14 +232,8 @@ const AstronautBriefing: React.FC = () => {
           return;
         }
 
-        const { x: x1, y: y1 } = projectCelestial(
-          stars[start].ra,
-          stars[start].dec
-        );
-        const { x: x2, y: y2 } = projectCelestial(
-          stars[end].ra,
-          stars[end].dec
-        );
+        const { x: x1, y: y1 } = projectCelestial(stars[start].ra, stars[start].dec);
+        const { x: x2, y: y2 } = projectCelestial(stars[end].ra, stars[end].dec);
 
         ctx.beginPath();
         ctx.moveTo(x1, y1);
@@ -276,7 +255,6 @@ const AstronautBriefing: React.FC = () => {
     drawCelestialGrid();
     drawStars();
   }, [drawCelestialGrid, drawStars]);
-
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -332,9 +310,7 @@ const AstronautBriefing: React.FC = () => {
 
           // Loop through stars to check if the click is near any star
           const { x, y } = projectCelestial(star.ra, star.dec);
-          const distance = Math.sqrt(
-            Math.pow(mouseX - x, 2) + Math.pow(mouseY - y, 2)
-          );
+          const distance = Math.sqrt(Math.pow(mouseX - x, 2) + Math.pow(mouseY - y, 2));
 
           // Star clicked, display the details
           if (distance <= 10 && star.clickable) {
@@ -346,12 +322,7 @@ const AstronautBriefing: React.FC = () => {
         }
       }
     },
-    [
-      constellations,
-      getCanvasMousePosition,
-      projectCelestial,
-      displayStarDetails,
-    ]
+    [constellations, getCanvasMousePosition, projectCelestial, displayStarDetails]
   );
 
   const handleCanvasMouseMove = useCallback(
@@ -386,9 +357,7 @@ const AstronautBriefing: React.FC = () => {
           for (const starName in stars) {
             const star = stars[starName];
             const { x, y } = projectCelestial(star.ra, star.dec);
-            const distance = Math.sqrt(
-              Math.pow(mouseX - x, 2) + Math.pow(mouseY - y, 2)
-            );
+            const distance = Math.sqrt(Math.pow(mouseX - x, 2) + Math.pow(mouseY - y, 2));
 
             if (distance <= 10 && star.clickable) {
               currentHover = starName;
@@ -405,29 +374,20 @@ const AstronautBriefing: React.FC = () => {
         }
       }
     },
-    [
-      constellations,
-      getCanvasMousePosition,
-      projectCelestial,
-      drawScene,
-      hoveredStar,
-    ]
+    [constellations, getCanvasMousePosition, projectCelestial, drawScene, hoveredStar]
   );
 
-  const handleCanvasMouseDown = useCallback(
-    (e: React.MouseEvent<HTMLCanvasElement>) => {
-      if (e.shiftKey) {
-        // Panning mode
-        isDraggingRef.current = true;
-        dragStartRef.current = { x: e.clientX, y: e.clientY };
-      } else {
-        // Rotation mode
-        isRotatingRef.current = true;
-        lastRotationRef.current = { x: e.clientX, y: e.clientY };
-      }
-    },
-    []
-  );
+  const handleCanvasMouseDown = useCallback((e: React.MouseEvent<HTMLCanvasElement>) => {
+    if (e.shiftKey) {
+      // Panning mode
+      isDraggingRef.current = true;
+      dragStartRef.current = { x: e.clientX, y: e.clientY };
+    } else {
+      // Rotation mode
+      isRotatingRef.current = true;
+      lastRotationRef.current = { x: e.clientX, y: e.clientY };
+    }
+  }, []);
 
   const handleCanvasMouseUp = useCallback(() => {
     isDraggingRef.current = false;
@@ -452,11 +412,11 @@ const AstronautBriefing: React.FC = () => {
     };
 
     // Add non-passive listener
-    canvas.addEventListener('wheel', handleWheel, { passive: false });
+    canvas.addEventListener("wheel", handleWheel, { passive: false });
 
     // Cleanup
     return () => {
-      canvas.removeEventListener('wheel', handleWheel);
+      canvas.removeEventListener("wheel", handleWheel);
     };
   }, [drawScene]);
 
@@ -487,11 +447,7 @@ const AstronautBriefing: React.FC = () => {
           >
             <div className="flex items-center gap-6 mb-6">
               <div className="w-16 h-16 flex items-center justify-center">
-                <WhimsicalTeamIcon
-                  width={64}
-                  height={64}
-                  className="w-16 h-16 object-contain"
-                />
+                <WhimsicalTeamIcon width={64} height={64} className="w-16 h-16 object-contain" />
               </div>
               <div>
                 <h1 className="text-2xl md:text-3xl lg:text-4xl font-black uppercase tracking-tighter text-white text-shadow-brutal">
@@ -519,22 +475,21 @@ const AstronautBriefing: React.FC = () => {
                 <div className="flex items-start gap-3">
                   <div className="w-2 h-2 bg-white mt-2 flex-shrink-0" />
                   <p>
-                    <strong className="text-white">INTERACT:</strong> Click on
-                    stars to learn about our team members
+                    <strong className="text-white">INTERACT:</strong> Click on stars to learn about
+                    our team members
                   </p>
                 </div>
                 <div className="flex items-start gap-3">
                   <div className="w-2 h-2 bg-white mt-2 flex-shrink-0" />
                   <p>
-                    <strong className="text-white">ROTATE:</strong> Drag to
-                    explore different regions of space
+                    <strong className="text-white">ROTATE:</strong> Drag to explore different
+                    regions of space
                   </p>
                 </div>
                 <div className="flex items-start gap-3">
                   <div className="w-2 h-2 bg-white mt-2 flex-shrink-0" />
                   <p>
-                    <strong className="text-white">ZOOM:</strong> Use mouse
-                    wheel to zoom in and out
+                    <strong className="text-white">ZOOM:</strong> Use mouse wheel to zoom in and out
                   </p>
                 </div>
               </div>
@@ -545,9 +500,8 @@ const AstronautBriefing: React.FC = () => {
                 STELLAR NAVIGATION
               </h3>
               <p className="text-[#e0e0e0] font-medium leading-relaxed">
-                Each star represents a member of our astronomical society.
-                Navigate through the celestial grid to discover the brilliant
-                minds behind our cosmic explorations.
+                Each star represents a member of our astronomical society. Navigate through the
+                celestial grid to discover the brilliant minds behind our cosmic explorations.
               </p>
             </div>
           </motion.div>
@@ -634,7 +588,11 @@ const AstronautBriefing: React.FC = () => {
                         >
                           <Image
                             className="w-24 h-24 object-cover border-4 border-white shadow-[8px_8px_0px_0px_rgba(255,255,255,0.3)]"
-                            src={selectedStar.avatar ?  withUploadPath(selectedStar.avatar) :  withBasePath(`/default-avatar.svg`)}
+                            src={
+                              selectedStar.avatar
+                                ? withUploadPath(selectedStar.avatar)
+                                : withBasePath(`/default-avatar.svg`)
+                            }
                             alt={selectedStar.name || "Astronaut"}
                             unoptimized={!!selectedStar.avatar}
                             width={96}
@@ -680,8 +638,9 @@ const AstronautBriefing: React.FC = () => {
                           transition={{ duration: 0.6, delay: 0.9 }}
                           className="text-lg text-[#e0e0e0] font-bold uppercase tracking-wide"
                         >
-                          {selectedStar.designations ? selectedStar.designations.join(", ") :
-                            "STELLAR NAVIGATION SPECIALIST"}
+                          {selectedStar.designations
+                            ? selectedStar.designations.join(", ")
+                            : "STELLAR NAVIGATION SPECIALIST"}
                         </motion.p>
                       </div>
                     </motion.div>

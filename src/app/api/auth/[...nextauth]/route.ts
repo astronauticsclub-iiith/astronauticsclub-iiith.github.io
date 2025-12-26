@@ -10,7 +10,7 @@ interface ExtendedUser {
   name?: string | null;
   email?: string | null;
   image?: string | null;
-  role?: 'admin' | 'writer' | 'none';
+  role?: "admin" | "writer" | "none";
 }
 
 // Define the CAS attributes interface
@@ -38,13 +38,13 @@ interface CASResponse {
       {
         "cas:user": string[];
         "cas:attributes": [CASAttributes];
-      }
+      },
     ];
     "cas:authenticationFailure"?: [
       {
         _: string;
         $: { code: string };
-      }
+      },
     ];
   };
 }
@@ -60,8 +60,11 @@ const handler = NextAuth({
       },
       async authorize(credentials) {
         console.log("=== CAS AUTHORIZATION STARTED ===");
-        console.log("Credentials received:", { ticket: credentials?.ticket, service: credentials?.service });
-        
+        console.log("Credentials received:", {
+          ticket: credentials?.ticket,
+          service: credentials?.service,
+        });
+
         try {
           // Get the ticket from the credentials
           const ticket = credentials?.ticket;
@@ -93,15 +96,11 @@ const handler = NextAuth({
 
           // Check for authentication failures first
           if (result["cas:serviceResponse"]?.["cas:authenticationFailure"]) {
-            const failure =
-              result["cas:serviceResponse"]["cas:authenticationFailure"][0];
-            throw new Error(
-              `CAS authentication failed: ${failure._ || failure.$.code}`
-            );
+            const failure = result["cas:serviceResponse"]["cas:authenticationFailure"][0];
+            throw new Error(`CAS authentication failed: ${failure._ || failure.$.code}`);
           }
 
-          const authSuccess =
-            result["cas:serviceResponse"]?.["cas:authenticationSuccess"]?.[0];
+          const authSuccess = result["cas:serviceResponse"]?.["cas:authenticationSuccess"]?.[0];
 
           if (!authSuccess) {
             throw new Error("CAS authentication failed: No success response");
@@ -115,18 +114,17 @@ const handler = NextAuth({
             throw new Error("No attributes found in CAS response");
           }
 
-          const email =
-            attributes["cas:E-Mail"]?.[0] || `${username}@iiit.ac.in`;
+          const email = attributes["cas:E-Mail"]?.[0] || `${username}@iiit.ac.in`;
           const firstName = attributes["cas:FirstName"]?.[0] || username;
           const lastName = attributes["cas:LastName"]?.[0] || "";
 
           // Check if user exists in database and has appropriate role
           await connectToDatabase();
-          const dbUser = await User.findOne({ email }).lean() as IUser | null;
+          const dbUser = (await User.findOne({ email }).lean()) as IUser | null;
 
           console.log("CAS Authentication - User lookup:", {
             email,
-            dbUser: dbUser ? { email: dbUser.email, role: dbUser.role } : null
+            dbUser: dbUser ? { email: dbUser.email, role: dbUser.role } : null,
           });
 
           if (!dbUser) {
@@ -164,7 +162,7 @@ const handler = NextAuth({
         token.role = (user as ExtendedUser).role;
         console.log("JWT Callback - Adding role to token:", {
           userRole: (user as ExtendedUser).role,
-          tokenRole: token.role
+          tokenRole: token.role,
         });
       }
       return token;
@@ -173,11 +171,11 @@ const handler = NextAuth({
       // Add custom properties to the session
       if (token && session.user) {
         const user = session.user as ExtendedUser;
-        user.role = token.role as 'admin' | 'writer' | 'none';
+        user.role = token.role as "admin" | "writer" | "none";
         console.log("Session Callback - Final session:", {
           userEmail: user.email,
           userRole: user.role,
-          tokenRole: token.role
+          tokenRole: token.role,
         });
       }
       return session;

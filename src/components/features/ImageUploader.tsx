@@ -18,10 +18,7 @@ interface ImageUploaderProps {
   onClose: () => void;
 }
 
-export default function ImageUploader({
-  onImageUpload,
-  onClose,
-}: ImageUploaderProps) {
+export default function ImageUploader({ onImageUpload, onClose }: ImageUploaderProps) {
   const [uploading, setUploading] = useState(false);
   const [uploadedImages, setUploadedImages] = useState<UploadedImage[]>([]);
   const [dragOver, setDragOver] = useState(false);
@@ -71,9 +68,7 @@ export default function ImageUploader({
 
       if (newImages.length > 0) {
         showSuccess(
-          `Successfully uploaded ${newImages.length} image${
-            newImages.length > 1 ? "s" : ""
-          }`
+          `Successfully uploaded ${newImages.length} image${newImages.length > 1 ? "s" : ""}`
         );
       }
     } catch (error) {
@@ -120,9 +115,7 @@ export default function ImageUploader({
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
       <div className="bg-background border-4 border-white p-6 w-full max-w-4xl mx-4 max-h-[90vh] overflow-y-auto backdrop-blur-sm">
         <div className="flex justify-between items-center mb-6">
-          <h2 className="text-2xl font-bold text-white uppercase">
-            UPLOAD IMAGES
-          </h2>
+          <h2 className="text-2xl font-bold text-white uppercase">UPLOAD IMAGES</h2>
           <button
             onClick={onClose}
             className="px-3 py-1 border-2 border-white text-white font-bold hover:bg-white hover:text-background transition-colors text-xl"
@@ -137,9 +130,7 @@ export default function ImageUploader({
           onDragOver={handleDragOver}
           onDragLeave={handleDragLeave}
           className={`border-4 border-white p-8 text-center transition-colors ${
-            dragOver
-              ? "bg-white bg-opacity-10"
-              : "hover:bg-white hover:bg-opacity-5"
+            dragOver ? "bg-white bg-opacity-10" : "hover:bg-white hover:bg-opacity-5"
           }`}
         >
           <input
@@ -175,9 +166,7 @@ export default function ImageUploader({
           <div className="mt-4 p-4 border-2 border-white bg-background">
             <div className="flex items-center space-x-3">
               <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-white"></div>
-              <span className="text-white font-bold uppercase">
-                UPLOADING IMAGES...
-              </span>
+              <span className="text-white font-bold uppercase">UPLOADING IMAGES...</span>
             </div>
           </div>
         )}
@@ -185,15 +174,10 @@ export default function ImageUploader({
         {/* Uploaded Images */}
         {uploadedImages.length > 0 && (
           <div className="mt-6">
-            <h3 className="text-lg font-bold text-white mb-4 uppercase">
-              UPLOADED IMAGES
-            </h3>
+            <h3 className="text-lg font-bold text-white mb-4 uppercase">UPLOADED IMAGES</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
               {uploadedImages.map((image, index) => (
-                <div
-                  key={index}
-                  className="border-2 border-white bg-background p-4"
-                >
+                <div key={index} className="border-2 border-white bg-background p-4">
                   <div className="aspect-video relative border-2 border-white overflow-hidden mb-3">
                     <Image
                       src={withUploadPath(image.filePath)}
@@ -228,17 +212,14 @@ export default function ImageUploader({
 
         {/* Markdown Help */}
         <div className="mt-6 p-4 border-2 border-white bg-background">
-          <h4 className="text-white font-bold mb-2 uppercase">
-            HOW IMAGES WORK:
-          </h4>
+          <h4 className="text-white font-bold mb-2 uppercase">HOW IMAGES WORK:</h4>
           <div className="text-[#e0e0e0] text-sm space-y-1 font-medium">
             <p>
-              • <strong>UPLOAD</strong> - IMAGES ARE AUTOMATICALLY ADDED TO YOUR
-              BLOG
+              • <strong>UPLOAD</strong> - IMAGES ARE AUTOMATICALLY ADDED TO YOUR BLOG
             </p>
             <p>
-              • <strong>MANAGE</strong> - USE THE TOOLBAR ABOVE THE CONTENT
-              EDITOR TO INSERT OR REMOVE
+              • <strong>MANAGE</strong> - USE THE TOOLBAR ABOVE THE CONTENT EDITOR TO INSERT OR
+              REMOVE
             </p>
             <p>
               • <strong>COPY URL</strong> - FOR MANUAL MARKDOWN:{" "}

@@ -20,7 +20,7 @@ interface Constellation {
   team: string;
 }
 
-const FILE_DIRECTORY = process.env.FILE_DIRECTORY || path.join(process.cwd(), "public/")
+const FILE_DIRECTORY = process.env.FILE_DIRECTORY || path.join(process.cwd(), "public/");
 const jsonPath = path.join(FILE_DIRECTORY, "constellation.json");
 let jsonData: Record<string, Constellation>;
 
@@ -53,11 +53,7 @@ const assignToTeam = (teamName: string, email: string): boolean => {
   return false;
 };
 
-
-export async function PUT(
-  request: NextRequest,
-  { params }: { params: Promise<{ id: string }> }
-) {
+export async function PUT(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   try {
     const { user: adminUser } = await requireAdmin();
     await connectToDatabase();
@@ -66,10 +62,7 @@ export async function PUT(
     const { role, designations } = userData;
 
     if (role && !["admin", "writer", "none"].includes(role)) {
-      return NextResponse.json(
-        { error: "Invalid role specified" },
-        { status: 400 }
-      );
+      return NextResponse.json({ error: "Invalid role specified" }, { status: 400 });
     }
 
     const { id } = await params;
@@ -97,10 +90,17 @@ export async function PUT(
       return NextResponse.json({ error: "User not found" }, { status: 404 });
     }
 
-    const prev_designation = adminUser.designations && adminUser.designations.length > 0 ? adminUser.designations[0] : null;
-    const designation = user.designations && user.designations.length > 0 ? user.designations[0] : null;
+    const prev_designation =
+      adminUser.designations && adminUser.designations.length > 0
+        ? adminUser.designations[0]
+        : null;
+    const designation =
+      user.designations && user.designations.length > 0 ? user.designations[0] : null;
 
-    if ((!prev_designation && designation) || (prev_designation && designation && prev_designation !== designation)) {
+    if (
+      (!prev_designation && designation) ||
+      (prev_designation && designation && prev_designation !== designation)
+    ) {
       try {
         // Update constellation.json
         jsonData = JSON.parse(fs.readFileSync(jsonPath, "utf-8"));
@@ -143,7 +143,7 @@ export async function PUT(
                 allAvailableStars.push({
                   constellation: cName,
                   name: starName,
-                  magnitude: star.magnitude
+                  magnitude: star.magnitude,
                 });
               }
             }
@@ -162,32 +162,22 @@ export async function PUT(
         if (assigned) {
           fs.writeFileSync(jsonPath, JSON.stringify(jsonData, null, 2));
         }
-
       } catch (err) {
         console.error("Error updating constellation.json:", err);
-        return NextResponse.json(
-          { error: "Failed to add user to whimsy mode" },
-          { status: 500 }
-        );
+        return NextResponse.json({ error: "Failed to add user to whimsy mode" }, { status: 500 });
       }
     }
 
     // Log the action
-    Logger.logWriteOperation(
-      "UPDATE_USER",
-      adminUser.email!,
-      "user",
-      user._id.toString(),
-      { email: user.email, updatedFields: updateData }
-    );
+    Logger.logWriteOperation("UPDATE_USER", adminUser.email!, "user", user._id.toString(), {
+      email: user.email,
+      updatedFields: updateData,
+    });
 
     return NextResponse.json(user);
   } catch (error) {
     console.error("Error updating user:", error);
-    return NextResponse.json(
-      { error: "Failed to update user" },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: "Failed to update user" }, { status: 500 });
   }
 }
 
@@ -212,7 +202,7 @@ export async function DELETE(
       fs.unlink(filePath, (error) => {
         if (error) console.error(error);
       });
-    };
+    }
 
     await User.findByIdAndDelete(id);
 
@@ -233,20 +223,13 @@ export async function DELETE(
     fs.writeFileSync(jsonPath, JSON.stringify(jsonData, null, 2));
 
     // Log the action
-    Logger.logWriteOperation(
-      "DELETE_USER",
-      adminUser.email!,
-      "user",
-      user._id.toString(),
-      { email: user.email }
-    );
+    Logger.logWriteOperation("DELETE_USER", adminUser.email!, "user", user._id.toString(), {
+      email: user.email,
+    });
 
     return NextResponse.json({ message: "User deleted successfully" });
   } catch (error) {
     console.error("Error deleting user:", error);
-    return NextResponse.json(
-      { error: "Failed to delete user" },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: "Failed to delete user" }, { status: 500 });
   }
 }
