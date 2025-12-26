@@ -1,5 +1,6 @@
 .next
 node_modules
 dist
-build
-public
+build/
+public/
+*.md

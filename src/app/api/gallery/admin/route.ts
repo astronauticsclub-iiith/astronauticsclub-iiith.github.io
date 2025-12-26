@@ -5,7 +5,17 @@ import { promises as fs } from "fs";
 import path from "path";
 import { Logger } from "@/lib/logger";
 import { requireAdmin } from "@/lib/auth";
-import { withStoragePath, generateLabel } from "@/components/common/HelperFunction";
+import { withStoragePath } from "@/components/common/HelperFunction";
+
+// Helper function to generate label from filename
+function generateLabel(filename: string): string {
+  const nameWithoutExt = path.parse(filename).name;
+  return nameWithoutExt
+    .replace(/\s*\(.*?\)\s*/g, "")
+    .replace(/_/g, " ")
+    .replace(/\b\w/g, (l) => l.toUpperCase());
+}
+
 
 // GET - List all images for admin management
 export async function GET() {

@@ -9,7 +9,7 @@ import rehypeKatex from "rehype-katex";
 import remarkGfm from "remark-gfm";
 import rehypeRaw from "rehype-raw";
 import rehypeHighlight from "rehype-highlight";
-import { markDownComponents } from "@/components/MarkdownEditor";
+import { markDownComponents } from "@/components/features/Blog/MarkdownEditor";
 import { ArrowLeft, Calendar, Clock, Eye, Heart, Share2 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";

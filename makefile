@@ -37,7 +37,7 @@ help:
 
 
 # === BUILD ===
-build:
+build-dev:
 	@echo "Building frontend for development..."
 # 	@if [ ! -f ".env.local" ]; then \
 # 		cp .env.example .env.local \
@@ -47,13 +47,12 @@ build:
 	npm run dev
 	@echo "Build completed."
 
-build-production:
+build:
 	@echo "Building frontend for production..."
 # 	@if [ ! -f ".env.local" ]; then \
 # 		cp .env.example .env.local \
 # 	fi
 	npm install --omit=dev
-	@npx tsx scripts/create-db-tables.ts
 	npm run build
 	@echo "Production build completed."
 

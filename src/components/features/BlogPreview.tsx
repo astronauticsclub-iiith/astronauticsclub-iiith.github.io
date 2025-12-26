@@ -8,7 +8,7 @@ import remarkMath from "remark-math";
 import rehypeKatex from "rehype-katex";
 import rehypeRaw from "rehype-raw";
 import rehypeHighlight from "rehype-highlight";
-import { markDownComponents } from "@/components/MarkdownEditor";
+import { markDownComponents } from "@/components/features/Blog/MarkdownEditor";
 import { Calendar, Clock, Eye, Heart, Share2 } from "lucide-react";
 import Image from "next/image";
 import { useImagePreview } from "@/context/ImagePreviewContext";
