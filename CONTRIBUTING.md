@@ -2,7 +2,7 @@
 
 ### Prerequisites
 
-- **Node.js** 21+ and npm/yarn/pnpm
+- **Node.js** 21+ and npm
 - **MongoDB** database (local or cloud instance like MongoDB Atlas)
 - **Git** for version control
 
@@ -48,9 +48,9 @@ We welcome contributions! Here's how you can help:
 5. **Test your changes**
 
    ```bash
-   npm run format      # Check for linting, formatting errors
-   npm run build-dev   # Ensure dev build succeeds and test locally
-   npm run build       # Ensure that production build works
+   npm run lint        # Check for linting errors
+   make build-dev      # Ensure dev build succeeds and test locally
+   make build          # Ensure that production build succeeds
    ```
 
 6. **Commit your changes**
@@ -85,6 +85,18 @@ We welcome contributions! Here's how you can help:
    - Select your branch
    - Fill out the PR template
    - Submit for review
+
+### Testing Checklist
+
+Before submitting a PR, ensure:
+
+- [ ] Code compiles without errors
+- [ ] Properly formatted and no linting errors (`npm run format`, `npm run lint`)
+- [ ] Build succeeds (`npm run build`)
+- [ ] Tested in development mode
+- [ ] Tested on different screen sizes (responsive)
+- [ ] No console errors in browser
+- [ ] API endpoints work correctly
 
 
 ## Project Structure
@@ -306,7 +318,7 @@ Below are the guidelines to deploy via PM2 (a Node Project manager). For deploym
 1. **Build the application**
 
    ```bash
-   npm run build
+   make build
    ```
 
 2. **Start with PM2**
@@ -323,15 +335,3 @@ Below are the guidelines to deploy via PM2 (a Node Project manager). For deploym
    pm2 restart all     # Restart
    pm2 stop all        # Stop
    ```
-
-## Testing Checklist
-
-Before submitting a PR, ensure:
-
-- [ ] Code compiles without errors
-- [ ] Properly formatted and no linting errors (`npm run format`, `npm run lint`)
-- [ ] Build succeeds (`npm run build`)
-- [ ] Tested in development mode
-- [ ] Tested on different screen sizes (responsive)
-- [ ] No console errors in browser
-- [ ] API endpoints work correctly
