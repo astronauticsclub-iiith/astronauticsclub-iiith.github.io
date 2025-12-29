@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { useWhimsy } from "@/context/WhimsyContext";
+import { aboutUsContent } from "@/data/about";
 import GravitationalLensing from "./GravitationalLensing";
 
 export default function AboutUsSection() {
@@ -127,45 +128,21 @@ export default function AboutUsSection() {
                     ></motion.div>
                 </div>
                 <div className="max-w-4xl mx-auto mt-8 text-lg text-white/80 space-y-6">
-                    <motion.p
-                        className="about-us-content"
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.4, duration: 0.6 }}
-                    >
-                        Who hasn&apos;t been captivated by the serene vastness of the midnight sky,
-                        mesmerized by the gentle glow of the moon or awestruck at the sight of a
-                        shooting star? The universe beckons with its mysteries and wonders, inviting
-                        us to explore and connect with its infinite beauty. If you&apos;ve ever
-                        yearned to deepen this connection, look no further into your childhood
-                        dream.
-                    </motion.p>
-                    <motion.p
-                        className="about-us-content"
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.6, duration: 0.6 }}
-                    >
-                        Astronautics Club at IIIT Hyderabad is a vibrant student-run community
-                        united by our shared passion for space. The word Astronautics is a fusion of
-                        Astronomy and Aeronautics, perfectly encapsulating our dual passion for
-                        Astronomy and SpaceTech. From captivating stargazing sessions with our
-                        telescope to mesmerizing star parties on the serene outskirts of the city,
-                        we bring the cosmos closer to you. Our journey doesn&apos;t stop at
-                        observation. We work on ambitious projects and have participated in several
-                        national and international competitions, gaining invaluable experience and
-                        recognition along the way.
-                    </motion.p>
-                    <motion.p
-                        className="about-us-content"
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.8, duration: 0.6 }}
-                    >
-                        Whether you are a seasoned stargazer or a curious beginner, we welcome
-                        everyone to embark along into the journey of discovery, innovation, and
-                        exploration!
-                    </motion.p>
+                    {aboutUsContent.map((paragraph, index) => (
+                        <motion.p
+                            key={paragraph.para}
+                            className="about-us-content"
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ 
+                                // Start at 0.4 and increment by 0.2 for each paragraph
+                                delay: 0.4 + index * 0.2, 
+                                duration: 0.6 
+                            }}
+                        >
+                            {paragraph.content}
+                        </motion.p>
+                    ))}
                 </div>
             </motion.section>
         );
