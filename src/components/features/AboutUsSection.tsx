@@ -134,10 +134,10 @@ export default function AboutUsSection() {
                             className="about-us-content"
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
-                            transition={{ 
+                            transition={{
                                 // Start at 0.4 and increment by 0.2 for each paragraph
-                                delay: 0.4 + index * 0.2, 
-                                duration: 0.6 
+                                delay: 0.4 + index * 0.2,
+                                duration: 0.6,
                             }}
                         >
                             {paragraph.content}

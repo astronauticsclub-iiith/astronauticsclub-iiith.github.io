@@ -4,7 +4,7 @@ import { useMemo, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronDown } from "lucide-react";
 import { faqData } from "@/data/faqs";
-import parse from 'html-react-parser';
+import parse from "html-react-parser";
 
 export default function FAQSection() {
     const [openItem, setOpenItem] = useState<number | null>(null);
@@ -16,7 +16,7 @@ export default function FAQSection() {
     const parsedFaqData = useMemo(() => {
         return faqData.map((item) => ({
             ...item,
-            answer: parse(item.answer)
+            answer: parse(item.answer),
         }));
     }, []);
 
@@ -102,7 +102,7 @@ export default function FAQSection() {
                                         }}
                                     >
                                         <div className="p-6 pt-0 text-white/80 leading-relaxed">
-                                            { item.answer }
+                                            {item.answer}
                                         </div>
                                     </motion.div>
                                 )}

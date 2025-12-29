@@ -99,8 +99,8 @@ const WhoWeAre = () => {
                             <div className="text-content-inner">
                                 <h3 className="modern-heading">A Bunch of Astromaniacs!</h3>
                                 <div className="text-body">
-                                    {whoWeAreContent.map((item, key) => (
-                                        <p>{item.para}</p>
+                                    {whoWeAreContent.map((item, index) => (
+                                        <p key={index}>{item.para}</p>
                                     ))}
                                 </div>
                             </div>
