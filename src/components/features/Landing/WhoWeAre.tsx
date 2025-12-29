@@ -1,6 +1,7 @@
 "use client";
 
 import "./WhoWeAre.css";
+import { whoWeAreContent } from "@/data/who_we_are";
 import ClickableImage from "@/components/common/ClickableImage";
 import "@/components/ui/bg-patterns.css";
 import { withBasePath } from "@/components/common/HelperFunction";
@@ -98,20 +99,9 @@ const WhoWeAre = () => {
                             <div className="text-content-inner">
                                 <h3 className="modern-heading">A Bunch of Astromaniacs!</h3>
                                 <div className="text-body">
-                                    <p>
-                                        We are the Astronomy and Space Technology Club at IIIT
-                                        Hyderabad, a vibrant community united by a shared passion
-                                        for exploring the universe. From stargazing sessions, star
-                                        parties to hands-on workshops and exciting projects, we
-                                        bring space science to life for enthusiasts of all levels.
-                                    </p>
-                                    <p>
-                                        We have undertaken exciting projects and participated in
-                                        numerous National and International competitions, gaining
-                                        experience and recognition along the way. Join along in our
-                                        journey into the fascinating world of Astronomy and
-                                        SpaceTech!
-                                    </p>
+                                    {whoWeAreContent.map((item, key) => (
+                                        <p>{item.para}</p>
+                                    ))}
                                 </div>
                             </div>
                         </div>
