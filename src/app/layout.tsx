@@ -32,13 +32,9 @@ export const metadata: Metadata = {
         "unignoramus",
     ],
     authors: [
-        {
-            name: "unignoramus",
-            url: "https://github.com/unignoramus11",
-        },
+        { name: "unignoramus", url: "https://github.com/unignoramus11" },
         { name: "Mayank Goel", url: "https://github.com/Mayank447" },
     ],
-    creator: "unignoramus",
     icons: {
         apple: withBasePath(`/apple-touch-icon.png`),
         icon: [
@@ -63,14 +59,6 @@ export const metadata: Metadata = {
         ],
         locale: "en_US",
         type: "website",
-    },
-    twitter: {
-        card: "summary_large_image",
-        title: "Astronautics Club | IIIT Hyderabad",
-        description:
-            "Where astronomy meets space technology. Experience stargazing sessions, participate in space projects, and explore the cosmos!",
-        creator: "@unignoramus11",
-        images: ["https://clubs.iiit.ac.in/astronautics/logo.png"],
     },
 };
 

@@ -1,8 +1,8 @@
-/* Who We Are Section */
 .who-we-are {
+    background-color: #e0e0e0;
     padding: 1rem 2rem;
-    padding-bottom: 5rem;
-    color: #f5f5f5;
+    padding-bottom: 6rem;
+    color: #333;
     font-family: var(--font-geist-sans);
 }
 
@@ -13,15 +13,16 @@
 
 /* Neumorphic Heading */
 .neumorphic-heading {
-    outline: none;
-    font-size: 7em;
+    font-size: 7rem;
     color: #e0e0e0;
     text-shadow:
-        3px 3px 5px rgba(228, 223, 223, 0.599),
-        -3px -3px 5px rgba(228, 223, 223, 0.599);
+        -8px -8px 12px rgba(184, 176, 176, 0.4),
+        8px 8px 12px rgba(0, 0, 0, 0.08);
+    outline: none;
     font-weight: 500;
+    font-style: normal;
     text-align: center;
-    margin-bottom: 2.5rem;
+    margin-bottom: 3rem;
 }
 
 /* Content Layout */
@@ -29,26 +30,26 @@
     display: flex;
     flex-direction: row;
     gap: 3rem;
-    margin-top: 1.5rem;
 }
 
-/* Image Collage */
+/* Image Collage - 70% width */
 .image-collage {
-    flex: 13;
+    flex: 7;
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    grid-template-rows: repeat(4, 1fr);
+    grid-template-columns: repeat(5, 1fr); /* 5 equal columns */
+    grid-template-rows: repeat(4, 1fr); /* 4 equal rows */
     gap: 1.5rem;
     grid-auto-flow: dense;
-    aspect-ratio: 4/3;
+    aspect-ratio: 4/3; /* Maintain an overall aspect ratio */
 }
 
 /* Image Frame Styles */
 .image-frame {
     border-radius: 15px;
+    background: #e0e0e0;
     box-shadow:
-        inset 4px 4px 6px #00000080,
-        inset -4px -4px 6px #2c2c2c70;
+        inset 5px 5px 10px #bebebe,
+        inset -5px -5px 10px #ffffff;
     position: relative;
     overflow: hidden;
     width: 100%;
@@ -74,7 +75,7 @@
     position: relative;
     width: 100%;
     height: 100%;
-    padding: 0;
+    padding: 0px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -84,18 +85,18 @@
     z-index: 0;
 }
 
-/* Text Content */
+/* Text Content - 30% width */
 .text-content {
     position: relative;
-    flex: 7;
+    flex: 3;
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
 .text-content-wrapper {
+    background-position: 10px 10px;
     border-radius: 16px;
-    border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .text-content-inner {
@@ -118,13 +119,14 @@
     font-size: 2.2rem;
     font-weight: 700;
     margin-bottom: 1.5rem;
-    color: #d5d3d3;
+    color: #333;
     text-align: center;
+    position: relative;
 }
 
 /* Text Body */
 .text-body {
-    color: #f1f1f1;
+    color: #444;
 }
 
 .text-body p {
@@ -139,42 +141,39 @@
 
 /* Responsive Design */
 @media (max-width: 1024px) {
-    .who-we-are {
-        padding: 2rem 1.5rem; /* Reduced padding to give more width to content */
-        padding-bottom: 6rem;
-    }
-
     .neumorphic-heading {
-        font-size: 4rem;
-        padding: 1rem;
-    }
-
-    .content-wrapper {
-        gap: 1.5rem;
-        margin-top: 1rem;
-    }
-
-    .image-collage {
-        gap: 0.75rem;
-    }
-
-    /* Ensure text is legible in tight space */
-    .text-content-inner {
+        font-size: 3rem;
+        font-weight: 900;
+        color: #333;
         padding: 1.5rem;
     }
-}
 
-@media (max-width: 768px) {
     .content-wrapper {
         flex-direction: column;
         gap: 3rem;
     }
 
+    .image-collage {
+        transform: scale(0.9);
+        transform-origin: center top;
+        max-width: 90%;
+        gap: 1rem;
+    }
+
+    .text-content {
+        width: 100%;
+        padding: 0 1.5rem;
+    }
+
+    .text-content-inner {
+        max-width: 700px;
+        margin: 0 auto;
+    }
+}
+
+@media (max-width: 768px) {
     .neumorphic-heading {
-        font-size: 2.8rem;
         min-width: 250px;
-        padding: 0;
-        margin-bottom: 0;
     }
 
     .modern-heading {
@@ -184,7 +183,6 @@
     .who-we-are {
         padding: 3rem 1.5rem;
         padding-top: 1rem;
-        padding-bottom: 4rem;
     }
 
     .content-wrapper {
@@ -192,29 +190,19 @@
     }
 
     .image-collage {
-        flex: none;
-        width: 100%;
+        transform-origin: center top;
         max-width: 95%;
         gap: 0.5rem;
-        margin-top: 0;
-    }
-
-    .text-content {
-        flex: none;
-        width: 100%;
-        padding: 0 1rem;
     }
 
     .text-content-inner {
         padding: 1.5rem;
-        max-width: 100%;
     }
 }
 
 @media (max-width: 480px) {
     .neumorphic-heading {
         min-width: 200px;
-        font-size: 2.2rem;
     }
 
     .text-body p {

@@ -21,7 +21,7 @@ const WaveSeparator: React.FC<WaveSeparatorProps> = ({
     color1 = "#b62f84",
     color2 = "#161148",
     color3 = "#6a71af",
-    color4 = "#0a0707",
+    color4 = "#e0e0e0",
     height = 80,
     className = "",
 }) => {
@@ -77,7 +77,7 @@ const CloudSeparator: React.FC<CloudSeparatorProps> = ({
     cloudCount: propCloudCount,
 }) => {
     // State to track the actual cloud count based on screen size
-    const [cloudCount, setCloudCount] = useState<number>(propCloudCount || 25);
+    const [cloudCount, setCloudCount] = useState<number>(propCloudCount || 35);
     // State to track client-side rendering (avoid SSR/window issues)
     const [isClient, setIsClient] = useState(false);
     // State to track loaded state for entrance animations
