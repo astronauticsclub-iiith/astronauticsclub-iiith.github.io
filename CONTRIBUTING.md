@@ -49,8 +49,8 @@ We welcome contributions! Here's how you can help:
 
    ```bash
    npm run lint        # Check for linting errors
-   make build-dev      # Ensure dev build succeeds and test locally
-   make build          # Ensure that production build succeeds
+   npm run dev         # Ensure dev build succeeds and test locally
+   npm run build       # Ensure that production build succeeds
    ```
 
 6. **Commit your changes**
@@ -130,17 +130,17 @@ astronauticsclub-iiith.github.io/
 │   │   │   ├── upload/         # File upload endpoints
 │   │   │   └── users/          # Club member profile management API
 │   │   │
+│   │   ├── admin/              # Admin dashboard (protected)
 │   │   ├── about/              # About page
 │   │   ├── blogs/              # Blog pages
 │   │   │   └── [slug]/         # Individual blog post
-│   │   ├── clickity-clackity-blogs-are-my-property/  # Markdown-based blog writer (protected)
+│   │   ├── blog-editor/        # Markdown-based blog writer (protected)
 │   │   ├── events/             # Events page
 │   │   ├── gallery/            # Gallery page
-│   │   ├── imtheboss/          # Admin dashboard (protected)
-│   │   ├── let-me-innn/        # Login page
+│   │   ├── login/              # Login page
+│   │   ├── profile/            # Club member profile editor (protected)
 │   │   ├── stay-away-snooper/  # Unauthorized access page
 │   │   ├── team/               # Team page
-│   │   ├── why-is-my-profile-so-trash/  # Club member profile editor (protected)
 │   │   ├── layout.tsx          # Root layout
 │   │   ├── page.tsx            # Home page
 │   │   └── globals.css         # Global styles
@@ -160,7 +160,7 @@ astronauticsclub-iiith.github.io/
 │   │   │   ├── Separator.tsx
 │   │   │   └── *.css           # Component styles
 │   │   │
-│   │   ├── AuthProvider.tsx    # Authentication context
+│   │   └── AuthProvider.tsx    # Authentication context
 │   │
 │   ├── context/                # React contexts
 │   ├── data/                   # Data files
@@ -204,7 +204,7 @@ astronauticsclub-iiith.github.io/
 ├── tailwind.config.ts          # Tailwind CSS configuration
 ├── postcss.config.mjs          # Exporting CSS configuration
 ├── tsconfig.json               # TypeScript configuration
-
+│
 ├── makefile                    # Makefile for build tasks
 ├── README.md                   # Project overview
 └── CONTRIBUTING.md             # This file
@@ -232,10 +232,10 @@ The website uses CAS for club member authentication in production. Unfortunately
 
 ### Protected Routes (can only be accessed by club members)
 
-- `/let-me-innn` - Login page
-- `/why-is-my-profile-so-trash` - Club member profile editor (all roles)
-- `/clickity-clackity-blogs-are-my-property` - Writer dashboard (admin/writer)
-- `/imtheboss` - Admin dashboard (admin only)
+- `/login` - Login page
+- `/profile` - Club member profile editor (all roles)
+- `/blog-editor` - Writer dashboard (admin/writer)
+- `/admin` - Admin dashboard (admin only)
 
 ### Authentication Flow
 
