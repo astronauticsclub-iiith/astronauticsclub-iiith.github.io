@@ -50,7 +50,7 @@ function LoginContent() {
                     if (userRole === "admin") {
                         router.push("/admin");
                     } else if (userRole === "writer") {
-                        router.push("/clickity-clackity-blogs-are-my-property");
+                        router.push("/blog-editor");
                     } else {
                         router.push("/stay-away-snooper");
                     }

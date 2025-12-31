@@ -7,7 +7,7 @@ export default withAuth(
         const token = req.nextauth.token;
         const isAdminRoute = req.nextUrl.pathname.startsWith(withBasePath(`/admin`));
         const isBlogAuthorRoute = req.nextUrl.pathname.startsWith(
-            withBasePath(`/clickity-clackity-blogs-are-my-property`)
+            withBasePath(`/blog-editor`)
         );
         const isLoginRoute = req.nextUrl.pathname.startsWith(withBasePath(`/login`));
 
@@ -43,7 +43,7 @@ export default withAuth(
                     return NextResponse.redirect(new URL(withBasePath(`/admin`), req.url));
                 } else if (userRole === "writer") {
                     return NextResponse.redirect(
-                        new URL(withBasePath("/clickity-clackity-blogs-are-my-property"), req.url)
+                        new URL(withBasePath("/blog-editor"), req.url)
                     );
                 }
             }
@@ -80,7 +80,7 @@ export default withAuth(
 export const config = {
     matcher: [
         `/admin/:path*`,
-        `/clickity-clackity-blogs-are-my-property/:path*`,
+        `/blog-editor/:path*`,
         `/login/:path*`,
         `/api/upload/:path*`,
         `/api/users/:path*`,
@@ -88,7 +88,7 @@ export const config = {
 
         // basePath can't be used here. So manually setting it for the Club server
         `/astronautics/admin/:path*`,
-        `/astronautics/clickity-clackity-blogs-are-my-property/:path*`,
+        `/astronautics/blog-editor/:path*`,
         `/astronautics/login/:path*`,
         `/astronautics/api/upload/:path*`,
         `/astronautics/api/users/:path*`,
