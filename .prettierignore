@@ -4,3 +4,5 @@ dist
 build/
 public/
 *.md
+*.yaml
+*.json
