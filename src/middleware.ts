@@ -5,7 +5,7 @@ import { withBasePath } from "./components/common/HelperFunction";
 export default withAuth(
     function middleware(req) {
         const token = req.nextauth.token;
-        const isAdminRoute = req.nextUrl.pathname.startsWith(withBasePath(`/imtheboss`));
+        const isAdminRoute = req.nextUrl.pathname.startsWith(withBasePath(`/admin`));
         const isBlogAuthorRoute = req.nextUrl.pathname.startsWith(
             withBasePath(`/clickity-clackity-blogs-are-my-property`)
         );
@@ -40,7 +40,7 @@ export default withAuth(
             // If authenticated user tries to access login page, redirect them appropriately
             if (isLoginRoute) {
                 if (userRole === "admin") {
-                    return NextResponse.redirect(new URL(withBasePath(`/imtheboss`), req.url));
+                    return NextResponse.redirect(new URL(withBasePath(`/admin`), req.url));
                 } else if (userRole === "writer") {
                     return NextResponse.redirect(
                         new URL(withBasePath("/clickity-clackity-blogs-are-my-property"), req.url)
@@ -79,7 +79,7 @@ export default withAuth(
 
 export const config = {
     matcher: [
-        `/imtheboss/:path*`,
+        `/admin/:path*`,
         `/clickity-clackity-blogs-are-my-property/:path*`,
         `/login/:path*`,
         `/api/upload/:path*`,
@@ -87,7 +87,7 @@ export const config = {
         `/api/my-blogs/:path*`,
 
         // basePath can't be used here. So manually setting it for the Club server
-        `/astronautics/imtheboss/:path*`,
+        `/astronautics/admin/:path*`,
         `/astronautics/clickity-clackity-blogs-are-my-property/:path*`,
         `/astronautics/login/:path*`,
         `/astronautics/api/upload/:path*`,

@@ -48,7 +48,7 @@ function LoginContent() {
                     console.log("Login redirect - User role:", userRole);
 
                     if (userRole === "admin") {
-                        router.push("/imtheboss");
+                        router.push("/admin");
                     } else if (userRole === "writer") {
                         router.push("/clickity-clackity-blogs-are-my-property");
                     } else {
