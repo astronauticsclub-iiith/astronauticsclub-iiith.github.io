@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
+import parse from "html-react-parser";
 import { motion } from "framer-motion";
 import { useWhimsy } from "@/context/WhimsyContext";
 import { aboutUsContent } from "@/data/about";
@@ -11,6 +12,13 @@ export default function AboutUsSection() {
     const { whimsyMode, isLoaded } = useWhimsy();
     const [mousePosition, setMousePosition] = useState({ x: -1, y: -1 });
     const [isDesktop, setIsDesktop] = useState(false);
+
+    const parsedAboutUsContent = useMemo(() => {
+        return aboutUsContent.map((item) => ({
+            ...item,
+            content: parse(item.content),
+        }));
+    }, []);
 
     useEffect(() => {
         const checkScreenSize = () => {
@@ -128,7 +136,7 @@ export default function AboutUsSection() {
                     ></motion.div>
                 </div>
                 <div className="max-w-4xl mx-auto mt-8 text-lg text-white/80 space-y-6">
-                    {aboutUsContent.map((paragraph, index) => (
+                    {parsedAboutUsContent.map((paragraph, index) => (
                         <motion.p
                             key={paragraph.para}
                             className="about-us-content"

@@ -1,12 +1,21 @@
 "use client";
 
 import "./WhoWeAre.css";
+import "@/components/ui/bg-patterns.css";
+import { useMemo } from "react";
+import parse from "html-react-parser";
 import { whoWeAreContent } from "@/data/who_we_are";
 import ClickableImage from "@/components/common/ClickableImage";
-import "@/components/ui/bg-patterns.css";
 import { withBasePath } from "@/components/common/HelperFunction";
 
 const WhoWeAre = () => {
+    const parsedWhoWeAreContent = useMemo(() => {
+        return whoWeAreContent.map((item) => ({
+            ...item,
+            para: parse(item.para),
+        }));
+    }, []);
+
     const images = [
         {
             id: 1,
@@ -99,7 +108,7 @@ const WhoWeAre = () => {
                             <div className="text-content-inner">
                                 <h3 className="modern-heading">A Bunch of Astromaniacs!</h3>
                                 <div className="text-body">
-                                    {whoWeAreContent.map((item, index) => (
+                                    {parsedWhoWeAreContent.map((item, index) => (
                                         <p key={index}>{item.para}</p>
                                     ))}
                                 </div>
