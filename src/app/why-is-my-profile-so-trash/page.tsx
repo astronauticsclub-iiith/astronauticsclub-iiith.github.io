@@ -21,7 +21,7 @@ export default function MyProfilePage() {
     useEffect(() => {
         if (status === "loading") return;
         if (status === "unauthenticated") {
-            router.push(`/let-me-innn`);
+            router.push(`/login`);
             return;
         }
 

@@ -68,7 +68,7 @@ const handler = NextAuth({
                 try {
                     // Get the ticket from the credentials
                     const ticket = credentials?.ticket;
-                    const service = `${process.env.NEXTAUTH_URL}/let-me-innn`;
+                    const service = `${process.env.NEXTAUTH_URL}/login`;
 
                     if (!ticket) {
                         console.log("CAS Authorization - No ticket provided");
@@ -186,7 +186,7 @@ const handler = NextAuth({
         },
     },
     pages: {
-        signIn: withBasePath(`/let-me-innn`),
+        signIn: withBasePath(`/login`),
         error: withBasePath(`/stay-away-snooper`),
     },
     debug: process.env.NODE_ENV === "development",

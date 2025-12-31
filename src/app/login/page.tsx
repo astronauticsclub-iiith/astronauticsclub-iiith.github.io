@@ -20,7 +20,7 @@ function LoginContent() {
             setError(null);
 
             try {
-                const serviceUrl = `${window.location.origin}${withBasePath(`let-me-innn`)}`;
+                const serviceUrl = `${window.location.origin}${withBasePath(`login`)}`;
 
                 const result = await signIn("credentials", {
                     ticket,
@@ -74,7 +74,7 @@ function LoginContent() {
     }, [searchParams, handleCASCallback]);
 
     const initiateLogin = () => {
-        const serviceUrl = `${window.location.origin}${withBasePath(`let-me-innn`)}`;
+        const serviceUrl = `${window.location.origin}${withBasePath(`login`)}`;
         const casLoginUrl = `https://login.iiit.ac.in/cas/login?service=${encodeURIComponent(
             serviceUrl
         )}`;

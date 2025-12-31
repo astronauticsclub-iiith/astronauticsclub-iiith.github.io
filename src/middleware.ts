@@ -9,11 +9,11 @@ export default withAuth(
         const isBlogAuthorRoute = req.nextUrl.pathname.startsWith(
             withBasePath(`/clickity-clackity-blogs-are-my-property`)
         );
-        const isLoginRoute = req.nextUrl.pathname.startsWith(withBasePath(`/let-me-innn`));
+        const isLoginRoute = req.nextUrl.pathname.startsWith(withBasePath(`/login`));
 
         // If user is not authenticated and trying to access protected routes
         if (!token && (isAdminRoute || isBlogAuthorRoute)) {
-            return NextResponse.redirect(new URL(withBasePath(`/let-me-innn`), req.url));
+            return NextResponse.redirect(new URL(withBasePath(`/login`), req.url));
         }
 
         // If user is authenticated but doesn't have the right role
@@ -60,7 +60,7 @@ export default withAuth(
                     req.nextUrl.pathname.startsWith(withBasePath(`/api/blogs`)) ||
                     req.nextUrl.pathname.startsWith(withBasePath(`/api/gallery`)) ||
                     req.nextUrl.pathname === withBasePath(`/stay-away-snooper`) ||
-                    req.nextUrl.pathname === withBasePath(`/let-me-innn`) ||
+                    req.nextUrl.pathname === withBasePath(`/login`) ||
                     req.nextUrl.pathname === withBasePath(`/`) ||
                     req.nextUrl.pathname.startsWith(withBasePath(`/blogs`)) ||
                     req.nextUrl.pathname.startsWith(withBasePath(`/gallery`)) ||
@@ -81,7 +81,7 @@ export const config = {
     matcher: [
         `/imtheboss/:path*`,
         `/clickity-clackity-blogs-are-my-property/:path*`,
-        `/let-me-innn/:path*`,
+        `/login/:path*`,
         `/api/upload/:path*`,
         `/api/users/:path*`,
         `/api/my-blogs/:path*`,
@@ -89,7 +89,7 @@ export const config = {
         // basePath can't be used here. So manually setting it for the Club server
         `/astronautics/imtheboss/:path*`,
         `/astronautics/clickity-clackity-blogs-are-my-property/:path*`,
-        `/astronautics/let-me-innn/:path*`,
+        `/astronautics/login/:path*`,
         `/astronautics/api/upload/:path*`,
         `/astronautics/api/users/:path*`,
         `/astronautics/api/my-blogs/:path*`,
