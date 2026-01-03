@@ -21,7 +21,7 @@ We track all issues and feature requests using GitHub Issues. If you have any su
 
 We support both local deployment (PM2) and Docker-based deployment for ease of use. While Docker is not used in the current website hosting setup due to limited server configuration, it is provided for convenience.
 
-## 🌟 Pages
+## Pages
 
 - **Landing Page**: Hero section with shooting star effect, club collage and introduction, featured blogs and a few easter eggs.
 - **Blogs**: Blog listing page with search, and category filters.
@@ -39,10 +39,11 @@ If you are interested in contributing to this project, please read our [🤝-con
 
 ## 👥 Maintainers
 
-- **Mohit Singh** - [@unignoramus11](https://github.com/unignoramus11)
 - **Mayank Goel** - [@Mayank447](https://github.com/Mayank447)
+- **Mohit Singh** - [@unignoramus11](https://github.com/unignoramus11)
 
-## 🙏 Acknowledgments
+
+## Acknowledgments
 
 - Open source libraries and frameworks used.
 - IIIT Hyderabad for providing us server space for hosting the club website
