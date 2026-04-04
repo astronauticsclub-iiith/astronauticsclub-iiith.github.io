@@ -3,7 +3,7 @@ import { NextResponse } from "next/server";
 import { withBasePath } from "./components/common/HelperFunction";
 
 export default withAuth(
-    function middleware(req) {
+    function prxoy(req) {
         const token = req.nextauth.token;
         const isAdminRoute = req.nextUrl.pathname.startsWith(withBasePath(`/admin`));
         const isBlogAuthorRoute = req.nextUrl.pathname.startsWith(
