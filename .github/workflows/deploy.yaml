@@ -14,12 +14,12 @@ jobs:
 
             - name: Sync project to deployment directory
               run: |
-                  rsync -av --exclude=".env.local" --exclude="node_modules" ./ ~/astronauticsclub-iiith.github.io/
+                  rsync -av --delete --exclude=".env.local" --exclude="node_modules" --exclude=".next" ./ ~/astronauticsclub-iiith.github.io/
 
             - name: Install and build
               run: |
                   cd ~/astronauticsclub-iiith.github.io
-                  npm install --production
+                  npm install
                   npm run build
 
             - name: Restart server
