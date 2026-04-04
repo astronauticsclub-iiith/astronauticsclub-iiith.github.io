@@ -187,7 +187,7 @@ astronauticsclub-iiith.github.io/
 │   │   ├── next-auth.d.ts      # NextAuth type extensions
 │   │   └── user.ts
 │   │
-│   └── middleware.ts           # Next.js middleware for auth
+│   └── proxy.ts           # Next.js middleware for auth
 │
 ├── Docker-deployment/          # Docker configuration files along with utility scripts
 ├── nginx/                      # Nginx configuration
@@ -241,7 +241,7 @@ The website uses CAS for club member authentication in production. Unfortunately
 
 1. Users authenticate via NextAuth (configure your provider in `src/app/api/auth/[...nextauth]/route.ts`)
 2. Session is stored as JWT
-3. Middleware (`src/middleware.ts`) protects routes based on roles
+3. Middleware (`src/proxy.ts`) protects routes based on roles
 4. API routes use `requireAuth()`, `requireAdmin()`, or `requireWriter()` from `src/lib/auth.ts`
 
 
