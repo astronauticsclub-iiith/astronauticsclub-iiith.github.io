@@ -64,7 +64,7 @@ deploy:
 #	npm install pm2 -g
 #	fi
 	@echo "Deploying via pm2"
-	pm2 restart astronautics || pm2 start ecosystem.config.js
+	pm2 restart astronautics || pm2 start ecosystem.config.cjs
 	pm2 save
 	@echo "Deployment completed"
 
@@ -72,7 +72,7 @@ deploy:
 start:
 	@echo "Starting NGINX, pm2"
 	sudo systemctl start nginx
-	pm2 restart astronautics || pm2 start ecosystem.config.js
+	pm2 restart astronautics || pm2 start ecosystem.config.cjs
 	pm2 save
 	@echo "Started NGINX, pm2 successfully"
 

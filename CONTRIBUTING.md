@@ -198,7 +198,7 @@ astronauticsclub-iiith.github.io/
 ├── .prettierrc                 # Prettier configuration (formatting)
 ├── .prettierignore             # Prettier ignore file
 │
-├── ecosystem.config.js         # PM2 configuration
+├── ecosystem.config.cjs         # PM2 configuration
 ├── next.config.ts              # Next.js configuration
 ├── package.json                # Dependencies and scripts
 ├── tailwind.config.ts          # Tailwind CSS configuration
@@ -324,7 +324,7 @@ Below are the guidelines to deploy via PM2 (a Node Project manager). For deploym
 2. **Start with PM2**
 
    ```bash
-   pm2 start ecosystem.config.js
+   pm2 start ecosystem.config.cjs
    ```
 
 3. **Manage PM2**
