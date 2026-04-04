@@ -67,7 +67,7 @@ export async function PUT(request: NextRequest, { params }: { params: Promise<{ 
 
         const { id } = await params;
 
-        if (id === adminUser.id) {
+        if (id === adminUser._id?.toString()) {
             if (role !== undefined || designations !== undefined) {
                 return NextResponse.json(
                     { error: "Admins cannot change their own role or designations." },
