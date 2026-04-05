@@ -86,18 +86,6 @@ We welcome contributions! Here's how you can help:
    - Fill out the PR template
    - Submit for review
 
-### Testing Checklist
-
-Before submitting a PR, ensure:
-
-- [ ] Code compiles without errors
-- [ ] Properly formatted and no linting errors (`npm run format`, `npm run lint`)
-- [ ] Build succeeds (`npm run build`)
-- [ ] Tested in development mode
-- [ ] Tested on different screen sizes (responsive)
-- [ ] No console errors in browser
-- [ ] API endpoints work correctly
-
 
 ## Project Structure
 
