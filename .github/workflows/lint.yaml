@@ -1,0 +1,30 @@
+name: Format, Type checking
+
+on:
+    push:
+        branches: [ main ]
+    pull_request:
+
+jobs:
+    lint:
+        runs-on:
+            ubuntu-latest
+
+        steps:
+            - name: Clone the repository
+              uses: actions/checkout@v6
+
+            - name: Set up Node.js
+              uses: actions/setup-node@v6
+              with:
+                node-version: '25'
+                cache: 'npm'
+
+            - name: Install dependencies
+              run: npm ci  # This installs as per the lock file
+
+            - name: Check format
+              run: npm run check-format
+            
+            - name: Check types
+              run: npm run type-check

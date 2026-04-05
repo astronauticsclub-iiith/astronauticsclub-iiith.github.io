@@ -125,8 +125,9 @@ const Navbar = () => {
 
     return (
         <nav
-            className={`fixed w-full z-50 transition-all duration-300 rounded-b-2xl select-none backdrop-blur-sm text-lg animate-fade-in ${isScrolled || pathname !== "/" ? "bg-black/95" : "bg-transparent"
-                }`}
+            className={`fixed w-full z-50 transition-all duration-300 rounded-b-2xl select-none backdrop-blur-sm text-lg animate-fade-in ${
+                isScrolled || pathname !== "/" ? "bg-black/95" : "bg-transparent"
+            }`}
             suppressHydrationWarning
         >
             <div className="max-w-7xl mx-auto px-4 sm:px-6">
@@ -215,18 +216,21 @@ const Navbar = () => {
                             <div className="relative w-6 h-6 mr-2">
                                 {/* First line */}
                                 <span
-                                    className={`absolute h-0.5 w-6 bg-white transform transition-all duration-300 ease-in-out ${isOpen ? "rotate-45 translate-y-2" : ""
-                                        }`}
+                                    className={`absolute h-0.5 w-6 bg-white transform transition-all duration-300 ease-in-out ${
+                                        isOpen ? "rotate-45 translate-y-2" : ""
+                                    }`}
                                 />
                                 {/* Middle line */}
                                 <span
-                                    className={`absolute h-0.5 w-6 bg-white transform transition-all duration-300 ease-in-out ${isOpen ? "opacity-0" : "opacity-100 translate-y-[8px]"
-                                        }`}
+                                    className={`absolute h-0.5 w-6 bg-white transform transition-all duration-300 ease-in-out ${
+                                        isOpen ? "opacity-0" : "opacity-100 translate-y-[8px]"
+                                    }`}
                                 />
                                 {/* Last line */}
                                 <span
-                                    className={`absolute h-0.5 w-6 bg-white transform transition-all duration-300 ease-in-out ${isOpen ? "-rotate-45 translate-y-2" : "translate-y-[16px]"
-                                        }`}
+                                    className={`absolute h-0.5 w-6 bg-white transform transition-all duration-300 ease-in-out ${
+                                        isOpen ? "-rotate-45 translate-y-2" : "translate-y-[16px]"
+                                    }`}
                                 />
                             </div>
                         </button>
@@ -236,8 +240,9 @@ const Navbar = () => {
                 {/* Mobile Navigation with Animation */}
                 <div
                     ref={menuRef}
-                    className={`md:hidden overflow-hidden transition-all duration-300 ease-in-out bg-black/95 ${isOpen ? "max-h-[500px] opacity-100" : "max-h-0 opacity-0"
-                        }`}
+                    className={`md:hidden overflow-hidden transition-all duration-300 ease-in-out bg-black/95 ${
+                        isOpen ? "max-h-[500px] opacity-100" : "max-h-0 opacity-0"
+                    }`}
                 >
                     <ul className="px-2 pt-2 pb-6 space-y-1">
                         {navLinks.map((link, index) => (
