@@ -1,4 +1,4 @@
-name: Deploy to Server
+name: Format, Type checking 
 
 on:
     push:
@@ -6,7 +6,7 @@ on:
     pull_request:
 
 jobs:
-    build:
+    lint:
         runs-on:
             ubuntu-latest
 
@@ -20,7 +20,11 @@ jobs:
                 node-version: '25'
                 cache: 'npm'
 
-            - name: Install and build
-              run: |
-                  npm install
-                  npm run check-format
+            - name: Install dependencies
+              run: npm install
+
+            - name: Check format
+              run: npm run check-format
+            
+            - name: Check types
+              run: npm run type-check
