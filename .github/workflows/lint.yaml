@@ -1,4 +1,4 @@
-name: Format, Type checking 
+name: Format, Type checking
 
 on:
     push:
@@ -21,7 +21,7 @@ jobs:
                 cache: 'npm'
 
             - name: Install dependencies
-              run: npm install
+              run: npm ci  # This installs as per the lock file
 
             - name: Check format
               run: npm run check-format

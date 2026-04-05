@@ -1,4 +1,4 @@
-name: Deploy to Server
+name: Build the website
 
 on:
     pull_request:
@@ -20,5 +20,6 @@ jobs:
 
             - name: Install and build
               run: |
-                  npm install
+                  npm ci
+                  cp .env.example .env.local
                   npm run build
