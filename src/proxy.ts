@@ -6,9 +6,7 @@ export default withAuth(
     function prxoy(req) {
         const token = req.nextauth.token;
         const isAdminRoute = req.nextUrl.pathname.startsWith(withBasePath(`/admin`));
-        const isBlogAuthorRoute = req.nextUrl.pathname.startsWith(
-            withBasePath(`/blog-editor`)
-        );
+        const isBlogAuthorRoute = req.nextUrl.pathname.startsWith(withBasePath(`/blog-editor`));
         const isLoginRoute = req.nextUrl.pathname.startsWith(withBasePath(`/login`));
 
         // If user is not authenticated and trying to access protected routes
@@ -42,9 +40,7 @@ export default withAuth(
                 if (userRole === "admin") {
                     return NextResponse.redirect(new URL(withBasePath(`/admin`), req.url));
                 } else if (userRole === "writer") {
-                    return NextResponse.redirect(
-                        new URL(withBasePath("/blog-editor"), req.url)
-                    );
+                    return NextResponse.redirect(new URL(withBasePath("/blog-editor"), req.url));
                 }
             }
         }
