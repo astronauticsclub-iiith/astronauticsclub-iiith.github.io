@@ -2,7 +2,7 @@
 
 ### Prerequisites
 
-- **Node.js** 21+ and npm
+- **Node.js** 25+ and npm
 - **MongoDB** database (local or cloud instance like MongoDB Atlas)
 - **Git** for version control
 
