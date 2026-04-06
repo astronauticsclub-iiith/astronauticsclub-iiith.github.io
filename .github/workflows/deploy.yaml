@@ -21,7 +21,7 @@ jobs:
             - name: Install and build
               run: |
                   cd ~/astronauticsclub-iiith.github.io
-                  npm install
+                  npm ci
                   npm run build
 
             - name: Restart server
