@@ -159,7 +159,15 @@ export function generateUserId(): string {
     const stored = localStorage.getItem("anonymous_user_id");
     if (stored) return stored;
 
-    const newId = `anon_${Date.now()}_${Math.random().toString(36).substring(2, 11)}`;
+    if (!window.crypto || !window.crypto.getRandomValues) {
+        throw new Error("Secure random number generation is not available in this environment.");
+    }
+
+    const bytes = new Uint8Array(16);
+    window.crypto.getRandomValues(bytes);
+    const randomSuffix = Array.from(bytes, (b) => b.toString(16).padStart(2, "0")).join("");
+
+    const newId = `anon_${Date.now()}_${randomSuffix}`;
     localStorage.setItem("anonymous_user_id", newId);
     return newId;
 }
