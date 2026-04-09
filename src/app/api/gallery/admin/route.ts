@@ -186,9 +186,37 @@ export async function PUT(request: NextRequest) {
             );
         }
 
-        const galleryDir = withStoragePath("gallery");
+        const isSafeFilename = (filename: string): boolean => {
+            if (!filename || typeof filename !== "string") return false;
+            if (filename === "." || filename === "..") return false;
+            if (filename.includes("/") || filename.includes("\\")) return false;
+            return path.basename(filename) === filename;
+        };
 
-        const oldPath = path.join(galleryDir, currentCategory, currentFilename);
+        if (!isSafeFilename(currentFilename) || (newFilename && !isSafeFilename(newFilename))) {
+            return NextResponse.json(
+                { error: "Invalid filename. Only simple file names are allowed." },
+                { status: 400 }
+            );
+        }
+
+        const galleryDir = withStoragePath("gallery");
+        const galleryRoot = path.resolve(galleryDir);
+
+        const currentCategoryDir = path.resolve(galleryRoot, currentCategory);
+        const targetCategory = newCategory || currentCategory;
+        const targetFilename = newFilename || currentFilename;
+        const targetCategoryDir = path.resolve(galleryRoot, targetCategory);
+
+        const oldPath = path.resolve(currentCategoryDir, currentFilename);
+        const newPath = path.resolve(targetCategoryDir, targetFilename);
+
+        if (
+            !oldPath.startsWith(currentCategoryDir + path.sep) ||
+            !newPath.startsWith(targetCategoryDir + path.sep)
+        ) {
+            return NextResponse.json({ error: "Invalid file path" }, { status: 400 });
+        }
 
         // Ensure the old file exists
         try {
@@ -197,12 +225,8 @@ export async function PUT(request: NextRequest) {
             return NextResponse.json({ error: "File not found" }, { status: 404 });
         }
 
-        const targetCategory = newCategory || currentCategory;
-        const targetFilename = newFilename || currentFilename;
-        const newPath = path.join(galleryDir, targetCategory, targetFilename);
-
         // Ensure target directory exists
-        await fs.mkdir(path.join(galleryDir, targetCategory), { recursive: true });
+        await fs.mkdir(targetCategoryDir, { recursive: true });
 
         // Check if target file already exists (unless it's the same file)
         if (oldPath !== newPath) {
