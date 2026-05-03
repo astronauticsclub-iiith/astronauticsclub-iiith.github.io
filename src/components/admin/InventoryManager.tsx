@@ -114,20 +114,35 @@ export default function InventoryManager({ showSuccess, showError }: InventoryMa
     };
 
     const handleExport = () => {
-        const headers = ["id", "name", "category", "status", "description", "year_of_purchase", "isLent", "borrower", "borrowed_date", "comments"];
+        const headers = [
+            "id",
+            "name",
+            "category",
+            "status",
+            "description",
+            "year_of_purchase",
+            "isLent",
+            "borrower",
+            "borrowed_date",
+            "comments",
+        ];
 
-        const rows = inventory.map((item) => [
-            item.id,
-            item.name,
-            item.category,
-            item.status,
-            item.description,
-            item.year_of_purchase,
-            item.isLent,
-            item.borrower ?? "",
-            item.borrowed_date ?? "",
-            item.comments ?? "",
-        ].map((val) => `"${String(val ?? "").replace(/"/g, '""')}"`).join(","));
+        const rows = inventory.map((item) =>
+            [
+                item.id,
+                item.name,
+                item.category,
+                item.status,
+                item.description,
+                item.year_of_purchase,
+                item.isLent,
+                item.borrower ?? "",
+                item.borrowed_date ?? "",
+                item.comments ?? "",
+            ]
+                .map((val) => `"${String(val ?? "").replace(/"/g, '""')}"`)
+                .join(",")
+        );
 
         const csv = [headers.join(","), ...rows].join("\n");
 
@@ -297,13 +312,14 @@ export default function InventoryManager({ showSuccess, showError }: InventoryMa
                 transition={{ delay: 0.6, duration: 0.4 }}
                 className="border-2 sm:border-4 border-white p-3 sm:p-4 lg:p-6 backdrop-blur-sm hover:shadow-lg hover:shadow-white/10 transition-all duration-300"
             >
-
                 {/*CSV Export*/}
                 <div className="mb-4">
-                    
-                    <button onClick={handleExport}
+                    <button
+                        onClick={handleExport}
                         className="ml-auto px-3 py-2 border-2 border-white text-white font-bold hover:bg-white hover:text-background transition-all duration-200 uppercase text-sm"
-                    >Export as csv</button>
+                    >
+                        Export as csv
+                    </button>
                 </div>
 
                 <h2 className="text-lg sm:text-xl lg:text-2xl font-bold mb-4 sm:mb-6 text-white uppercase flex items-center gap-2">
