@@ -152,7 +152,9 @@ export default function InventoryManager({ showSuccess, showError }: InventoryMa
         a.href = url;
         a.download = `inventory-${new Date().toISOString().split("T")[0]}.csv`;
         a.click();
-        URL.revokeObjectURL(url);
+        setTimeout(() => {
+            URL.revokeObjectURL(url);
+        }, 1000);
     };
 
     return (
@@ -313,7 +315,7 @@ export default function InventoryManager({ showSuccess, showError }: InventoryMa
                 className="border-2 sm:border-4 border-white p-3 sm:p-4 lg:p-6 backdrop-blur-sm hover:shadow-lg hover:shadow-white/10 transition-all duration-300"
             >
                 {/*CSV Export*/}
-                <div className="mb-4">
+                <div className="mb-4 flex justify-end">
                     <button
                         onClick={handleExport}
                         className="ml-auto px-3 py-2 border-2 border-white text-white font-bold hover:bg-white hover:text-background transition-all duration-200 uppercase text-sm"
