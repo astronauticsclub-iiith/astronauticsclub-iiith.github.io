@@ -113,6 +113,33 @@ export default function InventoryManager({ showSuccess, showError }: InventoryMa
         }
     };
 
+    const handleExport = () => {
+        const headers = ["id", "name", "category", "status", "description", "year_of_purchase", "isLent", "borrower", "borrowed_date", "comments"];
+
+        const rows = inventory.map((item) => [
+            item.id,
+            item.name,
+            item.category,
+            item.status,
+            item.description,
+            item.year_of_purchase,
+            item.isLent,
+            item.borrower ?? "",
+            item.borrowed_date ?? "",
+            item.comments ?? "",
+        ].map((val) => `"${String(val ?? "").replace(/"/g, '""')}"`).join(","));
+
+        const csv = [headers.join(","), ...rows].join("\n");
+
+        const blob = new Blob([csv], { type: "text/csv" });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = `inventory-${new Date().toISOString().split("T")[0]}.csv`;
+        a.click();
+        URL.revokeObjectURL(url);
+    };
+
     return (
         <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -252,6 +279,7 @@ export default function InventoryManager({ showSuccess, showError }: InventoryMa
                             className="w-full bg-background border-2 border-white p-2 text-white font-medium text-sm transition-all duration-200 focus:scale-[1.02] focus:ring-2 focus:ring-white file:mr-4 file:py-1 file:px-2 file:border-0 file:text-xs file:font-bold file:bg-white file:text-background hover:file:bg-[#e0e0e0]"
                         />
                     </div>
+
                     <button
                         type="submit"
                         className="w-full sm:w-auto px-3 sm:px-4 py-3 sm:py-4 border-2 border-white bg-white text-background font-bold hover:bg-[#e0e0e0] transition-all duration-200 uppercase text-sm sm:text-base hover:scale-105 active:scale-95"
@@ -269,6 +297,15 @@ export default function InventoryManager({ showSuccess, showError }: InventoryMa
                 transition={{ delay: 0.6, duration: 0.4 }}
                 className="border-2 sm:border-4 border-white p-3 sm:p-4 lg:p-6 backdrop-blur-sm hover:shadow-lg hover:shadow-white/10 transition-all duration-300"
             >
+
+                {/*CSV Export*/}
+                <div className="mb-4">
+                    
+                    <button onClick={handleExport}
+                        className="ml-auto px-3 py-2 border-2 border-white text-white font-bold hover:bg-white hover:text-background transition-all duration-200 uppercase text-sm"
+                    >Export as csv</button>
+                </div>
+
                 <h2 className="text-lg sm:text-xl lg:text-2xl font-bold mb-4 sm:mb-6 text-white uppercase flex items-center gap-2">
                     <CalendarDays size={18} className="sm:w-6 sm:h-6" />
                     INVENTORY LIST ({inventory.length})
