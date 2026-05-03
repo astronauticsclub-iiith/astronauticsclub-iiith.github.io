@@ -150,8 +150,12 @@ export default function InventoryManager({ showSuccess, showError }: InventoryMa
         const url = URL.createObjectURL(blob);
         const a = document.createElement("a");
         a.href = url;
+
         a.download = `inventory-${new Date().toISOString().split("T")[0]}.csv`;
+        document.body.appendChild(a);
         a.click();
+        document.body.removeChild(a);
+
         setTimeout(() => {
             URL.revokeObjectURL(url);
         }, 1000);
@@ -320,7 +324,7 @@ export default function InventoryManager({ showSuccess, showError }: InventoryMa
                         onClick={handleExport}
                         className="ml-auto px-3 py-2 border-2 border-white text-white font-bold hover:bg-white hover:text-background transition-all duration-200 uppercase text-sm"
                     >
-                        Export as csv
+                        Export as CSV
                     </button>
                 </div>
 
