@@ -167,7 +167,7 @@ export class Logger {
         details?: Record<string, unknown>
     ) {
         this.info(
-            `Admin ${userEmail} ${operation} ${resourceType}${resourceId ? ` (ID: ${resourceId})` : ""}`,
+            `${userEmail} ${operation} ${resourceType}${resourceId ? ` (ID: ${resourceId})` : ""}`,
             {
                 source: "write_operation",
                 userEmail,
