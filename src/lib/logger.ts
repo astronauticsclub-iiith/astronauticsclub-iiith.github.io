@@ -132,62 +132,54 @@ export class Logger {
         return logs.slice(-limit).reverse(); // Return most recent first
     }
 
-  // Log specific actions
-  static logUserAction(
-  userEmail: string,
-  action: string,
-  details?: Record<string, unknown>,
-  source: string ='user_action'
-) {
-  this.info(`Admin ${userEmail} performed action: ${action}`, {
-    source,
-    userEmail,
-    action,
-    details
-  });
-}
-
-
-  static logAPICall(
-  method: string,
-  endpoint: string,
-  userEmail?: string,
-  status?: number
-) {
-  this.info(
-    `API request ${method} ${endpoint} completed with status ${status ?? 'unknown'}`,
-    {
-      source: 'api',
-      userEmail,
-      action: `${method} ${endpoint}`,
-      details: { status }
+    // Log specific actions
+    static logUserAction(
+        userEmail: string,
+        action: string,
+        details?: Record<string, unknown>,
+        source: string = "user_action"
+    ) {
+        this.info(`Admin ${userEmail} performed action: ${action}`, {
+            source,
+            userEmail,
+            action,
+            details,
+        });
     }
-  );
-}
 
-
-  static logWriteOperation(
-  operation: string,
-  userEmail: string,
-  resourceType: string,
-  resourceId?: string,
-  details?: Record<string, unknown>
-) {
-  this.info(
-    `Admin ${userEmail} ${operation} ${resourceType}${resourceId ? ` (ID: ${resourceId})` : ''}`,
-    {
-      source: 'write_operation',
-      userEmail,
-      action: operation,
-      details: {
-        resourceType,
-        resourceId,
-        ...details
-      }
+    static logAPICall(method: string, endpoint: string, userEmail?: string, status?: number) {
+        this.info(
+            `API request ${method} ${endpoint} completed with status ${status ?? "unknown"}`,
+            {
+                source: "api",
+                userEmail,
+                action: `${method} ${endpoint}`,
+                details: { status },
+            }
+        );
     }
-  );
-}
 
+    static logWriteOperation(
+        operation: string,
+        userEmail: string,
+        resourceType: string,
+        resourceId?: string,
+        details?: Record<string, unknown>
+    ) {
+        this.info(
+            `Admin ${userEmail} ${operation} ${resourceType}${resourceId ? ` (ID: ${resourceId})` : ""}`,
+            {
+                source: "write_operation",
+                userEmail,
+                action: operation,
+                details: {
+                    resourceType,
+                    resourceId,
+                    ...details,
+                },
+            }
+        );
+    }
 }
 
 export default Logger;
