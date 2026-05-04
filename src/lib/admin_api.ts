@@ -161,15 +161,10 @@ export async function updateGalleryImage(data: {
     }
 }
 
-export async function deleteGalleryImage(
-    filename: string,
-    category: string
-): Promise<void> {
+export async function deleteGalleryImage(filename: string, category: string): Promise<void> {
     const response = await fetch(
         withBasePath(
-            `/api/gallery/admin?filename=${encodeURIComponent(
-                filename
-            )}&category=${category}`
+            `/api/gallery/admin?filename=${encodeURIComponent(filename)}&category=${category}`
         ),
         { method: "DELETE" }
     );
@@ -203,10 +198,7 @@ export async function createAdminEvent(eventData: Omit<Event, "id">): Promise<vo
     }
 }
 
-export async function updateEvent(
-    eventId: string,
-    eventData: Partial<Event>
-): Promise<void> {
+export async function updateEvent(eventId: string, eventData: Partial<Event>): Promise<void> {
     const response = await fetch(withBasePath(`/api/events/admin`), {
         method: "PUT",
         headers: { "Content-Type": "application/json" },

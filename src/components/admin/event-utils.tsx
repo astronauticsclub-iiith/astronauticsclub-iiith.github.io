@@ -1,13 +1,5 @@
 import React from "react";
-import {
-    Star,
-    Camera,
-    Brain,
-    Trophy,
-    Wrench,
-    FolderOpen,
-    Rocket,
-} from "lucide-react";
+import { Star, Camera, Brain, Trophy, Wrench, FolderOpen, Rocket } from "lucide-react";
 
 export const getEventTypeIcon = (type: string) => {
     switch (type) {

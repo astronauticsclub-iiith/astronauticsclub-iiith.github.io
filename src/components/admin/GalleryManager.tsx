@@ -2,14 +2,7 @@
 
 import { useState, useEffect, useRef, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import {
-    Upload,
-    Image as ImageIcon,
-    Filter,
-    Calendar,
-    ChevronDown,
-    Loader2,
-} from "lucide-react";
+import { Upload, Image as ImageIcon, Filter, Calendar, ChevronDown, Loader2 } from "lucide-react";
 import { GalleryImage } from "@/types/gallery-image";
 import AdminPhotoCard from "@/components/admin/AdminPhotoCard";
 import {
@@ -24,18 +17,14 @@ interface GalleryManagerProps {
     showError: (message: string) => void;
 }
 
-export default function GalleryManager({
-    showSuccess,
-    showError,
-}: GalleryManagerProps) {
+export default function GalleryManager({ showSuccess, showError }: GalleryManagerProps) {
     const [galleryImages, setGalleryImages] = useState<GalleryImage[]>([]);
     const [loading, setLoading] = useState(true);
     const [uploadFile, setUploadFile] = useState<File | null>(null);
     const [uploadCategory, setUploadCategory] = useState("all");
     const [customFilename, setCustomFilename] = useState("");
     const [editingImage, setEditingImage] = useState<string | null>(null);
-    const [showUploadCategoryDropdown, setShowUploadCategoryDropdown] =
-        useState(false);
+    const [showUploadCategoryDropdown, setShowUploadCategoryDropdown] = useState(false);
     const [uploading, setUploading] = useState(false);
     const fileInputRef = useRef<HTMLInputElement>(null);
     const uploadDropdownRef = useRef<HTMLDivElement>(null);
@@ -190,8 +179,9 @@ export default function GalleryManager({
                                     </div>
                                     <ChevronDown
                                         size={16}
-                                        className={`transition-transform ${showUploadCategoryDropdown ? "rotate-180" : ""
-                                            }`}
+                                        className={`transition-transform ${
+                                            showUploadCategoryDropdown ? "rotate-180" : ""
+                                        }`}
                                     />
                                 </button>
                                 <AnimatePresence>
@@ -208,10 +198,11 @@ export default function GalleryManager({
                                                     setUploadCategory("astrophotography");
                                                     setShowUploadCategoryDropdown(false);
                                                 }}
-                                                className={`w-full flex items-center gap-2 px-3 py-2 text-left font-medium hover:bg-white hover:text-background transition-colors ${uploadCategory === "astrophotography"
-                                                    ? "bg-white text-background"
-                                                    : "text-white"
-                                                    }`}
+                                                className={`w-full flex items-center gap-2 px-3 py-2 text-left font-medium hover:bg-white hover:text-background transition-colors ${
+                                                    uploadCategory === "astrophotography"
+                                                        ? "bg-white text-background"
+                                                        : "text-white"
+                                                }`}
                                             >
                                                 <ImageIcon size={16} />
                                                 <span className="uppercase">ASTROPHOTOGRAPHY</span>
@@ -222,10 +213,11 @@ export default function GalleryManager({
                                                     setUploadCategory("events");
                                                     setShowUploadCategoryDropdown(false);
                                                 }}
-                                                className={`w-full flex items-center gap-2 px-3 py-2 text-left font-medium hover:bg-white hover:text-background transition-colors ${uploadCategory === "events"
-                                                    ? "bg-white text-background"
-                                                    : "text-white"
-                                                    }`}
+                                                className={`w-full flex items-center gap-2 px-3 py-2 text-left font-medium hover:bg-white hover:text-background transition-colors ${
+                                                    uploadCategory === "events"
+                                                        ? "bg-white text-background"
+                                                        : "text-white"
+                                                }`}
                                             >
                                                 <Calendar size={16} />
                                                 <span className="uppercase">EVENTS</span>
@@ -236,10 +228,11 @@ export default function GalleryManager({
                                                     setUploadCategory("others");
                                                     setShowUploadCategoryDropdown(false);
                                                 }}
-                                                className={`w-full flex items-center gap-2 px-3 py-2 text-left font-medium hover:bg-white hover:text-background transition-colors ${uploadCategory === "others"
-                                                    ? "bg-white text-background"
-                                                    : "text-white"
-                                                    }`}
+                                                className={`w-full flex items-center gap-2 px-3 py-2 text-left font-medium hover:bg-white hover:text-background transition-colors ${
+                                                    uploadCategory === "others"
+                                                        ? "bg-white text-background"
+                                                        : "text-white"
+                                                }`}
                                             >
                                                 <Filter size={16} />
                                                 <span className="uppercase">OTHERS</span>

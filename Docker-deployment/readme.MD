@@ -95,12 +95,10 @@ You can start editing the page by modifying `app/page.tsx`. The page auto-update
 The application includes an API for file uploads with the following endpoints:
 
 - `POST /api/upload`: Upload a new file
-
   - Expected form data: `file` (the file to upload)
   - Returns: JSON with file details and URL
 
 - `GET /api/upload`: List all uploaded files
-
   - Returns: JSON with array of file details
 
 - `GET /api/upload?filename=example.jpg`: Get details of a specific file

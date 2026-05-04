@@ -5,7 +5,16 @@ import { promises as fs } from "fs";
 import path from "path";
 import { Logger } from "@/lib/logger";
 import { requireAdmin } from "@/lib/auth";
-import { withStoragePath, generateLabel } from "@/components/common/HelperFunction";
+import { withStoragePath } from "@/components/common/HelperFunction";
+
+// Helper function to generate label from filename
+function generateLabel(filename: string): string {
+  const nameWithoutExt = path.parse(filename).name;
+  return nameWithoutExt
+    .replace(/\s*\(.*?\)\s*/g, "")
+    .replace(/_/g, " ")
+    .replace(/\b\w/g, (l) => l.toUpperCase());
+}
 
 // GET - List all images for admin management
 export async function GET() {
@@ -14,16 +23,7 @@ export async function GET() {
 
     const galleryDir = withStoragePath("gallery");
 
-    const imageExtensions = [
-      ".jpg",
-      ".jpeg",
-      ".png",
-      ".webp",
-      ".gif",
-      ".bmp",
-      ".svg",
-      ".avif",
-    ];
+    const imageExtensions = [".jpg", ".jpeg", ".png", ".webp", ".gif", ".bmp", ".svg", ".avif"];
     const categories = ["astrophotography", "events", "others"];
     const allImages = [];
 
@@ -62,17 +62,12 @@ export async function GET() {
     }
 
     // Sort by modified date (newest first)
-    allImages.sort(
-      (a, b) => new Date(b.modified).getTime() - new Date(a.modified).getTime()
-    );
+    allImages.sort((a, b) => new Date(b.modified).getTime() - new Date(a.modified).getTime());
 
     return NextResponse.json({ images: allImages });
   } catch (error) {
     console.error("Error fetching admin gallery images:", error);
-    return NextResponse.json(
-      { error: "Failed to fetch gallery images" },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: "Failed to fetch gallery images" }, { status: 500 });
   }
 }
 
@@ -98,16 +93,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Validate file type
-    const imageExtensions = [
-      ".jpg",
-      ".jpeg",
-      ".png",
-      ".webp",
-      ".gif",
-      ".bmp",
-      ".svg",
-      ".avif",
-    ];
+    const imageExtensions = [".jpg", ".jpeg", ".png", ".webp", ".gif", ".bmp", ".svg", ".avif"];
     const fileExtension = path.extname(file.name).toLowerCase();
 
     if (!imageExtensions.includes(fileExtension)) {
@@ -118,9 +104,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Create filename
-    const filename = customFilename
-      ? `${customFilename}${fileExtension}`
-      : file.name;
+    const filename = customFilename ? `${customFilename}${fileExtension}` : file.name;
 
     // Ensure gallery directory structure exists
     const galleryDir = withStoragePath("gallery");
@@ -169,10 +153,7 @@ export async function POST(request: NextRequest) {
     });
   } catch (error) {
     console.error("Error uploading image:", error);
-    return NextResponse.json(
-      { error: "Failed to upload image" },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: "Failed to upload image" }, { status: 500 });
   }
 }
 
@@ -181,8 +162,7 @@ export async function PUT(request: NextRequest) {
   try {
     const { user } = await requireAdmin();
 
-    const { currentFilename, currentCategory, newFilename, newCategory } =
-      await request.json();
+    const { currentFilename, currentCategory, newFilename, newCategory } = await request.json();
 
     if (!currentFilename || !currentCategory) {
       return NextResponse.json(
@@ -201,9 +181,37 @@ export async function PUT(request: NextRequest) {
       );
     }
 
-    const galleryDir = withStoragePath("gallery");
+    const isSafeFilename = (filename: string): boolean => {
+      if (!filename || typeof filename !== "string") return false;
+      if (filename === "." || filename === "..") return false;
+      if (filename.includes("/") || filename.includes("\\")) return false;
+      return path.basename(filename) === filename;
+    };
 
-    const oldPath = path.join(galleryDir, currentCategory, currentFilename);
+    if (!isSafeFilename(currentFilename) || (newFilename && !isSafeFilename(newFilename))) {
+      return NextResponse.json(
+        { error: "Invalid filename. Only simple file names are allowed." },
+        { status: 400 }
+      );
+    }
+
+    const galleryDir = withStoragePath("gallery");
+    const galleryRoot = path.resolve(galleryDir);
+
+    const currentCategoryDir = path.resolve(galleryRoot, currentCategory);
+    const targetCategory = newCategory || currentCategory;
+    const targetFilename = newFilename || currentFilename;
+    const targetCategoryDir = path.resolve(galleryRoot, targetCategory);
+
+    const oldPath = path.resolve(currentCategoryDir, currentFilename);
+    const newPath = path.resolve(targetCategoryDir, targetFilename);
+
+    if (
+      !oldPath.startsWith(currentCategoryDir + path.sep) ||
+      !newPath.startsWith(targetCategoryDir + path.sep)
+    ) {
+      return NextResponse.json({ error: "Invalid file path" }, { status: 400 });
+    }
 
     // Ensure the old file exists
     try {
@@ -212,12 +220,8 @@ export async function PUT(request: NextRequest) {
       return NextResponse.json({ error: "File not found" }, { status: 404 });
     }
 
-    const targetCategory = newCategory || currentCategory;
-    const targetFilename = newFilename || currentFilename;
-    const newPath = path.join(galleryDir, targetCategory, targetFilename);
-
     // Ensure target directory exists
-    await fs.mkdir(path.join(galleryDir, targetCategory), { recursive: true });
+    await fs.mkdir(targetCategoryDir, { recursive: true });
 
     // Check if target file already exists (unless it's the same file)
     if (oldPath !== newPath) {
@@ -225,8 +229,7 @@ export async function PUT(request: NextRequest) {
         await fs.access(newPath);
         return NextResponse.json(
           {
-            error:
-              "Target file already exists. Please choose a different name.",
+            error: "Target file already exists. Please choose a different name.",
           },
           { status: 409 }
         );
@@ -240,10 +243,13 @@ export async function PUT(request: NextRequest) {
       await connectToDatabase();
       await Event.updateMany(
         { image: path.join("/gallery", currentCategory, currentFilename) },
-        { $set: { image: path.join("/gallery", newCategory, newFilename) } },
+        { $set: { image: path.join("/gallery", newCategory, newFilename) } }
       );
     } catch {
-      return NextResponse.json({ error: "Failed to update the corresponding linked events" }, { status: 404 });
+      return NextResponse.json(
+        { error: "Failed to update the corresponding linked events" },
+        { status: 404 }
+      );
     }
 
     // Move/rename the file
@@ -276,10 +282,7 @@ export async function PUT(request: NextRequest) {
     });
   } catch (error) {
     console.error("Error updating image:", error);
-    return NextResponse.json(
-      { error: "Failed to update image" },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: "Failed to update image" }, { status: 500 });
   }
 }
 
@@ -321,10 +324,13 @@ export async function DELETE(request: NextRequest) {
       await connectToDatabase();
       await Event.updateMany(
         { image: path.join("/gallery", category, filename) },
-        { $set: { image: "" } },
+        { $set: { image: "" } }
       );
     } catch {
-      return NextResponse.json({ error: "Failed to update the corresponding linked events" }, { status: 404 });
+      return NextResponse.json(
+        { error: "Failed to update the corresponding linked events" },
+        { status: 404 }
+      );
     }
 
     // Delete the file
@@ -341,9 +347,6 @@ export async function DELETE(request: NextRequest) {
     });
   } catch (error) {
     console.error("Error deleting image:", error);
-    return NextResponse.json(
-      { error: "Failed to delete image" },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: "Failed to delete image" }, { status: 500 });
   }
 }

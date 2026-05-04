@@ -75,10 +75,7 @@ export default function UserManagement({
         }
     };
 
-    const handleUpdateUserRole = async (
-        userId: string,
-        role: "admin" | "writer" | "none"
-    ) => {
+    const handleUpdateUserRole = async (userId: string, role: "admin" | "writer" | "none") => {
         try {
             await updateUserRole(userId, role);
             fetchUsers();
@@ -101,11 +98,7 @@ export default function UserManagement({
         const isModifyingSelf = targetUser?.email === currentUserEmail;
 
         // Restrict admin role modifications - admins cannot modify admin role, except self
-        if (
-            newRole === "admin" &&
-            !isModifyingSelf &&
-            currentRole === "admin"
-        ) {
+        if (newRole === "admin" && !isModifyingSelf && currentRole === "admin") {
             showError("Admin role cannot be modified for security reasons");
             return;
         }
@@ -170,9 +163,7 @@ export default function UserManagement({
                         type="email"
                         placeholder="EMAIL ADDRESS"
                         value={newUser.email}
-                        onChange={(e) =>
-                            setNewUser({ ...newUser, email: e.target.value })
-                        }
+                        onChange={(e) => setNewUser({ ...newUser, email: e.target.value })}
                         className="bg-background border-2 border-white p-3 sm:p-4 text-white font-medium placeholder-[#666] text-sm sm:text-base transition-all duration-200 focus:scale-[1.02] hover:border-opacity-80 focus:ring-2 focus:ring-white focus:border-white"
                         required
                     />
@@ -180,9 +171,7 @@ export default function UserManagement({
                         type="text"
                         placeholder="FULL NAME (OPTIONAL)"
                         value={newUser.name}
-                        onChange={(e) =>
-                            setNewUser({ ...newUser, name: e.target.value })
-                        }
+                        onChange={(e) => setNewUser({ ...newUser, name: e.target.value })}
                         className="bg-background border-2 border-white p-3 sm:p-4 text-white font-medium placeholder-[#666] uppercase text-sm sm:text-base transition-all duration-200 focus:scale-[1.02] hover:border-opacity-80 focus:ring-2 focus:ring-white focus:border-white"
                     />
                     <div className="bg-background border-2 border-white p-3 sm:p-4 space-y-2 transition-all duration-200 hover:border-opacity-80">

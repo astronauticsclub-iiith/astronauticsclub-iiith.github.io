@@ -1,117 +1,117 @@
 .team-container {
-  max-width: 1200px;
-  margin: 0 auto;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
 .team-filters {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.75rem;
-  margin-top: 1.5rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 1.5rem;
 }
 
 .team-filter-btn {
-  padding: 0.5rem 1rem;
-  border: 2px solid white;
-  color: white;
-  background-color: transparent;
-  font-weight: bold;
-  text-transform: uppercase;
-  transition: all 0.2s;
+    padding: 0.5rem 1rem;
+    border: 2px solid white;
+    color: white;
+    background-color: transparent;
+    font-weight: bold;
+    text-transform: uppercase;
+    transition: all 0.2s;
 }
 
 .team-filter-btn.active {
-  background-color: white;
-  color: #1a1a1a;
+    background-color: white;
+    color: #1a1a1a;
 }
 
 .team-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 1.5rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem;
 }
 
 .team-card {
-  background-color: #2a2a2a;
-  border: 2px solid white;
-  overflow: hidden;
-  transition: transform 0.2s;
+    background-color: #2a2a2a;
+    border: 2px solid white;
+    overflow: hidden;
+    transition: transform 0.2s;
 }
 
 .team-card:hover {
-  transform: translateY(-5px);
+    transform: translateY(-5px);
 }
 
 .team-card-image {
-  position: relative;
-  width: 100%;
-  padding-top: 100%; /* 1:1 Aspect Ratio */
+    position: relative;
+    width: 100%;
+    padding-top: 100%; /* 1:1 Aspect Ratio */
 }
 
 .team-card-content {
-  padding: 1rem;
+    padding: 1rem;
 }
 
 .team-card-name {
-  font-size: 1.25rem;
-  font-weight: bold;
-  color: white;
-  text-transform: uppercase;
+    font-size: 1.25rem;
+    font-weight: bold;
+    color: white;
+    text-transform: uppercase;
 }
 
 .team-card-email {
-  font-size: 0.875rem;
-  color: #e0e0e0;
-  margin-bottom: 0.5rem;
+    font-size: 0.875rem;
+    color: #e0e0e0;
+    margin-bottom: 0.5rem;
 }
 
 .team-card-designations {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  margin-bottom: 1rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
 }
 
 .team-card-designation {
-  background-color: white;
-  color: #1a1a1a;
-  padding: 0.25rem 0.5rem;
-  font-size: 0.75rem;
-  font-weight: bold;
-  text-transform: uppercase;
+    background-color: white;
+    color: #1a1a1a;
+    padding: 0.25rem 0.5rem;
+    font-size: 0.75rem;
+    font-weight: bold;
+    text-transform: uppercase;
 }
 
 .team-card-bio {
-  font-size: 0.875rem;
-  color: #c0c0c0;
+    font-size: 0.875rem;
+    color: #c0c0c0;
 }
 
 .team-empty {
-  text-align: center;
-  padding: 4rem 1rem;
-  border: 2px dashed white;
+    text-align: center;
+    padding: 4rem 1rem;
+    border: 2px dashed white;
 }
 
 .team-empty p {
-  font-size: 1.25rem;
-  color: white;
-  font-weight: bold;
+    font-size: 1.25rem;
+    color: white;
+    font-weight: bold;
 }
 
 .team-empty-hint {
-  font-size: 1rem;
-  color: #a0a0a0;
-  margin-top: 0.5rem;
+    font-size: 1rem;
+    color: #a0a0a0;
+    margin-top: 0.5rem;
 }
 
 @media (max-width: 768px) {
-  .team-grid {
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  }
+    .team-grid {
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    }
 }
 
 @media (max-width: 640px) {
-  .team-grid {
-    grid-template-columns: 1fr;
-  }
+    .team-grid {
+        grid-template-columns: 1fr;
+    }
 }

@@ -55,9 +55,7 @@ export default function LogViewer({ showError }: LogViewerProps) {
                         transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
                         className="w-6 h-6 border-2 border-white border-t-transparent rounded-full"
                     />
-                    <span className="ml-3 text-white font-bold uppercase">
-                        Loading logs...
-                    </span>
+                    <span className="ml-3 text-white font-bold uppercase">Loading logs...</span>
                 </div>
             ) : logs.length === 0 ? (
                 <div className="text-center py-8">
@@ -77,12 +75,13 @@ export default function LogViewer({ showError }: LogViewerProps) {
                             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-3">
                                 <div className="flex items-center gap-2 sm:gap-3">
                                     <span
-                                        className={`px-2 py-1 text-xs font-bold uppercase border ${log.level === "error"
+                                        className={`px-2 py-1 text-xs font-bold uppercase border ${
+                                            log.level === "error"
                                                 ? "bg-red-600 text-white border-red-600"
                                                 : log.level === "warn"
-                                                    ? "bg-yellow-600 text-white border-yellow-600"
-                                                    : "bg-green-600 text-white border-green-600"
-                                            }`}
+                                                  ? "bg-yellow-600 text-white border-yellow-600"
+                                                  : "bg-green-600 text-white border-green-600"
+                                        }`}
                                     >
                                         {log.level}
                                     </span>

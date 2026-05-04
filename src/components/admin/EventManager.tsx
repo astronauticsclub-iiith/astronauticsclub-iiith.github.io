@@ -2,10 +2,7 @@
 
 import { useState, useEffect, useCallback } from "react";
 import { motion } from "framer-motion";
-import {
-    Plus,
-    CalendarDays,
-} from "lucide-react";
+import { Plus, CalendarDays } from "lucide-react";
 import { Event } from "@/types/event";
 import AdminEventCard from "@/components/admin/AdminEventCard";
 import ImageSelector from "@/components/admin/ImageSelector";
@@ -16,12 +13,7 @@ interface EventManagerProps {
     showError: (message: string) => void;
 }
 
-
-
-export default function EventManager({
-    showSuccess,
-    showError,
-}: EventManagerProps) {
+export default function EventManager({ showSuccess, showError }: EventManagerProps) {
     const [events, setEvents] = useState<Event[]>([]);
     const [eventsLoading, setEventsLoading] = useState(false);
     const [editingEvent, setEditingEvent] = useState<string | null>(null);
@@ -191,9 +183,7 @@ export default function EventManager({
                             type="text"
                             placeholder="EVENT TITLE"
                             value={newEvent.title}
-                            onChange={(e) =>
-                                setNewEvent({ ...newEvent, title: e.target.value })
-                            }
+                            onChange={(e) => setNewEvent({ ...newEvent, title: e.target.value })}
                             className="bg-background border-2 border-white p-3 sm:p-4 text-white font-medium placeholder-[#666] uppercase text-sm sm:text-base transition-all duration-200 focus:scale-[1.02] hover:border-opacity-80 focus:ring-2 focus:ring-white focus:border-white"
                             required
                         />
@@ -203,9 +193,7 @@ export default function EventManager({
                     <textarea
                         placeholder="EVENT DESCRIPTION"
                         value={newEvent.description}
-                        onChange={(e) =>
-                            setNewEvent({ ...newEvent, description: e.target.value })
-                        }
+                        onChange={(e) => setNewEvent({ ...newEvent, description: e.target.value })}
                         className="w-full bg-background border-2 border-white p-3 sm:p-4 text-white font-medium placeholder-[#666] text-sm sm:text-base transition-all duration-200 focus:scale-[1.02] hover:border-opacity-80 focus:ring-2 focus:ring-white focus:border-white resize-none"
                         rows={3}
                         required
@@ -220,9 +208,7 @@ export default function EventManager({
                             <input
                                 type="date"
                                 value={newEvent.date}
-                                onChange={(e) =>
-                                    setNewEvent({ ...newEvent, date: e.target.value })
-                                }
+                                onChange={(e) => setNewEvent({ ...newEvent, date: e.target.value })}
                                 className="w-full bg-background border-2 border-white p-3 sm:p-4 text-white font-medium text-sm sm:text-base transition-all duration-200 focus:scale-[1.02] hover:border-opacity-80 focus:ring-2 focus:ring-white focus:border-white"
                                 required
                             />
@@ -234,9 +220,7 @@ export default function EventManager({
                             <input
                                 type="time"
                                 value={newEvent.time}
-                                onChange={(e) =>
-                                    setNewEvent({ ...newEvent, time: e.target.value })
-                                }
+                                onChange={(e) => setNewEvent({ ...newEvent, time: e.target.value })}
                                 className="w-full bg-background border-2 border-white p-3 sm:p-4 text-white font-medium text-sm sm:text-base transition-all duration-200 focus:scale-[1.02] hover:border-opacity-80 focus:ring-2 focus:ring-white focus:border-white"
                             />
                         </div>
@@ -244,9 +228,7 @@ export default function EventManager({
                             type="text"
                             placeholder="LOCATION (OPTIONAL)"
                             value={newEvent.location}
-                            onChange={(e) =>
-                                setNewEvent({ ...newEvent, location: e.target.value })
-                            }
+                            onChange={(e) => setNewEvent({ ...newEvent, location: e.target.value })}
                             className="bg-background border-2 border-white p-3 sm:p-4 text-white font-medium placeholder-[#666] text-sm sm:text-base transition-all duration-200 focus:scale-[1.02] hover:border-opacity-80 focus:ring-2 focus:ring-white focus:border-white"
                         />
                     </div>

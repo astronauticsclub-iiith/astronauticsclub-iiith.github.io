@@ -37,7 +37,7 @@ help:
 
 
 # === BUILD ===
-build:
+build-dev:
 	@echo "Building frontend for development..."
 # 	@if [ ! -f ".env.local" ]; then \
 # 		cp .env.example .env.local \
@@ -47,13 +47,12 @@ build:
 	npm run dev
 	@echo "Build completed."
 
-build-production:
+build:
 	@echo "Building frontend for production..."
 # 	@if [ ! -f ".env.local" ]; then \
 # 		cp .env.example .env.local \
 # 	fi
 	npm install --omit=dev
-	@npx tsx scripts/create-db-tables.ts
 	npm run build
 	@echo "Production build completed."
 
@@ -65,7 +64,7 @@ deploy:
 #	npm install pm2 -g
 #	fi
 	@echo "Deploying via pm2"
-	pm2 restart astronautics || pm2 start ecosystem.config.js
+	pm2 restart astronautics || pm2 start ecosystem.config.cjs
 	pm2 save
 	@echo "Deployment completed"
 
@@ -73,7 +72,7 @@ deploy:
 start:
 	@echo "Starting NGINX, pm2"
 	sudo systemctl start nginx
-	pm2 restart astronautics || pm2 start ecosystem.config.js
+	pm2 restart astronautics || pm2 start ecosystem.config.cjs
 	pm2 save
 	@echo "Started NGINX, pm2 successfully"
 

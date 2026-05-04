@@ -4,18 +4,18 @@ import Link from "next/link";
 import { ReactNode } from "react";
 
 interface CustomLinkProps {
-  href: string;
-  children: ReactNode;
-  className?: string;
-  disabled?: boolean;
-  target?: string;
-  rel?: string;
-  onClick?: (e: React.MouseEvent<HTMLAnchorElement>) => void;
-  ariaLabel?: string;
-  title?: string;
-  tabIndex?: number;
-  id?: string;
-  prefetch?: boolean;
+    href: string;
+    children: ReactNode;
+    className?: string;
+    disabled?: boolean;
+    target?: string;
+    rel?: string;
+    onClick?: (e: React.MouseEvent<HTMLAnchorElement>) => void;
+    ariaLabel?: string;
+    title?: string;
+    tabIndex?: number;
+    id?: string;
+    prefetch?: boolean;
 }
 
 /**
@@ -39,65 +39,65 @@ interface CustomLinkProps {
  * @param prefetch - Whether to prefetch the linked page (passed to Next.js Link)
  */
 const CustomLink = ({
-  href,
-  children,
-  className = "",
-  disabled = false,
-  target,
-  rel,
-  onClick,
-  ariaLabel,
-  title,
-  tabIndex,
-  id,
-  prefetch,
+    href,
+    children,
+    className = "",
+    disabled = false,
+    target,
+    rel,
+    onClick,
+    ariaLabel,
+    title,
+    tabIndex,
+    id,
+    prefetch,
 }: CustomLinkProps) => {
-  // Base classes that will be applied to both link and disabled span
-  const baseClasses = `custom-link ${className}`;
+    // Base classes that will be applied to both link and disabled span
+    const baseClasses = `custom-link ${className}`;
 
-  // Additional classes for the disabled state
-  const disabledClasses = disabled ? "custom-link-disabled" : "";
+    // Additional classes for the disabled state
+    const disabledClasses = disabled ? "custom-link-disabled" : "";
 
-  // Combined classes
-  const combinedClasses = `${baseClasses} ${disabledClasses}`.trim();
+    // Combined classes
+    const combinedClasses = `${baseClasses} ${disabledClasses}`.trim();
 
-  // Set up appropriate rel attribute for external links
-  const isExternal = href && href.startsWith("http");
-  const finalRel = isExternal && !rel ? "noopener noreferrer" : rel;
+    // Set up appropriate rel attribute for external links
+    const isExternal = href && href.startsWith("http");
+    const finalRel = isExternal && !rel ? "noopener noreferrer" : rel;
 
-  // If disabled, render a span with appropriate aria attributes
-  if (disabled) {
+    // If disabled, render a span with appropriate aria attributes
+    if (disabled) {
+        return (
+            <span
+                className={combinedClasses}
+                aria-disabled="true"
+                aria-label={ariaLabel}
+                title={title || (typeof children === "string" ? children : undefined)}
+                tabIndex={tabIndex ?? -1}
+                id={id}
+            >
+                {children}
+            </span>
+        );
+    }
+
+    // Otherwise, render the Next.js Link component
     return (
-      <span
-        className={combinedClasses}
-        aria-disabled="true"
-        aria-label={ariaLabel}
-        title={title || (typeof children === "string" ? children : undefined)}
-        tabIndex={tabIndex ?? -1}
-        id={id}
-      >
-        {children}
-      </span>
+        <Link
+            href={href}
+            className={combinedClasses}
+            target={target}
+            rel={finalRel}
+            onClick={onClick}
+            aria-label={ariaLabel}
+            title={title}
+            tabIndex={tabIndex}
+            id={id}
+            prefetch={prefetch}
+        >
+            {children}
+        </Link>
     );
-  }
-
-  // Otherwise, render the Next.js Link component
-  return (
-    <Link
-      href={href}
-      className={combinedClasses}
-      target={target}
-      rel={finalRel}
-      onClick={onClick}
-      aria-label={ariaLabel}
-      title={title}
-      tabIndex={tabIndex}
-      id={id}
-      prefetch={prefetch}
-    >
-      {children}
-    </Link>
-  );
 };
 
 export default CustomLink;

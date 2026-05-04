@@ -17,10 +17,7 @@ interface InventoryManagerProps {
     showError: (message: string) => void;
 }
 
-export default function InventoryManager({
-    showSuccess,
-    showError,
-}: InventoryManagerProps) {
+export default function InventoryManager({ showSuccess, showError }: InventoryManagerProps) {
     const [inventory, setInventory] = useState<Inventory[]>([]);
     const [inventoryLoading, setInventoryLoading] = useState(false);
     const [editingInventory, setEditingInventory] = useState<string | null>(null);
@@ -58,19 +55,14 @@ export default function InventoryManager({
             // Generate ID: name-randomString
             const generatedId = `${newInventoryItem.name
                 .toLowerCase()
-                .replace(/[^a-z0-9]+/g, "-")}-${Math.random()
-                    .toString(36)
-                    .substring(2, 8)}`;
+                .replace(/[^a-z0-9]+/g, "-")}-${Math.random().toString(36).substring(2, 8)}`;
 
             const formData = new FormData();
             formData.append("id", generatedId);
             formData.append("name", newInventoryItem.name);
             formData.append("category", newInventoryItem.category);
             formData.append("description", newInventoryItem.description);
-            formData.append(
-                "year_of_purchase",
-                newInventoryItem.year_of_purchase.toString()
-            );
+            formData.append("year_of_purchase", newInventoryItem.year_of_purchase.toString());
             formData.append("status", newInventoryItem.status);
 
             if (newInventoryItem.imageFile) {
@@ -119,6 +111,54 @@ export default function InventoryManager({
             console.error("Error deleting item:", error);
             showError((error as Error).message || "Failed to delete item");
         }
+    };
+
+    const handleExport = () => {
+        const headers = [
+            "id",
+            "name",
+            "category",
+            "status",
+            "description",
+            "year_of_purchase",
+            "isLent",
+            "borrower",
+            "borrowed_date",
+            "comments",
+        ];
+
+        const rows = inventory.map((item) =>
+            [
+                item.id,
+                item.name,
+                item.category,
+                item.status,
+                item.description,
+                item.year_of_purchase,
+                item.isLent,
+                item.borrower ?? "",
+                item.borrowed_date ?? "",
+                item.comments ?? "",
+            ]
+                .map((val) => `"${String(val ?? "").replace(/"/g, '""')}"`)
+                .join(",")
+        );
+
+        const csv = [headers.join(","), ...rows].join("\n");
+
+        const blob = new Blob([csv], { type: "text/csv" });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+
+        a.download = `inventory-${new Date().toISOString().split("T")[0]}.csv`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+
+        setTimeout(() => {
+            URL.revokeObjectURL(url);
+        }, 1000);
     };
 
     return (
@@ -260,6 +300,7 @@ export default function InventoryManager({
                             className="w-full bg-background border-2 border-white p-2 text-white font-medium text-sm transition-all duration-200 focus:scale-[1.02] focus:ring-2 focus:ring-white file:mr-4 file:py-1 file:px-2 file:border-0 file:text-xs file:font-bold file:bg-white file:text-background hover:file:bg-[#e0e0e0]"
                         />
                     </div>
+
                     <button
                         type="submit"
                         className="w-full sm:w-auto px-3 sm:px-4 py-3 sm:py-4 border-2 border-white bg-white text-background font-bold hover:bg-[#e0e0e0] transition-all duration-200 uppercase text-sm sm:text-base hover:scale-105 active:scale-95"
@@ -277,6 +318,16 @@ export default function InventoryManager({
                 transition={{ delay: 0.6, duration: 0.4 }}
                 className="border-2 sm:border-4 border-white p-3 sm:p-4 lg:p-6 backdrop-blur-sm hover:shadow-lg hover:shadow-white/10 transition-all duration-300"
             >
+                {/*CSV Export*/}
+                <div className="mb-4 flex justify-end">
+                    <button
+                        onClick={handleExport}
+                        className="ml-auto px-3 py-2 border-2 border-white text-white font-bold hover:bg-white hover:text-background transition-all duration-200 uppercase text-sm"
+                    >
+                        Export as CSV
+                    </button>
+                </div>
+
                 <h2 className="text-lg sm:text-xl lg:text-2xl font-bold mb-4 sm:mb-6 text-white uppercase flex items-center gap-2">
                     <CalendarDays size={18} className="sm:w-6 sm:h-6" />
                     INVENTORY LIST ({inventory.length})
@@ -299,9 +350,7 @@ export default function InventoryManager({
                     </div>
                 ) : inventory.length === 0 ? (
                     <div className="text-center py-8">
-                        <p className="text-white font-bold uppercase">
-                            No inventory items found
-                        </p>
+                        <p className="text-white font-bold uppercase">No inventory items found</p>
                     </div>
                 ) : (
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
