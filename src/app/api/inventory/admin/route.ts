@@ -134,17 +134,12 @@ export async function POST(request: NextRequest) {
     console.log("API: Inventory saved successfully:", newInventory.toObject());
 
     // Log the action
-    Logger.info("Inventory created", {
-      source: "admin/inventory",
-      userEmail: user?.email || undefined,
-      action: "add_inventory_item",
-      details: {
-        InventoryId: newInventory.id,
-        title: newInventory.name,
-        type: newInventory.category,
-        date: newInventory.year_of_purchase,
-      },
-    });
+    Logger.logUserAction(user?.email || "unknown", "add_inventory_item", {
+      InventoryId: newInventory.id,
+      title: newInventory.name,
+      type: newInventory.category,
+      date: newInventory.year_of_purchase,
+    }, "admin/inventory");
 
     return NextResponse.json({
       message: "Inventory created successfully",
@@ -309,21 +304,17 @@ export async function PUT(request: NextRequest) {
     );
 
     // Log the action
-    Logger.info("Inventory updated", {
-      source: "admin/inventory",
-      userEmail: user?.email || undefined,
-      action: "update_inventory_item",
-      details: {
-        InventoryId: id,
-        title: updatedInventory?.name,
-        updates: Object.keys(updateData),
-      },
-    });
+    Logger.logUserAction(user?.email || "unknown", "update_inventory_item", {
+      InventoryId: id,
+      title: updatedInventory?.name,
+      updates: Object.keys(updateData),
+    }, "admin/inventory");
 
     return NextResponse.json({
       message: "Inventory updated successfully",
       inventory: updatedInventory,
     });
+
   } catch (error) {
     console.error("Error updating inventory:", error);
     return NextResponse.json(
@@ -373,17 +364,12 @@ export async function DELETE(request: NextRequest) {
     }
 
     // Log the action
-    Logger.info("Inventory deleted", {
-      source: "admin/inventory",
-      userEmail: user?.email || undefined,
-      action: "delete_inventory",
-      details: {
-        InventoryId: id,
-        title: inventoryData.name,
-        type: inventoryData.category,
-        date: inventoryData.year_of_purchase,
-      },
-    });
+    Logger.logUserAction(user?.email || "unknown", "delete_inventory", {
+      InventoryId: id,
+      title: inventoryData.name,
+      type: inventoryData.category,
+      date: inventoryData.year_of_purchase,
+    }, "admin/inventory");
 
     return NextResponse.json({
       message: "Inventory deleted successfully",

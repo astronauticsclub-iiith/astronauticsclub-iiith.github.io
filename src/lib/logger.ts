@@ -123,10 +123,11 @@ export class Logger {
   static logUserAction(
   userEmail: string,
   action: string,
-  details?: Record<string, unknown>
+  details?: Record<string, unknown>,
+  source: string ='user_action'
 ) {
   this.info(`Admin ${userEmail} performed action: ${action}`, {
-    source: 'user_action',
+    source,
     userEmail,
     action,
     details
