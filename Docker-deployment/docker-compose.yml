@@ -2,7 +2,7 @@ services:
     nextjs:
         build:
             context: ..
-            dockerfile: Docker-deployment/Dockerfile
+            dockerfile: Docker/Dockerfile
         container_name: astronautics-nextjs
         restart: unless-stopped
         env_file:
