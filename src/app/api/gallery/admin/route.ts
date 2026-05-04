@@ -129,16 +129,16 @@ export async function POST(request: NextRequest) {
         await fs.writeFile(filePath, buffer);
 
         // Log the action
-        Logger.info("Gallery image uploaded", {
-            source: "admin/gallery",
-            userEmail: user?.email || undefined,
-            action: "upload_image",
-            details: {
+        Logger.logUserAction(
+            user?.email || "unknown",
+            "upload_image",
+            {
                 filename,
                 category,
                 fileSize: file.size,
             },
-        });
+            "admin/gallery"
+        );
 
         const newImage = {
             id: `${category}-${filename}`,
@@ -261,17 +261,17 @@ export async function PUT(request: NextRequest) {
         await fs.rename(oldPath, newPath);
 
         // Log the action
-        Logger.info("Gallery image updated", {
-            source: "admin/gallery",
-            userEmail: user?.email || undefined,
-            action: "update_image",
-            details: {
+        Logger.logUserAction(
+            user?.email || "unknown",
+            "update_image",
+            {
                 oldFilename: currentFilename,
                 newFilename: targetFilename,
                 oldCategory: currentCategory,
                 newCategory: targetCategory,
             },
-        });
+            "admin/gallery"
+        );
 
         const stats = await fs.stat(newPath);
         const updatedImage = {
@@ -347,15 +347,15 @@ export async function DELETE(request: NextRequest) {
         await fs.unlink(filePath);
 
         // Log the action
-        Logger.info("Gallery image deleted", {
-            source: "admin/gallery",
-            userEmail: user?.email || undefined,
-            action: "delete_image",
-            details: {
+        Logger.logUserAction(
+            user?.email || "unknown",
+            "delete_image",
+            {
                 filename,
                 category,
             },
-        });
+            "admin/gallery"
+        );
 
         return NextResponse.json({
             message: "Image deleted successfully",

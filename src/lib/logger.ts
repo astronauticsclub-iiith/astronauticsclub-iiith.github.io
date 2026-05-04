@@ -133,9 +133,14 @@ export class Logger {
     }
 
     // Log specific actions
-    static logUserAction(userEmail: string, action: string, details?: Record<string, unknown>) {
-        this.info(`User action: ${action}`, {
-            source: "user_action",
+    static logUserAction(
+        userEmail: string,
+        action: string,
+        details?: Record<string, unknown>,
+        source: string = "user_action"
+    ) {
+        this.info(`Admin ${userEmail} performed action: ${action}`, {
+            source,
             userEmail,
             action,
             details,
@@ -143,12 +148,15 @@ export class Logger {
     }
 
     static logAPICall(method: string, endpoint: string, userEmail?: string, status?: number) {
-        this.info(`API ${method} ${endpoint} - ${status || "Unknown"}`, {
-            source: "api",
-            userEmail,
-            action: `${method} ${endpoint}`,
-            details: { status },
-        });
+        this.info(
+            `API request ${method} ${endpoint} completed with status ${status ?? "unknown"}`,
+            {
+                source: "api",
+                userEmail,
+                action: `${method} ${endpoint}`,
+                details: { status },
+            }
+        );
     }
 
     static logWriteOperation(
@@ -158,16 +166,19 @@ export class Logger {
         resourceId?: string,
         details?: Record<string, unknown>
     ) {
-        this.info(`Write operation: ${operation} ${resourceType}`, {
-            source: "write_operation",
-            userEmail,
-            action: operation,
-            details: {
-                resourceType,
-                resourceId,
-                ...details,
-            },
-        });
+        this.info(
+            `${userEmail} ${operation} ${resourceType}${resourceId ? ` (ID: ${resourceId})` : ""}`,
+            {
+                source: "write_operation",
+                userEmail,
+                action: operation,
+                details: {
+                    resourceType,
+                    resourceId,
+                    ...details,
+                },
+            }
+        );
     }
 }
 

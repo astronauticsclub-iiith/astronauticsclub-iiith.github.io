@@ -28,7 +28,7 @@ export default function InventoryManager({ showSuccess, showError }: InventoryMa
         imageFile: null as File | null,
         category: "astronomy",
         description: "",
-        year_of_purchase: 2025 as number,
+        year_of_purchase: 2026 as number,
         status: "working",
     });
 
@@ -77,7 +77,7 @@ export default function InventoryManager({ showSuccess, showError }: InventoryMa
                 imageFile: null,
                 category: "astronomy",
                 description: "",
-                year_of_purchase: 2025,
+                year_of_purchase: 2026,
                 status: "working",
             });
             fetchInventory();
