@@ -12,9 +12,6 @@ fi
 # Check if Docker Compose is installed
 if docker compose version &> /dev/null; then
     COMPOSE_CMD="docker compose"
-elif command -v docker-compose &> /dev/null; then
-    COMPOSE_CMD="docker-compose"
-    echo "Warning: Using legacy docker-compose (deprecated). Consider switching to 'docker compose' (v2 plugin)."
 else
     echo "Error: Docker Compose is not installed."
     exit 1
