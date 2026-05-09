@@ -42,42 +42,42 @@ help:
 # Production commands
 build:
 	@echo "Building production containers..."
-	docker-compose build
+	docker compose build
 
 start:
 	@echo "Starting production containers..."
-	docker-compose up -d
+	docker compose up -d
 	@echo "Production environment started at http://localhost"
 
 stop:
 	@echo "Stopping production containers..."
-	docker-compose down
+	docker compose down
 
 restart: stop start
 
 logs:
 	@echo "Showing logs from production containers..."
-	docker-compose logs -f
+	docker compose logs -f
 
 # Development commands
 build-dev:
 	@echo "Building development containers..."
-	docker-compose -f docker-compose.dev.yml build
+	docker compose -f docker-compose.dev.yml build
 
 start-dev:
 	@echo "Starting development containers..."
-	docker-compose -f docker-compose.dev.yml up -d
+	docker compose -f docker-compose.dev.yml up -d
 	@echo "Development environment started at http://localhost:3000"
 
 stop-dev:
 	@echo "Stopping development containers..."
-	docker-compose -f docker-compose.dev.yml down
+	docker compose -f docker-compose.dev.yml down
 
 restart-dev: stop-dev start-dev
 
 logs-dev:
 	@echo "Showing logs from development containers..."
-	docker-compose -f docker-compose.dev.yml logs -f
+	docker compose -f docker-compose.dev.yml logs -f
 
 # Container status
 status:
@@ -191,13 +191,13 @@ restore-logs: restore-logs-script
 # Clean deployment
 clean:
 	@echo "Cleaning all containers, images, and volumes related to the project..."
-	docker-compose down --rmi all --volumes --remove-orphans
-	docker-compose -f docker-compose.dev.yml down --rmi all --volumes --remove-orphans
+	docker compose down --rmi all --volumes --remove-orphans
+	docker compose -f docker-compose.dev.yml down --rmi all --volumes --remove-orphans
 	@echo "Deployment cleaned successfully!"
 
 # Rebuild deployment
 rebuild: clean
 	@echo "Rebuilding deployment from scratch..."
-	docker-compose build --no-cache
-	docker-compose up -d
+	docker compose build --no-cache
+	docker compose up -d
 	@echo "Deployment rebuilt successfully! Available at http://localhost"

@@ -10,10 +10,8 @@ if ! command -v docker &> /dev/null; then
 fi
 
 # Check if Docker Compose is installed
-if docker compose version &> /dev/null; then
-    COMPOSE_CMD="docker compose"
-else
-    echo "Error: Docker Compose is not installed."
+if ! docker compose version &> /dev/null; then
+    echo "Docker Compose is not installed."
     exit 1
 fi
 
@@ -22,8 +20,8 @@ NEXTJS_RUNNING=$(docker ps | grep astronautics-nextjs | wc -l)
 NGINX_RUNNING=$(docker ps | grep astronautics-nginx | wc -l)
 
 if [ "$NEXTJS_RUNNING" -eq 0 ] || [ "$NGINX_RUNNING" -eq 0 ]; then
-    echo "Starting containers with $COMPOSE_CMD..."
-    $COMPOSE_CMD up -d
+    echo "Starting containers with docker compose..."
+    docker compose up -d
 else
     echo "Containers are already running."
 fi
