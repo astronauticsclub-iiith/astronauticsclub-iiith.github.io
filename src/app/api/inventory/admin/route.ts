@@ -340,7 +340,7 @@ export async function DELETE(request: NextRequest) {
         // Log the action
         Logger.logUserAction(
             user?.email || "unknown",
-            "delete_inventory",
+            "delete_inventory_item",
             {
                 InventoryId: id,
                 title: inventoryData.name,
