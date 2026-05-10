@@ -59,7 +59,7 @@ build:
 # === DEPLOYMENT ===
 deploy:
 	@echo "Building the project"
-	make build-production
+# 	make build-production
 #	if	pm2 --version
 #	npm install pm2 -g
 #	fi
@@ -92,7 +92,7 @@ logs:
 
 restart:
 	@echo "Restarting NGINX, pm2"
-	ssh $(SERVER_USER)@$(SERVER_HOST) 'sudo systemctl restart nginx'
+	sudo systemctl restart nginx
 	pm2 restart astronautics
 
 status:
@@ -103,9 +103,9 @@ status:
 backup-uploads:
 	@echo "Backing up uploads from server..."
 	mkdir -p $(LOCAL_BACKUP_DIR)
-	ssh $(SERVER_USER)@$(SERVER_HOST) "cd $(UPLOADS_PATH) && zip -r /tmp/uploads_backup.zip ."
+	cd $(SERVER_PATH) && zip -r $(LOCAL_BACKUP_DIR)/uploads_$$(date +%Y%m%d_%H%M%S).zip .
 	@echo "Uploads backed up successfully."
-
+	
 restore-uploads:
 	@if [ -z "$(FILE)" ]; then \
 		echo "Error: FILE parameter is required."; \
@@ -113,25 +113,26 @@ restore-uploads:
 		exit 1; \
 	fi
 	@echo "Restoring uploads to server..."
-	scp "$(FILE)" $(SERVER_USER)@$(SERVER_HOST):/tmp/uploads_restore.zip
-	ssh $(SERVER_USER)@$(SERVER_HOST) "sudo unzip -o /tmp/uploads_restore.zip -d $(UPLOADS_PATH) && rm /tmp/uploads_restore.zip"
+	sudo unzip -o "$(FILE)" -d $(SERVER_PATH)
 	@echo "Uploads restored successfully."
 
 backup-logs:
-	ssh $(SERVER_USER)@$(SERVER_HOST) "cd $(LOGS_PATH) && zip -r /tmp/logs_backup.zip ."
-	scp $(SERVER_USER)@$(SERVER_HOST):/tmp/logs_backup.zip $(LOCAL_BACKUP_DIR)/logs_$$(date +%Y%m%d_%H%M%S).zip
-	ssh $(SERVER_USER)@$(SERVER_HOST) "rm /tmp/logs_backup.zip"
+	backup-logs:
+	@echo "Backing up logs..."
+	mkdir -p $(LOCAL_BACKUP_DIR)
+	cd $(LOGS_PATH) && zip -r $(LOCAL_BACKUP_DIR)/logs_$$(date +%Y%m%d_%H%M%S).zip .
 	@echo "Logs backed up successfully."
 
+# FILE is path to where the previous zip was saved
+# example: make restore-logs FILE=./backups/logs_20260510_123456.zip
 restore-logs:
 	@if [ -z "$(FILE)" ]; then \
 		echo "Error: FILE parameter is required."; \
 		echo "Usage: make restore-logs FILE=path/to/backup.zip"; \
 		exit 1; \
-	fi
-	@echo "Restoring logs to server..."
-	scp "$(FILE)" $(SERVER_USER)@$(SERVER_HOST):/tmp/logs_restore.zip
-	ssh $(SERVER_USER)@$(SERVER_HOST) "sudo unzip -o /tmp/logs_restore.zip -d $(LOGS_PATH) && rm /tmp/logs_restore.zip"
+	fi 
+	@echo "Restoring logs..."
+	sudo unzip -o "$(FILE)" -d $(LOGS_PATH)
 	@echo "Logs restored successfully."
 
 # === MAINTENANCE ===
