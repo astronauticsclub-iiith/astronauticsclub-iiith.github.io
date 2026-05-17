@@ -115,7 +115,7 @@ const Navbar = () => {
                     <Link href="/" className="flex items-center space-x-4 text-white">
                         <Image
                             src={
-                                whimsyMode
+                                isLoaded && whimsyMode
                                     ? withBasePath(`/icons/moon.gif`)
                                     : withBasePath(`/logo.png`)
                             }
@@ -128,7 +128,7 @@ const Navbar = () => {
                                     ? `${(delayCounter + 1) * 150}ms`
                                     : "200ms",
                             }}
-                            unoptimized={whimsyMode}
+                            unoptimized={isLoaded && whimsyMode}
                             priority
                         />
                         <div className="flex flex-col gap-0">
@@ -142,7 +142,7 @@ const Navbar = () => {
                             >
                                 Astronautics Club | IIITH
                             </span>
-                            {whimsyMode && (
+                            {isLoaded && whimsyMode && (
                                 <span
                                     className={`text-white/50 text-sm opacity-0 ${isAnimReady ? "animate-slide-in-from-top" : ""}`}
                                     style={{
