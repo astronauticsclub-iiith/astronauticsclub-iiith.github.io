@@ -7,25 +7,10 @@ import { usePathname } from "next/navigation";
 import { useWhimsy } from "@/context/WhimsyContext";
 import { withBasePath } from "../common/HelperFunction";
 
-// Helper function to get initial first visit state
-const getInitialFirstVisit = (): boolean => {
-    if (typeof window === "undefined") return false;
-    try {
-        const lastVisit = localStorage.getItem("lastVisitTime");
-        const currentTime = new Date().getTime();
-
-        // If no last visit or last visit was more than an hour ago
-        return !lastVisit || currentTime - parseInt(lastVisit) > 60 * 60 * 1000;
-    } catch (error) {
-        console.error("Error checking first visit:", error);
-        return false;
-    }
-};
-
 const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
     const [isScrolled, setIsScrolled] = useState(true);
-    const [isFirstVisit, setIsFirstVisit] = useState<boolean>(getInitialFirstVisit);
+    const [isFirstVisit, setIsFirstVisit] = useState(false);
     const [isHydrated, setIsHydrated] = useState(false);
     const pathname = usePathname();
     const menuRef = useRef<HTMLDivElement>(null);
@@ -113,8 +98,6 @@ const Navbar = () => {
         pathname.startsWith(href) && (pathname === "/" || href !== "/")
             ? "text-white underline underline-offset-[5px]"
             : "text-white/50";
-
-    const isReady = isLoaded && isHydrated;
 
     return (
         <nav
