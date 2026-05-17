@@ -114,14 +114,7 @@ const Navbar = () => {
             ? "text-white underline underline-offset-[5px]"
             : "text-white/50";
 
-    if (!isLoaded || !isHydrated) {
-        return (
-            <nav
-                className="fixed w-full z-50 transition-all duration-300 rounded-b-2xl select-none backdrop-blur-sm text-lg bg-black/95"
-                suppressHydrationWarning
-            ></nav>
-        );
-    }
+    const isReady = isLoaded && isHydrated;
 
     return (
         <nav
