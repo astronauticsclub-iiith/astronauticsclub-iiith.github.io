@@ -164,32 +164,11 @@ const Hero = () => {
         };
     }, [isHydrated, isLoaded, whimsyMode]);
 
-    // Show simplified version during loading/hydration
-    if (!isLoaded || !isHydrated) {
-        return (
-            <section className="hero">
-                <section className="stars-container">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </section>
-                <div className="hero-container">
-                    <div className="hero-content" style={{ height: "80%" }}>
-                        <h1 className="font-bold">
-                            <span className="nowrap">Astronautics</span>
-                            <span> Club</span>
-                        </h1>
-                    </div>
-                </div>
-            </section>
-        );
-    }
+    const isReady = isLoaded && isHydrated;
 
     return (
         <section className="hero">
-            {/* Sparkle container - positioned absolutely via JS */}
+            {/* Sparkle container - always in DOM to keep child order stable */}
             <div ref={sparkleContainerRef} className="s-sparkle-container"></div>
 
             <section className="stars-container">
@@ -210,7 +189,11 @@ const Hero = () => {
                     <h1 className="font-bold">
                         <span className="nowrap">
                             A
-                            <span ref={sRef} id="s-hover-effect" className="cursor-close">
+                            <span
+                                ref={sRef}
+                                id="s-hover-effect"
+                                className={isReady ? "cursor-close" : ""}
+                            >
                                 s
                             </span>
                             tronautics
