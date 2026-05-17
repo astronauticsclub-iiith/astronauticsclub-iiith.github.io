@@ -7,3 +7,7 @@ Before submitting a PR, ensure:
 - [ ] Tested on different screen sizes (responsive)
 - [ ] No console errors in browser
 - [ ] API endpoints work correctly
+
+**AI Tools Usage Disclosure**
+If AI tools were used, please mention
+Model/Tool Name: Describe how they were used.
