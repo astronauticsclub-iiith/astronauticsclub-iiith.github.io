@@ -12,6 +12,7 @@ const Navbar = () => {
     const [isScrolled, setIsScrolled] = useState(true);
     const [isFirstVisit, setIsFirstVisit] = useState(false);
     const [isHydrated, setIsHydrated] = useState(false);
+    const [isAnimReady, setIsAnimReady] = useState(false);
     const pathname = usePathname();
     const menuRef = useRef<HTMLDivElement>(null);
     const buttonRef = useRef<HTMLButtonElement>(null);
@@ -35,7 +36,7 @@ const Navbar = () => {
     useEffect(() => {
         if (!isHydrated || !isLoaded) return;
 
-        const checkFirstVisit = () => {
+        try {
             const lastVisit = localStorage.getItem("lastVisitTime");
             const currentTime = new Date().getTime();
 
@@ -46,9 +47,11 @@ const Navbar = () => {
             } else {
                 setIsFirstVisit(false);
             }
-        };
-
-        checkFirstVisit();
+        } catch (error) {
+            console.error("Error checking first visit:", error);
+        } finally {
+            setIsAnimReady(true);
+        }
     }, [isHydrated, isLoaded, whimsyMode]);
 
     // Close menu when route changes
@@ -119,33 +122,33 @@ const Navbar = () => {
                             alt="Logo"
                             width={80}
                             height={90}
-                            className="w-auto h-12 opacity-0 animate-fade-in z-50"
+                            className={`w-auto h-12 opacity-0 z-50 ${isAnimReady ? "animate-fade-in" : ""}`}
                             style={{
                                 animationDelay: isFirstVisit
                                     ? `${(delayCounter + 1) * 150}ms`
-                                    : "10ms",
+                                    : "200ms",
                             }}
                             unoptimized={whimsyMode}
                             priority
                         />
                         <div className="flex flex-col gap-0">
                             <span
-                                className="opacity-0 animate-slide-in-from-left z-20 font-bold"
+                                className={`opacity-0 z-20 font-bold ${isAnimReady ? "animate-slide-in-from-left" : ""}`}
                                 style={{
                                     animationDelay: isFirstVisit
                                         ? `${(delayCounter + 3) * 150}ms`
-                                        : "10ms",
+                                        : "200ms",
                                 }}
                             >
                                 Astronautics Club | IIITH
                             </span>
                             {whimsyMode && (
                                 <span
-                                    className="text-white/50 text-sm opacity-0 animate-slide-in-from-top"
+                                    className={`text-white/50 text-sm opacity-0 ${isAnimReady ? "animate-slide-in-from-top" : ""}`}
                                     style={{
                                         animationDelay: isFirstVisit
                                             ? `${(delayCounter + 4) * 150}ms`
-                                            : "10ms",
+                                            : "200ms",
                                     }}
                                 >
                                     Whimsy Mode
@@ -160,11 +163,11 @@ const Navbar = () => {
                             {navLinks.map((link, index) => (
                                 <li
                                     key={link.href}
-                                    className="opacity-0 animate-fade-in"
+                                    className={`opacity-0 ${isAnimReady ? "animate-fade-in" : ""}`}
                                     style={{
                                         animationDelay: isFirstVisit
                                             ? `${(delayCounter - index) * 150}ms`
-                                            : "10ms",
+                                            : "200ms",
                                     }}
                                 >
                                     <Link
