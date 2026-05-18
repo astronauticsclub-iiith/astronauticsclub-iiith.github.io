@@ -163,7 +163,7 @@ const AdminEventCard: React.FC<AdminEventCardProps> = ({
 
     const updateEditedEvent = (
         field: keyof Event,
-        value: string | number | undefined | string[]
+        value: string | number | undefined | string[],
     ) => {
         setEditedEvent((prev) => ({ ...prev, [field]: value }));
     };
@@ -379,7 +379,7 @@ const AdminEventCard: React.FC<AdminEventCardProps> = ({
                                     onChange={(e) =>
                                         updateEditedEvent(
                                             "participants",
-                                            e.target.value ? parseInt(e.target.value) : undefined
+                                            e.target.value ? parseInt(e.target.value) : undefined,
                                         )
                                     }
                                     className="w-full bg-background border-2 border-white p-2 text-white font-medium text-sm transition-all duration-200 focus:scale-[1.02] focus:ring-2 focus:ring-white"
@@ -476,7 +476,7 @@ const AdminEventCard: React.FC<AdminEventCardProps> = ({
                             <div className="ml-3">
                                 <span
                                     className={`px-2 py-1 text-xs font-bold uppercase border-2 text-white ${getStatusColor(
-                                        event.status
+                                        event.status,
                                     )}`}
                                 >
                                     {event.status}

@@ -327,7 +327,7 @@ const BlogsShowcase = ({ className = "" }: BlogsShowcaseProps) => {
                                 key={index}
                                 onClick={() => {
                                     const container = document.getElementById(
-                                        "blogs-showcase-container"
+                                        "blogs-showcase-container",
                                     );
                                     if (container) {
                                         const cardWidth = 320;

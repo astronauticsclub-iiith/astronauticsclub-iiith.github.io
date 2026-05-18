@@ -95,7 +95,7 @@ export async function POST(request: NextRequest) {
             if (!eventData[field as keyof typeof eventData]) {
                 return NextResponse.json(
                     { error: `Missing required field: ${field}` },
-                    { status: 400 }
+                    { status: 400 },
                 );
             }
         }
@@ -106,7 +106,7 @@ export async function POST(request: NextRequest) {
         if (existingEvent) {
             return NextResponse.json(
                 { error: "Event with this ID already exists" },
-                { status: 409 }
+                { status: 409 },
             );
         }
 

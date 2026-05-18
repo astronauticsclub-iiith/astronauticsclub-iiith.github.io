@@ -55,7 +55,7 @@ export async function PUT(request: NextRequest) {
                 ...(bio !== undefined && { bio: bio.trim() }),
                 ...(linkedin !== undefined && { linkedin: linkedin.trim() }),
             },
-            { new: true, runValidators: true }
+            { new: true, runValidators: true },
         );
 
         if (!updatedUser) {

@@ -17,7 +17,7 @@ function createAuthorDictionary(blogs: Array<Record<string, unknown>>) {
 
             return authorDict;
         },
-        {} as Record<string, string>
+        {} as Record<string, string>,
     );
 }
 

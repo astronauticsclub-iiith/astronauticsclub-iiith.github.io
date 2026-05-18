@@ -23,7 +23,7 @@ const DesignationCombobox: React.FC<DesignationComboboxProps> = ({
 
     const filteredDesignations = allDesignations.filter(
         (d) =>
-            d.toLowerCase().includes(inputValue.toLowerCase()) && !selectedDesignations.includes(d)
+            d.toLowerCase().includes(inputValue.toLowerCase()) && !selectedDesignations.includes(d),
     );
 
     const handleSelect = (designation: string) => {

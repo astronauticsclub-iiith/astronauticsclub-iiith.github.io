@@ -70,7 +70,7 @@ export default withAuth(
                 return !!token;
             },
         },
-    }
+    },
 );
 
 export const config = {

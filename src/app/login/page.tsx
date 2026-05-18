@@ -73,7 +73,7 @@ function LoginContent() {
                 setLoading(false);
             }
         },
-        [router]
+        [router],
     );
 
     useEffect(() => {
@@ -88,7 +88,7 @@ function LoginContent() {
     const initiateLogin = () => {
         const serviceUrl = `${window.location.origin}${withBasePath(`login`)}`;
         const casLoginUrl = `https://login.iiit.ac.in/cas/login?service=${encodeURIComponent(
-            serviceUrl
+            serviceUrl,
         )}`;
         window.location.href = casLoginUrl;
     };

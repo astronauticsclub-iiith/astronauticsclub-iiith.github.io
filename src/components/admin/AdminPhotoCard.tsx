@@ -13,7 +13,7 @@ interface AdminPhotoCardProps {
     onEdit: (
         image: GalleryImage,
         newFilename?: string,
-        newCategory?: "astrophotography" | "events" | "others"
+        newCategory?: "astrophotography" | "events" | "others",
     ) => Promise<void>;
     onDelete: (image: GalleryImage) => void;
     isEditing: boolean;
@@ -32,7 +32,7 @@ const AdminPhotoCard: React.FC<AdminPhotoCardProps> = ({
 }) => {
     const [editedFilename, setEditedFilename] = useState("");
     const [editedCategory, setEditedCategory] = useState<"astrophotography" | "events" | "others">(
-        image.category
+        image.category,
     );
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [showCategoryDropdown, setShowCategoryDropdown] = useState(false);

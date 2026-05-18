@@ -69,7 +69,7 @@ export class Logger {
             userEmail?: string;
             action?: string;
             details?: Record<string, unknown>;
-        }
+        },
     ) {
         const entry: LogEntry = {
             timestamp: new Date().toISOString(),
@@ -96,7 +96,7 @@ export class Logger {
             userEmail?: string;
             action?: string;
             details?: Record<string, unknown>;
-        }
+        },
     ) {
         this.log("info", message, options);
     }
@@ -109,7 +109,7 @@ export class Logger {
             userEmail?: string;
             action?: string;
             details?: Record<string, unknown>;
-        }
+        },
     ) {
         this.log("warn", message, options);
     }
@@ -122,7 +122,7 @@ export class Logger {
             userEmail?: string;
             action?: string;
             details?: Record<string, unknown>;
-        }
+        },
     ) {
         this.log("error", message, options);
     }
@@ -137,7 +137,7 @@ export class Logger {
         userEmail: string,
         action: string,
         details?: Record<string, unknown>,
-        source: string = "user_action"
+        source: string = "user_action",
     ) {
         this.info(`Admin ${userEmail} performed action: ${action}`, {
             source,
@@ -155,7 +155,7 @@ export class Logger {
                 userEmail,
                 action: `${method} ${endpoint}`,
                 details: { status },
-            }
+            },
         );
     }
 
@@ -164,7 +164,7 @@ export class Logger {
         userEmail: string,
         resourceType: string,
         resourceId?: string,
-        details?: Record<string, unknown>
+        details?: Record<string, unknown>,
     ) {
         this.info(
             `${userEmail} ${operation} ${resourceType}${resourceId ? ` (ID: ${resourceId})` : ""}`,
@@ -177,7 +177,7 @@ export class Logger {
                     resourceId,
                     ...details,
                 },
-            }
+            },
         );
     }
 }

@@ -30,7 +30,7 @@ export async function GET(request: NextRequest) {
             // Sort logs by timestamp (newest first) and apply pagination
             const sortedLogs = logs.sort(
                 (a: { timestamp: string }, b: { timestamp: string }) =>
-                    new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime()
+                    new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime(),
             );
 
             const paginatedLogs = sortedLogs.slice(offset, offset + limit);

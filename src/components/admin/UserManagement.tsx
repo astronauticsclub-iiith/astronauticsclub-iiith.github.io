@@ -27,7 +27,7 @@ interface UserManagementProps {
             type?: "danger" | "warning" | "info";
             confirmText?: string;
             cancelText?: string;
-        }
+        },
     ) => void;
 }
 
@@ -50,7 +50,7 @@ export default function UserManagement({
             const data = await fetchAllUsers();
             setUsers(data);
             const designations = Array.from(
-                new Set(data.flatMap((u: User) => u.designations || []))
+                new Set(data.flatMap((u: User) => u.designations || [])),
             ) as string[];
             setAllDesignations(designations);
         } catch (error) {
@@ -89,7 +89,7 @@ export default function UserManagement({
     const setUserRole = (
         userId: string,
         currentRole: "admin" | "writer" | "none",
-        newRole: "admin" | "writer" | "none"
+        newRole: "admin" | "writer" | "none",
     ) => {
         const currentUserEmail = session?.user?.email;
         const targetUser = users.find((u) => u._id === userId);
@@ -133,7 +133,7 @@ export default function UserManagement({
             "REMOVE MEMBER",
             "Are you sure you want to remove this member? This action cannot be undone.",
             () => handleDeleteUser(userId),
-            { type: "danger", confirmText: "REMOVE MEMBER" }
+            { type: "danger", confirmText: "REMOVE MEMBER" },
         );
     };
 
@@ -263,7 +263,7 @@ export default function UserManagement({
                                             setUserRole(
                                                 user._id,
                                                 user.role,
-                                                e.target.value as "admin" | "writer" | "none"
+                                                e.target.value as "admin" | "writer" | "none",
                                             )
                                         }
                                         className={`w-full sm:w-auto px-2 sm:px-3 py-1.5 sm:py-2 border-2 border-white font-bold text-xs sm:text-sm uppercase transition-all duration-200 hover:scale-105 active:scale-95 bg-background text-white`}

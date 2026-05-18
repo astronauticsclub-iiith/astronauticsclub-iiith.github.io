@@ -39,7 +39,7 @@ const TeamPage: React.FC = () => {
                 const data = await response.json();
                 setMembers(data || []);
                 const designations = Array.from(
-                    new Set(data.flatMap((u: User) => u.designations || []))
+                    new Set(data.flatMap((u: User) => u.designations || [])),
                 ) as string[];
                 setAllDesignations(designations);
             } catch (error) {
@@ -66,7 +66,7 @@ const TeamPage: React.FC = () => {
 
     const filteredMembers = members.filter(
         (member) =>
-            filter === "all" || (member.designations && member.designations.includes(filter))
+            filter === "all" || (member.designations && member.designations.includes(filter)),
     );
 
     // Desktop whimsy mode astronaut briefing view

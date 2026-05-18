@@ -28,7 +28,7 @@ export async function GET(request: NextRequest, { params }: { params: Promise<{ 
 
 export async function PATCH(
     request: NextRequest,
-    { params }: { params: Promise<{ slug: string }> }
+    { params }: { params: Promise<{ slug: string }> },
 ) {
     try {
         await connectToDatabase();
@@ -53,7 +53,7 @@ export async function PATCH(
                 } catch {
                     return NextResponse.json(
                         { error: "Unauthorized: admin only" },
-                        { status: 401 }
+                        { status: 401 },
                     );
                 }
 
@@ -66,7 +66,7 @@ export async function PATCH(
                 if (!userId) {
                     return NextResponse.json(
                         { error: "User ID required for like action" },
-                        { status: 400 }
+                        { status: 400 },
                     );
                 }
 
@@ -121,14 +121,14 @@ export async function PUT(request: NextRequest, { params }: { params: Promise<{ 
         ) {
             return NextResponse.json(
                 { error: "Not authorized to edit this blog" },
-                { status: 403 }
+                { status: 403 },
             );
         }
 
         const blog = await Blog.findOneAndUpdate(
             { slug },
             { $set: blogData },
-            { new: true, runValidators: true }
+            { new: true, runValidators: true },
         ).lean();
 
         if (!blog) {
@@ -149,7 +149,7 @@ export async function PUT(request: NextRequest, { params }: { params: Promise<{ 
                 title: blogRecord.title,
                 slug: blogRecord.slug,
                 updatedFields: Object.keys(blogData),
-            }
+            },
         );
 
         return NextResponse.json(blogWithAuthor[0]);
@@ -161,7 +161,7 @@ export async function PUT(request: NextRequest, { params }: { params: Promise<{ 
 
 export async function DELETE(
     request: NextRequest,
-    { params }: { params: Promise<{ slug: string }> }
+    { params }: { params: Promise<{ slug: string }> },
 ) {
     try {
         const { user } = await requireWriter();
@@ -182,7 +182,7 @@ export async function DELETE(
         ) {
             return NextResponse.json(
                 { error: "Not authorized to delete this blog" },
-                { status: 403 }
+                { status: 403 },
             );
         }
 
@@ -195,7 +195,7 @@ export async function DELETE(
             user.email,
             "blog",
             (existingBlogRecord._id as { toString: () => string }).toString(),
-            { title: existingBlogRecord.title, slug: existingBlogRecord.slug }
+            { title: existingBlogRecord.title, slug: existingBlogRecord.slug },
         );
 
         return NextResponse.json({ message: "Blog deleted successfully" });

@@ -266,7 +266,7 @@ const BlogPostPage = () => {
                                     handleImageClick(
                                         blog.author.avatar
                                             ? withUploadPath(blog.author.avatar)
-                                            : withBasePath(`/default-avatar.svg`)
+                                            : withBasePath(`/default-avatar.svg`),
                                     )
                                 }
                             />

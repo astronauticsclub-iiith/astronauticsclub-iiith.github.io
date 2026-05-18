@@ -40,35 +40,35 @@ export function useAlert() {
                 type,
             });
         },
-        []
+        [],
     );
 
     const showSuccess = useCallback(
         (message: string) => {
             showAlert(message, "success");
         },
-        [showAlert]
+        [showAlert],
     );
 
     const showError = useCallback(
         (message: string) => {
             showAlert(message, "error");
         },
-        [showAlert]
+        [showAlert],
     );
 
     const showWarning = useCallback(
         (message: string) => {
             showAlert(message, "warning");
         },
-        [showAlert]
+        [showAlert],
     );
 
     const showInfo = useCallback(
         (message: string) => {
             showAlert(message, "info");
         },
-        [showAlert]
+        [showAlert],
     );
 
     const closeAlert = useCallback(() => {
@@ -84,7 +84,7 @@ export function useAlert() {
                 type?: "danger" | "warning" | "info";
                 confirmText?: string;
                 cancelText?: string;
-            }
+            },
         ) => {
             setConfirmState({
                 isOpen: true,
@@ -96,7 +96,7 @@ export function useAlert() {
                 cancelText: options?.cancelText,
             });
         },
-        []
+        [],
     );
 
     const closeConfirm = useCallback(() => {
