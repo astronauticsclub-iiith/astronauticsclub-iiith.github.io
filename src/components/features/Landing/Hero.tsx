@@ -39,7 +39,6 @@ const Hero = () => {
             if (!s) return;
 
             setWhimsyMode(!whimsyMode);
-            s.style.color = !whimsyMode ? "#d2042d" : "white";
         };
 
         s.addEventListener("click", handleClick);
@@ -74,8 +73,6 @@ const Hero = () => {
 
         // Create a sparkle element with random properties
         const createSparkle = () => {
-            if (whimsyMode) return; // Don't create sparkles in whimsy mode
-
             const sparkle = document.createElement("div");
 
             // Random size class
@@ -130,20 +127,7 @@ const Hero = () => {
             }
 
             // Create a new sparkle every 150-300ms
-            sparkleIntervalRef.current = setInterval(
-                () => {
-                    if (!whimsyMode) {
-                        createSparkle();
-                    } else {
-                        // If whimsy mode turned on, stop the sparkles
-                        if (sparkleIntervalRef.current) {
-                            clearInterval(sparkleIntervalRef.current);
-                            sparkleIntervalRef.current = null;
-                        }
-                    }
-                },
-                150 + Math.random() * 150
-            );
+            sparkleIntervalRef.current = setInterval(createSparkle, 150 + Math.random() * 150);
         };
 
         // Start creating sparkles
