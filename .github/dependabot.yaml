@@ -1,0 +1,7 @@
+# Updates the dependencies specified in package.json and package-lock.json
+version: 2
+updates:
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "daily"
