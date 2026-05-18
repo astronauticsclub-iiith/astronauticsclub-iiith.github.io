@@ -173,7 +173,7 @@ const Navbar = () => {
                                     <Link
                                         href={link.href}
                                         className={`${activeClass(
-                                            link.href
+                                            link.href,
                                         )}  transition-colors duration-300 hover:text-white focus:text-white`}
                                     >
                                         {link.label}
@@ -237,7 +237,7 @@ const Navbar = () => {
                                 <Link
                                     href={link.href}
                                     className={`block px-4 py-2 rounded-md text-base text-center ${activeClass(
-                                        link.href
+                                        link.href,
                                     )} transition-colors duration-300 hover:text-white focus:text-white`}
                                     onClick={() => setIsOpen(false)}
                                 >

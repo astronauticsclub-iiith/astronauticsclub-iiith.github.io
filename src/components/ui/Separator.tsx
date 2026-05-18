@@ -174,7 +174,7 @@ const CloudSeparator: React.FC<CloudSeparatorProps> = ({
                     style={{
                         background: `linear-gradient(to bottom, ${cloudColor} 5%, ${adjustColor(
                             cloudColor,
-                            -10
+                            -10,
                         )} 100%)`,
                         boxShadow: `0 8px 5px ${adjustColor(cloudColor, -20, 0.1)}`,
                     }}

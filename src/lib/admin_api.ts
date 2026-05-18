@@ -34,7 +34,7 @@ export async function createUser(userData: {
 
 export async function updateUserRole(
     userId: string,
-    role: "admin" | "writer" | "none"
+    role: "admin" | "writer" | "none",
 ): Promise<void> {
     const response = await fetch(withBasePath(`/api/users/${userId}`), {
         method: "PUT",
@@ -49,7 +49,7 @@ export async function updateUserRole(
 
 export async function updateUserDesignations(
     userId: string,
-    designations: string[]
+    designations: string[],
 ): Promise<void> {
     const response = await fetch(withBasePath(`/api/users/${userId}`), {
         method: "PUT",
@@ -110,7 +110,7 @@ export async function updateInventoryItem(formData: FormData): Promise<void> {
 export async function deleteInventoryItem(inventoryId: string): Promise<void> {
     const response = await fetch(
         withBasePath(`/api/inventory/admin?id=${encodeURIComponent(inventoryId)}`),
-        { method: "DELETE" }
+        { method: "DELETE" },
     );
 
     if (!response.ok) {
@@ -164,9 +164,9 @@ export async function updateGalleryImage(data: {
 export async function deleteGalleryImage(filename: string, category: string): Promise<void> {
     const response = await fetch(
         withBasePath(
-            `/api/gallery/admin?filename=${encodeURIComponent(filename)}&category=${category}`
+            `/api/gallery/admin?filename=${encodeURIComponent(filename)}&category=${category}`,
         ),
-        { method: "DELETE" }
+        { method: "DELETE" },
     );
 
     if (!response.ok) {
@@ -214,7 +214,7 @@ export async function updateEvent(eventId: string, eventData: Partial<Event>): P
 export async function deleteEvent(eventId: string): Promise<void> {
     const response = await fetch(
         withBasePath(`/api/events/admin?id=${encodeURIComponent(eventId)}`),
-        { method: "DELETE" }
+        { method: "DELETE" },
     );
 
     if (!response.ok) {

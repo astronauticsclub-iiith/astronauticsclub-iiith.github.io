@@ -29,7 +29,7 @@ export async function POST(request: NextRequest) {
         if (!email || !role || !name) {
             return NextResponse.json(
                 { error: "Name, email and role are required" },
-                { status: 400 }
+                { status: 400 },
             );
         }
 
@@ -42,7 +42,7 @@ export async function POST(request: NextRequest) {
         if (existingUser) {
             return NextResponse.json(
                 { error: "User with this email already exists" },
-                { status: 409 }
+                { status: 409 },
             );
         }
 

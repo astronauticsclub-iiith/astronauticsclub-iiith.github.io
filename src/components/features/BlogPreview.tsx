@@ -173,7 +173,7 @@ export default function BlogPreview({ title, content, tags, readTime, author }: 
                                     handleImageClick(
                                         author.avatar
                                             ? withUploadPath(author.avatar)
-                                            : withBasePath(`/default-avatar.svg`)
+                                            : withBasePath(`/default-avatar.svg`),
                                     )
                                 }
                             />

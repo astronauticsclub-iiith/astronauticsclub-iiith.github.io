@@ -141,7 +141,7 @@ export default function InventoryManager({ showSuccess, showError }: InventoryMa
                 item.comments ?? "",
             ]
                 .map((val) => `"${String(val ?? "").replace(/"/g, '""')}"`)
-                .join(",")
+                .join(","),
         );
 
         const csv = [headers.join(","), ...rows].join("\n");

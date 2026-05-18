@@ -30,7 +30,7 @@ const InventorySchema = new Schema<InventoryDocument>(
     },
     {
         timestamps: true,
-    }
+    },
 );
 
 // Create indexes for better performance

@@ -41,7 +41,7 @@ export async function POST(request: NextRequest) {
                 {
                     error: `File too large. Maximum size is ${MAX_FILE_SIZE / 1024 / 1024}MB`,
                 },
-                { status: 400 }
+                { status: 400 },
             );
         }
 
@@ -50,7 +50,7 @@ export async function POST(request: NextRequest) {
                 {
                     error: `File type not allowed. Allowed types: ${ALLOWED_FILE_TYPES.join(", ")}`,
                 },
-                { status: 400 }
+                { status: 400 },
             );
         }
 
@@ -64,7 +64,7 @@ export async function POST(request: NextRequest) {
 
         const uniqueFilename = generateUniqueFilename(
             file.name,
-            (user._id as { toString: () => string }).toString()
+            (user._id as { toString: () => string }).toString(),
         );
         const filePath = path.join(FILE_DIRECTORY, "avatars", uniqueFilename);
 
@@ -85,13 +85,13 @@ export async function POST(request: NextRequest) {
                 fileSize: file.size,
                 fileType: file.type,
             },
-            { status: 201 }
+            { status: 201 },
         );
     } catch (error) {
         console.error("Error uploading avatar:", error);
         return NextResponse.json(
             { error: "Internal server error during avatar upload" },
-            { status: 500 }
+            { status: 500 },
         );
     }
 }

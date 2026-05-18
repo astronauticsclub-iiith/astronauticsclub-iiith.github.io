@@ -17,7 +17,7 @@ export async function GET() {
                 designations: 1,
                 bio: 1,
                 linkedin: 1,
-            }
+            },
         ).sort({ name: 1 });
         return NextResponse.json(users);
     } catch (error) {

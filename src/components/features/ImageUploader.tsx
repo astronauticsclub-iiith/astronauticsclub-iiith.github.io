@@ -68,7 +68,7 @@ export default function ImageUploader({ onImageUpload, onClose }: ImageUploaderP
 
             if (newImages.length > 0) {
                 showSuccess(
-                    `Successfully uploaded ${newImages.length} image${newImages.length > 1 ? "s" : ""}`
+                    `Successfully uploaded ${newImages.length} image${newImages.length > 1 ? "s" : ""}`,
                 );
             }
         } catch (error) {

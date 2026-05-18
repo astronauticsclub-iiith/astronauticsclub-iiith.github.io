@@ -64,7 +64,7 @@ export async function GET(request: NextRequest) {
 
         // Populate author details
         const blogsWithAuthors = await populateAuthorDetails(
-            blogs as Array<Record<string, unknown>>
+            blogs as Array<Record<string, unknown>>,
         );
 
         // Calculate stats
@@ -122,7 +122,7 @@ export async function POST(request: NextRequest) {
             if (!blogData[field as keyof typeof blogData]) {
                 return NextResponse.json(
                     { error: `Missing required field: ${field}` },
-                    { status: 400 }
+                    { status: 400 },
                 );
             }
         }
@@ -135,7 +135,7 @@ export async function POST(request: NextRequest) {
         if (existingBlog) {
             return NextResponse.json(
                 { error: "Blog with this ID or slug already exists" },
-                { status: 409 }
+                { status: 409 },
             );
         }
 

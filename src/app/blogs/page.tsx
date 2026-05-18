@@ -87,7 +87,7 @@ const BlogsPage = () => {
 
                 // Extract all unique tags
                 const tags = Array.from(
-                    new Set(response.blogs.flatMap((blog: Blog) => blog.tags))
+                    new Set(response.blogs.flatMap((blog: Blog) => blog.tags)),
                 ).sort() as string[];
                 setAllTags(tags);
             } catch (error) {
@@ -110,14 +110,14 @@ const BlogsPage = () => {
                     blog.title.toLowerCase().includes(searchLower) ||
                     blog.excerpt.toLowerCase().includes(searchLower) ||
                     (blog.author.name || "").toLowerCase().includes(searchLower) ||
-                    blog.tags.some((tag) => tag.toLowerCase().includes(searchLower))
+                    blog.tags.some((tag) => tag.toLowerCase().includes(searchLower)),
             );
         }
 
         // Tags filter
         if (filters.tags.length > 0) {
             filtered = filtered.filter((blog) =>
-                filters.tags.some((tag) => blog.tags.includes(tag))
+                filters.tags.some((tag) => blog.tags.includes(tag)),
             );
         }
 
@@ -125,12 +125,12 @@ const BlogsPage = () => {
         switch (filters.sortBy) {
             case "latest":
                 filtered.sort(
-                    (a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime()
+                    (a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime(),
                 );
                 break;
             case "oldest":
                 filtered.sort(
-                    (a, b) => new Date(a.publishedAt).getTime() - new Date(b.publishedAt).getTime()
+                    (a, b) => new Date(a.publishedAt).getTime() - new Date(b.publishedAt).getTime(),
                 );
                 break;
             case "popular":
