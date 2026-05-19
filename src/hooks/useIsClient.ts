@@ -1,6 +1,6 @@
 import { useSyncExternalStore } from "react";
 
-const emptySubscribe = () => () => { };
+const emptySubscribe = () => () => {};
 
 /**
  * Returns `true` on the client after hydration, `false` during SSR.

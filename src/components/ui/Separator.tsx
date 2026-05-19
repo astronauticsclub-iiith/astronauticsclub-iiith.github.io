@@ -150,8 +150,9 @@ const CloudSeparator: React.FC<CloudSeparatorProps> = ({
         const maxPadding = height > 100 ? 80 : 60;
         const bandHeight = Math.max(height - maxPadding - minPadding, 40);
         dispatchPositions(
-            Array.from({ length: cloudCount }, () =>
-                minPadding + Math.floor(Math.random() * bandHeight),
+            Array.from(
+                { length: cloudCount },
+                () => minPadding + Math.floor(Math.random() * bandHeight),
             ),
         );
     }, [cloudCount, height]);
