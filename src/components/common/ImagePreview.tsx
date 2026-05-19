@@ -18,6 +18,13 @@ const ImagePreview = ({ src, alt, isOpen, onClose }: ImagePreviewProps) => {
     const [isLoading, setIsLoading] = useState(true);
     const modalRef = useRef<HTMLDivElement>(null);
 
+    // Reset loading state when src changes or modal reopens
+    useEffect(() => {
+        if (isOpen) {
+            void Promise.resolve().then(() => setIsLoading(true));
+        }
+    }, [src, isOpen]);
+
     // Handle close action
     const handleClose = useCallback(() => {
         onClose();
@@ -51,6 +58,8 @@ const ImagePreview = ({ src, alt, isOpen, onClose }: ImagePreviewProps) => {
 
     // Set up keyboard listener
     useEffect(() => {
+        if (!isOpen) return;
+
         const handleEsc = (e: KeyboardEvent) => {
             if (e.key === "Escape") {
                 handleClose();
@@ -62,7 +71,7 @@ const ImagePreview = ({ src, alt, isOpen, onClose }: ImagePreviewProps) => {
         return () => {
             window.removeEventListener("keydown", handleEsc);
         };
-    }, [handleClose]);
+    }, [isOpen, handleClose]);
 
     const handleImageLoad = () => {
         setIsLoading(false);

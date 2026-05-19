@@ -157,53 +157,57 @@ const CloudSeparator: React.FC<CloudSeparatorProps> = ({
         );
     }, [cloudCount, height]);
 
-    // Create an array of clouds with different animation classes
-    const clouds = Array.from({ length: cloudCount }, (_, i) => {
-        const cloudClass = `cloud-x${(i % 25) + 1}`;
-        const delayClass = `delay-${(i % 8) + 1}`;
+    // Create an array of clouds with different animation classes,
+    // gating execution until cloudPositions is populated by the effect.
+    const clouds =
+        cloudPositions.length === cloudCount
+            ? Array.from({ length: cloudCount }, (_, i) => {
+                  const cloudClass = `cloud-x${(i % 25) + 1}`;
+                  const delayClass = `delay-${(i % 8) + 1}`;
 
-        // Calculate a horizontal offset to distribute clouds better initially
-        // This creates a staggered starting position within the separator
-        const horizontalOffset = `${(i % 6) * 10}%`;
-        const topPosition = cloudPositions[i];
+                  // Calculate a horizontal offset to distribute clouds better initially
+                  // This creates a staggered starting position within the separator
+                  const horizontalOffset = `${(i % 6) * 10}%`;
+                  const topPosition = cloudPositions[i];
 
-        return (
-            <div
-                key={i}
-                className={`${cloudClass} ${delayClass}`}
-                style={
-                    {
-                        position: "absolute",
-                        top: `${topPosition}px`,
-                        left: horizontalOffset,
-                        "--cloud-index": i,
-                        "--cloud-delay": `${(i % 8) * -4}s`,
-                        "--cloud-duration": `${40 + (i % 20)}s`,
-                        zIndex: 20,
-                    } as React.CSSProperties
-                }
-                suppressHydrationWarning
-            >
-                <div
-                    className="cloud"
-                    style={{
-                        background: `linear-gradient(to bottom, ${cloudColor} 5%, ${adjustColor(
-                            cloudColor,
-                            -10,
-                        )} 100%)`,
-                        boxShadow: `0 8px 5px ${adjustColor(cloudColor, -20, 0.1)}`,
-                    }}
-                    suppressHydrationWarning
-                />
-            </div>
-        );
-    });
+                  return (
+                      <div
+                          key={i}
+                          className={`${cloudClass} ${delayClass}`}
+                          style={
+                              {
+                                  position: "absolute",
+                                  top: `${topPosition}px`,
+                                  left: horizontalOffset,
+                                  "--cloud-index": i,
+                                  "--cloud-delay": `${(i % 8) * -4}s`,
+                                  "--cloud-duration": `${40 + (i % 20)}s`,
+                                  zIndex: 20,
+                              } as React.CSSProperties
+                          }
+                          suppressHydrationWarning
+                      >
+                          <div
+                              className="cloud"
+                              style={{
+                                  background: `linear-gradient(to bottom, ${cloudColor} 5%, ${adjustColor(
+                                      cloudColor,
+                                      -10,
+                                  )} 100%)`,
+                                  boxShadow: `0 8px 5px ${adjustColor(cloudColor, -20, 0.1)}`,
+                              }}
+                              suppressHydrationWarning
+                          />
+                      </div>
+                  );
+              })
+            : [];
 
     return (
         <div
             ref={separatorRef}
             className={`cloud-separator w-full absolute ${isLoaded ? "loaded" : ""} ${className}`}
-            style={{ height: `${separatorHeightVh}` }}
+            style={{ height: `${separatorHeightVh}vh` }}
             suppressHydrationWarning
         >
             {/* Cloud container */}
