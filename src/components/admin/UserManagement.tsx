@@ -59,7 +59,7 @@ export default function UserManagement({
     };
 
     useEffect(() => {
-        // Wrap in an IIFE to hide the internal setState calls from the effect's static analysis
+        // Wrap in an IIFE only for lint check
         (async () => {
             await fetchUsers();
         })();
