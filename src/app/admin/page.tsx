@@ -51,6 +51,8 @@ export default function AdminDashboard() {
             }
         } catch (error) {
             console.error("Error fetching user profile:", error);
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -63,8 +65,9 @@ export default function AdminDashboard() {
             return;
         }
 
-        fetchUserProfile();
-        setLoading(false);
+        // Call in a microtask so setState happens in an async callback, not
+        // synchronously within the effect body.
+        void fetchUserProfile();
     }, [session, status, router]);
 
     const handleLogout = async () => {

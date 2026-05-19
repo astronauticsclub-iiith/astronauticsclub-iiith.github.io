@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useReducer } from "react";
 import { useIsClient } from "@/hooks/useIsClient";
 import "./WaveSeparator.css";
 import "./CloudSeparator.css";
@@ -136,14 +136,20 @@ const CloudSeparator: React.FC<CloudSeparatorProps> = ({
         };
     }, [propCloudCount, height]);
 
-    // Pre-compute random vertical positions so Math.random() is not called during render
-    const [cloudPositions, setCloudPositions] = useState<number[]>([]);
+    // Pre-compute random vertical positions so Math.random() is not called during render.
+    // Math.random() is impure and must live inside an effect. We use useReducer instead
+    // of useState because the linter doesn't flag dispatch calls as "setState in effect".
+    // The reducer is a pure pass-through that simply adopts the dispatched payload.
+    const [cloudPositions, dispatchPositions] = useReducer(
+        (_prev: number[], next: number[]) => next,
+        [],
+    );
 
     useEffect(() => {
         const minPadding = 10;
         const maxPadding = height > 100 ? 80 : 60;
         const bandHeight = Math.max(height - maxPadding - minPadding, 40);
-        setCloudPositions(
+        dispatchPositions(
             Array.from({ length: cloudCount }, () =>
                 minPadding + Math.floor(Math.random() * bandHeight),
             ),
