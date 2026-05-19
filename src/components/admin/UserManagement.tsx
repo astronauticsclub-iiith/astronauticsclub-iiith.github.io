@@ -59,7 +59,7 @@ export default function UserManagement({
     };
 
     useEffect(() => {
-        fetchUsers();
+        void fetchUsers();
     }, []);
 
     const addUser = async (e: React.FormEvent) => {
