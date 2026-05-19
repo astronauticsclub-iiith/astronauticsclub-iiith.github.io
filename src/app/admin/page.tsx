@@ -65,8 +65,8 @@ export default function AdminDashboard() {
             return;
         }
 
-        // Call in a microtask so setState happens in an async callback, not
-        // synchronously within the effect body.
+        // Invoke the async function without awaiting it so the effect body
+        // stays synchronous and the returned promise is intentionally ignored.
         void fetchUserProfile();
     }, [session, status, router]);
 

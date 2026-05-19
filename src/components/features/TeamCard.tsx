@@ -7,12 +7,13 @@ import { Mail } from "lucide-react";
 import { withBasePath, withUploadPath } from "../common/HelperFunction";
 import { User } from "@/types/user";
 
+const emptySubscribe = () => () => {};
+
 const TeamCard: React.FC<{
     member: User;
     index: number;
 }> = ({ member, index }) => {
     const [isOverlayVisible, setOverlayVisible] = useState(false);
-    const emptySubscribe = () => () => {};
     const isTouchDevice = useSyncExternalStore(
         emptySubscribe,
         () => "ontouchstart" in window || navigator.maxTouchPoints > 0,

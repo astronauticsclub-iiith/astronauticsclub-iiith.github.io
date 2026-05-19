@@ -19,15 +19,25 @@ import { fetchBlogBySlug, incrementBlogViews, toggleBlogLike, generateUserId } f
 import Loader from "@/components/ui/Loader";
 import "@/components/ui/bg-patterns.css";
 import { withBasePath, withUploadPath } from "@/components/common/HelperFunction";
+import { useIsClient } from "@/hooks/useIsClient";
 
 const BlogPostPage = () => {
     const { openPreview } = useImagePreview();
+    const isClient = useIsClient();
     const [blog, setBlog] = useState<Blog | null>(null);
     const [loading, setLoading] = useState(true);
     const [likeOverride, setLikeOverride] = useState<boolean | null>(null);
     const [likes, setLikes] = useState(0);
     const [views, setViews] = useState(0);
-    const [userId] = useState<string>(() => generateUserId());
+
+    const [userId, setUserId] = useState<string>("");
+
+    // Initialize userId only once after hydration to avoid per-render localStorage side-effects
+    useEffect(() => {
+        if (isClient) {
+            void Promise.resolve().then(() => setUserId(generateUserId()));
+        }
+    }, [isClient]);
 
     const params = useParams() as { slug: string };
 

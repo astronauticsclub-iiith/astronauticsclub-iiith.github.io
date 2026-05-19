@@ -59,8 +59,8 @@ export default function UserManagement({
     };
 
     useEffect(() => {
-        // Wrap in an IIFE only for lint check
-        (async () => {
+        // Keep the effect callback synchronous while starting async user loading.
+        void (async () => {
             await fetchUsers();
         })();
     }, []);
