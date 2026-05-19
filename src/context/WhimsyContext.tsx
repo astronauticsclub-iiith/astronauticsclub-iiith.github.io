@@ -1,6 +1,7 @@
 "use client";
 
 import React, { createContext, useContext, useState, useEffect } from "react";
+import { useIsClient } from "@/hooks/useIsClient";
 import dynamic from "next/dynamic";
 import { usePathname } from "next/navigation";
 
@@ -34,16 +35,11 @@ const getInitialWhimsyMode = (): boolean => {
 export const WhimsyProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     // Initialize state from localStorage synchronously
     const [whimsyMode, setWhimsyMode] = useState<boolean>(getInitialWhimsyMode);
-    const [isLoaded, setIsLoaded] = useState<boolean>(false);
+    const isLoaded = useIsClient();
 
     const pathname = usePathname();
     const isAboutPage = pathname.startsWith("/about");
     const isWhimsyActive = whimsyMode && !isAboutPage;
-
-    // Mark as loaded after hydration
-    useEffect(() => {
-        setIsLoaded(true);
-    }, []);
 
     // Save to localStorage whenever the state changes (but only when loaded)
     useEffect(() => {

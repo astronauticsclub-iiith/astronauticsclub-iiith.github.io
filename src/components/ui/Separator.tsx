@@ -1,6 +1,7 @@
 "use client";
 
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useMemo } from "react";
+import { useIsClient } from "@/hooks/useIsClient";
 import "./WaveSeparator.css";
 import "./CloudSeparator.css";
 import "./CloudFade.css";
@@ -78,8 +79,8 @@ const CloudSeparator: React.FC<CloudSeparatorProps> = ({
 }) => {
     // State to track the actual cloud count based on screen size
     const [cloudCount, setCloudCount] = useState<number>(propCloudCount || 35);
-    // State to track client-side rendering (avoid SSR/window issues)
-    const [isClient, setIsClient] = useState(false);
+    // Track client-side rendering (avoid SSR/window issues)
+    const isClient = useIsClient();
     // State to track loaded state for entrance animations
     const [isLoaded, setIsLoaded] = useState(false);
     // State to control separator height (in vh) for responsive cloud band
@@ -87,10 +88,8 @@ const CloudSeparator: React.FC<CloudSeparatorProps> = ({
     // Reference to the separator container
     const separatorRef = useRef<HTMLDivElement>(null);
 
-    // Mark component as client-rendered after mount
+    // Small delay to ensure smooth animation after initial render
     useEffect(() => {
-        setIsClient(true);
-        // Small delay to ensure smooth animation after initial render
         const timer = setTimeout(() => {
             setIsLoaded(true);
         }, 100);
@@ -137,6 +136,16 @@ const CloudSeparator: React.FC<CloudSeparatorProps> = ({
         };
     }, [propCloudCount, height]);
 
+    // Pre-compute random vertical positions so Math.random() is not called during render
+    const cloudPositions = useMemo(() => {
+        const minPadding = 10;
+        const maxPadding = height > 100 ? 80 : 60;
+        const bandHeight = Math.max(height - maxPadding - minPadding, 40);
+        return Array.from({ length: cloudCount }, () =>
+            minPadding + Math.floor(Math.random() * bandHeight),
+        );
+    }, [cloudCount, height]);
+
     // Create an array of clouds with different animation classes
     const clouds = Array.from({ length: cloudCount }, (_, i) => {
         const cloudClass = `cloud-x${(i % 25) + 1}`;
@@ -145,12 +154,7 @@ const CloudSeparator: React.FC<CloudSeparatorProps> = ({
         // Calculate a horizontal offset to distribute clouds better initially
         // This creates a staggered starting position within the separator
         const horizontalOffset = `${(i % 6) * 10}%`;
-
-        // Calculate vertical position with padding so clouds stay within a band
-        const minPadding = 10;
-        const maxPadding = height > 100 ? 80 : 60;
-        const bandHeight = Math.max(height - maxPadding - minPadding, 40);
-        const topPosition = minPadding + Math.floor(Math.random() * bandHeight);
+        const topPosition = cloudPositions[i];
 
         return (
             <div

@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect, useState, useCallback, useRef } from "react";
+import { useEffect, useState, useCallback, useRef, useMemo } from "react";
+import { useIsClient } from "@/hooks/useIsClient";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import Loader from "../ui/Loader";
@@ -13,16 +14,20 @@ interface ImagePreviewProps {
 }
 
 const ImagePreview = ({ src, alt, isOpen, onClose }: ImagePreviewProps) => {
-    const [isMounted, setIsMounted] = useState(false);
+    const isMounted = useIsClient();
     const [isLoading, setIsLoading] = useState(true);
     const modalRef = useRef<HTMLDivElement>(null);
+    const prevSrcRef = useRef(src);
+    const prevIsOpenRef = useRef(isOpen);
 
-    // Reset loading state when src changes
-    useEffect(() => {
+    // Reset loading state when src or isOpen changes (derived state, no effect needed)
+    if (prevSrcRef.current !== src || prevIsOpenRef.current !== isOpen) {
+        prevSrcRef.current = src;
+        prevIsOpenRef.current = isOpen;
         if (isOpen) {
             setIsLoading(true);
         }
-    }, [src, isOpen]);
+    }
 
     // Handle close action
     const handleClose = useCallback(() => {
@@ -55,10 +60,8 @@ const ImagePreview = ({ src, alt, isOpen, onClose }: ImagePreviewProps) => {
         };
     }, [isOpen, isMounted]);
 
-    // Initialize component
+    // Set up keyboard listener
     useEffect(() => {
-        setIsMounted(true);
-
         const handleEsc = (e: KeyboardEvent) => {
             if (e.key === "Escape") {
                 handleClose();
