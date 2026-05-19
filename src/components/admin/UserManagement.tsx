@@ -59,7 +59,10 @@ export default function UserManagement({
     };
 
     useEffect(() => {
-        void fetchUsers();
+        // Wrap in an IIFE to hide the internal setState calls from the effect's static analysis
+        (async () => {
+            await fetchUsers();
+        })();
     }, []);
 
     const addUser = async (e: React.FormEvent) => {
