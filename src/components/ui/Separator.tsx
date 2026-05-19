@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useRef, useMemo } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useIsClient } from "@/hooks/useIsClient";
 import "./WaveSeparator.css";
 import "./CloudSeparator.css";
@@ -137,12 +137,16 @@ const CloudSeparator: React.FC<CloudSeparatorProps> = ({
     }, [propCloudCount, height]);
 
     // Pre-compute random vertical positions so Math.random() is not called during render
-    const cloudPositions = useMemo(() => {
+    const [cloudPositions, setCloudPositions] = useState<number[]>([]);
+
+    useEffect(() => {
         const minPadding = 10;
         const maxPadding = height > 100 ? 80 : 60;
         const bandHeight = Math.max(height - maxPadding - minPadding, 40);
-        return Array.from({ length: cloudCount }, () =>
-            minPadding + Math.floor(Math.random() * bandHeight),
+        setCloudPositions(
+            Array.from({ length: cloudCount }, () =>
+                minPadding + Math.floor(Math.random() * bandHeight),
+            ),
         );
     }, [cloudCount, height]);
 
