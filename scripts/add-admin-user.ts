@@ -65,7 +65,7 @@ async function addAdminUser() {
     } catch (error: unknown) {
         if (error instanceof Error) {
             console.error("❌ Error creating admin user:", error.message);
-            const e: any = error;
+            const e = error as Error & { code?: number };
             if (e.code === 11000) {
                 console.log("🔍 Duplicate key error — user may already exist");
             }
