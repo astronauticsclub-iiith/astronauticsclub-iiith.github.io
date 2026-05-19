@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, useCallback, useRef, useMemo } from "react";
+import { useEffect, useState, useCallback, useRef } from "react";
 import { useIsClient } from "@/hooks/useIsClient";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
@@ -17,17 +17,6 @@ const ImagePreview = ({ src, alt, isOpen, onClose }: ImagePreviewProps) => {
     const isMounted = useIsClient();
     const [isLoading, setIsLoading] = useState(true);
     const modalRef = useRef<HTMLDivElement>(null);
-    const prevSrcRef = useRef(src);
-    const prevIsOpenRef = useRef(isOpen);
-
-    // Reset loading state when src or isOpen changes (derived state, no effect needed)
-    if (prevSrcRef.current !== src || prevIsOpenRef.current !== isOpen) {
-        prevSrcRef.current = src;
-        prevIsOpenRef.current = isOpen;
-        if (isOpen) {
-            setIsLoading(true);
-        }
-    }
 
     // Handle close action
     const handleClose = useCallback(() => {
@@ -169,6 +158,7 @@ const ImagePreview = ({ src, alt, isOpen, onClose }: ImagePreviewProps) => {
                             }}
                         >
                             <Image
+                                key={src}
                                 src={src}
                                 alt={alt}
                                 fill
