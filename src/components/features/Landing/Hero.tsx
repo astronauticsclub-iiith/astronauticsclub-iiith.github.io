@@ -1,7 +1,8 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
+import { useIsClient } from "@/hooks/useIsClient";
 import "./Hero.css";
 import { useWhimsy } from "@/context/WhimsyContext";
 import { withBasePath } from "@/components/common/HelperFunction";
@@ -10,7 +11,7 @@ const Hero = () => {
     const sRef = useRef<HTMLSpanElement>(null);
     const sparkleContainerRef = useRef<HTMLDivElement>(null);
     const { whimsyMode, setWhimsyMode, isLoaded } = useWhimsy();
-    const [isHydrated, setIsHydrated] = useState(false);
+    const isHydrated = useIsClient();
     const sparkleIntervalRef = useRef<NodeJS.Timeout | null>(null);
 
     // Handle scroll down arrow click
@@ -20,11 +21,6 @@ const Hero = () => {
             behavior: "smooth",
         });
     };
-
-    // Hydration effect
-    useEffect(() => {
-        setIsHydrated(true);
-    }, []);
 
     // S toggle color and click handler
     useEffect(() => {

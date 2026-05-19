@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useSyncExternalStore } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import { Mail } from "lucide-react";
@@ -12,12 +12,13 @@ const TeamCard: React.FC<{
     index: number;
 }> = ({ member, index }) => {
     const [isOverlayVisible, setOverlayVisible] = useState(false);
-    const [isTouchDevice, setIsTouchDevice] = useState(false);
+    const emptySubscribe = () => () => {};
+    const isTouchDevice = useSyncExternalStore(
+        emptySubscribe,
+        () => "ontouchstart" in window || navigator.maxTouchPoints > 0,
+        () => false,
+    );
     const cardRef = useRef<HTMLDivElement>(null);
-
-    useEffect(() => {
-        setIsTouchDevice("ontouchstart" in window || navigator.maxTouchPoints > 0);
-    }, []);
 
     const handleMouseEnter = () => {
         if (!isTouchDevice) {
