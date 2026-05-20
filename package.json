@@ -44,6 +44,6 @@
         "pm2": "^7.0.1",
         "postcss": "^8",
         "prettier": "^3.8.1",
-        "typescript": "6.0.2"
+        "typescript": "6.0.3"
     }
 }
