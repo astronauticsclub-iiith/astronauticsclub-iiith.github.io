@@ -5,3 +5,11 @@ updates:
     directory: "/"
     schedule:
       interval: "daily"
+
+  - package-ecosystem: "github-actions"
+    directory: "/"  # Dependabot scans .github/workflows automatically
+    schedule:
+      interval: "monthly"
+    groups:
+      GitHub_Actions:
+        patterns:
