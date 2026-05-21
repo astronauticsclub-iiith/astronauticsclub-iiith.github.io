@@ -32,8 +32,10 @@ export async function POST(request: NextRequest) {
 
         const eventData = await request.json();
 
-        console.log("API: Received event data:", eventData);
-        console.log("API: Registration link:", eventData.registrationLink);
+        if (process.env.NODE_ENV === "development") {
+            console.log("API: Received event data:", eventData);
+            console.log("API: Registration link:", eventData.registrationLink);
+        }
 
         // Validate required fields
         const requiredFields = ["id", "title", "description", "date", "type"];
@@ -81,11 +83,15 @@ export async function POST(request: NextRequest) {
             status: eventData.status || "upcoming",
         });
 
-        console.log("API: About to save event with data:", newEvent.toObject());
+        if (process.env.NODE_ENV === "development") {
+            console.log("API: About to save event with data:", newEvent.toObject());
+        }
 
         await newEvent.save();
 
-        console.log("API: Event saved successfully:", newEvent.toObject());
+        if (process.env.NODE_ENV === "development") {
+            console.log("API: Event saved successfully:", newEvent.toObject());
+        }
 
         // Log the action
         Logger.info("Event created", {
@@ -165,9 +171,10 @@ export async function PUT(request: NextRequest) {
             { new: true, runValidators: true },
         );
 
-        console.log("API PUT: Received event data:", eventData);
-
-        console.log("API PUT: Event updated successfully:", updatedEvent?.toObject());
+        if (process.env.NODE_ENV === "development") {
+            console.log("API PUT: Received event data:", eventData);
+            console.log("API PUT: Event updated successfully:", updatedEvent?.toObject());
+        }
 
         // Log the action
         Logger.info("Event updated", {
