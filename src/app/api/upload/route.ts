@@ -47,7 +47,12 @@ export async function GET(request: NextRequest) {
 
         // If a specific filename is requested, return its details
         if (filename) {
-            const filePath = path.join(FILE_DIRECTORY, path.basename(filename));
+            const safeBaseDir = path.resolve(FILE_DIRECTORY);
+            const filePath = path.resolve(safeBaseDir, filename.replace(/^\/+/, ""));
+
+            if (!filePath.startsWith(safeBaseDir)) {
+                return NextResponse.json({ error: "Invalid path" }, { status: 400 });
+            }
 
             // Check if file exists
             if (!fs.existsSync(filePath)) {
@@ -170,7 +175,12 @@ export async function DELETE(request: NextRequest) {
 
         // If a specific filename is requested, return its details
         if (filename) {
-            const filePath = path.join(FILE_DIRECTORY, path.basename(filename));
+            const safeBaseDir = path.resolve(FILE_DIRECTORY);
+            const filePath = path.resolve(safeBaseDir, filename.replace(/^\/+/, ""));
+
+            if (!filePath.startsWith(safeBaseDir)) {
+                return NextResponse.json({ error: "Invalid path" }, { status: 400 });
+            }
 
             // Check if file exists
             if (!fs.existsSync(filePath)) {
