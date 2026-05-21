@@ -50,7 +50,7 @@ export async function GET(request: NextRequest) {
             const safeBaseDir = path.resolve(FILE_DIRECTORY);
             const filePath = path.resolve(safeBaseDir, filename.replace(/^\/+/, ""));
 
-            if (!filePath.startsWith(safeBaseDir)) {
+            if (!filePath.startsWith(safeBaseDir + path.sep)) {
                 return NextResponse.json({ error: "Invalid path" }, { status: 400 });
             }
 
@@ -178,7 +178,7 @@ export async function DELETE(request: NextRequest) {
             const safeBaseDir = path.resolve(FILE_DIRECTORY);
             const filePath = path.resolve(safeBaseDir, filename.replace(/^\/+/, ""));
 
-            if (!filePath.startsWith(safeBaseDir)) {
+            if (!filePath.startsWith(safeBaseDir + path.sep)) {
                 return NextResponse.json({ error: "Invalid path" }, { status: 400 });
             }
 
