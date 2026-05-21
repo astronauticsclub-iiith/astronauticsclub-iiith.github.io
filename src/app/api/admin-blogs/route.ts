@@ -3,6 +3,7 @@ import { connectToDatabase } from "@/lib/mongodb";
 import Blog from "@/models/Blog";
 import { populateAuthorDetails } from "@/app/blogs/helper";
 import { requireWriter } from "@/lib/auth";
+import { escapeRegex } from "@/components/common/HelperFunction";
 
 export async function GET(request: NextRequest) {
     try {
@@ -20,8 +21,9 @@ export async function GET(request: NextRequest) {
         const query: Record<string, unknown> = {};
 
         if (search) {
+            const escaped = escapeRegex(search);
             query.$or = [
-                { title: { $regex: search, $options: "i" } },
+                { title: { $regex: escaped, $options: "i" } },
                 { excerpt: { $regex: search, $options: "i" } },
                 { "author.name": { $regex: search, $options: "i" } },
                 { tags: { $regex: search, $options: "i" } },
