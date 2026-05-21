@@ -18,5 +18,5 @@ export function safeKey(email?: string) {
 }
 
 export function escapeRegex(str: string): string {
-    return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    return str.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 }
