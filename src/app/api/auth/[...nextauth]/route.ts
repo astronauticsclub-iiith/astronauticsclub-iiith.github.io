@@ -59,11 +59,13 @@ const handler = NextAuth({
                 service: { label: "Service", type: "text" },
             },
             async authorize(credentials) {
-                console.log("=== CAS AUTHORIZATION STARTED ===");
-                console.log("Credentials received:", {
-                    ticket: credentials?.ticket,
-                    service: credentials?.service,
-                });
+                if (process.env.NODE_ENV === "development") {
+                    console.log("=== CAS AUTHORIZATION STARTED ===");
+                    console.log("Credentials received:", {
+                        ticket: credentials?.ticket,
+                        service: credentials?.service,
+                    });
+                }
 
                 try {
                     // Get the ticket from the credentials
@@ -71,12 +73,16 @@ const handler = NextAuth({
                     const service = `${process.env.NEXTAUTH_URL}/login`;
 
                     if (!ticket) {
-                        console.log("CAS Authorization - No ticket provided");
+                        if (process.env.NODE_ENV === "development") {
+                            console.log("CAS Authorization - No ticket provided");
+                        }
                         throw new Error("No CAS ticket provided");
                     }
 
                     if (!service) {
-                        console.log("CAS Authorization - No service URL provided");
+                        if (process.env.NODE_ENV === "development") {
+                            console.log("CAS Authorization - No service URL provided");
+                        }
                         throw new Error("No service URL provided");
                     }
 
@@ -84,12 +90,10 @@ const handler = NextAuth({
                     const validationUrl = `https://login.iiit.ac.in/cas/serviceValidate?ticket=${ticket}&service=${encodeURIComponent(
                         service,
                     )}`;
-                    console.log("Validating CAS ticket with URL:", validationUrl);
 
                     // Validate the ticket with the CAS server
                     const response = await fetch(validationUrl);
                     const xmlResponse = await response.text();
-                    console.log("CAS XML Response:", xmlResponse);
 
                     // Parse the XML response
                     const result = (await parseStringPromise(xmlResponse)) as CASResponse;
@@ -126,14 +130,18 @@ const handler = NextAuth({
                     await connectToDatabase();
                     const dbUser = (await User.findOne({ email }).lean()) as IUser | null;
 
-                    console.log("CAS Authentication - User lookup:", {
-                        email,
-                        dbUser: dbUser ? { email: dbUser.email, role: dbUser.role } : null,
-                    });
+                    if (process.env.NODE_ENV === "development") {
+                        console.log("CAS Authentication - User lookup:", {
+                            email,
+                            dbUser: dbUser ? { email: dbUser.email, role: dbUser.role } : null,
+                        });
+                    }
 
                     if (!dbUser) {
                         // User not found in database - they shouldn't have access
-                        console.log("CAS Authentication - User not found in database:", email);
+                        if (process.env.NODE_ENV === "development") {
+                            console.log("CAS Authentication - User not found in database:", email);
+                        }
                         return null;
                     }
 
@@ -143,8 +151,6 @@ const handler = NextAuth({
                         name: firstName && lastName ? `${firstName} ${lastName}` : username,
                         role: dbUser.role,
                     };
-
-                    console.log("CAS Authentication - Returning user object:", userObject);
 
                     // Return the user object with role information
                     return userObject;
@@ -164,10 +170,12 @@ const handler = NextAuth({
             // Add user info to the token
             if (user) {
                 token.role = (user as ExtendedUser).role;
-                console.log("JWT Callback - Adding role to token:", {
-                    userRole: (user as ExtendedUser).role,
-                    tokenRole: token.role,
-                });
+                if (process.env.NODE_ENV === "development") {
+                    console.log("JWT Callback - Adding role to token:", {
+                        userRole: (user as ExtendedUser).role,
+                        tokenRole: token.role,
+                    });
+                }
             }
             return token;
         },
@@ -176,11 +184,13 @@ const handler = NextAuth({
             if (token && session.user) {
                 const user = session.user as ExtendedUser;
                 user.role = token.role as "admin" | "writer" | "none";
-                console.log("Session Callback - Final session:", {
-                    userEmail: user.email,
-                    userRole: user.role,
-                    tokenRole: token.role,
-                });
+                if (process.env.NODE_ENV === "development") {
+                    console.log("Session Callback - Final session:", {
+                        userEmail: user.email,
+                        userRole: user.role,
+                        tokenRole: token.role,
+                    });
+                }
             }
             return session;
         },
