@@ -94,6 +94,7 @@ export async function PUT(request: NextRequest, { params }: { params: Promise<{ 
             adminUser.designations && adminUser.designations.length > 0
                 ? adminUser.designations[0]
                 : null;
+
         const designation =
             user.designations && user.designations.length > 0 ? user.designations[0] : null;
 
