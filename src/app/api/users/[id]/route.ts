@@ -134,12 +134,12 @@ export async function PUT(request: NextRequest, { params }: { params: Promise<{ 
                 }
 
                 // Admin Fallback (if target team full and user is admin)
-                else if (!assigned && user.role === "admin") {
+                if (!assigned && user.role === "admin") {
                     assigned = assignToTeam("Co-ordinator", user.email);
                 }
 
                 // Random (Brightest available anywhere)
-                else if (!assigned) {
+                if (!assigned) {
                     const allAvailableStars = [];
                     for (const cName in jsonData) {
                         const constellation = jsonData[cName];
