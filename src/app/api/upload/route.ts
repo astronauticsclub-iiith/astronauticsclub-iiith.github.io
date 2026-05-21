@@ -44,7 +44,7 @@ export async function GET(request: NextRequest) {
 
         // If a specific filename is requested, return its details
         if (filename) {
-            const filePath = path.join(FILE_DIRECTORY, filename);
+            const filePath = path.join(FILE_DIRECTORY, path.basename(filename));
 
             // Check if file exists
             if (!fs.existsSync(filePath)) {
@@ -167,7 +167,7 @@ export async function DELETE(request: NextRequest) {
 
         // If a specific filename is requested, return its details
         if (filename) {
-            const filePath = path.join(FILE_DIRECTORY, filename);
+            const filePath = path.join(FILE_DIRECTORY, path.basename(filename));
 
             // Check if file exists
             if (!fs.existsSync(filePath)) {
