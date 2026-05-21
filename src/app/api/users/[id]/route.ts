@@ -217,7 +217,7 @@ export async function DELETE(
             const constellation = jsonData[constellationName];
             for (const starName in constellation.stars) {
                 const star = constellation.stars[starName];
-                if (star.clickable && star.email == user.email) {
+                if (star.clickable && star.email === user.email) {
                     delete star["email"];
                     star.clickable = false;
                 }
