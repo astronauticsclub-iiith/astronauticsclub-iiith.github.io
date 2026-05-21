@@ -12,6 +12,6 @@ export interface Inventory {
     comments?: string;
 }
 
-export const validCategoryTypes = ["astronomy", "electronics", "event", "others"];
+export const validCategoryTypes = ["astronomy", "electronics", "events", "others"];
 
-export const validStatusTypes = ["working", "repair", "broken"];
+export const validStatusTypes = ["working", "needs repair", "completely broken"];
