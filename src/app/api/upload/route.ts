@@ -178,6 +178,7 @@ export async function DELETE(request: NextRequest) {
             fs.unlinkSync(filePath);
             return NextResponse.json({ success: true }, { status: 201 });
         }
+        return NextResponse.json({ error: "Filename is required" }, { status: 400 });
     } catch (error) {
         console.error("Error deleting image:", error);
         return NextResponse.json(
