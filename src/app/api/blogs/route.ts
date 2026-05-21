@@ -25,9 +25,9 @@ export async function GET(request: NextRequest) {
             const escaped = escapeRegex(search);
             query.$or = [
                 { title: { $regex: escaped, $options: "i" } },
-                { excerpt: { $regex: search, $options: "i" } },
-                { "author.name": { $regex: search, $options: "i" } },
-                { tags: { $regex: search, $options: "i" } },
+                { excerpt: { $regex: escaped, $options: "i" } },
+                { "author.name": { $regex: escaped, $options: "i" } },
+                { tags: { $regex: escaped, $options: "i" } },
             ];
         }
 
