@@ -70,9 +70,9 @@ const AdminInventoryCard: React.FC<AdminInventoryCardProps> = ({
         switch (editedInventory.status || inventory.status) {
             case "working":
                 return "bg-green-600 border-green-600";
-            case "broken":
+            case "completely broken":
                 return "bg-red-600 border-red-600";
-            case "repair":
+            case "needs repair":
                 return "bg-gray-600 border-gray-600";
             default:
                 return "bg-gray-600 border-gray-600";
@@ -85,7 +85,7 @@ const AdminInventoryCard: React.FC<AdminInventoryCardProps> = ({
                 return "🔭";
             case "electronics":
                 return "🔧";
-            case "event":
+            case "events":
                 return "🎨";
             case "others":
                 return "𝄜";
