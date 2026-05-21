@@ -16,6 +16,14 @@ function generateLabel(filename: string): string {
         .replace(/\b\w/g, (l) => l.toUpperCase());
 }
 
+// Helper to validate filenames and prevent path traversal
+const isSafeFilename = (filename: string): boolean => {
+    if (!filename || typeof filename !== "string") return false;
+    if (filename === "." || filename === "..") return false;
+    if (filename.includes("/") || filename.includes("\\")) return false;
+    return path.basename(filename) === filename;
+};
+
 // GET - List all images for admin management
 export async function GET() {
     try {
@@ -84,6 +92,14 @@ export async function POST(request: NextRequest) {
 
         if (!file) {
             return NextResponse.json({ error: "No file provided" }, { status: 400 });
+        }
+
+        if (customFilename && !isSafeFilename(customFilename)) {
+            return NextResponse.json({ error: "Invalid custom filename. Only simple file names are allowed." }, { status: 400 });
+        }
+
+        if (!customFilename && !isSafeFilename(file.name)) {
+            return NextResponse.json({ error: "Invalid filename in uploaded file." }, { status: 400 });
         }
 
         if (!["astrophotography", "events", "others"].includes(category)) {
@@ -187,12 +203,7 @@ export async function PUT(request: NextRequest) {
             );
         }
 
-        const isSafeFilename = (filename: string): boolean => {
-            if (!filename || typeof filename !== "string") return false;
-            if (filename === "." || filename === "..") return false;
-            if (filename.includes("/") || filename.includes("\\")) return false;
-            return path.basename(filename) === filename;
-        };
+
 
         if (!isSafeFilename(currentFilename) || (newFilename && !isSafeFilename(newFilename))) {
             return NextResponse.json(
@@ -309,6 +320,13 @@ export async function DELETE(request: NextRequest) {
         if (!filename || !category) {
             return NextResponse.json(
                 { error: "Filename and category are required" },
+                { status: 400 },
+            );
+        }
+
+        if (!isSafeFilename(filename)) {
+            return NextResponse.json(
+                { error: "Invalid filename. Only simple file names are allowed." },
                 { status: 400 },
             );
         }
