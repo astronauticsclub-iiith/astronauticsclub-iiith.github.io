@@ -79,7 +79,7 @@ export async function POST(request: NextRequest) {
         const formData = await request.formData();
         const file = formData.get("file") as File;
         const category = formData.get("category") as string;
-        const customFilename = formData.get("filename") as string;
+        const customFilename = (formData.get("customFilename") || formData.get("filename")) as string;
 
         if (!file) {
             return NextResponse.json({ error: "No file provided" }, { status: 400 });
