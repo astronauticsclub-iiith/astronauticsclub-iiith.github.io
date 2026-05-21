@@ -80,6 +80,16 @@ export async function PUT(request: NextRequest, { params }: { params: Promise<{ 
         if (role !== undefined) updateData.role = role;
         if (designations !== undefined) updateData.designations = designations;
 
+        const oldUser = await User.findById(id);
+        if (!oldUser) {
+            return NextResponse.json({ error: "User not found" }, { status: 404 });
+        }
+
+        const prev_designation =
+            oldUser.designations && oldUser.designations.length > 0
+                ? oldUser.designations[0]
+                : null;
+
         const user = await User.findByIdAndUpdate(
             id,
             { $set: updateData },
@@ -89,11 +99,6 @@ export async function PUT(request: NextRequest, { params }: { params: Promise<{ 
         if (!user) {
             return NextResponse.json({ error: "User not found" }, { status: 404 });
         }
-
-        const prev_designation =
-            adminUser.designations && adminUser.designations.length > 0
-                ? adminUser.designations[0]
-                : null;
 
         const designation =
             user.designations && user.designations.length > 0 ? user.designations[0] : null;
