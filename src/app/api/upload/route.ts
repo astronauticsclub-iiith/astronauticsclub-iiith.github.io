@@ -29,6 +29,10 @@ const FILE_DIRECTORY = process.env.FILE_DIRECTORY || path.join(process.cwd(), "p
 const ensureUploadDirectory = async () => {
     try {
         await mkdir(FILE_DIRECTORY, { recursive: true });
+        await mkdir(path.join(FILE_DIRECTORY, "blogs"), { recursive: true });
+        await mkdir(path.join(FILE_DIRECTORY, "avatars"), { recursive: true });
+        await mkdir(path.join(FILE_DIRECTORY, "gallery"), { recursive: true });
+        await mkdir(path.join(FILE_DIRECTORY, "inventory"), { recursive: true });
     } catch (error) {
         console.error("Failed to create upload directory:", error);
     }
