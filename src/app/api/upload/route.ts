@@ -189,7 +189,7 @@ export async function DELETE(request: NextRequest) {
 
             // Delete the file
             fs.unlinkSync(filePath);
-            return NextResponse.json({ success: true }, { status: 201 });
+            return NextResponse.json({ success: true }, { status: 200 });
         }
         return NextResponse.json({ error: "Filename is required" }, { status: 400 });
     } catch (error) {
