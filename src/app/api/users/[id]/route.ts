@@ -105,7 +105,8 @@ export async function PUT(request: NextRequest, { params }: { params: Promise<{ 
 
         if (
             (!prev_designation && designation) ||
-            (prev_designation && designation && prev_designation !== designation)
+            (prev_designation && designation && prev_designation !== designation) ||
+            (prev_designation && !designation)
         ) {
             try {
                 // Update constellation.json
