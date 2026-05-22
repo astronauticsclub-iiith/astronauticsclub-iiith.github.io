@@ -95,11 +95,17 @@ export async function POST(request: NextRequest) {
         }
 
         if (customFilename && !isSafeFilename(customFilename)) {
-            return NextResponse.json({ error: "Invalid custom filename. Only simple file names are allowed." }, { status: 400 });
+            return NextResponse.json(
+                { error: "Invalid custom filename. Only simple file names are allowed." },
+                { status: 400 },
+            );
         }
 
         if (!customFilename && !isSafeFilename(file.name)) {
-            return NextResponse.json({ error: "Invalid filename in uploaded file." }, { status: 400 });
+            return NextResponse.json(
+                { error: "Invalid filename in uploaded file." },
+                { status: 400 },
+            );
         }
 
         if (!["astrophotography", "events", "others"].includes(category)) {
@@ -202,8 +208,6 @@ export async function PUT(request: NextRequest) {
                 { status: 400 },
             );
         }
-
-
 
         if (!isSafeFilename(currentFilename) || (newFilename && !isSafeFilename(newFilename))) {
             return NextResponse.json(
