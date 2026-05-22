@@ -123,6 +123,12 @@ backup-logs:
 	ssh $(SERVER_USER)@$(SERVER_HOST) "rm /tmp/logs_backup.zip"
 	@echo "Logs backed up successfully."
 
+backup-cron:
+	@mkdir -p logs/cron
+	@(crontab -l 2>/dev/null; \
+	echo "0 3 */14 * * scripts/backup-job.sh >> /logs/cronlogs/cron.log 2>&1") | crontab -
+	@echo "Cron job installed."
+
 restore-logs:
 	@if [ -z "$(FILE)" ]; then \
 		echo "Error: FILE parameter is required."; \
