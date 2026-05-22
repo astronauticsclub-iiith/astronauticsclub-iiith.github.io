@@ -179,9 +179,8 @@ export default function GalleryManager({ showSuccess, showError }: GalleryManage
                                     </div>
                                     <ChevronDown
                                         size={16}
-                                        className={`transition-transform ${
-                                            showUploadCategoryDropdown ? "rotate-180" : ""
-                                        }`}
+                                        className={`transition-transform ${showUploadCategoryDropdown ? "rotate-180" : ""
+                                            }`}
                                     />
                                 </button>
                                 <AnimatePresence>
@@ -198,11 +197,10 @@ export default function GalleryManager({ showSuccess, showError }: GalleryManage
                                                     setUploadCategory("astrophotography");
                                                     setShowUploadCategoryDropdown(false);
                                                 }}
-                                                className={`w-full flex items-center gap-2 px-3 py-2 text-left font-medium hover:bg-white hover:text-background transition-colors ${
-                                                    uploadCategory === "astrophotography"
-                                                        ? "bg-white text-background"
-                                                        : "text-white"
-                                                }`}
+                                                className={`w-full flex items-center gap-2 px-3 py-2 text-left font-medium hover:bg-white hover:text-background transition-colors ${uploadCategory === "astrophotography"
+                                                    ? "bg-white text-background"
+                                                    : "text-white"
+                                                    }`}
                                             >
                                                 <ImageIcon size={16} />
                                                 <span className="uppercase">ASTROPHOTOGRAPHY</span>
@@ -213,11 +211,10 @@ export default function GalleryManager({ showSuccess, showError }: GalleryManage
                                                     setUploadCategory("events");
                                                     setShowUploadCategoryDropdown(false);
                                                 }}
-                                                className={`w-full flex items-center gap-2 px-3 py-2 text-left font-medium hover:bg-white hover:text-background transition-colors ${
-                                                    uploadCategory === "events"
-                                                        ? "bg-white text-background"
-                                                        : "text-white"
-                                                }`}
+                                                className={`w-full flex items-center gap-2 px-3 py-2 text-left font-medium hover:bg-white hover:text-background transition-colors ${uploadCategory === "events"
+                                                    ? "bg-white text-background"
+                                                    : "text-white"
+                                                    }`}
                                             >
                                                 <Calendar size={16} />
                                                 <span className="uppercase">EVENTS</span>
@@ -228,11 +225,10 @@ export default function GalleryManager({ showSuccess, showError }: GalleryManage
                                                     setUploadCategory("others");
                                                     setShowUploadCategoryDropdown(false);
                                                 }}
-                                                className={`w-full flex items-center gap-2 px-3 py-2 text-left font-medium hover:bg-white hover:text-background transition-colors ${
-                                                    uploadCategory === "others"
-                                                        ? "bg-white text-background"
-                                                        : "text-white"
-                                                }`}
+                                                className={`w-full flex items-center gap-2 px-3 py-2 text-left font-medium hover:bg-white hover:text-background transition-colors ${uploadCategory === "others"
+                                                    ? "bg-white text-background"
+                                                    : "text-white"
+                                                    }`}
                                             >
                                                 <Filter size={16} />
                                                 <span className="uppercase">OTHERS</span>
@@ -244,7 +240,7 @@ export default function GalleryManager({ showSuccess, showError }: GalleryManage
                         </div>
                         <div>
                             <label className="block text-white text-xs font-bold mb-1 uppercase">
-                                Custom Filename (Optional)
+                                Custom Filename without extension (Optional)
                             </label>
                             <input
                                 type="text"
