@@ -183,7 +183,7 @@ const Gallery: React.FC = () => {
                                 >
                                     {f.charAt(0).toUpperCase() + f.slice(1)}
                                 </motion.button>
-                            )
+                            ),
                         )}
                     </motion.div>
                 </motion.div>

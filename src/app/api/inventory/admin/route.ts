@@ -64,7 +64,7 @@ export async function POST(request: NextRequest) {
         if (existingInventory) {
             return NextResponse.json(
                 { error: "Inventory with this ID already exists" },
-                { status: 409 }
+                { status: 409 },
             );
         }
 
@@ -88,7 +88,7 @@ export async function POST(request: NextRequest) {
             if (!imageExtensions.includes(fileExtension)) {
                 return NextResponse.json(
                     { error: "Invalid file type. Only image files are allowed." },
-                    { status: 400 }
+                    { status: 400 },
                 );
             }
 
@@ -125,17 +125,17 @@ export async function POST(request: NextRequest) {
         console.log("API: Inventory saved successfully:", newInventory.toObject());
 
         // Log the action
-        Logger.info("Inventory created", {
-            source: "admin/inventory",
-            userEmail: user?.email || undefined,
-            action: "add_inventory_item",
-            details: {
+        Logger.logUserAction(
+            user?.email || "unknown",
+            "add_inventory_item",
+            {
                 InventoryId: newInventory.id,
                 title: newInventory.name,
                 type: newInventory.category,
                 date: newInventory.year_of_purchase,
             },
-        });
+            "admin/inventory",
+        );
 
         return NextResponse.json({
             message: "Inventory created successfully",
@@ -221,7 +221,7 @@ export async function PUT(request: NextRequest) {
             if (!updateData.comments && !existingInventory.comments) {
                 return NextResponse.json(
                     { error: "Specify the purpose in the comments" },
-                    { status: 400 }
+                    { status: 400 },
                 );
             }
         } else if (updateData.isLent === false) {
@@ -249,7 +249,7 @@ export async function PUT(request: NextRequest) {
             if (!imageExtensions.includes(fileExtension)) {
                 return NextResponse.json(
                     { error: "Invalid file type. Only image files are allowed." },
-                    { status: 400 }
+                    { status: 400 },
                 );
             }
 
@@ -274,22 +274,22 @@ export async function PUT(request: NextRequest) {
         const updatedInventory = await Inventory.findOneAndUpdate(
             { id },
             { $set: updateData },
-            { new: true }
+            { new: true },
         );
 
         console.log("API PUT: Inventory updated successfully:", updatedInventory?.toObject());
 
         // Log the action
-        Logger.info("Inventory updated", {
-            source: "admin/inventory",
-            userEmail: user?.email || undefined,
-            action: "update_inventory_item",
-            details: {
+        Logger.logUserAction(
+            user?.email || "unknown",
+            "update_inventory_item",
+            {
                 InventoryId: id,
                 title: updatedInventory?.name,
                 updates: Object.keys(updateData),
             },
-        });
+            "admin/inventory",
+        );
 
         return NextResponse.json({
             message: "Inventory updated successfully",
@@ -338,17 +338,17 @@ export async function DELETE(request: NextRequest) {
         }
 
         // Log the action
-        Logger.info("Inventory deleted", {
-            source: "admin/inventory",
-            userEmail: user?.email || undefined,
-            action: "delete_inventory",
-            details: {
+        Logger.logUserAction(
+            user?.email || "unknown",
+            "delete_inventory_item",
+            {
                 InventoryId: id,
                 title: inventoryData.name,
                 type: inventoryData.category,
                 date: inventoryData.year_of_purchase,
             },
-        });
+            "admin/inventory",
+        );
 
         return NextResponse.json({
             message: "Inventory deleted successfully",

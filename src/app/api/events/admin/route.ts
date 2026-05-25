@@ -71,7 +71,7 @@ export async function POST(request: NextRequest) {
         if (existingEvent) {
             return NextResponse.json(
                 { error: "Event with this ID already exists" },
-                { status: 409 }
+                { status: 409 },
             );
         }
 
@@ -162,7 +162,7 @@ export async function PUT(request: NextRequest) {
         const updatedEvent = await Event.findOneAndUpdate(
             { id },
             { $set: eventData },
-            { new: true, runValidators: true }
+            { new: true, runValidators: true },
         );
 
         console.log("API PUT: Received event data:", eventData);

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useIsClient } from "@/hooks/useIsClient";
 import AstroLoader from "../common/AstroLoader";
 
 interface LoaderProps {
@@ -10,11 +10,7 @@ interface LoaderProps {
 }
 
 const Loader = ({ className = "", overlay = false, fullscreen = false }: LoaderProps) => {
-    const [isMounted, setIsMounted] = useState(false);
-
-    useEffect(() => {
-        setIsMounted(true);
-    }, []);
+    const isMounted = useIsClient();
 
     if (!isMounted) return null;
 

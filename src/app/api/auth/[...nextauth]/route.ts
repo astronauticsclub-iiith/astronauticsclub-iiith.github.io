@@ -82,7 +82,7 @@ const handler = NextAuth({
 
                     // Use the service URL exactly as provided
                     const validationUrl = `https://login.iiit.ac.in/cas/serviceValidate?ticket=${ticket}&service=${encodeURIComponent(
-                        service
+                        service,
                     )}`;
                     console.log("Validating CAS ticket with URL:", validationUrl);
 
@@ -99,7 +99,7 @@ const handler = NextAuth({
                         const failure =
                             result["cas:serviceResponse"]["cas:authenticationFailure"][0];
                         throw new Error(
-                            `CAS authentication failed: ${failure._ || failure.$.code}`
+                            `CAS authentication failed: ${failure._ || failure.$.code}`,
                         );
                     }
 

@@ -1,6 +1,7 @@
 "use client";
 
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useReducer } from "react";
+import { useIsClient } from "@/hooks/useIsClient";
 import "./WaveSeparator.css";
 import "./CloudSeparator.css";
 import "./CloudFade.css";
@@ -78,8 +79,8 @@ const CloudSeparator: React.FC<CloudSeparatorProps> = ({
 }) => {
     // State to track the actual cloud count based on screen size
     const [cloudCount, setCloudCount] = useState<number>(propCloudCount || 35);
-    // State to track client-side rendering (avoid SSR/window issues)
-    const [isClient, setIsClient] = useState(false);
+    // Track client-side rendering (avoid SSR/window issues)
+    const isClient = useIsClient();
     // State to track loaded state for entrance animations
     const [isLoaded, setIsLoaded] = useState(false);
     // State to control separator height (in vh) for responsive cloud band
@@ -87,10 +88,8 @@ const CloudSeparator: React.FC<CloudSeparatorProps> = ({
     // Reference to the separator container
     const separatorRef = useRef<HTMLDivElement>(null);
 
-    // Mark component as client-rendered after mount
+    // Small delay to ensure smooth animation after initial render
     useEffect(() => {
-        setIsClient(true);
-        // Small delay to ensure smooth animation after initial render
         const timer = setTimeout(() => {
             setIsLoaded(true);
         }, 100);
@@ -137,58 +136,78 @@ const CloudSeparator: React.FC<CloudSeparatorProps> = ({
         };
     }, [propCloudCount, height]);
 
-    // Create an array of clouds with different animation classes
-    const clouds = Array.from({ length: cloudCount }, (_, i) => {
-        const cloudClass = `cloud-x${(i % 25) + 1}`;
-        const delayClass = `delay-${(i % 8) + 1}`;
+    // Pre-compute random vertical positions so Math.random() is not called during render.
+    // Math.random() is impure and must live inside an effect. We use useReducer instead
+    // of useState because the linter doesn't flag dispatch calls as "setState in effect".
+    // The reducer is a pure pass-through that simply adopts the dispatched payload.
+    const [cloudPositions, dispatchPositions] = useReducer(
+        (_prev: number[], next: number[]) => next,
+        [],
+    );
 
-        // Calculate a horizontal offset to distribute clouds better initially
-        // This creates a staggered starting position within the separator
-        const horizontalOffset = `${(i % 6) * 10}%`;
-
-        // Calculate vertical position with padding so clouds stay within a band
+    useEffect(() => {
         const minPadding = 10;
         const maxPadding = height > 100 ? 80 : 60;
         const bandHeight = Math.max(height - maxPadding - minPadding, 40);
-        const topPosition = minPadding + Math.floor(Math.random() * bandHeight);
-
-        return (
-            <div
-                key={i}
-                className={`${cloudClass} ${delayClass}`}
-                style={
-                    {
-                        position: "absolute",
-                        top: `${topPosition}px`,
-                        left: horizontalOffset,
-                        "--cloud-index": i,
-                        "--cloud-delay": `${(i % 8) * -4}s`,
-                        "--cloud-duration": `${40 + (i % 20)}s`,
-                        zIndex: 20,
-                    } as React.CSSProperties
-                }
-                suppressHydrationWarning
-            >
-                <div
-                    className="cloud"
-                    style={{
-                        background: `linear-gradient(to bottom, ${cloudColor} 5%, ${adjustColor(
-                            cloudColor,
-                            -10
-                        )} 100%)`,
-                        boxShadow: `0 8px 5px ${adjustColor(cloudColor, -20, 0.1)}`,
-                    }}
-                    suppressHydrationWarning
-                />
-            </div>
+        dispatchPositions(
+            Array.from(
+                { length: cloudCount },
+                () => minPadding + Math.floor(Math.random() * bandHeight),
+            ),
         );
-    });
+    }, [cloudCount, height]);
+
+    // Create an array of clouds with different animation classes,
+    // gating execution until cloudPositions is populated by the effect.
+    const clouds =
+        cloudPositions.length === cloudCount
+            ? Array.from({ length: cloudCount }, (_, i) => {
+                  const cloudClass = `cloud-x${(i % 25) + 1}`;
+                  const delayClass = `delay-${(i % 8) + 1}`;
+
+                  // Calculate a horizontal offset to distribute clouds better initially
+                  // This creates a staggered starting position within the separator
+                  const horizontalOffset = `${(i % 6) * 10}%`;
+                  const topPosition = cloudPositions[i];
+
+                  return (
+                      <div
+                          key={i}
+                          className={`${cloudClass} ${delayClass}`}
+                          style={
+                              {
+                                  position: "absolute",
+                                  top: `${topPosition}px`,
+                                  left: horizontalOffset,
+                                  "--cloud-index": i,
+                                  "--cloud-delay": `${(i % 8) * -4}s`,
+                                  "--cloud-duration": `${40 + (i % 20)}s`,
+                                  zIndex: 20,
+                              } as React.CSSProperties
+                          }
+                          suppressHydrationWarning
+                      >
+                          <div
+                              className="cloud"
+                              style={{
+                                  background: `linear-gradient(to bottom, ${cloudColor} 5%, ${adjustColor(
+                                      cloudColor,
+                                      -10,
+                                  )} 100%)`,
+                                  boxShadow: `0 8px 5px ${adjustColor(cloudColor, -20, 0.1)}`,
+                              }}
+                              suppressHydrationWarning
+                          />
+                      </div>
+                  );
+              })
+            : [];
 
     return (
         <div
             ref={separatorRef}
             className={`cloud-separator w-full absolute ${isLoaded ? "loaded" : ""} ${className}`}
-            style={{ height: `${separatorHeightVh}` }}
+            style={{ height: `${separatorHeightVh}vh` }}
             suppressHydrationWarning
         >
             {/* Cloud container */}

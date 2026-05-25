@@ -41,7 +41,7 @@ export async function requireAuth(): Promise<{ session: ExtendedSession; user: I
 }
 
 export async function requireRole(
-    role: "admin" | "writer" | "none"
+    role: "admin" | "writer" | "none",
 ): Promise<{ session: ExtendedSession; user: IUser }> {
     const { session, user } = await requireAuth();
 
@@ -53,7 +53,7 @@ export async function requireRole(
 }
 
 export async function requireAnyRole(
-    roles: ("admin" | "writer" | "none")[]
+    roles: ("admin" | "writer" | "none")[],
 ): Promise<{ session: ExtendedSession; user: IUser }> {
     const { session, user } = await requireAuth();
 

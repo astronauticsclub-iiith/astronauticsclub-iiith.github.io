@@ -70,7 +70,7 @@ const WhimsyMouse = () => {
                         (node) =>
                             node.nodeType === Node.TEXT_NODE &&
                             node.textContent &&
-                            node.textContent.trim().length > 0
+                            node.textContent.trim().length > 0,
                     )) &&
                 // ensure the text is selectable
                 window.getComputedStyle(target).userSelect !== "none" &&
@@ -113,7 +113,7 @@ const WhimsyMouse = () => {
         // Create a sparkle element with random properties
         const createMouseSparkle = (
             x = mousePositionRef.current.x,
-            y = mousePositionRef.current.y
+            y = mousePositionRef.current.y,
         ) => {
             if (!whimsyMode) return;
 
@@ -189,7 +189,7 @@ const WhimsyMouse = () => {
                             createMouseSparkle();
                         }
                     },
-                    40 + Math.random() * 50
+                    40 + Math.random() * 50,
                 );
             }
         };

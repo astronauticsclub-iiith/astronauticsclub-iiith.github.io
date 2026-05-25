@@ -175,9 +175,9 @@ astronauticsclub-iiith.github.io/
 │   │   ├── next-auth.d.ts      # NextAuth type extensions
 │   │   └── user.ts
 │   │
-│   └── proxy.ts           # Next.js middleware for auth
+│   └── proxy.ts                # Next.js middleware for auth
 │
-├── Docker-deployment/          # Docker configuration files along with utility scripts
+├── Docker/                     # Docker configuration files along with utility scripts
 ├── nginx/                      # Nginx configuration
 │
 ├── .env.example                # Environment variables example file
@@ -186,7 +186,7 @@ astronauticsclub-iiith.github.io/
 ├── .prettierrc                 # Prettier configuration (formatting)
 ├── .prettierignore             # Prettier ignore file
 │
-├── ecosystem.config.cjs         # PM2 configuration
+├── ecosystem.config.cjs        # PM2 configuration
 ├── next.config.ts              # Next.js configuration
 ├── package.json                # Dependencies and scripts
 ├── tailwind.config.ts          # Tailwind CSS configuration
@@ -301,7 +301,7 @@ Below is a list of available API endpoints along with their methods and access l
 
 ## Deployment
 
-Below are the guidelines to deploy via PM2 (a Node Project manager). For deployment using `Docker`, refer to the `Docker-deployment/README.md` file.`
+Below are the guidelines to deploy via PM2 (a Node Project manager). For deployment using `Docker`, refer to the `Docker/README.md` file.
 
 1. **Build the application**
 

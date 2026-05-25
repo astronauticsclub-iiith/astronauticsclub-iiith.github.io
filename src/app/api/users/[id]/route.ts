@@ -71,7 +71,7 @@ export async function PUT(request: NextRequest, { params }: { params: Promise<{ 
             if (role !== undefined || designations !== undefined) {
                 return NextResponse.json(
                     { error: "Admins cannot change their own role or designations." },
-                    { status: 403 }
+                    { status: 403 },
                 );
             }
         }
@@ -83,7 +83,7 @@ export async function PUT(request: NextRequest, { params }: { params: Promise<{ 
         const user = await User.findByIdAndUpdate(
             id,
             { $set: updateData },
-            { new: true, runValidators: true }
+            { new: true, runValidators: true },
         );
 
         if (!user) {
@@ -166,7 +166,7 @@ export async function PUT(request: NextRequest, { params }: { params: Promise<{ 
                 console.error("Error updating constellation.json:", err);
                 return NextResponse.json(
                     { error: "Failed to add user to whimsy mode" },
-                    { status: 500 }
+                    { status: 500 },
                 );
             }
         }
@@ -186,7 +186,7 @@ export async function PUT(request: NextRequest, { params }: { params: Promise<{ 
 
 export async function DELETE(
     request: NextRequest,
-    { params }: { params: Promise<{ id: string }> }
+    { params }: { params: Promise<{ id: string }> },
 ) {
     try {
         const { user: adminUser } = await requireAdmin();

@@ -192,7 +192,7 @@ const AdminInventoryCard: React.FC<AdminInventoryCardProps> = ({
 
     const updateEditedInventory = (
         field: keyof Inventory,
-        value: string | number | boolean | undefined
+        value: string | number | boolean | undefined,
     ) => {
         setEditedInventory((prev) => ({ ...prev, [field]: value }));
     };
@@ -299,7 +299,7 @@ const AdminInventoryCard: React.FC<AdminInventoryCardProps> = ({
                                                         onClick={() => {
                                                             updateEditedInventory(
                                                                 "category",
-                                                                category
+                                                                category,
                                                             );
                                                             setShowTypeDropdown(false);
                                                         }}
@@ -414,7 +414,7 @@ const AdminInventoryCard: React.FC<AdminInventoryCardProps> = ({
                                             onChange={(e) =>
                                                 updateEditedInventory(
                                                     "borrowed_date",
-                                                    e.target.value
+                                                    e.target.value,
                                                 )
                                             }
                                             className="w-full bg-background border-2 border-white p-2 text-white font-medium text-sm transition-all duration-200 focus:scale-[1.02] focus:ring-2 focus:ring-white disabled:opacity-50 disabled:cursor-not-allowed"

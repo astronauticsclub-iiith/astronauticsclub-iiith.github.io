@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { useParams, notFound } from "next/navigation";
 import { motion } from "framer-motion";
 import ReactMarkdown from "react-markdown";
@@ -19,15 +19,25 @@ import { fetchBlogBySlug, incrementBlogViews, toggleBlogLike, generateUserId } f
 import Loader from "@/components/ui/Loader";
 import "@/components/ui/bg-patterns.css";
 import { withBasePath, withUploadPath } from "@/components/common/HelperFunction";
+import { useIsClient } from "@/hooks/useIsClient";
 
 const BlogPostPage = () => {
     const { openPreview } = useImagePreview();
+    const isClient = useIsClient();
     const [blog, setBlog] = useState<Blog | null>(null);
     const [loading, setLoading] = useState(true);
-    const [liked, setLiked] = useState(false);
+    const [likeOverride, setLikeOverride] = useState<boolean | null>(null);
     const [likes, setLikes] = useState(0);
     const [views, setViews] = useState(0);
+
     const [userId, setUserId] = useState<string>("");
+
+    // Initialize userId only once after hydration to avoid per-render localStorage side-effects
+    useEffect(() => {
+        if (isClient) {
+            void Promise.resolve().then(() => setUserId(generateUserId()));
+        }
+    }, [isClient]);
 
     const params = useParams() as { slug: string };
 
@@ -42,6 +52,8 @@ const BlogPostPage = () => {
                 setBlog(foundBlog);
                 setLikes(foundBlog.likes);
                 setViews(foundBlog.views);
+                // Reset override when blog data refreshes
+                setLikeOverride(null);
 
                 // Increment view count (only once per session)
                 const viewKey = `blog_viewed_${slug}`;
@@ -61,19 +73,14 @@ const BlogPostPage = () => {
         loadBlog();
     }, [params]);
 
-    // Generate user ID on client side only
-    useEffect(() => {
-        const currentUserId = generateUserId();
-        setUserId(currentUserId);
-    }, []);
-
-    // Update liked status when both blog and userId are available
-    useEffect(() => {
+    // Derive liked status from blog data and userId, with override from handleLike
+    const liked = useMemo(() => {
+        if (likeOverride !== null) return likeOverride;
         if (blog && userId) {
-            const hasLiked = blog.likedBy?.includes(userId) || false;
-            setLiked(hasLiked);
+            return blog.likedBy?.includes(userId) || false;
         }
-    }, [blog, userId]);
+        return false;
+    }, [blog, userId, likeOverride]);
 
     const handleLike = async () => {
         if (!userId || !blog) return;
@@ -81,7 +88,7 @@ const BlogPostPage = () => {
         try {
             const result = await toggleBlogLike(blog.slug, userId);
             setLikes(result.likes);
-            setLiked(result.hasLiked);
+            setLikeOverride(result.hasLiked);
         } catch (error) {
             console.error("Failed to toggle like:", error);
         }
@@ -266,7 +273,7 @@ const BlogPostPage = () => {
                                     handleImageClick(
                                         blog.author.avatar
                                             ? withUploadPath(blog.author.avatar)
-                                            : withBasePath(`/default-avatar.svg`)
+                                            : withBasePath(`/default-avatar.svg`),
                                     )
                                 }
                             />

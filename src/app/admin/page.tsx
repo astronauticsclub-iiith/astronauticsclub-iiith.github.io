@@ -51,6 +51,8 @@ export default function AdminDashboard() {
             }
         } catch (error) {
             console.error("Error fetching user profile:", error);
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -63,8 +65,9 @@ export default function AdminDashboard() {
             return;
         }
 
-        fetchUserProfile();
-        setLoading(false);
+        // Invoke the async function without awaiting it so the effect body
+        // stays synchronous and the returned promise is intentionally ignored.
+        void fetchUserProfile();
     }, [session, status, router]);
 
     const handleLogout = async () => {

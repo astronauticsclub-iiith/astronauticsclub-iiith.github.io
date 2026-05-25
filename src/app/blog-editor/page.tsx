@@ -44,7 +44,7 @@ export default function BlogAuthorDashboard() {
     const [showImageUploader, setShowImageUploader] = useState(false);
     const [userProfile, setUserProfile] = useState<User | null>(null);
     const [currentUserRole, setCurrentUserRole] = useState<"admin" | "writer" | "none" | undefined>(
-        undefined
+        undefined,
     );
     const [newBlog, setNewBlog] = useState<NewBlog>({
         title: "",
@@ -201,7 +201,7 @@ export default function BlogAuthorDashboard() {
             "DELETE BLOG",
             "Are you sure you want to delete this blog? This action cannot be undone.",
             () => performDeleteBlog(slug),
-            { type: "danger", confirmText: "DELETE BLOG" }
+            { type: "danger", confirmText: "DELETE BLOG" },
         );
     };
 
@@ -210,7 +210,7 @@ export default function BlogAuthorDashboard() {
             "APPROVE BLOG",
             "Are you sure you want to approve this blog? This action cannot be undone.",
             () => performApproveBlog(slug),
-            { type: "danger", confirmText: "APPROVE BLOG" }
+            { type: "danger", confirmText: "APPROVE BLOG" },
         );
     };
 
@@ -337,11 +337,11 @@ export default function BlogAuthorDashboard() {
                 }));
             } else {
                 setEditingBlog((prev) =>
-                    prev ? { ...prev, content: prev.content + imageMarkdown } : null
+                    prev ? { ...prev, content: prev.content + imageMarkdown } : null,
                 );
             }
         },
-        [activeTab]
+        [activeTab],
     );
 
     const copyImageUrl = useCallback(
@@ -349,7 +349,7 @@ export default function BlogAuthorDashboard() {
             navigator.clipboard.writeText(imagePath);
             showSuccess("Image URL copied to clipboard!");
         },
-        [showSuccess]
+        [showSuccess],
     );
 
     const removeImageFromBlog = useCallback(
@@ -359,7 +359,7 @@ export default function BlogAuthorDashboard() {
                     withBasePath(`/api/upload?filename=${encodeURIComponent(imagePath)}`),
                     {
                         method: "DELETE",
-                    }
+                    },
                 );
 
                 if (response.ok) {
@@ -375,7 +375,7 @@ export default function BlogAuthorDashboard() {
                                       ...prev,
                                       images: prev.images?.filter((img) => img !== imagePath) || [],
                                   }
-                                : null
+                                : null,
                         );
                     }
                 }
@@ -384,7 +384,7 @@ export default function BlogAuthorDashboard() {
                 showError("Failed to delete image");
             }
         },
-        [activeTab, showError]
+        [activeTab, showError],
     ); // Depends on activeTab and showError
 
     const UploadedImagesPanel = useCallback(() => {
@@ -787,7 +787,7 @@ export default function BlogAuthorDashboard() {
                                                     </motion.span>
                                                     <span className="hover:text-white transition-colors duration-300">
                                                         {new Date(
-                                                            blog.publishedAt
+                                                            blog.publishedAt,
                                                         ).toLocaleDateString()}
                                                     </span>
                                                 </div>
@@ -925,7 +925,7 @@ export default function BlogAuthorDashboard() {
                                                                 ...editingBlog,
                                                                 title: e.target.value,
                                                             }
-                                                          : null
+                                                          : null,
                                                   )
                                         }
                                         className="w-full bg-background border-2 border-white p-3 sm:p-4 text-white text-lg sm:text-xl font-bold placeholder-[#666] uppercase focus:border-yellow-300 focus:outline-none transition-all duration-300 focus:shadow-lg"
@@ -953,7 +953,7 @@ export default function BlogAuthorDashboard() {
                                                                 ...editingBlog,
                                                                 excerpt: e.target.value,
                                                             }
-                                                          : null
+                                                          : null,
                                                   )
                                         }
                                         className="w-full bg-background border-2 border-white p-3 sm:p-4 text-white h-20 sm:h-24 font-medium placeholder-[#666] focus:border-yellow-300 focus:outline-none transition-all duration-300 focus:shadow-lg resize-none"
@@ -987,7 +987,7 @@ export default function BlogAuthorDashboard() {
                                                                         .split(",")
                                                                         .map((t) => t.trim()),
                                                                 }
-                                                              : null
+                                                              : null,
                                                       )
                                             }
                                             className="bg-background border-2 border-white p-3 sm:p-4 text-white font-medium placeholder-[#666] focus:border-yellow-300 focus:outline-none transition-all duration-300 focus:shadow-lg"
@@ -1024,7 +1024,7 @@ export default function BlogAuthorDashboard() {
                                                                 ...editingBlog,
                                                                 content: e.target.value,
                                                             }
-                                                          : null
+                                                          : null,
                                                   )
                                         }
                                         className="w-full bg-background border-2 border-white p-3 sm:p-4 text-white h-96 sm:h-80 lg:h-96 font-mono placeholder-[#666] focus:outline-none transition-all duration-300 focus:shadow-lg resize-none"
