@@ -8,13 +8,13 @@ AVATARS_UPLOAD_PATH=$(SERVER_PATH)/avatars
 BLOG_IMAGES_UPLOAD_PATH=$(SERVER_PATH)/blogs
 GALLERY_UPLOAD_PATH=$(SERVER_PATH)/gallery
 LOGS_PATH=$(SERVER_PATH)/logs
-LOCAL_BACKUP_DIR=./backups
-LOCAL_UPLOADS_BACKUP_DIR=./backups/uploads
-LOCAL_LOGS_BACKUP_DIR=./backups/logs
+LOCAL_BACKUP_DIR=$(abspath ./backups)
+LOCAL_UPLOADS_BACKUP_DIR=$(abspath ./backups/uploads)
+LOCAL_LOGS_BACKUP_DIR=$(abspath ./backups/logs)
 
 .PHONY: help build build-dev deploy start stop restart status logs \
         backup-uploads restore-uploads backup-logs restore-logs \
-        backup-cron clean-backups clean-downloads init-backup rebuild
+        backup-cron clean-backups init-backup rebuild
 
 help:
 	@echo "Astronautics Club Website Makefile"
@@ -102,8 +102,8 @@ status:
 # === BACKUPS ===
 backup-uploads:
 	@echo "Backing up uploads from server..."
-	mkdir -p $(LOCAL_BACKUP_DIR)
-	cd $(SERVER_PATH) && zip -r $(LOCAL_BACKUP_DIR)/uploads_$$(date +%Y%m%d_%H%M%S).zip .
+	mkdir -p $(LOCAL_UPLOADS_BACKUP_DIR)
+	cd $(SERVER_PATH) && zip -r $(LOCAL_UPLOADS_BACKUP_DIR)/uploads_$$(date +%Y%m%d_%H%M%S).zip .
 	@echo "Uploads backed up successfully."
 	
 restore-uploads:
@@ -118,8 +118,8 @@ restore-uploads:
 
 backup-logs:
 	@echo "Backing up logs..."
-	mkdir -p $(LOCAL_BACKUP_DIR)
-	cd $(LOGS_PATH) && zip -r $(LOCAL_BACKUP_DIR)/logs_$$(date +%Y%m%d_%H%M%S).zip .
+	mkdir -p $(LOCAL_LOGS_BACKUP_DIR)
+	cd $(LOGS_PATH) && zip -r $(LOCAL_LOGS_BACKUP_DIR)/logs_$$(date +%Y%m%d_%H%M%S).zip .
 	@echo "Logs backed up successfully."
 
 backup-cron:
