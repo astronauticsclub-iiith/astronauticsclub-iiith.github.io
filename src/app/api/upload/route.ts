@@ -85,7 +85,7 @@ export async function GET(request: NextRequest) {
             {
                 error: "Internal server error while retrieving files",
             },
-            { status: 500 }
+            { status: 500 },
         );
     }
 }
@@ -112,7 +112,7 @@ export async function POST(request: NextRequest) {
                 {
                     error: `File too large. Maximum size is ${MAX_FILE_SIZE / 1024 / 1024}MB`,
                 },
-                { status: 400 }
+                { status: 400 },
             );
         }
 
@@ -122,7 +122,7 @@ export async function POST(request: NextRequest) {
                 {
                     error: `File type not allowed. Allowed types: ${ALLOWED_FILE_TYPES.join(", ")}`,
                 },
-                { status: 400 }
+                { status: 400 },
             );
         }
 
@@ -145,7 +145,7 @@ export async function POST(request: NextRequest) {
                 fileSize: file.size,
                 fileType: file.type,
             },
-            { status: 201 }
+            { status: 201 },
         );
     } catch (error) {
         console.error("Error uploading file:", error);
@@ -153,7 +153,7 @@ export async function POST(request: NextRequest) {
             {
                 error: "Internal server error during file upload",
             },
-            { status: 500 }
+            { status: 500 },
         );
     }
 }
@@ -184,7 +184,7 @@ export async function DELETE(request: NextRequest) {
             {
                 error: "Internal server error while deleting image",
             },
-            { status: 500 }
+            { status: 500 },
         );
     }
 }

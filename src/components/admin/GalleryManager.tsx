@@ -125,7 +125,7 @@ export default function GalleryManager({ showSuccess, showError }: GalleryManage
     const handleUpdate = async (
         image: GalleryImage,
         newFilename?: string,
-        newCategory?: "astrophotography" | "events" | "others"
+        newCategory?: "astrophotography" | "events" | "others",
     ) => {
         try {
             await updateGalleryImage({

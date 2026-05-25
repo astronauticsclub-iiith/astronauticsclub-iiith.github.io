@@ -134,7 +134,7 @@ export default function EventManager({ showSuccess, showError }: EventManagerPro
         try {
             const response = await fetch(
                 withBasePath(`/api/events/admin?id=${encodeURIComponent(eventId)}`),
-                { method: "DELETE" }
+                { method: "DELETE" },
             );
 
             if (response.ok) {

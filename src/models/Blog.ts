@@ -25,7 +25,7 @@ const BlogSchema = new Schema<BlogDocument>(
     },
     {
         timestamps: true,
-    }
+    },
 );
 
 // Create indexes for better performance (slug index already defined in schema)

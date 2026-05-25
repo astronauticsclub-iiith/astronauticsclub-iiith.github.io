@@ -1,0 +1,20 @@
+# Updates the dependencies specified in package.json and package-lock.json
+version: 2
+updates:
+  - package-ecosystem: "npm"
+    directory: "/"  # Dependabot scans .github/workflows automatically
+    schedule:
+      interval: "weekly"
+    groups:
+      project_dependencies:
+        patterns:
+          - "*"  # Group all Actions updates into a single larger pull request
+
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "monthly"
+    groups:
+      GitHub_Actions:
+        patterns:
+          - "*"

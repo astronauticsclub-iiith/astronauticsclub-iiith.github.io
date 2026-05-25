@@ -7,26 +7,12 @@ import { usePathname } from "next/navigation";
 import { useWhimsy } from "@/context/WhimsyContext";
 import { withBasePath } from "../common/HelperFunction";
 
-// Helper function to get initial first visit state
-const getInitialFirstVisit = (): boolean => {
-    if (typeof window === "undefined") return false;
-    try {
-        const lastVisit = localStorage.getItem("lastVisitTime");
-        const currentTime = new Date().getTime();
-
-        // If no last visit or last visit was more than an hour ago
-        return !lastVisit || currentTime - parseInt(lastVisit) > 60 * 60 * 1000;
-    } catch (error) {
-        console.error("Error checking first visit:", error);
-        return false;
-    }
-};
-
 const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
     const [isScrolled, setIsScrolled] = useState(true);
-    const [isFirstVisit, setIsFirstVisit] = useState<boolean>(getInitialFirstVisit);
+    const [isFirstVisit, setIsFirstVisit] = useState(false);
     const [isHydrated, setIsHydrated] = useState(false);
+    const [isAnimReady, setIsAnimReady] = useState(false);
     const pathname = usePathname();
     const menuRef = useRef<HTMLDivElement>(null);
     const buttonRef = useRef<HTMLButtonElement>(null);
@@ -50,7 +36,7 @@ const Navbar = () => {
     useEffect(() => {
         if (!isHydrated || !isLoaded) return;
 
-        const checkFirstVisit = () => {
+        try {
             const lastVisit = localStorage.getItem("lastVisitTime");
             const currentTime = new Date().getTime();
 
@@ -61,9 +47,11 @@ const Navbar = () => {
             } else {
                 setIsFirstVisit(false);
             }
-        };
-
-        checkFirstVisit();
+        } catch (error) {
+            console.error("Error checking first visit:", error);
+        } finally {
+            setIsAnimReady(true);
+        }
     }, [isHydrated, isLoaded, whimsyMode]);
 
     // Close menu when route changes
@@ -114,15 +102,6 @@ const Navbar = () => {
             ? "text-white underline underline-offset-[5px]"
             : "text-white/50";
 
-    if (!isLoaded || !isHydrated) {
-        return (
-            <nav
-                className="fixed w-full z-50 transition-all duration-300 rounded-b-2xl select-none backdrop-blur-sm text-lg bg-black/95"
-                suppressHydrationWarning
-            ></nav>
-        );
-    }
-
     return (
         <nav
             className={`fixed w-full z-50 transition-all duration-300 rounded-b-2xl select-none backdrop-blur-sm text-lg animate-fade-in ${
@@ -136,40 +115,40 @@ const Navbar = () => {
                     <Link href="/" className="flex items-center space-x-4 text-white">
                         <Image
                             src={
-                                whimsyMode
+                                isLoaded && whimsyMode
                                     ? withBasePath(`/icons/moon.gif`)
                                     : withBasePath(`/logo.png`)
                             }
                             alt="Logo"
                             width={80}
                             height={90}
-                            className="w-auto h-12 opacity-0 animate-fade-in z-50"
+                            className={`w-auto h-12 opacity-0 z-50 ${isAnimReady ? "animate-fade-in" : ""}`}
                             style={{
                                 animationDelay: isFirstVisit
                                     ? `${(delayCounter + 1) * 150}ms`
-                                    : "10ms",
+                                    : "200ms",
                             }}
-                            unoptimized={whimsyMode}
+                            unoptimized={isLoaded && whimsyMode}
                             priority
                         />
                         <div className="flex flex-col gap-0">
                             <span
-                                className="opacity-0 animate-slide-in-from-left z-20 font-bold"
+                                className={`opacity-0 z-20 font-bold ${isAnimReady ? "animate-slide-in-from-left" : ""}`}
                                 style={{
                                     animationDelay: isFirstVisit
                                         ? `${(delayCounter + 3) * 150}ms`
-                                        : "10ms",
+                                        : "200ms",
                                 }}
                             >
                                 Astronautics Club | IIITH
                             </span>
-                            {whimsyMode && (
+                            {isLoaded && whimsyMode && (
                                 <span
-                                    className="text-white/50 text-sm opacity-0 animate-slide-in-from-top"
+                                    className={`text-white/50 text-sm opacity-0 ${isAnimReady ? "animate-slide-in-from-top" : ""}`}
                                     style={{
                                         animationDelay: isFirstVisit
                                             ? `${(delayCounter + 4) * 150}ms`
-                                            : "10ms",
+                                            : "200ms",
                                     }}
                                 >
                                     Whimsy Mode
@@ -184,17 +163,17 @@ const Navbar = () => {
                             {navLinks.map((link, index) => (
                                 <li
                                     key={link.href}
-                                    className="opacity-0 animate-fade-in"
+                                    className={`opacity-0 ${isAnimReady ? "animate-fade-in" : ""}`}
                                     style={{
                                         animationDelay: isFirstVisit
                                             ? `${(delayCounter - index) * 150}ms`
-                                            : "10ms",
+                                            : "200ms",
                                     }}
                                 >
                                     <Link
                                         href={link.href}
                                         className={`${activeClass(
-                                            link.href
+                                            link.href,
                                         )}  transition-colors duration-300 hover:text-white focus:text-white`}
                                     >
                                         {link.label}
@@ -258,7 +237,7 @@ const Navbar = () => {
                                 <Link
                                     href={link.href}
                                     className={`block px-4 py-2 rounded-md text-base text-center ${activeClass(
-                                        link.href
+                                        link.href,
                                     )} transition-colors duration-300 hover:text-white focus:text-white`}
                                     onClick={() => setIsOpen(false)}
                                 >

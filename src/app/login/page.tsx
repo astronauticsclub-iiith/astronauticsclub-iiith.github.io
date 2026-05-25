@@ -32,8 +32,10 @@ function LoginContent() {
                     console.error("SignIn error:", result.error);
                     setError("Authentication failed. Please try again.");
                 } else {
-                    // Check if user has proper role
-                    const session = await getSession();
+                    // Fetch session with retries to avoid race condition.
+                    // After signIn(), the JWT cookie may not be fully
+                    // propagated when getSession() fires, causing it to
+                    // return stale data with no role.
                     interface ExtendedUser {
                         id?: string;
                         name?: string | null;
@@ -42,8 +44,18 @@ function LoginContent() {
                         role?: "admin" | "writer" | "none";
                     }
 
-                    const user = session?.user as ExtendedUser;
-                    const userRole = user?.role;
+                    let userRole: string | undefined;
+                    const maxRetries = 5;
+                    for (let attempt = 0; attempt < maxRetries; attempt++) {
+                        const session = await getSession();
+                        const user = session?.user as ExtendedUser;
+                        userRole = user?.role;
+
+                        if (userRole) break;
+
+                        // Wait before retrying (200ms, 400ms, 600ms, 800ms)
+                        await new Promise((resolve) => setTimeout(resolve, 200 * (attempt + 1)));
+                    }
 
                     console.log("Login redirect - User role:", userRole);
 
@@ -61,7 +73,7 @@ function LoginContent() {
                 setLoading(false);
             }
         },
-        [router]
+        [router],
     );
 
     useEffect(() => {
@@ -76,7 +88,7 @@ function LoginContent() {
     const initiateLogin = () => {
         const serviceUrl = `${window.location.origin}${withBasePath(`login`)}`;
         const casLoginUrl = `https://login.iiit.ac.in/cas/login?service=${encodeURIComponent(
-            serviceUrl
+            serviceUrl,
         )}`;
         window.location.href = casLoginUrl;
     };

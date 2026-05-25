@@ -41,7 +41,7 @@ const EventSchema = new Schema<EventDocument>(
     },
     {
         timestamps: true,
-    }
+    },
 );
 
 // Create indexes for better performance

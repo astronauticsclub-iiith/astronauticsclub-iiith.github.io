@@ -1,7 +1,8 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
+import { useIsClient } from "@/hooks/useIsClient";
 import "./Hero.css";
 import { useWhimsy } from "@/context/WhimsyContext";
 import { withBasePath } from "@/components/common/HelperFunction";
@@ -10,7 +11,7 @@ const Hero = () => {
     const sRef = useRef<HTMLSpanElement>(null);
     const sparkleContainerRef = useRef<HTMLDivElement>(null);
     const { whimsyMode, setWhimsyMode, isLoaded } = useWhimsy();
-    const [isHydrated, setIsHydrated] = useState(false);
+    const isHydrated = useIsClient();
     const sparkleIntervalRef = useRef<NodeJS.Timeout | null>(null);
 
     // Handle scroll down arrow click
@@ -20,11 +21,6 @@ const Hero = () => {
             behavior: "smooth",
         });
     };
-
-    // Hydration effect
-    useEffect(() => {
-        setIsHydrated(true);
-    }, []);
 
     // S toggle color and click handler
     useEffect(() => {
@@ -39,7 +35,6 @@ const Hero = () => {
             if (!s) return;
 
             setWhimsyMode(!whimsyMode);
-            s.style.color = !whimsyMode ? "#d2042d" : "white";
         };
 
         s.addEventListener("click", handleClick);
@@ -74,8 +69,6 @@ const Hero = () => {
 
         // Create a sparkle element with random properties
         const createSparkle = () => {
-            if (whimsyMode) return; // Don't create sparkles in whimsy mode
-
             const sparkle = document.createElement("div");
 
             // Random size class
@@ -130,20 +123,7 @@ const Hero = () => {
             }
 
             // Create a new sparkle every 150-300ms
-            sparkleIntervalRef.current = setInterval(
-                () => {
-                    if (!whimsyMode) {
-                        createSparkle();
-                    } else {
-                        // If whimsy mode turned on, stop the sparkles
-                        if (sparkleIntervalRef.current) {
-                            clearInterval(sparkleIntervalRef.current);
-                            sparkleIntervalRef.current = null;
-                        }
-                    }
-                },
-                150 + Math.random() * 150
-            );
+            sparkleIntervalRef.current = setInterval(createSparkle, 150 + Math.random() * 150);
         };
 
         // Start creating sparkles
@@ -164,32 +144,11 @@ const Hero = () => {
         };
     }, [isHydrated, isLoaded, whimsyMode]);
 
-    // Show simplified version during loading/hydration
-    if (!isLoaded || !isHydrated) {
-        return (
-            <section className="hero">
-                <section className="stars-container">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </section>
-                <div className="hero-container">
-                    <div className="hero-content" style={{ height: "80%" }}>
-                        <h1 className="font-bold">
-                            <span className="nowrap">Astronautics</span>
-                            <span> Club</span>
-                        </h1>
-                    </div>
-                </div>
-            </section>
-        );
-    }
+    const isReady = isLoaded && isHydrated;
 
     return (
         <section className="hero">
-            {/* Sparkle container - positioned absolutely via JS */}
+            {/* Sparkle container - always in DOM to keep child order stable */}
             <div ref={sparkleContainerRef} className="s-sparkle-container"></div>
 
             <section className="stars-container">
@@ -210,7 +169,11 @@ const Hero = () => {
                     <h1 className="font-bold">
                         <span className="nowrap">
                             A
-                            <span ref={sRef} id="s-hover-effect" className="cursor-close">
+                            <span
+                                ref={sRef}
+                                id="s-hover-effect"
+                                className={isReady ? "cursor-close" : ""}
+                            >
                                 s
                             </span>
                             tronautics

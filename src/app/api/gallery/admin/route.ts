@@ -88,7 +88,7 @@ export async function POST(request: NextRequest) {
         if (!["astrophotography", "events", "others"].includes(category)) {
             return NextResponse.json(
                 { error: "Invalid category. Must be 'astrophotography', 'events' or 'others'" },
-                { status: 400 }
+                { status: 400 },
             );
         }
 
@@ -99,7 +99,7 @@ export async function POST(request: NextRequest) {
         if (!imageExtensions.includes(fileExtension)) {
             return NextResponse.json(
                 { error: "Invalid file type. Only image files are allowed." },
-                { status: 400 }
+                { status: 400 },
             );
         }
 
@@ -118,7 +118,7 @@ export async function POST(request: NextRequest) {
             await fs.access(filePath);
             return NextResponse.json(
                 { error: "File already exists. Please choose a different name." },
-                { status: 409 }
+                { status: 409 },
             );
         } catch {
             // File doesn't exist, we can proceed
@@ -129,16 +129,16 @@ export async function POST(request: NextRequest) {
         await fs.writeFile(filePath, buffer);
 
         // Log the action
-        Logger.info("Gallery image uploaded", {
-            source: "admin/gallery",
-            userEmail: user?.email || undefined,
-            action: "upload_image",
-            details: {
+        Logger.logUserAction(
+            user?.email || "unknown",
+            "upload_image",
+            {
                 filename,
                 category,
                 fileSize: file.size,
             },
-        });
+            "admin/gallery",
+        );
 
         const newImage = {
             id: `${category}-${filename}`,
@@ -172,7 +172,7 @@ export async function PUT(request: NextRequest) {
         if (!currentFilename || !currentCategory) {
             return NextResponse.json(
                 { error: "Current filename and category are required" },
-                { status: 400 }
+                { status: 400 },
             );
         }
 
@@ -182,7 +182,7 @@ export async function PUT(request: NextRequest) {
         ) {
             return NextResponse.json(
                 { error: "Invalid category. Must be 'astrophotography', 'events' or 'others'" },
-                { status: 400 }
+                { status: 400 },
             );
         }
 
@@ -196,7 +196,7 @@ export async function PUT(request: NextRequest) {
         if (!isSafeFilename(currentFilename) || (newFilename && !isSafeFilename(newFilename))) {
             return NextResponse.json(
                 { error: "Invalid filename. Only simple file names are allowed." },
-                { status: 400 }
+                { status: 400 },
             );
         }
 
@@ -236,7 +236,7 @@ export async function PUT(request: NextRequest) {
                     {
                         error: "Target file already exists. Please choose a different name.",
                     },
-                    { status: 409 }
+                    { status: 409 },
                 );
             } catch {
                 // Target doesn't exist, we can proceed
@@ -248,12 +248,12 @@ export async function PUT(request: NextRequest) {
             await connectToDatabase();
             await Event.updateMany(
                 { image: path.join("/gallery", currentCategory, currentFilename) },
-                { $set: { image: path.join("/gallery", newCategory, newFilename) } }
+                { $set: { image: path.join("/gallery", newCategory, newFilename) } },
             );
         } catch {
             return NextResponse.json(
                 { error: "Failed to update the corresponding linked events" },
-                { status: 404 }
+                { status: 404 },
             );
         }
 
@@ -261,17 +261,17 @@ export async function PUT(request: NextRequest) {
         await fs.rename(oldPath, newPath);
 
         // Log the action
-        Logger.info("Gallery image updated", {
-            source: "admin/gallery",
-            userEmail: user?.email || undefined,
-            action: "update_image",
-            details: {
+        Logger.logUserAction(
+            user?.email || "unknown",
+            "update_image",
+            {
                 oldFilename: currentFilename,
                 newFilename: targetFilename,
                 oldCategory: currentCategory,
                 newCategory: targetCategory,
             },
-        });
+            "admin/gallery",
+        );
 
         const stats = await fs.stat(newPath);
         const updatedImage = {
@@ -308,14 +308,14 @@ export async function DELETE(request: NextRequest) {
         if (!filename || !category) {
             return NextResponse.json(
                 { error: "Filename and category are required" },
-                { status: 400 }
+                { status: 400 },
             );
         }
 
         if (!["astrophotography", "events", "others"].includes(category)) {
             return NextResponse.json(
                 { error: "Invalid category. Must be 'astrophotography', 'events' or 'others'" },
-                { status: 400 }
+                { status: 400 },
             );
         }
 
@@ -334,12 +334,12 @@ export async function DELETE(request: NextRequest) {
             await connectToDatabase();
             await Event.updateMany(
                 { image: path.join("/gallery", category, filename) },
-                { $set: { image: "" } }
+                { $set: { image: "" } },
             );
         } catch {
             return NextResponse.json(
                 { error: "Failed to update the corresponding linked events" },
-                { status: 404 }
+                { status: 404 },
             );
         }
 
@@ -347,15 +347,15 @@ export async function DELETE(request: NextRequest) {
         await fs.unlink(filePath);
 
         // Log the action
-        Logger.info("Gallery image deleted", {
-            source: "admin/gallery",
-            userEmail: user?.email || undefined,
-            action: "delete_image",
-            details: {
+        Logger.logUserAction(
+            user?.email || "unknown",
+            "delete_image",
+            {
                 filename,
                 category,
             },
-        });
+            "admin/gallery",
+        );
 
         return NextResponse.json({
             message: "Image deleted successfully",

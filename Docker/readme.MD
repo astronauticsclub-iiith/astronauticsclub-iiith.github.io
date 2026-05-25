@@ -20,7 +20,7 @@ This is a [Next.js](https://nextjs.org) project for the Astronautics Club websit
 1. Build and start the containers:
 
    ```bash
-   docker-compose up -d
+   docker compose up -d
    ```
 
    Or use the provided Makefile:

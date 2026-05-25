@@ -61,7 +61,7 @@ const WhimsicalTeamIcon: React.FC<WhimsicalTeamIconProps> = ({
 
             circles.forEach(({ x, y, key }) => {
                 const distance = Math.sqrt(
-                    Math.pow(normalizedX - x, 2) + Math.pow(normalizedY - y, 2)
+                    Math.pow(normalizedX - x, 2) + Math.pow(normalizedY - y, 2),
                 );
 
                 if (key === "circle1") {
@@ -79,7 +79,7 @@ const WhimsicalTeamIcon: React.FC<WhimsicalTeamIconProps> = ({
                     const angle = Math.atan2(y - normalizedY, x - normalizedX);
                     const avoidanceStrength = Math.max(
                         0,
-                        (avoidanceDistance - distance) / avoidanceDistance
+                        (avoidanceDistance - distance) / avoidanceDistance,
                     );
                     newPositions[key as keyof typeof positions] = {
                         x: Math.cos(angle) * maxOffset * avoidanceStrength,
@@ -112,7 +112,7 @@ const WhimsicalTeamIcon: React.FC<WhimsicalTeamIconProps> = ({
                 setBlinker(false);
             }, blinkDuration);
         },
-        [whimsyMode]
+        [whimsyMode],
     );
 
     // Set up and tear down blinking intervals
@@ -123,7 +123,7 @@ const WhimsicalTeamIcon: React.FC<WhimsicalTeamIconProps> = ({
 
         const createBlinkInterval = (
             blinker: (circleIndex: 1 | 2 | 3) => void,
-            circleIndex: 1 | 2 | 3
+            circleIndex: 1 | 2 | 3,
         ) => {
             const run = () => {
                 blinker(circleIndex);

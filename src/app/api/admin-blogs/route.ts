@@ -63,7 +63,7 @@ export async function GET(request: NextRequest) {
 
         // Populate author details
         const blogsWithAuthors = await populateAuthorDetails(
-            blogs as Array<Record<string, unknown>>
+            blogs as Array<Record<string, unknown>>,
         );
 
         // Calculate stats

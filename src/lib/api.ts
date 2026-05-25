@@ -65,7 +65,7 @@ export async function incrementBlogViews(slug: string): Promise<{ views: number 
 
 export async function toggleBlogLike(
     slug: string,
-    userId: string
+    userId: string,
 ): Promise<{ likes: number; hasLiked: boolean }> {
     try {
         const response = await fetch(withBasePath(`/api/blogs/${slug}`), {
@@ -91,7 +91,7 @@ export async function toggleBlogLike(
 }
 
 export async function createBlog(
-    blogData: Omit<Blog, "_id" | "createdAt" | "updatedAt">
+    blogData: Omit<Blog, "_id" | "createdAt" | "updatedAt">,
 ): Promise<Blog> {
     try {
         const response = await fetch(withBasePath(`/api/blogs`), {
@@ -168,7 +168,7 @@ export function generateUserId(): string {
 export async function fetchEvents(
     filters?: Partial<EventFilters>,
     page = 1,
-    limit = 50
+    limit = 50,
 ): Promise<EventResponse> {
     try {
         const params = new URLSearchParams();
@@ -195,7 +195,7 @@ export async function fetchEvents(
 }
 
 export async function createEvent(
-    eventData: Omit<Event, "_id" | "createdAt" | "updatedAt">
+    eventData: Omit<Event, "_id" | "createdAt" | "updatedAt">,
 ): Promise<Event> {
     try {
         const response = await fetch(withBasePath(`/api/events`), {

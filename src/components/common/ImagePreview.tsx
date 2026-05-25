@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState, useCallback, useRef } from "react";
+import { useIsClient } from "@/hooks/useIsClient";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import Loader from "../ui/Loader";
@@ -13,14 +14,14 @@ interface ImagePreviewProps {
 }
 
 const ImagePreview = ({ src, alt, isOpen, onClose }: ImagePreviewProps) => {
-    const [isMounted, setIsMounted] = useState(false);
+    const isMounted = useIsClient();
     const [isLoading, setIsLoading] = useState(true);
     const modalRef = useRef<HTMLDivElement>(null);
 
-    // Reset loading state when src changes
+    // Reset loading state when src changes or modal reopens
     useEffect(() => {
         if (isOpen) {
-            setIsLoading(true);
+            void Promise.resolve().then(() => setIsLoading(true));
         }
     }, [src, isOpen]);
 
@@ -55,9 +56,9 @@ const ImagePreview = ({ src, alt, isOpen, onClose }: ImagePreviewProps) => {
         };
     }, [isOpen, isMounted]);
 
-    // Initialize component
+    // Set up keyboard listener
     useEffect(() => {
-        setIsMounted(true);
+        if (!isOpen) return;
 
         const handleEsc = (e: KeyboardEvent) => {
             if (e.key === "Escape") {
@@ -70,7 +71,7 @@ const ImagePreview = ({ src, alt, isOpen, onClose }: ImagePreviewProps) => {
         return () => {
             window.removeEventListener("keydown", handleEsc);
         };
-    }, [handleClose]);
+    }, [isOpen, handleClose]);
 
     const handleImageLoad = () => {
         setIsLoading(false);
@@ -166,6 +167,7 @@ const ImagePreview = ({ src, alt, isOpen, onClose }: ImagePreviewProps) => {
                             }}
                         >
                             <Image
+                                key={src}
                                 src={src}
                                 alt={alt}
                                 fill

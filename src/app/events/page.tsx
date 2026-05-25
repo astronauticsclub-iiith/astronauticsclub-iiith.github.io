@@ -117,7 +117,7 @@ const EventsPage = () => {
                     event.title.toLowerCase().includes(searchLower) ||
                     event.description.toLowerCase().includes(searchLower) ||
                     (event.location || "").toLowerCase().includes(searchLower) ||
-                    (event.organizer || "").toLowerCase().includes(searchLower)
+                    (event.organizer || "").toLowerCase().includes(searchLower),
             );
         }
 
@@ -129,7 +129,7 @@ const EventsPage = () => {
         // Year filter
         if (filters.year.length > 0) {
             filtered = filtered.filter((event) =>
-                filters.year.includes(event.date.substring(0, 4))
+                filters.year.includes(event.date.substring(0, 4)),
             );
         }
 
@@ -320,7 +320,7 @@ const EventsPage = () => {
                                                 key={option}
                                                 onClick={() => {
                                                     handleSortChange(
-                                                        option as EventFilters["sortBy"]
+                                                        option as EventFilters["sortBy"],
                                                     );
                                                     setShowSortDropdown(false);
                                                 }}

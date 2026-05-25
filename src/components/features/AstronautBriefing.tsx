@@ -324,7 +324,7 @@ const AstronautBriefing: React.FC = () => {
                 }
             }
         },
-        [constellations, getCanvasMousePosition, projectCelestial, displayStarDetails]
+        [constellations, getCanvasMousePosition, projectCelestial, displayStarDetails],
     );
 
     const handleCanvasMouseMove = useCallback(
@@ -360,7 +360,7 @@ const AstronautBriefing: React.FC = () => {
                         const star = stars[starName];
                         const { x, y } = projectCelestial(star.ra, star.dec);
                         const distance = Math.sqrt(
-                            Math.pow(mouseX - x, 2) + Math.pow(mouseY - y, 2)
+                            Math.pow(mouseX - x, 2) + Math.pow(mouseY - y, 2),
                         );
 
                         if (distance <= 10 && star.clickable) {
@@ -378,7 +378,7 @@ const AstronautBriefing: React.FC = () => {
                 }
             }
         },
-        [constellations, getCanvasMousePosition, projectCelestial, drawScene, hoveredStar]
+        [constellations, getCanvasMousePosition, projectCelestial, drawScene, hoveredStar],
     );
 
     const handleCanvasMouseDown = useCallback((e: React.MouseEvent<HTMLCanvasElement>) => {
@@ -601,10 +601,10 @@ const AstronautBriefing: React.FC = () => {
                                                         src={
                                                             selectedStar.avatar
                                                                 ? withUploadPath(
-                                                                      selectedStar.avatar
+                                                                      selectedStar.avatar,
                                                                   )
                                                                 : withBasePath(
-                                                                      `/default-avatar.svg`
+                                                                      `/default-avatar.svg`,
                                                                   )
                                                         }
                                                         alt={selectedStar.name || "Astronaut"}
