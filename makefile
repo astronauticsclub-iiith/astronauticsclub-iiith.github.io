@@ -113,7 +113,7 @@ restore-uploads:
 		exit 1; \
 	fi
 	@echo "Restoring uploads to server..."
-	sudo unzip -o "$(FILE)" -d $(SERVER_PATH)
+	unzip -o "$(FILE)" -d $(SERVER_PATH)
 	@echo "Uploads restored successfully."
 
 backup-logs:
@@ -138,7 +138,7 @@ restore-logs:
 		exit 1; \
 	fi 
 	@echo "Restoring logs..."
-	sudo unzip -o "$(FILE)" -d $(LOGS_PATH)
+	unzip -o "$(FILE)" -d $(LOGS_PATH)
 	@echo "Logs restored successfully."
 
 # === MAINTENANCE ===
