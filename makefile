@@ -124,9 +124,10 @@ backup-logs:
 	@echo "Logs backed up successfully."
 
 backup-cron:
-	@mkdir -p logs/cron
-	@(crontab -l 2>/dev/null; \
-	echo "0 3 */14 * * scripts/backup-job.sh >> /logs/cronlogs/cron.log 2>&1") | crontab -
+	@mkdir -p logs/cronlogs
+	@(crontab -l 2>/dev/null | grep -Fv "# astronautics-backup"; \
+	echo "0 3 1,16 * * $(abspath scripts/backup-job.sh) >> $(abspath logs/cronlogs/cron.log) 2>&1 # astronautics-backup") \
+	| crontab -
 	@echo "Cron job installed."
 
 restore-logs:
