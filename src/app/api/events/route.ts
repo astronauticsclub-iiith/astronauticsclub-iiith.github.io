@@ -4,6 +4,7 @@ import Event from "@/models/Event";
 import { Event as EventInterface } from "@/types/event";
 import { requireWriter } from "@/lib/auth";
 import Logger from "@/lib/logger";
+import { escapeRegex } from "@/components/common/HelperFunction";
 
 export async function GET(request: NextRequest) {
     try {
@@ -21,11 +22,12 @@ export async function GET(request: NextRequest) {
         const query: Record<string, unknown> = {};
 
         if (search) {
+            const escaped = escapeRegex(search);
             query.$or = [
-                { title: { $regex: search, $options: "i" } },
-                { description: { $regex: search, $options: "i" } },
-                { location: { $regex: search, $options: "i" } },
-                { organizer: { $regex: search, $options: "i" } },
+                { title: { $regex: escaped, $options: "i" } },
+                { description: { $regex: escaped, $options: "i" } },
+                { location: { $regex: escaped, $options: "i" } },
+                { organizer: { $regex: escaped, $options: "i" } },
             ];
         }
 

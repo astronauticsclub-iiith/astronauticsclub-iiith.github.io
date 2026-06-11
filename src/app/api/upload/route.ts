@@ -28,7 +28,7 @@ const FILE_DIRECTORY = process.env.FILE_DIRECTORY || path.join(process.cwd(), "p
 // Ensure the upload directory exists
 const ensureUploadDirectory = async () => {
     try {
-        await mkdir(FILE_DIRECTORY, { recursive: true });
+        await mkdir(path.join(FILE_DIRECTORY, "blogs"), { recursive: true });
     } catch (error) {
         console.error("Failed to create upload directory:", error);
     }
@@ -44,7 +44,12 @@ export async function GET(request: NextRequest) {
 
         // If a specific filename is requested, return its details
         if (filename) {
-            const filePath = path.join(FILE_DIRECTORY, filename);
+            const safeBlogsDir = path.resolve(FILE_DIRECTORY, "blogs");
+            const filePath = path.resolve(FILE_DIRECTORY, filename.replace(/^\/+/, ""));
+
+            if (!filePath.startsWith(safeBlogsDir + path.sep)) {
+                return NextResponse.json({ error: "Invalid path" }, { status: 400 });
+            }
 
             // Check if file exists
             if (!fs.existsSync(filePath)) {
@@ -63,20 +68,23 @@ export async function GET(request: NextRequest) {
             });
         }
 
-        // Otherwise, list all files in the uploads directory
-        const files = fs
-            .readdirSync(FILE_DIRECTORY)
-            .filter((file) => !fs.statSync(path.join(FILE_DIRECTORY, file)).isDirectory())
-            .map((filename) => {
-                const stats = fs.statSync(path.join(FILE_DIRECTORY, filename));
-                return {
-                    filename,
-                    filePath: filename,
-                    fileSize: stats.size,
-                    createdAt: stats.birthtime,
-                    modifiedAt: stats.mtime,
-                };
-            });
+        // Otherwise, list all files in the blogs directory
+        const blogsDir = path.join(FILE_DIRECTORY, "blogs");
+        const files = fs.existsSync(blogsDir)
+            ? fs
+                  .readdirSync(blogsDir)
+                  .filter((file) => !fs.statSync(path.join(blogsDir, file)).isDirectory())
+                  .map((filename) => {
+                      const stats = fs.statSync(path.join(blogsDir, filename));
+                      return {
+                          filename,
+                          filePath: `/blogs/${filename}`,
+                          fileSize: stats.size,
+                          createdAt: stats.birthtime,
+                          modifiedAt: stats.mtime,
+                      };
+                  })
+            : [];
 
         return NextResponse.json({ files });
     } catch (error) {
@@ -167,7 +175,12 @@ export async function DELETE(request: NextRequest) {
 
         // If a specific filename is requested, return its details
         if (filename) {
-            const filePath = path.join(FILE_DIRECTORY, filename);
+            const safeBlogsDir = path.resolve(FILE_DIRECTORY, "blogs");
+            const filePath = path.resolve(FILE_DIRECTORY, filename.replace(/^\/+/, ""));
+
+            if (!filePath.startsWith(safeBlogsDir + path.sep)) {
+                return NextResponse.json({ error: "Invalid path" }, { status: 400 });
+            }
 
             // Check if file exists
             if (!fs.existsSync(filePath)) {
@@ -176,8 +189,9 @@ export async function DELETE(request: NextRequest) {
 
             // Delete the file
             fs.unlinkSync(filePath);
-            return NextResponse.json({ success: true }, { status: 201 });
+            return NextResponse.json({ success: true }, { status: 200 });
         }
+        return NextResponse.json({ error: "Filename is required" }, { status: 400 });
     } catch (error) {
         console.error("Error deleting image:", error);
         return NextResponse.json(

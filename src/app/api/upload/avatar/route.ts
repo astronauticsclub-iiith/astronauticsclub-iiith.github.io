@@ -12,7 +12,7 @@ const FILE_DIRECTORY = process.env.FILE_DIRECTORY || path.join(process.cwd(), "p
 
 const ensureUploadDirectory = async () => {
     try {
-        await mkdir(FILE_DIRECTORY, { recursive: true });
+        await mkdir(path.join(FILE_DIRECTORY, "avatars"), { recursive: true });
     } catch (error) {
         console.error("Failed to create upload directory:", error);
     }
@@ -56,7 +56,8 @@ export async function POST(request: NextRequest) {
 
         // Delete old avatar if exists
         if (user.avatar) {
-            const oldAvatarPath = path.join(FILE_DIRECTORY, user.avatar);
+            const filename = path.basename(user.avatar);
+            const oldAvatarPath = path.join(FILE_DIRECTORY, "avatars", filename);
             if (fs.existsSync(oldAvatarPath)) {
                 fs.unlinkSync(oldAvatarPath);
             }

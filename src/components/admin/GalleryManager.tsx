@@ -244,7 +244,7 @@ export default function GalleryManager({ showSuccess, showError }: GalleryManage
                         </div>
                         <div>
                             <label className="block text-white text-xs font-bold mb-1 uppercase">
-                                Custom Filename (Optional)
+                                Custom Filename without extension (Optional)
                             </label>
                             <input
                                 type="text"

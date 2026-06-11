@@ -16,3 +16,7 @@ export function withStoragePath(storagePath: string) {
 export function safeKey(email?: string) {
     return (email || "").trim().toLowerCase();
 }
+
+export function escapeRegex(str: string): string {
+    return str.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}

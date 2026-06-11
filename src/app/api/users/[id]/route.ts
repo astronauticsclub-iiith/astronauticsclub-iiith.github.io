@@ -80,6 +80,16 @@ export async function PUT(request: NextRequest, { params }: { params: Promise<{ 
         if (role !== undefined) updateData.role = role;
         if (designations !== undefined) updateData.designations = designations;
 
+        const oldUser = await User.findById(id);
+        if (!oldUser) {
+            return NextResponse.json({ error: "User not found" }, { status: 404 });
+        }
+
+        const prev_designation =
+            oldUser.designations && oldUser.designations.length > 0
+                ? oldUser.designations[0]
+                : null;
+
         const user = await User.findByIdAndUpdate(
             id,
             { $set: updateData },
@@ -90,16 +100,13 @@ export async function PUT(request: NextRequest, { params }: { params: Promise<{ 
             return NextResponse.json({ error: "User not found" }, { status: 404 });
         }
 
-        const prev_designation =
-            adminUser.designations && adminUser.designations.length > 0
-                ? adminUser.designations[0]
-                : null;
         const designation =
             user.designations && user.designations.length > 0 ? user.designations[0] : null;
 
         if (
             (!prev_designation && designation) ||
-            (prev_designation && designation && prev_designation !== designation)
+            (prev_designation && designation && prev_designation !== designation) ||
+            (prev_designation && !designation)
         ) {
             try {
                 // Update constellation.json
@@ -128,12 +135,12 @@ export async function PUT(request: NextRequest, { params }: { params: Promise<{ 
                 }
 
                 // Admin Fallback (if target team full and user is admin)
-                else if (!assigned && user.role === "admin") {
+                if (!assigned && user.role === "admin") {
                     assigned = assignToTeam("Co-ordinator", user.email);
                 }
 
                 // Random (Brightest available anywhere)
-                else if (!assigned) {
+                if (!assigned) {
                     const allAvailableStars = [];
                     for (const cName in jsonData) {
                         const constellation = jsonData[cName];
@@ -217,7 +224,7 @@ export async function DELETE(
             const constellation = jsonData[constellationName];
             for (const starName in constellation.stars) {
                 const star = constellation.stars[starName];
-                if (star.clickable && star.email == user.email) {
+                if (star.clickable && star.email === user.email) {
                     delete star["email"];
                     star.clickable = false;
                 }
