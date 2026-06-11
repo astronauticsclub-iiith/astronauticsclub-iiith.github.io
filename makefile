@@ -122,6 +122,9 @@ backup-logs:
 	cd $(LOGS_PATH) && zip -r $(LOCAL_LOGS_BACKUP_DIR)/logs_$$(date +%Y%m%d_%H%M%S).zip .
 	@echo "Logs backed up successfully."
 
+
+#Schedules `scripts/backup-job.sh` to run at 3 AM on the 1st and 16th
+#of each month under the invoking user's crontab. Re-running this won't create duplicate cron entries.
 backup-cron:
 	@mkdir -p logs/cronlogs
 	@(crontab -l 2>/dev/null | grep -Fv "# astronautics-backup"; \
@@ -146,7 +149,6 @@ clean-backups:
 	@echo "Cleaning local backups..."
 	rm -rf $(LOCAL_BACKUP_DIR)/*.zip
 	@echo "All backups removed."
-
 
 rebuild:
 	@echo "Rebuilding and deploying project..."
