@@ -147,10 +147,6 @@ clean-backups:
 	rm -rf $(LOCAL_BACKUP_DIR)/*.zip
 	@echo "All backups removed."
 
-init-backup:
-	@echo "Initializing local directories..."
-	mkdir -p $(LOCAL_BACKUP_DIR) $(LOCAL_UPLOADS_BACKUP_DIR) $(LOCAL_LOGS_BACKUP_DIR)
-	@echo "Done."
 
 rebuild:
 	@echo "Rebuilding and deploying project..."
