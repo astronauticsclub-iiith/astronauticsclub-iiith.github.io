@@ -284,21 +284,45 @@ export default function InventoryManager({ showSuccess, showError }: InventoryMa
                     />
 
                     {/* Image Upload */}
-                    <div className="mb-4">
-                        <label className="block text-white text-xs font-bold mb-1 uppercase">
-                            Image
-                        </label>
-                        <input
-                            type="file"
-                            accept="image/*"
-                            onChange={(e) =>
-                                setnewInventoryItem({
-                                    ...newInventoryItem,
-                                    imageFile: e.target.files?.[0] || null,
-                                })
-                            }
-                            className="w-full bg-background border-2 border-white p-2 text-white font-medium text-sm transition-all duration-200 focus:scale-[1.02] focus:ring-2 focus:ring-white file:mr-4 file:py-1 file:px-2 file:border-0 file:text-xs file:font-bold file:bg-white file:text-background hover:file:bg-[#e0e0e0]"
-                        />
+                    <div>
+                        <div className="flex gap-2">
+                            <label className="flex-1 text-center border-2 border-white p-2 text-white text-sm font-bold cursor-pointer hover:bg-white hover:text-background">
+                                Take photo
+                                <input
+                                    type="file"
+                                    accept="image/*"
+                                    capture="environment"
+                                    className="hidden"
+                                    onChange={(e) =>
+                                        setnewInventoryItem({
+                                            ...newInventoryItem,
+                                            imageFile: e.target.files?.[0] || null,
+                                        })
+                                    }
+                                />
+                            </label>
+
+                            <label className="flex-1 text-center border-2 border-white p-2 text-white text-sm font-bold cursor-pointer hover:bg-white hover:text-background">
+                                Choose file
+                                <input
+                                    type="file"
+                                    accept="image/*"
+                                    className="hidden"
+                                    onChange={(e) =>
+                                        setnewInventoryItem({
+                                            ...newInventoryItem,
+                                            imageFile: e.target.files?.[0] || null,
+                                        })
+                                    }
+                                />
+                            </label>
+                        </div>
+
+                        <p className="mt-2 text-xs text-[#e0e0e0] break-all">
+                            {newInventoryItem.imageFile
+                                ? `Selected: ${newInventoryItem.imageFile.name}`
+                                : "No image selected"}
+                        </p>
                     </div>
 
                     <button
