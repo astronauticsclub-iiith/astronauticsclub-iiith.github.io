@@ -286,7 +286,7 @@ export default function InventoryManager({ showSuccess, showError }: InventoryMa
                     {/* Image Upload */}
                     <div>
                         <div className="flex gap-2">
-                            <label className="flex-1 text-center border-2 border-white p-2 text-white text-sm font-bold cursor-pointer hover:bg-white hover:text-background">
+                            <label className="hidden [@media(pointer:coarse)]:block flex-1 text-center border-2 border-white p-2 text-white text-sm font-bold cursor-pointer hover:bg-white hover:text-background">
                                 Take photo
                                 <input
                                     type="file"
