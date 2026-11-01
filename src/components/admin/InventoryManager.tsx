@@ -302,7 +302,7 @@ export default function InventoryManager({ showSuccess, showError }: InventoryMa
                                 />
                             </label>
 
-                            <label className="flex-1 text-center border-2 border-white p-2 text-white text-sm font-bold cursor-pointer hover:bg-white hover:text-background">
+                            <label className="[@media(pointer:coarse)]:flex-1 text-center border-2 border-white px-4 py-2 text-white text-sm font-bold cursor-pointer hover:bg-white hover:text-background">
                                 Choose file
                                 <input
                                     type="file"
