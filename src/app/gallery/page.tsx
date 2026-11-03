@@ -10,9 +10,8 @@ import "./gallery.css";
 import { withBasePath, withUploadPath } from "@/components/common/HelperFunction";
 import { GalleryImage } from "@/types/gallery-image";
 
-
 // Import Components
-import { PhotoCard } from "@/components/gallery/PhotoCard"
+import { PhotoCard } from "@/components/gallery/PhotoCard";
 import { FilterType } from "@/types/gallery-image";
 import { GalleryFilters } from "@/components/gallery/GalleryFilters";
 
@@ -124,7 +123,6 @@ const Gallery: React.FC = () => {
 
                     {/* Filter Names */}
                     <GalleryFilters filter={filter} setFilter={setFilter} />
-
                 </motion.div>
 
                 {/* Results count */}
@@ -193,4 +191,3 @@ const Gallery: React.FC = () => {
 };
 
 export default Gallery;
-
