@@ -1,10 +1,9 @@
 "use client";
 
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import Image from "next/image";
-import { withBasePath, withUploadPath } from "@/components/common/HelperFunction";
+import { withUploadPath } from "@/components/common/HelperFunction";
 import { GalleryImage } from "@/types/gallery-image";
-
 
 export const PhotoCard: React.FC<{
     image: GalleryImage;
