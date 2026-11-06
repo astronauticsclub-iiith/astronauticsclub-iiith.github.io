@@ -8,11 +8,13 @@ AVATARS_UPLOAD_PATH=$(SERVER_PATH)/avatars
 BLOG_IMAGES_UPLOAD_PATH=$(SERVER_PATH)/blogs
 GALLERY_UPLOAD_PATH=$(SERVER_PATH)/gallery
 LOGS_PATH=$(SERVER_PATH)/logs
-LOCAL_BACKUP_DIR=./backups
+LOCAL_BACKUP_DIR=$(abspath ./backups)
+LOCAL_UPLOADS_BACKUP_DIR=$(abspath ./backups/uploads)
+LOCAL_LOGS_BACKUP_DIR=$(abspath ./backups/logs)
 
-.PHONY: help build deploy start stop restart status \
+.PHONY: help build build-dev deploy start stop restart status logs \
         backup-uploads restore-uploads backup-logs restore-logs \
-        clean-backups clean-downloads init-project rebuild
+        backup-cron clean-backups init-backup rebuild
 
 help:
 	@echo "Astronautics Club Website Makefile"
@@ -82,8 +84,6 @@ stop:
 	pm2 stop astronautics
 	@echo "Stopped NGINX, pm2"
 
-restart: stop start
-
 logs:
 	@echo "Showing logs from NGINX, pm2"
 	cat /var/log/nginx/access.log
@@ -102,8 +102,8 @@ status:
 # === BACKUPS ===
 backup-uploads:
 	@echo "Backing up uploads from server..."
-	mkdir -p $(LOCAL_BACKUP_DIR)
-	cd $(SERVER_PATH) && zip -r $(LOCAL_BACKUP_DIR)/uploads_$$(date +%Y%m%d_%H%M%S).zip .
+	mkdir -p $(LOCAL_UPLOADS_BACKUP_DIR)
+	cd $(SERVER_PATH) && zip -r $(LOCAL_UPLOADS_BACKUP_DIR)/uploads_$$(date +%Y%m%d_%H%M%S).zip .
 	@echo "Uploads backed up successfully."
 	
 restore-uploads:
@@ -113,15 +113,24 @@ restore-uploads:
 		exit 1; \
 	fi
 	@echo "Restoring uploads to server..."
-	sudo unzip -o "$(FILE)" -d $(SERVER_PATH)
+	unzip -o "$(FILE)" -d $(SERVER_PATH)
 	@echo "Uploads restored successfully."
 
 backup-logs:
-	backup-logs:
 	@echo "Backing up logs..."
-	mkdir -p $(LOCAL_BACKUP_DIR)
-	cd $(LOGS_PATH) && zip -r $(LOCAL_BACKUP_DIR)/logs_$$(date +%Y%m%d_%H%M%S).zip .
+	mkdir -p $(LOCAL_LOGS_BACKUP_DIR)
+	cd $(LOGS_PATH) && zip -r $(LOCAL_LOGS_BACKUP_DIR)/logs_$$(date +%Y%m%d_%H%M%S).zip .
 	@echo "Logs backed up successfully."
+
+
+#Schedules `scripts/backup-job.sh` to run at 3 AM on the 1st and 16th
+#of each month under the invoking user's crontab. Re-running this won't create duplicate cron entries.
+backup-cron:
+	@mkdir -p logs/cronlogs
+	@(crontab -l 2>/dev/null | grep -Fv "# astronautics-backup"; \
+	echo "0 3 1,16 * * $(abspath scripts/backup-job.sh) >> $(abspath logs/cronlogs/cron.log) 2>&1 # astronautics-backup") \
+	| crontab -
+	@echo "Cron job installed."
 
 # FILE is path to where the previous zip was saved
 # example: make restore-logs FILE=./backups/logs_20260510_123456.zip
@@ -132,7 +141,7 @@ restore-logs:
 		exit 1; \
 	fi 
 	@echo "Restoring logs..."
-	sudo unzip -o "$(FILE)" -d $(LOGS_PATH)
+	unzip -o "$(FILE)" -d $(LOGS_PATH)
 	@echo "Logs restored successfully."
 
 # === MAINTENANCE ===
@@ -140,11 +149,6 @@ clean-backups:
 	@echo "Cleaning local backups..."
 	rm -rf $(LOCAL_BACKUP_DIR)/*.zip
 	@echo "All backups removed."
-
-init-backup:
-	@echo "Initializing local directories..."
-	mkdir -p $(LOCAL_BACKUP_DIR) $(LOCAL_UPLOADS_DIR) $(LOCAL_LOGS_DIR)
-	@echo "Done."
 
 rebuild:
 	@echo "Rebuilding and deploying project..."
