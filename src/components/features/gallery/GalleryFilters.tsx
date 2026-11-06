@@ -32,4 +32,4 @@ const GalleryFilters: React.FC<{
     );
 };
 
-export default GalleryFilters
+export default GalleryFilters;

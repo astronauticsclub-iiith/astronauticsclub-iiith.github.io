@@ -5,7 +5,7 @@ import Image from "next/image";
 import { withUploadPath } from "@/components/common/HelperFunction";
 import { GalleryImage } from "@/types/gallery-image";
 
- const PhotoCard: React.FC<{
+const PhotoCard: React.FC<{
     image: GalleryImage;
     onClick: () => void;
     index: number;
@@ -53,4 +53,4 @@ import { GalleryImage } from "@/types/gallery-image";
     );
 };
 
-export default PhotoCard
+export default PhotoCard;

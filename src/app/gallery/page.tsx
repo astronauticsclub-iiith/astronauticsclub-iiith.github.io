@@ -12,7 +12,7 @@ import { GalleryImage, FilterType } from "@/types/gallery-image";
 
 // Import Components
 import PhotoCard from "@/components/features/gallery/PhotoCard";
-import  GalleryFilters from "@/components/features/gallery/GalleryFilters";
+import GalleryFilters from "@/components/features/gallery/GalleryFilters";
 
 const BATCH_SIZE = 12; // Only load 12 images at a time to prevent 429 errors
 
