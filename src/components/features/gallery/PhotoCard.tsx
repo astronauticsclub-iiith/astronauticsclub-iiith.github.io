@@ -5,7 +5,7 @@ import Image from "next/image";
 import { withUploadPath } from "@/components/common/HelperFunction";
 import { GalleryImage } from "@/types/gallery-image";
 
-export const PhotoCard: React.FC<{
+ const PhotoCard: React.FC<{
     image: GalleryImage;
     onClick: () => void;
     index: number;
@@ -52,3 +52,5 @@ export const PhotoCard: React.FC<{
         </motion.div>
     );
 };
+
+export default PhotoCard

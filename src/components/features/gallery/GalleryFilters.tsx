@@ -6,7 +6,7 @@ import { FilterType } from "@/types/gallery-image";
 
 const FILTERS: FilterType[] = ["all", "astrophotography", "events", "others"];
 
-export const GalleryFilters: React.FC<{
+const GalleryFilters: React.FC<{
     filter: FilterType;
     setFilter: (f: FilterType) => void;
 }> = ({ filter, setFilter }) => {
@@ -31,3 +31,5 @@ export const GalleryFilters: React.FC<{
         </motion.div>
     );
 };
+
+export default GalleryFilters
