@@ -4,64 +4,17 @@ import React, { useState, useEffect, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useImagePreview } from "@/context/ImagePreviewContext";
 import Loader from "@/components/ui/Loader";
-import Image from "next/image";
 import GalleryIcon from "@/components/features/GalleryIcon";
 import "@/components/ui/bg-patterns.css";
 import "./gallery.css";
 import { withBasePath, withUploadPath } from "@/components/common/HelperFunction";
-import { GalleryImage } from "@/types/gallery-image";
+import { GalleryImage, FilterType } from "@/types/gallery-image";
 
-type FilterType = "all" | "astrophotography" | "events" | "others";
+// Import Components
+import PhotoCard from "@/components/features/gallery/PhotoCard";
+import GalleryFilters from "@/components/features/gallery/GalleryFilters";
 
 const BATCH_SIZE = 12; // Only load 12 images at a time to prevent 429 errors
-
-const PhotoCard: React.FC<{
-    image: GalleryImage;
-    onClick: () => void;
-    index: number;
-}> = ({ image, onClick, index }) => {
-    return (
-        <motion.div
-            layout
-            initial={{ opacity: 0, y: 20 }}
-            animate={{
-                opacity: 1,
-                y: 0,
-                transition: { delay: 0.05, duration: 0.4 },
-            }}
-            whileHover={{
-                zIndex: 10,
-                scale: 1.02,
-                transition: { duration: 0.2 },
-            }}
-            className="gallery-card cursor-zoom-in"
-            onClick={onClick}
-        >
-            <div className="gallery-card-image">
-                <Image
-                    src={withUploadPath(image.src)}
-                    alt={image.alt || image.label}
-                    unoptimized
-                    width={0}
-                    height={0}
-                    sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, 33vw"
-                    style={{
-                        width: "100%",
-                        height: "auto",
-                        display: "block",
-                    }}
-                    // Only prioritize the very first few images to save bandwidth
-                    priority={index < 4}
-                />
-                <div className="gallery-overlay" />
-            </div>
-            <div className="gallery-content">
-                <div className="gallery-category">{image.category}</div>
-                <div className="gallery-heading">{image.label}</div>
-            </div>
-        </motion.div>
-    );
-};
 
 const Gallery: React.FC = () => {
     const [images, setImages] = useState<GalleryImage[]>([]);
@@ -166,26 +119,9 @@ const Gallery: React.FC = () => {
                     <p className="text-l md:text-xl text-[#e0e0e0] max-w-2xl font-medium ml-2 border-l-4 border-white pl-4 my-6">
                         Snapshots of the infinite cosmos.
                     </p>
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.2 }}
-                        className="gallery-filters"
-                    >
-                        {(["all", "astrophotography", "events", "others"] as FilterType[]).map(
-                            (f) => (
-                                <motion.button
-                                    key={f}
-                                    whileHover={{ scale: 1.05, y: -2 }}
-                                    whileTap={{ scale: 0.95 }}
-                                    className={`gallery-filter-btn ${filter === f ? "active" : ""}`}
-                                    onClick={() => setFilter(f)}
-                                >
-                                    {f.charAt(0).toUpperCase() + f.slice(1)}
-                                </motion.button>
-                            ),
-                        )}
-                    </motion.div>
+
+                    {/* Filter Names */}
+                    <GalleryFilters filter={filter} setFilter={setFilter} />
                 </motion.div>
 
                 {/* Results count */}

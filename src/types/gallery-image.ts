@@ -8,3 +8,5 @@ export interface GalleryImage {
     size: number;
     modified: string;
 }
+
+export type FilterType = "all" | "astrophotography" | "events" | "others";
